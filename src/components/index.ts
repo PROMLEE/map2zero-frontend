@@ -1,3 +1,4 @@
-import Example from "./Example";
+import Example from './Example';
+import Navigationbar from './Navigationbar';
 
-export { Example };
+export { Example, Navigationbar };
