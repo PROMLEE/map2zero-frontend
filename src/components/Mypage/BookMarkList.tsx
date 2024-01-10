@@ -23,12 +23,12 @@ const BookMarkList = () => {
 const BookMarkTitle = styled.h1`
   margin: 0;
   font-size: 0.88rem;
-  padding: 1rem 0 0 1rem;
+  padding: 3rem 0 0 1rem;
 `;
 const BookMarks = styled.div`
   display: flex;
   width: 72.25rem;
-  height: 20rem;
+  height: 17rem;
   padding: 1rem;
   overflow-x: auto;
   /* 인터넷 익스플로러를 위한 스타일 */
@@ -54,18 +54,18 @@ const BookMark = styled.div`
   flex-shrink: 0;
   position: relative;
   cursor: pointer;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
   &:hover {
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
     transform: scale(1.1);
   }
   & > h3 {
     font-size: 0.88rem;
     margin: 0.5rem;
-    font-weight: bold;
   }
   & > p {
     font-size: 0.63rem;
     margin: 1rem 0 0 0.5rem;
+    color: rgba(86, 86, 86, 1);
   }
 `;
 

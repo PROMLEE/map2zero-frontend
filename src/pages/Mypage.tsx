@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BookMarkList, ReviewList, PersonalInfo } from '../components/Mypage';
+import { BookMarkList, ReviewList, PersonalInfo, StoreOwner } from '../components/Mypage';
 export default function Mypage() {
   return (
     <>
@@ -10,6 +10,8 @@ export default function Mypage() {
         <hr />
         <ReviewList />
         <hr />
+
+        <StoreOwner />
       </ContentWrap>
     </>
   );
@@ -19,8 +21,7 @@ const ContentWrap = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
-  min-width: 1000px;
+
   & > hr {
     width: 72.25rem;
     border: none;

@@ -3,5 +3,6 @@ import Search from './Search';
 import Mypage from './Mypage';
 import Login from './Login';
 import Setting from './Setting'
+import Owner from './Owner'
 
-export { Home, Search, Mypage, Login ,Setting };
+export { Home, Search, Mypage, Login ,Setting ,Owner};
