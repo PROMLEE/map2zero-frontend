@@ -1,4 +1,4 @@
 import Example from './Example';
 import Navigationbar from './Navigationbar';
-
-export { Example, Navigationbar };
+import KakaoLogin from './Login/Example';
+export { Example, Navigationbar, KakaoLogin };
