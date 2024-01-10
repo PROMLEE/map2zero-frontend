@@ -1,8 +1,7 @@
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-const LoginHandeler = () => {
+const KakaoLoginHandeler = () => {
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
     console.log(code);
@@ -35,4 +34,4 @@ const LoginHandeler = () => {
   );
 };
 
-export default LoginHandeler;
+export default KakaoLoginHandeler;
