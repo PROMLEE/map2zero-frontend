@@ -27,5 +27,4 @@ const ContentWrap = styled.div`
     height: 0.5px;
     background-color: #d9d9d9;
   }
-  // background-color: bisque;
 `;
