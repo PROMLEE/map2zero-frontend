@@ -26,18 +26,25 @@ const ReviewList = () => {
     </Wrap>
   );
 };
-
-const ReviewTitle = styled.h1`
-  margin: 3rem 0 1rem 0;
-  font-size: 0.88rem;
-`;
+export default ReviewList;
 
 const Wrap = styled.div`
-  width: 80%;
+  width: calc(100vw - 10%);
+  margin-left: 10%;
 `;
+
+const ReviewTitle = styled.h1`
+  margin: 1.3rem 0 1rem 0;
+  font-size: 0.88rem;
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+    margin: 1rem 0 1rem 0;
+  }
+`;
+
 const Reviews = styled.div`
   display: flex;
-  height: 10rem;
+  height: 9rem;
   overflow-x: auto;
   /* 인터넷 익스플로러를 위한 스타일 */
   -ms-overflow-style: none;
@@ -49,8 +56,10 @@ const Reviews = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 768px) {
+    height: 5rem;
+  }
 `;
-export default ReviewList;
 
 const Review = styled.div`
   margin-right: 1.25rem;
@@ -78,20 +87,38 @@ const Review = styled.div`
     margin: 0.2rem 0 0 0.5rem;
     color: rgba(86, 86, 86, 1);
   }
+  @media (max-width: 768px) {
+    width: 14.94rem;
+    height: 4rem;
+
+    & > div > h3 {
+      font-size: 0.63rem;
+    }
+    & > div > p {
+      font-size: 0.5rem;
+    }
+  }
 `;
 const StoreImg = styled.img`
   width: 6.25rem;
   height: 100%;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+  @media (max-width: 768px) {
+    width: 4rem;
+  }
 `;
 
 const LikeIcon = styled.img`
   width: 1rem;
-  height: 0.88rem;
   position: absolute;
   left: 4.6rem;
   bottom: 1.2rem;
+  @media (max-width: 768px) {
+    width: 0.63rem;
+    left: 3rem;
+    bottom: 0.8rem;
+  }
 `;
 const LikeCount = styled.p`
   font-size: 0.5rem;
@@ -99,6 +126,11 @@ const LikeCount = styled.p`
   color: rgba(86, 86, 86, 1);
   bottom: 0rem;
   left: 4.85rem;
+  @media (max-width: 768px) {
+    width: 0.5rem;
+    bottom: -0.4rem;
+    left: 3.1rem;
+  }
 `;
 const TrashText = styled.p`
   position: absolute;
@@ -106,6 +138,10 @@ const TrashText = styled.p`
   visibility: hidden;
   left: 19.45rem;
   bottom: 0.6rem;
+  @media (max-width: 768px) {
+    left: 13rem;
+    bottom: 0.3rem;
+  }
 `;
 const TrashWrap = styled.div`
   &:hover ${TrashText} {
@@ -118,6 +154,9 @@ const TrashIcon = styled.img`
   right: 0.4rem;
   bottom: 0.3rem;
   position: absolute;
+  @media (max-width: 768px) {
+    width: 0.9rem;
+  }
 `;
 
 const Date = styled.p`
@@ -126,4 +165,7 @@ const Date = styled.p`
   position: absolute;
   right: 0.7rem;
   top: 0.1rem;
+  @media (max-width: 768px) {
+    font-size: 0.5rem;
+  }
 `;

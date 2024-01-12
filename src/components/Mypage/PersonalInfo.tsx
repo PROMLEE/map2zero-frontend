@@ -35,18 +35,25 @@ const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
   width: 80%;
-  height: 80%;
-  margin-bottom: 2rem;
+  margin-top: 4rem;
   & > div:first-child {
     display: flex;
-    margin-top: 4rem;
   }
   & > div:last-child {
     display: flex;
     height: 100%;
-    margin-top: 11rem;
+    margin-top: 9rem;
     align-items: center;
     cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    margin-top: 0;
+    background-color: rgba(12, 140, 255, 1);
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 1.88rem;
+    border-bottom-right-radius: 1.88rem;
   }
 `;
 
@@ -61,6 +68,10 @@ const Name = styled.h1`
   font-size: 1.75rem;
   font-weight: bold;
   margin: 0 0 0.8rem 0;
+  @media (max-width: 768px) {
+    font-size: 0.88rem;
+    color: #fff;
+  }
 `;
 
 const PersonalImg = styled.img`
@@ -70,26 +81,51 @@ const PersonalImg = styled.img`
   border-radius: 50%;
   border: 0;
   height: 10.13rem;
+
+  @media (max-width: 768px) {
+    width: 4rem;
+    height: 4rem;
+  }
 `;
 
 const SocialWrap = styled.div`
   align-items: center;
   display: flex;
+  @media (max-width: 768px) {
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 14.94rem;
+    height: 1.38rem;
+    border-radius: 0.25rem;
+    padding: 0.2rem;
+  }
 `;
 const SocialIcon = styled.img`
   width: 1.6rem;
+  @media (max-width: 768px) {
+    width: 0.88rem;
+    padding-left: 0.2rem;
+  }
 `;
 const Email = styled.p`
   font-size: 1rem;
   margin-left: 0.3rem;
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
+  }
 `;
 const SettingsIcon = styled.img`
   width: 1.2rem;
   margin-right: 0.5rem;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 const Settings = styled.p`
   font-size: 0.88rem;
   font-weight: bold;
   margin-right: 2rem;
   color: rgba(86, 86, 86, 1);
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
