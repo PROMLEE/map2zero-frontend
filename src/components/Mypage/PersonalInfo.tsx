@@ -34,7 +34,7 @@ export default PersonalInfo;
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 72.25rem;
+  width: 80%;
   height: 80%;
   margin-bottom: 2rem;
   & > div:first-child {

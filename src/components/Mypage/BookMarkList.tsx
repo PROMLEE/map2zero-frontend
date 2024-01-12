@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const BookMarkList = () => {
   return (
-    <div>
+    <Wrap>
       <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
       <BookMarks>
         {BookMarkDummy.map((i) => (
@@ -16,18 +16,21 @@ const BookMarkList = () => {
           </BookMark>
         ))}
       </BookMarks>
-    </div>
+    </Wrap>
   );
 };
 
+const Wrap = styled.div`
+  width: 80%;
+`;
 const BookMarkTitle = styled.h1`
   margin: 0;
   font-size: 0.88rem;
   padding: 3rem 0 0 1rem;
 `;
+
 const BookMarks = styled.div`
   display: flex;
-  width: 72.25rem;
   height: 17rem;
   padding: 1rem;
   overflow-x: auto;

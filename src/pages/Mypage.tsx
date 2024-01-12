@@ -10,7 +10,6 @@ export default function Mypage() {
         <hr />
         <ReviewList />
         <hr />
-
         <StoreOwner />
       </ContentWrap>
     </>
@@ -23,7 +22,7 @@ const ContentWrap = styled.div`
   flex-direction: column;
 
   & > hr {
-    width: 72.25rem;
+    width: 80%;
     border: none;
     height: 0.5px;
     background-color: #d9d9d9;

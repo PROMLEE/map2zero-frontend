@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ReviewDummy } from './Dummy/ReviewDummy';
 const ReviewList = () => {
   return (
-    <div>
+    <Wrap>
       <ReviewTitle> 내가 쓴 리뷰</ReviewTitle>
       <Reviews>
         {ReviewDummy.map((i) => (
@@ -15,12 +15,15 @@ const ReviewList = () => {
             </div>
             <LikeIcon src="assets/like.png" alt="좋아요아이콘" />
             <LikeCount>{i.likeCount}</LikeCount>
-            <TrashIcon src="assets/trash.png" alt="삭제아이콘" />
+            <TrashWrap>
+              <TrashIcon src="assets/trash.png" alt="삭제아이콘" />
+              <TrashText>삭제</TrashText>
+            </TrashWrap>
             <Date>{i.date}</Date>
           </Review>
         ))}
       </Reviews>
-    </div>
+    </Wrap>
   );
 };
 
@@ -29,9 +32,11 @@ const ReviewTitle = styled.h1`
   font-size: 0.88rem;
 `;
 
+const Wrap = styled.div`
+  width: 80%;
+`;
 const Reviews = styled.div`
   display: flex;
-  width: 72.25rem;
   height: 10rem;
   overflow-x: auto;
   /* 인터넷 익스플로러를 위한 스타일 */
@@ -60,6 +65,7 @@ const Review = styled.div`
   display: flex;
   cursor: pointer;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
@@ -94,12 +100,26 @@ const LikeCount = styled.p`
   bottom: 0rem;
   left: 4.85rem;
 `;
-const TrashIcon = styled.img`
-  width: 1.69;
+const TrashText = styled.p`
   position: absolute;
-  right: 0.4rem;
-  bottom: 0.4rem;
+  left: 0;
+  visibility: hidden;
+  left: 19.45rem;
+  bottom: 0.6rem;
 `;
+const TrashWrap = styled.div`
+  &:hover ${TrashText} {
+    visibility: visible; /* 호버 시 텍스트 보임 */
+  }
+`;
+
+const TrashIcon = styled.img`
+  width: 1.69rem;
+  right: 0.4rem;
+  bottom: 0.3rem;
+  position: absolute;
+`;
+
 const Date = styled.p`
   font-size: 0.63rem;
   color: #d9d9d9;

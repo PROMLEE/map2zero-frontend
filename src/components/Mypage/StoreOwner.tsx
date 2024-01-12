@@ -9,7 +9,7 @@ export default StoreOwner;
 
 const Owner = styled(Link)`
   margin: 2rem 0 1rem 0;
-  width: 72.25rem;
+  width: 80%;
   font-size: 0.88rem;
   text-decoration: none;
   font-weight: bold;
