@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { Loginbutton } from '../../components';
+import { Loginbutton, Mobiletop } from '../../components';
 
 export default function Login() {
   return (
     <LoginBackground>
+      <Mobiletop pagename="로그인" />
       <Loginbutton />
     </LoginBackground>
   );
