@@ -40,7 +40,7 @@ export default function Header() {
           <LinksliPc>매장 위치</LinksliPc>
         </Link>
         <Link to="/mypage">
-          <LinksliPc>about us</LinksliPc>
+          <LinksliPc>About us</LinksliPc>
         </Link>
       </NavPc>
     </>
