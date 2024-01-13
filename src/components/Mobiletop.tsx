@@ -14,12 +14,13 @@ export default function Mobiletop(props: Props) {
     <>
       <Navimg src={backbutton} onClick={onClickBtn} />
       <Mobiletopbar>{props.pagename}</Mobiletopbar>
+      <Box />
     </>
   );
 }
 
 const Mobiletopbar = styled.div`
-  position: relative;
+  position: fixed;
   width: 100%;
   height: 44px;
   top: 16px;
@@ -32,7 +33,15 @@ const Mobiletopbar = styled.div`
   font-style: normal;
   font-weight: 510;
   line-height: normal;
-  overflow-y: scroll;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;
+const Box = styled.div`
+  position: relative;
+  width: 100%;
+  height: 44px;
+  top: 16px;
   @media screen and (min-width: 768px) {
     display: none;
   }
