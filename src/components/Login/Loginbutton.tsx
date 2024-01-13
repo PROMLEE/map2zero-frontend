@@ -95,7 +95,7 @@ const LoginBackground = styled(motion.div)<{ toppx: string; leftpx: string }>`
   background-image: url(${background});
   background-repeat: no-repeat;
   background-size: auto;
-  position: absolute;
+  position: fixed;
   width: 1969.504px;
   height: 900.415px;
   background-size: cover;
@@ -110,7 +110,7 @@ const LoginBackground = styled(motion.div)<{ toppx: string; leftpx: string }>`
 
 const LoginBox = styled.div`
   margin: auto;
-  margin-top: 144px;
+  margin-top: 64px;
   display: flex;
   flex-direction: column;
   align-items: center;

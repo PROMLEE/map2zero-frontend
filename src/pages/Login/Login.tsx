@@ -11,7 +11,7 @@ export default function Login() {
 }
 const LoginBackground = styled.div`
   position: relative;
-  height: 95vh;
-  width: 100vw;
-  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  /* overflow: hidden; */
 `;

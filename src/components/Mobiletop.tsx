@@ -17,7 +17,6 @@ export default function Mobiletop(props: Props) {
       <Link to="/mypage">
         <Navimg src={settingimg} $left="auto" $right="16px" $width="40px" $height="40px" />
       </Link>
-
       <Mobiletopbar>{props.pagename}</Mobiletopbar>
     </>
   );
@@ -37,6 +36,7 @@ const Mobiletopbar = styled.div`
   font-style: normal;
   font-weight: 510;
   line-height: normal;
+  overflow-y: scroll;
   @media screen and (min-width: 768px) {
     display: none;
   }
