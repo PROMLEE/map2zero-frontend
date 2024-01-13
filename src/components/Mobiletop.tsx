@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import backbutton from '../images/Navbar/backbutton.png';
-import settingimg from '../images/Navbar/settingimg.png';
 
 interface Props {
   pagename: string;
@@ -13,10 +12,7 @@ export default function Mobiletop(props: Props) {
   };
   return (
     <>
-      <Navimg src={backbutton} onClick={onClickBtn} $left="16px" $right="auto" $width="30.625px" $height="40px" />
-      <Link to="/mypage">
-        <Navimg src={settingimg} $left="auto" $right="16px" $width="40px" $height="40px" />
-      </Link>
+      <Navimg src={backbutton} onClick={onClickBtn} />
       <Mobiletopbar>{props.pagename}</Mobiletopbar>
     </>
   );
@@ -41,14 +37,13 @@ const Mobiletopbar = styled.div`
     display: none;
   }
 `;
-const Navimg = styled.img<{ $left: string; $right: string; $width: string; $height: string }>`
+const Navimg = styled.img`
   display: block;
   position: fixed;
   top: 16px;
-  left: ${($props) => $props.$left};
-  right: ${($props) => $props.$right};
-  width: ${($props) => $props.$width};
-  height: ${($props) => $props.$height};
+  left: 16px;
+  width: 30.625px;
+  height: 40px;
   z-index: 1;
   @media screen and (min-width: 768px) {
     display: none;
