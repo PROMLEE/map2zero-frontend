@@ -1,11 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home, Search, Login, Mypage } from './pages';
 import { Navigationbar } from './components';
-
+import GlobalStyle from './GlobalStyle';
 export default function App() {
   return (
     <div>
       <BrowserRouter>
+        <GlobalStyle />
         <Navigationbar />
         <Routes>
           <Route path="/" element={<Home />} />
