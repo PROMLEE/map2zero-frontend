@@ -1,13 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ReviewDummy } from './Dummy/ReviewDummy';
+import { useRecoilState } from 'recoil';
+import { popUpModalState } from '../../recoil';
+import ConfirmModal from '../Modal/ConfirmModal';
 const ReviewList = () => {
+  const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
+  const modalHandler = () => {
+    setModalOpen(!modalOpen);
+  };
   return (
     <Wrap>
+      <ConfirmModal />
       <ReviewTitle> 내가 쓴 리뷰</ReviewTitle>
       <Reviews>
         {ReviewDummy.map((i) => (
-          <Review key={i.storeName}>
+          <Review key={i.storeName} onClick={modalHandler}>
             <StoreImg src={`assets/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
             <div>
               <h3>{i.storeName}</h3>

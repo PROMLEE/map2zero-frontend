@@ -49,7 +49,7 @@ const Wrap = styled.div`
   @media (max-width: 768px) {
     margin-top: 0;
     background-color: rgba(12, 140, 255, 1);
-    width: 100vw;
+    width: 100%;
     justify-content: center;
     align-items: center;
     border-bottom-left-radius: 1.88rem;

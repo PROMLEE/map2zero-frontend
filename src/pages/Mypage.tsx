@@ -21,6 +21,7 @@ const ContentWrap = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 100vw;
 `;
 const Line = styled.hr<LineType>`
   width: 80%;
