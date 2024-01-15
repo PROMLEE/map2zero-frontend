@@ -35,14 +35,14 @@ const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
   width: 80%;
-  margin-top: 4rem;
+  margin: 7rem 0 4rem 0;
   & > div:first-child {
     display: flex;
   }
   & > div:last-child {
     display: flex;
     height: 100%;
-    margin-top: 9rem;
+    margin-top: 12rem;
     align-items: center;
     cursor: pointer;
   }
@@ -50,26 +50,28 @@ const Wrap = styled.div`
     margin-top: 0;
     background-color: rgba(12, 140, 255, 1);
     width: 100%;
+    height: 36rem;
+
     justify-content: center;
     align-items: center;
-    border-bottom-left-radius: 1.88rem;
-    border-bottom-right-radius: 1.88rem;
+    border-bottom-left-radius: 7.5rem;
+    border-bottom-right-radius: 7.5rem;
   }
 `;
 
 const InfoWrap = styled.div`
   display: flex;
   justify-content: center;
-  margin-left: 1.5rem;
+  margin-left: 3rem;
   flex-direction: column;
 `;
 
 const Name = styled.h1`
-  font-size: 1.75rem;
+  font-size: 2.8rem;
   font-weight: bold;
-  margin: 0 0 0.8rem 0;
+  margin: 0 0 2rem 0;
   @media (max-width: 768px) {
-    font-size: 0.88rem;
+    font-size: 3.5rem;
     color: #fff;
   }
 `;
@@ -77,14 +79,15 @@ const Name = styled.h1`
 const PersonalImg = styled.img`
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
   object-fit: cover;
-  width: 10.13rem;
+  width: 16.2rem;
   border-radius: 50%;
   border: 0;
-  height: 10.13rem;
+  height: 16.2rem;
 
   @media (max-width: 768px) {
-    width: 4rem;
-    height: 4rem;
+    width: 16rem;
+    height: 16rem;
+    margin: 2rem;
   }
 `;
 
@@ -93,37 +96,37 @@ const SocialWrap = styled.div`
   display: flex;
   @media (max-width: 768px) {
     background-color: rgba(255, 255, 255, 0.8);
-    width: 14.94rem;
-    height: 1.38rem;
-    border-radius: 0.25rem;
-    padding: 0.2rem;
+    width: 59.75rem;
+    height: 5.5rem;
+    border-radius: 1rem;
+    padding: 1rem;
   }
 `;
 const SocialIcon = styled.img`
-  width: 1.6rem;
+  width: 3.2rem;
   @media (max-width: 768px) {
-    width: 0.88rem;
-    padding-left: 0.2rem;
+    width: 3.5rem;
+    margin: 1rem;
   }
 `;
 const Email = styled.p`
-  font-size: 1rem;
-  margin-left: 0.3rem;
+  font-size: 1.6rem;
+  margin-left: 0.6rem;
   @media (max-width: 768px) {
-    font-size: 0.6rem;
+    font-size: 2.4rem;
   }
 `;
 const SettingsIcon = styled.img`
-  width: 1.2rem;
-  margin-right: 0.5rem;
+  width: 2rem;
+  margin-right: 0.9rem;
   @media (max-width: 768px) {
     display: none;
   }
 `;
 const Settings = styled.p`
-  font-size: 0.88rem;
+  font-size: 1.4rem;
   font-weight: bold;
-  margin-right: 2rem;
+
   color: rgba(86, 86, 86, 1);
   @media (max-width: 768px) {
     display: none;

@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home, Search, Login, Mypage, Setting, Owner } from './pages';
 import { Navigationbar } from './components';
-
 export default function App() {
   return (
     <div>

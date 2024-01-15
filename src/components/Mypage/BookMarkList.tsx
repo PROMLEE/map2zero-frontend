@@ -23,23 +23,27 @@ const BookMarkList = () => {
 const Wrap = styled.div`
   width: calc(100vw - 10%);
   margin-left: 10%;
+  @media (max-width: 768px) {
+    width: calc(100vw - 5%);
+    margin-left: 5%;
+  }
 `;
 const BookMarkTitle = styled.h1`
-  margin: 0.3rem 0 1rem 0;
-  font-size: 0.88rem;
-  padding-top: 1.3rem;
+  margin: 2rem 0 0 1rem;
+  font-size: 1.4rem;
+  padding-top: 2rem;
   @media (max-width: 768px) {
-    font-size: 0.75rem;
+    font-size: 3rem;
     padding: 0;
-    margin-top: 2rem;
+    margin: 4rem 0 0 2rem;
   }
 `;
 
 const BookMarks = styled.div`
   display: flex;
-  height: 17rem;
+  height: 30rem;
   width: 100%;
-  padding: 1rem 0 1rem 0;
+  padding: 3rem 0 3rem 1rem;
   overflow-x: auto;
   /* 인터넷 익스플로러를 위한 스타일 */
   -ms-overflow-style: none;
@@ -52,19 +56,19 @@ const BookMarks = styled.div`
     display: none;
   }
   @media (max-width: 768px) {
-    font-size: 0.75rem;
-    height: 12rem;
+    height: 55rem;
+    padding: 5rem 0 5rem 2rem;
   }
 `;
 
 const BookMark = styled.div`
-  margin-right: 1.25rem;
-  width: 10.13rem;
-  height: 14.38rem;
+  margin-right: 2.4rem;
+  width: 16.2rem;
+  height: 23rem;
   border: solid;
   border-color: #d9d9d9;
   border-width: 1px;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   flex-shrink: 0;
   position: relative;
   cursor: pointer;
@@ -73,46 +77,51 @@ const BookMark = styled.div`
     transform: scale(1.1);
   }
   & > h3 {
-    font-size: 0.88rem;
-    margin: 0.5rem;
+    font-size: 1.4rem;
+    margin: 1rem;
   }
   & > p {
-    font-size: 0.63rem;
-    margin: 1rem 0 0 0.5rem;
+    font-size: 1rem;
+    margin: 2rem 0 0 1rem;
     color: rgba(86, 86, 86, 1);
   }
   @media (max-width: 768px) {
-    width: 7.5rem;
-    height: 10.5rem;
+    width: 30rem;
+    height: 42rem;
+    margin-right: 4rem;
 
     & > h3 {
-      font-size: 0.75rem;
+      font-size: 3rem;
+      margin: 1.5rem;
     }
     & > p {
-      font-size: 0.5rem;
-      margin: 0.5rem 0 0 0.55rem;
+      font-size: 2rem;
+      margin: 3rem 0 0 1.5rem;
     }
   }
 `;
 
 const StoreImg = styled.img`
   width: 100%;
-  height: 10.13rem;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
+  height: 16.2rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   @media (max-width: 768px) {
-    height: 7.5rem;
+    height: 30rem;
   }
 `;
 
 const BookMarkIcon = styled.img`
-  width: 0.94rem;
-  height: 1.25rem;
+  width: 1.5rem;
+  height: 2rem;
   position: absolute;
-  bottom: 4.8rem;
-  right: 0.5rem;
+  bottom: 7.5rem;
+  right: 1rem;
   @media (max-width: 768px) {
-    bottom: 3.5rem;
+    bottom: 13rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3.75rem;
   }
 `;
 export default BookMarkList;

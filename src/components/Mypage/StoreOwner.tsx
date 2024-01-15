@@ -8,19 +8,20 @@ const StoreOwner = () => {
 export default StoreOwner;
 
 const Owner = styled(Link)`
-  margin: 1.3rem 0 3rem 0;
+  margin: 4rem 0 3rem 1rem;
   width: 80%;
-  font-size: 0.88rem;
+  font-size: 1.4rem;
   text-decoration: none;
   font-weight: bold;
   color: black;
 
   @media (max-width: 768px) {
-    height: 2.94rem;
-    width: 85%;
-    border-radius: 0.5rem;
-    font-size: 0.75rem;
-    line-height: 2.94rem;
+    margin: 6rem 0 3rem 0;
+    height: 11.75rem;
+    width: 81.75rem;
+    border-radius: 8px;
+    font-size: 3rem;
+    line-height: 11.75rem;
     background-color: rgba(242, 242, 242, 1);
     text-align: center;
   }

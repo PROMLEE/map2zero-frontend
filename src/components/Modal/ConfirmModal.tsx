@@ -41,24 +41,24 @@ const ConfirmModal = () => {
           overflow: 'auto',
           display: 'flex',
           flexDirection: 'column',
-          borderRadius: '1rem',
+          borderRadius: '16px',
           alignItems: 'center',
           backgroundColor: 'white',
           ...(isSmallScreen()
             ? {
-                height: '15.44rem',
+                height: '66rem',
                 top: undefined,
                 bottom: '0',
                 left: '0',
                 width: '100vw',
               }
             : {
-                height: '16.56rem',
+                height: '23.7rem',
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 position: 'relative',
-                width: '29.5rem',
+                width: '47.2rem',
               }),
         },
       }}
@@ -78,14 +78,15 @@ export default ConfirmModal;
 
 const Message = styled.h1`
   font-weight: border;
-  font-size: 1.25rem;
-  margin-bottom: 3rem;
+  font-size: 2rem;
+  margin-bottom: 5rem;
   @media (max-width: 768px) {
-    margin-bottom: 1rem;
+    margin-bottom: 8rem;
+    font-size: 5rem;
   }
 `;
 const Close = styled.img`
-  width: 0.94rem;
+  width: 1.5rem;
   position: absolute;
   top: 2rem;
   right: 2rem;
@@ -100,17 +101,18 @@ const BtnWrap = styled.div`
 `;
 const ConfirmBtn = styled.button`
   background-color: rgba(242, 242, 242, 1);
-  width: 12rem;
-  height: 2.94rem;
-  font-size: 0.75rem;
+  width: 20rem;
+  height: 4.7rem;
+  font-size: 1.2rem;
   margin: 0 0.5rem 0 0.5rem;
   border: 0;
-  border-radius: 0.5rem;
-  font-size: 0.75rem;
+  border-radius: 8px;
   font-weight: bolder;
   cursor: pointer;
   @media (max-width: 768px) {
-    width: 20.44rem;
-    margin-bottom: 1rem;
+    width: 81.75rem;
+    height: 11.75rem;
+    font-size: 3rem;
+    margin-bottom: 3rem;
   }
 `;

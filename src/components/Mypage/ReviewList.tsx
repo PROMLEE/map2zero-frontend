@@ -21,8 +21,8 @@ const ReviewList = () => {
               <h3>{i.storeName}</h3>
               <p>{i.content}</p>
             </div>
-            <LikeIcon src="assets/like.png" alt="좋아요아이콘" />
-            <LikeCount>{i.likeCount}</LikeCount>
+            <FavoriteIcon src="assets/favorite.png" alt="좋아요아이콘" />
+            <FavoriteCount>{i.favoriteCount}</FavoriteCount>
             <TrashWrap>
               <TrashIcon src="assets/trash.png" alt="삭제아이콘" />
               <TrashText>삭제</TrashText>
@@ -39,20 +39,25 @@ export default ReviewList;
 const Wrap = styled.div`
   width: calc(100vw - 10%);
   margin-left: 10%;
+  @media (max-width: 768px) {
+    width: calc(100vw - 5%);
+    margin-left: 5%;
+  }
 `;
 
 const ReviewTitle = styled.h1`
-  margin: 1.3rem 0 1rem 0;
-  font-size: 0.88rem;
+  margin: 4rem 0 2rem 1rem;
+  font-size: 1.4rem;
   @media (max-width: 768px) {
-    font-size: 0.75rem;
-    margin: 1rem 0 1rem 0;
+    font-size: 3rem;
+    margin: 6rem 0 4rem 2rem;
   }
 `;
 
 const Reviews = styled.div`
   display: flex;
-  height: 9rem;
+  margin-left: 1rem;
+  height: 14rem;
   overflow-x: auto;
   /* 인터넷 익스플로러를 위한 스타일 */
   -ms-overflow-style: none;
@@ -65,18 +70,19 @@ const Reviews = styled.div`
     display: none;
   }
   @media (max-width: 768px) {
-    height: 5rem;
+    height: 25rem;
+    padding: 0 0 0 2rem;
   }
 `;
 
 const Review = styled.div`
-  margin-right: 1.25rem;
-  width: 21.75rem;
-  height: 6.25rem;
+  margin-right: 2.4rem;
+  width: 34.8rem;
+  height: 10rem;
   border: solid;
   border-color: #d9d9d9;
   border-width: 1px;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   flex-shrink: 0;
   position: relative;
   display: flex;
@@ -87,68 +93,71 @@ const Review = styled.div`
     background-color: rgba(0, 0, 0, 0.1);
   }
   & > div > h3 {
-    font-size: 0.88rem;
-    margin: 0.5rem 0 0 0.5rem;
+    font-size: 1.4rem;
+    margin: 0.8rem 0 0 0.8rem;
   }
   & > div > p {
-    font-size: 0.63rem;
-    margin: 0.2rem 0 0 0.5rem;
+    font-size: 1rem;
+    margin: 0.5rem 0 0 0.8rem;
     color: rgba(86, 86, 86, 1);
   }
   @media (max-width: 768px) {
-    width: 14.94rem;
-    height: 4rem;
-
+    width: 59.74rem;
+    height: 16rem;
+    margin-right: 4rem;
     & > div > h3 {
-      font-size: 0.63rem;
+      font-size: 2.5rem;
+      margin: 2rem;
     }
     & > div > p {
-      font-size: 0.5rem;
+      font-size: 2rem;
+      margin-left: 2rem;
     }
   }
 `;
 const StoreImg = styled.img`
-  width: 6.25rem;
+  width: 10rem;
   height: 100%;
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   @media (max-width: 768px) {
-    width: 4rem;
+    width: 16rem;
   }
 `;
 
-const LikeIcon = styled.img`
-  width: 1rem;
+const FavoriteIcon = styled.img`
+  width: 1.5rem;
+  height: 1.4rem;
   position: absolute;
-  left: 4.6rem;
-  bottom: 1.2rem;
+  left: 7.5rem;
+  bottom: 1.7rem;
   @media (max-width: 768px) {
-    width: 0.63rem;
-    left: 3rem;
-    bottom: 0.8rem;
+    width: 2.6rem;
+    height: 2.5rem;
+    left: 12rem;
+    bottom: 3rem;
   }
 `;
-const LikeCount = styled.p`
-  font-size: 0.5rem;
+const FavoriteCount = styled.p`
+  font-size: 0.9rem;
   position: absolute;
   color: rgba(86, 86, 86, 1);
-  bottom: 0rem;
-  left: 4.85rem;
+  bottom: 0.5rem;
+  left: 7.9rem;
   @media (max-width: 768px) {
-    width: 0.5rem;
-    bottom: -0.4rem;
-    left: 3.1rem;
+    font-size: 2rem;
+    left: 12.4rem;
   }
 `;
 const TrashText = styled.p`
   position: absolute;
   left: 0;
   visibility: hidden;
-  left: 19.45rem;
+  left: 31.5rem;
   bottom: 0.6rem;
   @media (max-width: 768px) {
-    left: 13rem;
-    bottom: 0.3rem;
+    left: 53rem;
+    bottom: 2rem;
   }
 `;
 const TrashWrap = styled.div`
@@ -158,22 +167,26 @@ const TrashWrap = styled.div`
 `;
 
 const TrashIcon = styled.img`
-  width: 1.69rem;
+  width: 2rem;
+  height: 2.4rem;
   right: 0.4rem;
   bottom: 0.3rem;
   position: absolute;
   @media (max-width: 768px) {
-    width: 0.9rem;
+    width: 5rem;
+    height: 6rem;
   }
 `;
 
 const Date = styled.p`
-  font-size: 0.63rem;
+  font-size: 1rem;
   color: #d9d9d9;
   position: absolute;
   right: 0.7rem;
-  top: 0.1rem;
+  top: 0.7rem;
   @media (max-width: 768px) {
-    font-size: 0.5rem;
+    font-size: 2rem;
+    right: 1.6rem;
+    top: 1.6rem;
   }
 `;

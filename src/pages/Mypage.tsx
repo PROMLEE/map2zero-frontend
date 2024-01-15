@@ -28,7 +28,6 @@ const Line = styled.hr<LineType>`
   border: none;
   height: 0.5px;
   background-color: #d9d9d9;
-
   @media (max-width: 768px) {
     width: 85%;
     display: ${(props) => (props.mobileVisible ? 'flex' : 'none')};
