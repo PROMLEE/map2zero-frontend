@@ -1,10 +1,4 @@
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import kakao_login_button from '../../images/Login/kakao_login_button.png';
-import naver_login_button from '../../images/Login/naver_login_button.png';
-import login_logo from '../../images/Login/login_logo.png';
-import logintext from '../../images/Login/logintext.png';
-import background from '../../images/Login/background.png';
 
 export default function Loginbutton() {
   const client_id_kakao = process.env.REACT_APP_REST_API_KEY_Kakao;
@@ -22,91 +16,20 @@ export default function Loginbutton() {
     window.location.href = NAVER_AUTH_URL;
   };
 
-  const boxVariants = {
-    center: {
-      opacity: 1,
-      x: 200,
-      y: -85,
-    },
-  };
-  const boxVariants2 = {
-    center: {
-      opacity: 1,
-      x: -200,
-      y: 85,
-    },
-  };
-
   return (
     <>
-      <LoginBackground
-        animate="center"
-        transition={{
-          ease: 'easeInOut',
-          duration: 0.6,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          repeatDelay: 0.7,
-        }}
-        variants={boxVariants}
-        toppx={'-500px'}
-        leftpx={'-300px'}
-      />
-      <LoginBackground
-        animate="center"
-        transition={{
-          ease: 'easeInOut',
-          duration: 0.6,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          repeatDelay: 0.7,
-        }}
-        variants={boxVariants2}
-        toppx={'00px'}
-        leftpx={'-200px'}
-      />
-      <LoginBackground
-        animate="center"
-        transition={{
-          ease: 'easeInOut',
-          duration: 0.6,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          repeatDelay: 0.7,
-        }}
-        variants={boxVariants}
-        toppx={'500px'}
-        leftpx={'200px'}
-      />
       <LoginBox>
-        <Logo src={login_logo} />
-        <LoginText src={logintext} />
+        <Logo src={'assets/Login/login_logo.png'} />
         <a onClick={loginKaKao}>
-          <LoginImg src={kakao_login_button} />
+          <LoginImg src={'assets/Login/kakao_login_button.png'} />
         </a>
         <a onClick={loginNaver}>
-          <LoginImg src={naver_login_button} />
+          <LoginImg src={'assets/Login/naver_login_button.png'} />
         </a>
       </LoginBox>
     </>
   );
 }
-const LoginBackground = styled(motion.div)<{ toppx: string; leftpx: string }>`
-  background-image: url(${background});
-  background-repeat: no-repeat;
-  background-size: auto;
-  position: fixed;
-  width: 1969.504px;
-  height: 900.415px;
-  background-size: cover;
-  top: ${(props) => props.toppx};
-  left: ${(props) => props.leftpx};
-  z-index: -1;
-  @media screen and (min-width: 768px) {
-    width: 2500px;
-    height: 1100px;
-  }
-`;
 
 const LoginBox = styled.div`
   margin: auto;

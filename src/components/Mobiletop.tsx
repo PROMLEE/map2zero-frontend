@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import backbutton from '../images/Navbar/backbutton.png';
 
 interface Props {
   pagename: string;
@@ -12,7 +11,7 @@ export default function Mobiletop(props: Props) {
   };
   return (
     <>
-      <Navimg src={backbutton} onClick={onClickBtn} />
+      <Navimg src={'assets/Navbar/backbutton.png'} onClick={onClickBtn} />
       <Mobiletopbar>{props.pagename}</Mobiletopbar>
       <Box />
     </>

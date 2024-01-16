@@ -1,12 +1,5 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from '../images/Navbar/logo.png';
-import usrimg from '../images/Navbar/userimg.png';
-import searchimg from '../images/Navbar/searchimg.png';
-import map_mobile from '../images/Navbar/map_mobile.png';
-import home_mobile from '../images/Navbar/home_mobile.png';
-import search_mobile from '../images/Navbar/search_mobile.png';
-import user_mobile from '../images/Navbar/user_mobile.png';
 
 export default function Header() {
   return (
@@ -14,26 +7,33 @@ export default function Header() {
       {/* 모바일 네비게이션 바 (하단) */}
       <NavMobile>
         <Link to="/mypage">
-          <LinksliMobile src={map_mobile} />
+          <LinksliMobile src={'assets/Navbar/map_mobile.png'} />
         </Link>
         <Link to="/">
-          <LinksliMobile src={home_mobile} />
+          <LinksliMobile src={'assets/Navbar/home_mobile.png'} />
         </Link>
         <Link to="/search">
-          <LinksliMobile src={search_mobile} />
+          <LinksliMobile src={'assets/Navbar/search_mobile.png'} />
         </Link>
         <Link to="/login">
-          <LinksliMobile src={user_mobile} />
+          <LinksliMobile src={'assets/Navbar/user_mobile.png'} />
         </Link>
       </NavMobile>
       {/* PC 네비게이션 바 (상단) */}
       <Box />
-      <Navimg src={logo} $top="15px" $left="24px" $right="auto" $width="139px" $height="50px" />
+      <Navimg src={'assets/Navbar/logo.png'} $top="15px" $left="24px" $right="auto" $width="139px" $height="50px" />
       <Link to="/search">
-        <Navimg src={searchimg} $top="27px" $left="auto" $right="80px" $width="30px" $height="30px" />{' '}
+        <Navimg
+          src={'assets/Navbar/searchimg.png'}
+          $top="27px"
+          $left="auto"
+          $right="80px"
+          $width="30px"
+          $height="30px"
+        />{' '}
       </Link>
       <Link to="/login">
-        <Navimg src={usrimg} $top="22px" $left="auto" $right="24px" $width="40px" $height="40px" />
+        <Navimg src={'assets/Navbar/userimg.png'} $top="22px" $left="auto" $right="24px" $width="40px" $height="40px" />
       </Link>
       <NavPc>
         <Link to="/">
