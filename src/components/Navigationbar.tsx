@@ -7,33 +7,47 @@ export default function Header() {
       {/* 모바일 네비게이션 바 (하단) */}
       <NavMobile>
         <Link to="/mypage">
-          <LinksliMobile src={'assets/Navbar/map_mobile.png'} />
+          <LinksliMobile src={`${process.env.PUBLIC_URL}/assets/Navbar/map_mobile.png`} />
         </Link>
         <Link to="/">
-          <LinksliMobile src={'assets/Navbar/home_mobile.png'} />
+          <LinksliMobile src={`${process.env.PUBLIC_URL}/assets/Navbar/home_mobile.png`} />
         </Link>
         <Link to="/search">
-          <LinksliMobile src={'assets/Navbar/search_mobile.png'} />
+          <LinksliMobile src={`${process.env.PUBLIC_URL}/assets/Navbar/search_mobile.png`} />
         </Link>
         <Link to="/login">
-          <LinksliMobile src={'assets/Navbar/user_mobile.png'} />
+          <LinksliMobile src={`${process.env.PUBLIC_URL}/assets/Navbar/user_mobile.png`} />
         </Link>
       </NavMobile>
       {/* PC 네비게이션 바 (상단) */}
       <Box />
-      <Navimg src={'assets/Navbar/logo.png'} $top="15px" $left="24px" $right="auto" $width="139px" $height="50px" />
+      <Navimg
+        src={`${process.env.PUBLIC_URL}/assets/Navbar/logo.png`}
+        $top="1rem"
+        $left="2.4rem"
+        $right="auto"
+        $width="7.6904rem"
+        $height="6rem"
+      />
       <Link to="/search">
         <Navimg
-          src={'assets/Navbar/searchimg.png'}
-          $top="27px"
+          src={`${process.env.PUBLIC_URL}/assets/Navbar/searchimg.png`}
+          $top="2.7rem"
           $left="auto"
-          $right="80px"
-          $width="30px"
-          $height="30px"
-        />{' '}
+          $right="8rem"
+          $width="3rem"
+          $height="3rem"
+        />
       </Link>
       <Link to="/login">
-        <Navimg src={'assets/Navbar/userimg.png'} $top="22px" $left="auto" $right="24px" $width="40px" $height="40px" />
+        <Navimg
+          src={`${process.env.PUBLIC_URL}/assets/Navbar/userimg.png`}
+          $top="2.2rem"
+          $left="auto"
+          $right="2.4rem"
+          $width="4rem"
+          $height="4rem"
+        />
       </Link>
       <NavPc>
         <Link to="/">
@@ -52,11 +66,11 @@ export default function Header() {
 
 const NavMobile = styled.div`
   position: fixed;
-  bottom: 0px;
+  bottom: 0rem;
   width: 100%;
-  height: 49px;
+  height: 12.25rem;
   background-color: #fcfcfc;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0rem 0rem 0.4rem 0rem rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -69,10 +83,10 @@ const NavPc = styled.div`
   position: fixed;
   display: none;
   background: #fff;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0rem 0rem 4rem 0rem rgba(0, 0, 0, 0.25);
   width: 100%;
-  height: 80px;
-  top: 0px;
+  height: 8rem;
+  top: 0rem;
   align-items: center;
   justify-content: center;
   z-index: 1;
@@ -84,8 +98,8 @@ const Box = styled.div`
   position: relative;
   display: none;
   width: 100%;
-  height: 80px;
-  top: 0px;
+  height: 8rem;
+  top: 0rem;
   @media screen and (min-width: 768px) {
     display: flex;
   }
@@ -106,13 +120,13 @@ export const Navimg = styled.img<{ $top: string; $left: string; $right: string; 
 const LinksliPc = styled.div`
   color: var(--dark-gray, #565656);
   font-family: 'SF Pro';
-  font-size: 20px;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 510;
   float: left;
-  padding: 10px;
-  margin-left: 30px;
+  padding: 1rem;
+  margin-left: 3rem;
 `;
 const LinksliMobile = styled.img`
-  height: 49px;
+  height: 12.25rem;
 `;
