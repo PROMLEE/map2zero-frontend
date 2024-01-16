@@ -1,12 +1,15 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home, Search, Login, Mypage, KakaoLoginHandeler, NaverLoginHandeler } from './pages';
 import { Navigationbar } from './components';
+
 import styled from 'styled-components';
+import GlobalStyle from './GlobalStyle';
 
 export default function App() {
   return (
     <Background>
       <BrowserRouter>
+        <GlobalStyle />
         <Navigationbar />
         <Routes>
           <Route path="/" element={<Home />} />
