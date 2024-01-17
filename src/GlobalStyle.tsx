@@ -23,7 +23,7 @@ time, mark, audio, video,input {
 	border: 0;
 //	font: inherit;
 	vertical-align: baseline;
-	
+  -webkit-tap-highlight-color: transparent;
 
 }
   html {
