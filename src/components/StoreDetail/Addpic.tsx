@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-export const TextReview = () => {
+export const Addpic = () => {
   let [inputCount, setInputCount] = useState(0);
   const onInputHandler = (e: any) => {
     setInputCount(e.target.value.length);

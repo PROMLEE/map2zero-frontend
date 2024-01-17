@@ -39,4 +39,12 @@ const TagItem = styled.div<{ $istagon: boolean }>`
   font-family: 'Noto Sans KR';
   font-size: 2.5rem;
   font-weight: 400;
+  @media (min-width: 768px) {
+    // min-width 이유: hover event 적용시 모바일에서 문제 발생함.
+    &:hover {
+      cursor: pointer;
+      background-color: #74b69d;
+      color: white;
+    }
+  }
 `;
