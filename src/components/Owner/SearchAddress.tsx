@@ -2,13 +2,13 @@ import { useDaumPostcodePopup } from 'react-daum-postcode';
 import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { InputState } from '../recoil';
-import { AddressesType } from '../recoil/Owner/ownerTypes';
+import { InputState } from '../../recoil';
+import { AddressesType } from '../../recoil/Owner/ownerTypes';
 
 const SearchAddress = (addresses: AddressesType) => {
   const [inputs, setInputs] = useRecoilState(InputState);
   const { address, detailAddress } = addresses;
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -71,7 +71,7 @@ export default SearchAddress;
 
 const AddressBtn = styled.button`
   background-color: transparent;
-  border-radius: 4px;
+  border-radius: 0.4rem;
   line-height: 3.2rem;
   height: 3.2rem;
   width: 16.4rem;
@@ -81,12 +81,22 @@ const AddressBtn = styled.button`
   border: 0.1rem solid rgba(255, 100, 100, 1);
   margin-bottom: 1rem;
   cursor: pointer;
+  @media (max-width: 480px) {
+    line-height: 8rem;
+    height: 8rem;
+    width: 26rem;
+    font-size: 3.5rem;
+    margin-bottom: 2.5rem;
+    border-radius: 1rem;
+    border-width: 0.25rem;
+  }
 `;
 
 const AddressInput = styled.input`
   border: 0.1rem solid rgba(224, 224, 224, 1);
-  border-radius: 4px;
+  border-radius: 0.4rem;
   padding: 1rem;
+  font-size: 1.4rem;
   margin-bottom: 1rem;
   background-color: ${(props) => (props.disabled ? '#F2F2F2' : 'white')}; // 비활성화 시 회색, 활성화 시 흰색 배경
   &::placeholder {
@@ -94,5 +104,13 @@ const AddressInput = styled.input`
   }
   &:focus {
     outline: none; // 포커스 시 외곽선 제거
+  }
+
+  @media (max-width: 480px) {
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 3.5rem;
+    border-radius: 1rem;
+    border-bottom-width: 0.25rem;
   }
 `;
