@@ -24,6 +24,7 @@ export default function ReviewWrite() {
         <Texts $margintop={'6.5rem'}>리뷰를 작성해 주세요</Texts>
         <TextReview />
         <Texts $margintop={'8rem'}>사진을 추가해 주세요</Texts>
+        <Addpic />
       </Modal>
     </Background>
   );

@@ -1,50 +1,94 @@
-import { useState } from 'react';
+// import { useState } from 'react';
+
+// export const Addpic = () => {
+//   const [imageSrc, setImageSrc]: any = useState(null);
+//   const onUpload = (e: any) => {
+//     const file = e.target.files;
+//     const reader = new FileReader();
+//     reader.readAsDataURL(file);
+
+//     return new Promise<void>((resolve) => {
+//       reader.onload = () => {
+//         setImageSrc(reader.result || null); // 파일의 컨텐츠
+//         resolve();
+//       };
+//     });
+//   };
+
+//   return (
+//     <>
+//       <input multiple type="file" onChange={(e) => onUpload(e)} />
+//       <CameraButton src={`${process.env.PUBLIC_URL}/assets/StoreDetail/pic_no.png`} />
+//       <PicBox>
+//         <Pic src={imageSrc} />
+//       </PicBox>
+//     </>
+//   );
+// };
+
+// const PicBox = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   width: 90%;
+//   margin-left: 6rem;
+// `;
+// const CameraButton = styled.img`
+//   @media (max-width: 768px) {
+//     width: 100%;
+//     height: 12rem;
+//     padding: 1.5rem 0rem;
+//   }
+// `;
+
+import React, { useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
 
-export const Addpic = () => {
-  let [inputCount, setInputCount] = useState(0);
-  const onInputHandler = (e: any) => {
-    setInputCount(e.target.value.length);
+export const Addpic: React.FC = () => {
+  const [images, setImages] = useState<string[]>([]);
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+      setImages((prevImages) => fileArray.concat(prevImages));
+      e.target.value = '';
+    }
   };
 
   return (
-    <ReviewBox>
-      <TextBox placeholder="최대 100자(띄어쓰기 포함)" onChange={onInputHandler} maxLength={100} />
-      <Textcount>{inputCount}/100</Textcount>
-    </ReviewBox>
+    <PicBox>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        multiple
+        style={{ display: 'none' }}
+        id="imageInput"
+      />
+      <CameraButton htmlFor="imageInput" style={{ cursor: 'pointer' }}>
+        <Pic src={`${process.env.PUBLIC_URL}/assets/StoreDetail/new_pic.png`} />
+      </CameraButton>
+      {images.map((image, index) => (
+        <Pic key={index} src={image} alt={`Uploaded ${index}`} />
+      ))}
+    </PicBox>
   );
 };
 
-const ReviewBox = styled.div`
+const PicBox = styled.div`
   display: flex;
-  width: 90%;
-  flex-direction: column;
   align-items: flex-start;
-`;
-const TextBox = styled.textarea`
-  width: 90%;
-  height: 30rem;
-  padding: 4rem;
-  margin-left: 6rem;
   margin-top: 3.5rem;
-  border-radius: 2rem;
-  border: 0.5px solid #e0e0e0;
-  background: #f2f2f2;
-  resize: none;
-  font-family: 'Noto Sans KR';
-  font-size: 2.5rem;
-  &::placeholder {
-    color: #848484;
-    font-weight: 400;
-  }
-`;
-const Textcount = styled.div`
+  gap: 2rem;
   width: 90%;
-  height: 6.5rem;
   margin-left: 6rem;
-  padding: 2rem;
-  color: #e0e0e0;
-  text-align: right;
-  font-family: 'Noto Sans KR';
-  font-size: 2rem;
+`;
+const CameraButton = styled.label`
+  width: 16.5rem;
+  height: 16.5rem;
+`;
+const Pic = styled.img`
+  width: 16.5rem;
+  height: 16.5rem;
+  border-radius: 2rem;
+  background: var(--gray, #e0e0e0);
 `;
