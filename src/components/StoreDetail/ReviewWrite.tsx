@@ -25,6 +25,7 @@ export default function ReviewWrite() {
         <TextReview />
         <Texts $margintop={'8rem'}>사진을 추가해 주세요</Texts>
         <Addpic />
+        <CompleteButton>작성 완료</CompleteButton>
       </Modal>
     </Background>
   );
@@ -80,5 +81,21 @@ const Texts = styled.div<{ $margintop: string }>`
   font-weight: 500;
   line-height: normal;
   @media (max-width: 768px) {
+  }
+`;
+const CompleteButton = styled.button`
+  width: 90%;
+  padding: 4rem;
+  text-align: center;
+  margin-top: 5.5rem;
+  margin-left: 6rem;
+  border-radius: 2rem;
+  background: #0b5c71;
+  color: #fff;
+  font-family: 'Noto Sans KR';
+  font-size: 3rem;
+  font-weight: 600;
+  &:hover {
+    cursor: pointer;
   }
 `;
