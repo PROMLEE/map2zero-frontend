@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
+import { fonts } from './font/fonts';
 const GlobalStyle = createGlobalStyle`
+${fonts}
 *{
 	box-sizing: border-box;
 }
