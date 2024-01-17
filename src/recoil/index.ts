@@ -1,3 +1,3 @@
 import { exampleState } from "./example";
-
-export { exampleState };
+import {InputState} from "./Owner/owner"
+export { exampleState ,InputState };
