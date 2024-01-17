@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { InputState } from '../recoil';
-import SearchAddress from '../components/Owner/SearchAddress';
+import { SearchAddress, InputField } from '../components/Owner';
 
 const Owner = () => {
   const [inputs, setInputs] = useRecoilState(InputState);
@@ -23,22 +23,32 @@ const Owner = () => {
       <Title>점주 신청하기</Title>
 
       <ContentWrap>
-        <OwnerLabel htmlFor="title">상호명</OwnerLabel>
-        <OwnerInput type="text" id="title" placeholder="상호명을 입력해주세요" onChange={onChange} value={title} />
-        <OwnerLabel htmlFor=" businessLicenseNum">사업자등록번호</OwnerLabel>
-        <OwnerInput
-          type="text"
+        <InputField id="title" label="상호명" placeholder="상호명을 입력해주세요" value={title} onChange={onChange} />
+        <InputField
           id="businessLicenseNum"
-          placeholder="상호명을 입력해주세요"
-          onChange={onChange}
+          label="사업자등록번호"
+          placeholder="사업자등록번호를 입력해주세요"
           value={businessLicenseNum}
+          onChange={onChange}
         />
-        <OwnerLabel>매장주소</OwnerLabel>
-        <SearchAddress {...addresses} />
-        <OwnerLabel htmlFor=" contact">연락처</OwnerLabel>
-        <OwnerInput type="text" id=" contact" placeholder="연락처를 입력해주세요" onChange={onChange} value={contact} />
-        <OwnerLabel htmlFor=" ceoName">대표명</OwnerLabel>
-        <OwnerInput type="text" id="ceoName" placeholder="대표명을 입력해주세요" onChange={onChange} value={ceoName} />
+
+        <InputField label="매장주소" searchAddress={addresses} />
+
+        <InputField
+          id="contact"
+          label="연락처"
+          placeholder="연락처를 입력해주세요"
+          value={contact}
+          onChange={onChange}
+        />
+
+        <InputField
+          id="ceoName"
+          label="대표명"
+          placeholder="대표명을 입력해주세요"
+          value={ceoName}
+          onChange={onChange}
+        />
       </ContentWrap>
       <OwnerBtn>신청완료</OwnerBtn>
     </Wrap>
@@ -71,35 +81,6 @@ const ContentWrap = styled.div`
   }
   @media (max-width: 480px) {
     width: 81.75rem;
-  }
-`;
-const OwnerLabel = styled.label`
-  font-size: 1.4rem;
-  padding-left: 0.8rem;
-  padding: 0 0 1.6rem 0.8rem;
-  margin-top: 4.7rem;
-  @media (max-width: 480px) {
-    font-size: 3.5rem;
-    padding-left: 2rem;
-    padding: 0 0 4rem 2rem;
-    margin-top: 6rem;
-  }
-`;
-const OwnerInput = styled.input`
-  border: none;
-  border-bottom: 0.2rem solid rgba(224, 224, 224, 1);
-  padding: 0 0 1.6rem 0.8rem;
-  font-size: 1.4rem;
-  &::placeholder {
-    color: rgba(224, 224, 224, 1);
-  }
-  &:focus {
-    outline: none;
-  }
-  @media (max-width: 480px) {
-    padding: 0 0 4rem 2rem;
-    border-bottom-width: 0.25rem;
-    font-size: 3.5rem;
   }
 `;
 
