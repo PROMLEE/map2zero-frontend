@@ -2,7 +2,18 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 export const RecentSearchList = () => {
-  const [tags, setTags] = useState(['태그1태그1태그1', '태그2', '태그3태그3', '태그4', '태그5태그5태그5']);
+  const [tags, setTags] = useState([
+    '태그1태그1태그1',
+    '태그2',
+    '태그3태그3',
+    '태그4',
+    '태그5태그5태그5',
+    '태그1태그1태그1태그1태그1태그1태그1태그1태그1태그1태그1태그1',
+    '태그5태그5태그5',
+    '태그5태그5태그5',
+    '태그5태그5태그5',
+    '태그5태그5태그5',
+  ]);
 
   //최근 검색어 모두 지우기
   const AllClear = () => {
@@ -25,8 +36,8 @@ export const RecentSearchList = () => {
         {tags.map((item, index) => {
           return (
             <TagItem key={index}>
-              <img src="assets/delete.png" alt="삭제" onClick={() => ItemClear(index)} />
-              <span>{item}</span>
+              <img src={`${process.env.PUBLIC_URL}/assets/delete.png`} alt="삭제" onClick={() => ItemClear(index)} />
+              <span>{item.length > 13 ? item.slice(0, 13) + '...' : item}</span>
             </TagItem>
           );
         })}
@@ -35,26 +46,25 @@ export const RecentSearchList = () => {
   );
 };
 
-const ListWrap = styled.div``;
+const ListWrap = styled.div`
+  margin-top: 8rem;
+`;
 
 const SearchHead = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 80px;
-
-  @media (max-width: 768px) {
-    margin-top: 32px;
-  }
 
   h1 {
     color: #000;
     text-align: center;
+    font-family: 'Noto Sans KR';
     font-size: 14px;
-    font-weight: 510;
+    font-weight: 500;
   }
 
   button {
     color: #565656;
+    font-family: 'Noto Sans KR';
     font-size: 10px;
     font-weight: 400;
     border: none;
@@ -65,19 +75,23 @@ const SearchHead = styled.div`
 
 const TagsWrap = styled.div`
   display: flex;
-  margin-top: 20px;
+  align-items: flex-start;
+  margin-top: 2rem;
   flex-wrap: wrap;
   gap: 10px;
+  height: 30px;
+  overflow: hidden;
 
   @media (max-width: 768px) {
-    margin-top: 16px;
+    margin-top: 4rem;
+    height: 60px;
   }
 `;
 
 const TagItem = styled.div`
   border-radius: 30px;
   background: #f4ece1;
-  padding: 5px 8px;
+  padding: 7px 8px;
   display: inline-flex;
   align-items: center;
 
@@ -90,6 +104,7 @@ const TagItem = styled.div`
 
   span {
     color: #565656;
+    font-family: 'Noto Sans KR';
     font-size: 10px;
     font-weight: 400;
   }

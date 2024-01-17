@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { searchToggleState } from '../../recoil/searchToggleState';
 
-type TSearchToggleProps = {
-  activeToggle: number;
-  toggleFn: (toggleId: number) => void;
-};
+export const SearchToggle = () => {
+  const [activeToggle, setActiveToggle] = useRecoilState(searchToggleState);
 
-export const SearchToggle: React.FC<TSearchToggleProps> = ({ activeToggle, toggleFn }) => {
   const toggleOptions = [
     { label: '매장명', value: 0 },
     { label: '제품명', value: 100 },
@@ -16,7 +15,7 @@ export const SearchToggle: React.FC<TSearchToggleProps> = ({ activeToggle, toggl
     <ToggleWrapper>
       <ToggleBackground $activeToggle={activeToggle} />
       {toggleOptions.map(({ label, value }) => (
-        <ToggleButton key={value} $active={activeToggle === value} onClick={() => toggleFn(value)}>
+        <ToggleButton key={value} $active={activeToggle === value} onClick={() => setActiveToggle(value)}>
           {label}
         </ToggleButton>
       ))}
@@ -55,6 +54,7 @@ const ToggleButton = styled.div<{ $active: boolean }>`
   z-index: 10;
 
   text-align: center;
+  font-family: 'Noto Sans KR';
   font-size: 12px;
   font-weight: 400;
 `;

@@ -1,25 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { searchToggleState } from '../../recoil/searchToggleState';
 
 type TSearchBarProps = {
-  searchToggleText: string;
   searchText: string;
   onInputSearchHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
   SearchHandler: () => void;
 };
 
-export const SearchBar: React.FC<TSearchBarProps> = ({
-  searchToggleText,
-  searchText,
-  onInputSearchHandler,
-  SearchHandler,
-}) => {
+export const SearchBar: React.FC<TSearchBarProps> = ({ searchText, onInputSearchHandler, SearchHandler }) => {
+  const activeToggle = useRecoilValue(searchToggleState);
+
   return (
     <SearchWrap>
       <SearchInput
         type="text"
         value={searchText}
-        placeholder={searchToggleText + '을 검색해 주세요.'}
+        placeholder={activeToggle === 0 ? '매장명을 검색해 주세요.' : '제품명을 검색해 주세요.'}
         onKeyDown={(event) => {
           if (event.key === 'Enter') {
             if (searchText !== '') {
@@ -30,7 +28,7 @@ export const SearchBar: React.FC<TSearchBarProps> = ({
         spellCheck={false}
         onInput={onInputSearchHandler}
       />
-      <SearchImg src="assets/search.png" alt="검색" onClick={SearchHandler} />
+      <SearchImg src={`${process.env.PUBLIC_URL}/assets/search.png`} alt="검색" onClick={SearchHandler} />
     </SearchWrap>
   );
 };
@@ -41,15 +39,16 @@ const SearchWrap = styled.div`
 `;
 
 const SearchInput = styled.input`
-  margin-top: 12px;
-  width: 652px;
+  margin-top: 1.6rem;
   border: none;
-  border-bottom: 1px solid #565656;
+  width: 100%;
+  border-bottom: 0.1rem solid #565656;
   padding-bottom: 5px;
   outline: none;
-  color: #0b5c71;
+  color: #565656;
 
-  font-size: 16px;
+  font-family: 'Noto Sans KR';
+  font-size: 1.6rem;
   font-weight: 510;
 
   &::placeholder {
@@ -57,15 +56,14 @@ const SearchInput = styled.input`
   }
 
   @media (max-width: 768px) {
-    margin-top: 16px;
-    width: 296px;
-    font-size: 14px;
+    margin-top: 4rem;
+    font-size: 3.5rem;
   }
 `;
 
 const SearchImg = styled.img`
   padding: 5px;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
 `;
