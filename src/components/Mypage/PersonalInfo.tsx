@@ -11,18 +11,18 @@ const PersonalInfo = () => {
     <Wrap>
       <div>
         <div>
-          <PersonalImg src="assets/white.png" alt="이미지"></PersonalImg>
+          <PersonalImg src={`${process.env.PUBLIC_URL}/assets/MyPage/white.png`} alt="이미지"></PersonalImg>
         </div>
         <InfoWrap>
           <Name>사용자 이름</Name>
           <SocialWrap>
-            <SocialIcon src="assets/kakao.png" alt="소셜아이콘"></SocialIcon>
+            <SocialIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/kakao.png`} alt="소셜아이콘"></SocialIcon>
             <Email>계정아이디@gamil.com</Email>
           </SocialWrap>
         </InfoWrap>
       </div>
       <div onClick={onSettingHandler}>
-        <SettingsIcon src="assets/settings.png" alt="계정관리"></SettingsIcon>
+        <SettingsIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/settings.png`} alt="계정관리"></SettingsIcon>
         <Settings>계정 관리</Settings>
       </div>
     </Wrap>

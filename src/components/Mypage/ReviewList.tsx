@@ -16,15 +16,15 @@ const ReviewList = () => {
       <Reviews>
         {ReviewDummy.map((i) => (
           <Review key={i.storeName} onClick={modalHandler}>
-            <StoreImg src={`assets/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
+            <StoreImg src={`${process.env.PUBLIC_URL}assets/MyPage/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
             <div>
               <h3>{i.storeName}</h3>
               <p>{i.content}</p>
             </div>
-            <FavoriteIcon src="assets/favorite.png" alt="좋아요아이콘" />
+            <FavoriteIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/favorite.png`} alt="좋아요아이콘" />
             <FavoriteCount>{i.favoriteCount}</FavoriteCount>
             <TrashWrap>
-              <TrashIcon src="assets/trash.png" alt="삭제아이콘" />
+              <TrashIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/trash.png`} alt="삭제아이콘" />
               <TrashText>삭제</TrashText>
             </TrashWrap>
             <Date>{i.date}</Date>

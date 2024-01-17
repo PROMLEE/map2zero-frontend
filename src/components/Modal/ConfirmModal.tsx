@@ -62,10 +62,9 @@ const ConfirmModal = () => {
               }),
         },
       }}
-      shouldCloseOnOverlayClick={false}
     >
       <Message>리뷰를 삭제할까요?</Message>
-      <Close src="assets/close.png" alt="닫기" onClick={modalHandler} />
+      <Close src={`${process.env.PUBLIC_URL}/assets/MyPage/close.png`} alt="닫기" onClick={modalHandler} />
       <BtnWrap>
         <ConfirmBtn>네</ConfirmBtn>
         <ConfirmBtn onClick={modalHandler}>아니오</ConfirmBtn>
