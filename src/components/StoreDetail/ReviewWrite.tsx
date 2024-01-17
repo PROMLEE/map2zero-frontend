@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 import { reviewmodalState } from '../../recoil';
-import { StarRating } from '../../components';
+import { StarRating, Storetag, TextReview } from '../../components';
 
 export default function ReviewWrite() {
   const setModal = useSetRecoilState(reviewmodalState);
@@ -20,7 +20,9 @@ export default function ReviewWrite() {
         <Texts $margintop={'8rem'}>별점을 선택해 주세요</Texts>
         <StarRating />
         <Texts $margintop={'8rem'}>태그를 선택해 주세요</Texts>
+        <Storetag />
         <Texts $margintop={'6.5rem'}>리뷰를 작성해 주세요</Texts>
+        {/* <TextReview /> */}
         <Texts $margintop={'8rem'}>사진을 추가해 주세요</Texts>
       </Modal>
     </Background>

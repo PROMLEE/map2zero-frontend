@@ -5,4 +5,9 @@ const reviewmodalState = atom<boolean>({
   default: true,
 });
 
-export { reviewmodalState };
+const tagitem = atom<string[]>({
+  key: 'tagitem',
+  default: [],
+});
+
+export { reviewmodalState, tagitem };

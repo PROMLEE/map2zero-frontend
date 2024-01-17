@@ -1,4 +1,4 @@
 import { exampleState } from './example';
-import { reviewmodalState } from './reviewwritemodal';
+import { reviewmodalState, tagitem } from './reviewwritemodal';
 
-export { exampleState, reviewmodalState };
+export { exampleState, reviewmodalState, tagitem };
