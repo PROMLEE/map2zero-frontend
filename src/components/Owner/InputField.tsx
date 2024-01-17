@@ -8,7 +8,7 @@ type InputFieldType = {
   label: string;
   placeholder?: string;
   value?: string | undefined | number;
-  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   searchAddress?: AddressesType;
 };
 const InputField = ({ id, label, placeholder, value, onChange, searchAddress }: InputFieldType) => {

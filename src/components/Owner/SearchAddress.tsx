@@ -1,25 +1,13 @@
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import React, { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { InputState } from '../../recoil';
 import { AddressesType } from '../../recoil/Owner/ownerTypes';
+import { useInput } from '../../hooks/Owner';
 
 const SearchAddress = (addresses: AddressesType) => {
-  const [inputs, setInputs] = useRecoilState(InputState);
   const { address, detailAddress } = addresses;
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setInputs({
-      ...inputs,
-      addresses: {
-        ...inputs.addresses,
-        [id]: value,
-      },
-    });
-  };
+  const { inputs, setInputs, onHandleChange } = useInput('address');
 
   const scriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
 
@@ -55,12 +43,12 @@ const SearchAddress = (addresses: AddressesType) => {
   return (
     <>
       <AddressBtn onClick={handleClick}>우편번호찾기</AddressBtn>
-      <AddressInput id="address" type="text" disabled={isDisabled} onChange={onChange} value={address} />
+      <AddressInput id="address" type="text" disabled={isDisabled} onChange={onHandleChange} value={address} />
       <AddressInput
         id="detailAddress"
         type="text"
         placeholder="상세 주소 입력"
-        onChange={onChange}
+        onChange={onHandleChange}
         value={detailAddress}
       />
     </>
@@ -100,7 +88,7 @@ const AddressInput = styled.input`
   margin-bottom: 1rem;
   background-color: ${(props) => (props.disabled ? '#F2F2F2' : 'white')}; // 비활성화 시 회색, 활성화 시 흰색 배경
   &::placeholder {
-    color: rgba(224, 224, 224, 1); // placeholder 색상 변경
+    color: rgba(224, 224, 224, 1);
   }
   &:focus {
     outline: none; // 포커스 시 외곽선 제거

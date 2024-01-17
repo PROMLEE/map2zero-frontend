@@ -1,35 +1,29 @@
-import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { InputState } from '../recoil';
-import { SearchAddress, InputField } from '../components/Owner';
+import { InputField } from '../components/Owner';
+import { useInput } from '../hooks/Owner';
 
 const Owner = () => {
-  const [inputs, setInputs] = useRecoilState(InputState);
-
+  const { inputs, onHandleChange } = useInput('default'); //배열 대신 객체로 반환
   const { title, addresses, businessLicenseNum, contact, ceoName } = inputs;
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setInputs({
-      ...inputs,
-      [id]: value,
-    });
-  };
-
-  //console.log(inputs);
+  // console.log(inputs);
   return (
     <Wrap>
       <Title>점주 신청하기</Title>
 
       <ContentWrap>
-        <InputField id="title" label="상호명" placeholder="상호명을 입력해주세요" value={title} onChange={onChange} />
+        <InputField
+          id="title"
+          label="상호명"
+          placeholder="상호명을 입력해주세요"
+          value={title}
+          onChange={onHandleChange}
+        />
         <InputField
           id="businessLicenseNum"
           label="사업자등록번호"
           placeholder="사업자등록번호를 입력해주세요"
           value={businessLicenseNum}
-          onChange={onChange}
+          onChange={onHandleChange}
         />
 
         <InputField label="매장주소" searchAddress={addresses} />
@@ -39,7 +33,7 @@ const Owner = () => {
           label="연락처"
           placeholder="연락처를 입력해주세요"
           value={contact}
-          onChange={onChange}
+          onChange={onHandleChange}
         />
 
         <InputField
@@ -47,7 +41,7 @@ const Owner = () => {
           label="대표명"
           placeholder="대표명을 입력해주세요"
           value={ceoName}
-          onChange={onChange}
+          onChange={onHandleChange}
         />
       </ContentWrap>
       <OwnerBtn>신청완료</OwnerBtn>
