@@ -23,28 +23,40 @@ const ReviewBox = styled.div`
 `;
 const TextBox = styled.textarea`
   width: 90%;
-  height: 30rem;
-  padding: 4rem;
+  height: 16.5rem;
+  padding: 1.6rem;
+  margin-top: 1.4rem;
   margin-left: 6rem;
-  margin-top: 3.5rem;
-  border-radius: 2rem;
+  border-radius: 0.8rem;
   border: 0.5px solid #e0e0e0;
   background: #f2f2f2;
   resize: none;
+  font-size: 1rem;
   font-family: 'Noto Sans KR';
-  font-size: 2.5rem;
   &::placeholder {
     color: #848484;
     font-weight: 400;
   }
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    border-radius: 2rem;
+    padding: 4rem;
+    border: 0.5px solid #e0e0e0;
+    height: 30rem;
+    margin-top: 3.5rem;
+  }
 `;
 const Textcount = styled.div`
   width: 90%;
-  height: 6.5rem;
   margin-left: 6rem;
-  padding: 2rem;
   color: #e0e0e0;
   text-align: right;
+  font-size: 0.8rem;
+  padding: 0.8rem;
   font-family: 'Noto Sans KR';
-  font-size: 2rem;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    padding: 2rem;
+    height: 6.5rem;
+  }
 `;

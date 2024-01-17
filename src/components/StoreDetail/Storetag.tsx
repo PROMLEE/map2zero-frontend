@@ -13,12 +13,16 @@ export const Storetag = () => {
 };
 
 const TagsWrap = styled.div`
-  margin-top: 3.5rem;
-  margin-left: 6rem;
   display: flex;
-  width: 90%;
-  gap: 2rem 1rem;
+  margin-top: 1.4rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 48.4rem;
+  gap: 0.8rem 0.4rem;
   flex-wrap: wrap;
   @media (max-width: 768px) {
+    gap: 2rem 1rem;
+    width: 90%;
+    margin-top: 3.5rem;
   }
 `;

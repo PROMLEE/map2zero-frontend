@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-interface StarRatingProps {
-  totalStars?: number;
-}
-
-export const StarRating: React.FC<StarRatingProps> = ({ totalStars = 5 }) => {
+export const StarRating = ({ totalStars = 5 }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
@@ -22,7 +18,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ totalStars = 5 }) => {
               onClick={() => setRating(ratingValue)}
               style={{ display: 'none' }}
             />
-            <img
+            <Starimg
               src={
                 ratingValue <= (hover || rating)
                   ? `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.png`
@@ -42,7 +38,18 @@ export const StarRating: React.FC<StarRatingProps> = ({ totalStars = 5 }) => {
 
 const Starbox = styled.div`
   position: relative;
-  margin-top: 3.5rem;
+  margin-top: 1.4rem;
   margin-left: auto;
   margin-right: auto;
+  @media (max-width: 768px) {
+    margin-top: 3.5rem;
+  }
+`;
+const Starimg = styled.img`
+  width: 4rem;
+  height: 4rem;
+  @media (max-width: 768px) {
+    width: 10rem;
+    height: 10rem;
+  }
 `;

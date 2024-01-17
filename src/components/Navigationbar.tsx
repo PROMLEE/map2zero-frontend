@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function Header() {
+export const Navigationbar = () => {
   return (
     <Mainheader>
       <Link to="/">
@@ -20,7 +20,7 @@ export default function Header() {
       </Links>
     </Mainheader>
   );
-}
+};
 
 const Mainheader = styled.div`
   width: 100%;

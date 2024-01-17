@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { exampleState } from '../recoil';
 
-export default function Example() {
+export const Example = () => {
   const [example, setExample] = useRecoilState(exampleState);
   const onclick = () => {
     setExample({ text: example.text + '용', nums: example.nums + 1 });
@@ -16,4 +16,4 @@ export default function Example() {
       <div>root 디렉토리에 .env 파일을 만든 후 REACT_APP_API_KEY 변수 에 문자열을 할당해주세요.</div>
     </>
   );
-}
+};

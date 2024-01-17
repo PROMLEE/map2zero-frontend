@@ -6,7 +6,7 @@ import { tagitem } from '../../recoil';
 interface Props {
   tag: string;
 }
-export default function Tagitem(props: Props) {
+export const Tagitem = (props: Props) => {
   const [tags, setModal] = useRecoilState(tagitem);
   const [tagon, settagon] = useState<boolean>(false);
 
@@ -26,7 +26,7 @@ export default function Tagitem(props: Props) {
       {props.tag}
     </TagItem>
   );
-}
+};
 
 const TagItem = styled.div<{ $istagon: boolean }>`
   padding: 1rem 2rem;
@@ -41,6 +41,10 @@ const TagItem = styled.div<{ $istagon: boolean }>`
   font-weight: 400;
   @media (min-width: 768px) {
     // min-width 이유: hover event 적용시 모바일에서 문제 발생함.
+    height: 2.2rem;
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 1.6rem;
     &:hover {
       cursor: pointer;
       background-color: #74b69d;
