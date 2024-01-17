@@ -86,12 +86,12 @@ const AddressInput = styled.input`
   padding: 1rem;
   font-size: 1.4rem;
   margin-bottom: 1rem;
-  background-color: ${(props) => (props.disabled ? '#F2F2F2' : 'white')}; // 비활성화 시 회색, 활성화 시 흰색 배경
+  background-color: ${(props) => (props.disabled ? '#F2F2F2' : 'white')};
   &::placeholder {
     color: rgba(224, 224, 224, 1);
   }
   &:focus {
-    outline: none; // 포커스 시 외곽선 제거
+    outline: none;
   }
 
   @media (max-width: 480px) {

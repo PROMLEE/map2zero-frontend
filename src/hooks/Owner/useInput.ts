@@ -3,28 +3,17 @@ import { useRecoilState } from 'recoil';
 import { InputState } from '../../recoil';
 
 
-const useInput = (props:string) => {
+const useInput = (type:string) => {
   
   const [inputs, setInputs] = useRecoilState(InputState);
   
   const onHandleChange : React.ChangeEventHandler<HTMLInputElement> = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
 
-    if(props==="address"){
-      setInputs({
-        ...inputs,
-        addresses: {
-          ...inputs.addresses,
-          [id]: value,
-        },
-      });
-    }
-    else {
-      setInputs({
-        ...inputs,
-        [id]: value,
-      });
-    }
+    setInputs({
+      ...inputs,
+      ...(type === "address" ? { addresses: { ...inputs.addresses, [id]: value } } : { [id]: value })
+    });
     
   };
   

@@ -5,7 +5,7 @@ import { useInput } from '../hooks/Owner';
 const Owner = () => {
   const { inputs, onHandleChange } = useInput('default'); //배열 대신 객체로 반환
   const { title, addresses, businessLicenseNum, contact, ceoName } = inputs;
-  // console.log(inputs);
+  //console.log(inputs);
   return (
     <Wrap>
       <Title>점주 신청하기</Title>
