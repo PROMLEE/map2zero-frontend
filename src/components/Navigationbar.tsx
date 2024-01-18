@@ -83,7 +83,7 @@ const NavPc = styled.div`
   position: fixed;
   display: none;
   background: #fff;
-  box-shadow: 0rem 0rem 4rem 0rem rgba(0, 0, 0, 0.25);
+  box-shadow: 0rem 0rem 0.4rem 0rem rgba(0, 0, 0, 0.25);
   width: 100%;
   height: 8rem;
   top: 0rem;
