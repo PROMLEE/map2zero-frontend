@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { searchToggleState } from '../../recoil/searchToggleState';
+import { searchToggleState } from '../../recoil';
 
 export const SearchToggle = () => {
   const [activeToggle, setActiveToggle] = useRecoilState(searchToggleState);

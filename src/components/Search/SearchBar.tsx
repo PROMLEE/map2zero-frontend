@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import { searchToggleState } from '../../recoil/searchToggleState';
+import { searchToggleState } from '../../recoil';
 
 type TSearchBarProps = {
   searchText: string;

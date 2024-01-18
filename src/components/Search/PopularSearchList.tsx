@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import { searchToggleState } from '../../recoil/searchToggleState';
+import { searchToggleState } from '../../recoil';
 
 export const PopularSearchList = () => {
   const activeToggle = useRecoilValue(searchToggleState);
