@@ -6,10 +6,10 @@ import { searchToggleState } from '../../recoil/searchToggleState';
 type TSearchBarProps = {
   searchText: string;
   onInputSearchHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  SearchHandler: () => void;
+  searchHandler: () => void;
 };
 
-export const SearchBar: React.FC<TSearchBarProps> = ({ searchText, onInputSearchHandler, SearchHandler }) => {
+export const SearchBar: React.FC<TSearchBarProps> = ({ searchText, onInputSearchHandler, searchHandler }) => {
   const activeToggle = useRecoilValue(searchToggleState);
 
   return (
@@ -21,14 +21,14 @@ export const SearchBar: React.FC<TSearchBarProps> = ({ searchText, onInputSearch
         onKeyDown={(event) => {
           if (event.key === 'Enter') {
             if (searchText !== '') {
-              SearchHandler();
+              searchHandler();
             }
           }
         }}
         spellCheck={false}
         onInput={onInputSearchHandler}
       />
-      <SearchImg src={`${process.env.PUBLIC_URL}/assets/search.png`} alt="검색" onClick={SearchHandler} />
+      <SearchImg src={`${process.env.PUBLIC_URL}/assets/Search/search.png`} alt="검색" onClick={searchHandler} />
     </SearchWrap>
   );
 };

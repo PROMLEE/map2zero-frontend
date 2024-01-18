@@ -59,7 +59,7 @@ export const PopularSearchList = () => {
 
   return (
     <ListWrap>
-      <h1>인기 {activeToggle === 0 ? '매장' : '제품'} 순위</h1>
+      <h1>실시간 인기 {activeToggle === 0 ? '매장' : '제품'}</h1>
       <List>
         <div>
           {data.slice(0, 5).map((item, index) => {

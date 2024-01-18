@@ -16,8 +16,7 @@ export default function Search() {
   };
 
   //검색했을 때 이벤트
-  const SearchHandler = () => {
-    console.log(searchText);
+  const searchHandler = () => {
     if (searchText) {
       setSearchResultView(true);
     }
@@ -25,13 +24,13 @@ export default function Search() {
 
   return (
     <Container>
-      <LogoImg src={`${process.env.PUBLIC_URL}/assets/logo.png`} alt="로고" />
+      <LogoImg src={`${process.env.PUBLIC_URL}/assets/Search/logo.png`} alt="로고" />
       <SearchContainer>
         <SearchToggle />
-        <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} SearchHandler={SearchHandler} />
+        <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
       </SearchContainer>
       {searchResultView ? (
-        <div>결과 리스트</div>
+        <div>결과 리스트 출력</div>
       ) : (
         <SearchList>
           <RecentSearchList />
@@ -65,6 +64,10 @@ const SearchContainer = styled.div`
   margin-top: 2.4rem;
   width: 92.4rem;
 
+  @media (max-width: 1000px) {
+    width: 70rem;
+  }
+
   @media (max-width: 768px) {
     margin-top: 6rem;
     width: 80.5rem;
@@ -75,6 +78,10 @@ const SearchList = styled.div`
   box-sizing: border-box;
   padding: 1.6rem;
   width: 92.4rem;
+
+  @media (max-width: 1000px) {
+    width: 70rem;
+  }
 
   @media (max-width: 768px) {
     padding: 0;

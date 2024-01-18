@@ -41,7 +41,6 @@ const ToggleBackground = styled.div<{ $activeToggle: number }>`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
   width: 54px;
   height: 30px;
-  z-index: 10;
   transition: all 300ms ease-in-out;
   transform: ${(props) => (props.$activeToggle === 0 ? 'translateX(0)' : 'translateX(100%)')};
 `;

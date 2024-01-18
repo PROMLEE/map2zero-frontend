@@ -16,12 +16,12 @@ export const RecentSearchList = () => {
   ]);
 
   //최근 검색어 모두 지우기
-  const AllClear = () => {
+  const allClear = () => {
     setTags([]);
   };
 
   //특정 최근 검색어 지우기
-  const ItemClear = (index: number) => {
+  const itemClear = (index: number) => {
     const newTags = tags.filter((_, i) => i !== index);
     setTags(newTags);
   };
@@ -30,13 +30,17 @@ export const RecentSearchList = () => {
     <ListWrap>
       <SearchHead>
         <h1>최근 검색어</h1>
-        <button onClick={AllClear}>모두 지우기</button>
+        <button onClick={allClear}>모두 지우기</button>
       </SearchHead>
       <TagsWrap>
         {tags.map((item, index) => {
           return (
             <TagItem key={index}>
-              <img src={`${process.env.PUBLIC_URL}/assets/delete.png`} alt="삭제" onClick={() => ItemClear(index)} />
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/Search/delete.png`}
+                alt="삭제"
+                onClick={() => itemClear(index)}
+              />
               <span>{item.length > 13 ? item.slice(0, 13) + '...' : item}</span>
             </TagItem>
           );
