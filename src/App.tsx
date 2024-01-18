@@ -1,6 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-
 import { Navigationbar } from './components';
 import { Home, Search, Login, Mypage, KakaoLoginHandeler, NaverLoginHandeler, Setting, Owner } from './pages';
 
