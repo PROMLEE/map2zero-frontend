@@ -4,6 +4,7 @@ import { SearchToggle } from '../components/Search/SearchToggle';
 import { SearchBar } from '../components/Search/SearchBar';
 import { RecentSearchList } from '../components/Search/RecentSearchList';
 import { PopularSearchList } from '../components/Search/PopularSearchList';
+import { Mobiletop } from '../components';
 
 export default function Search() {
   const [searchText, setSearchText] = useState('');
@@ -24,6 +25,7 @@ export default function Search() {
 
   return (
     <Container>
+      <Mobiletop pagename="검색" />
       <LogoImg src={`${process.env.PUBLIC_URL}/assets/Search/logo.png`} alt="로고" />
       <SearchContainer>
         <SearchToggle />
@@ -44,7 +46,6 @@ export default function Search() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
 
