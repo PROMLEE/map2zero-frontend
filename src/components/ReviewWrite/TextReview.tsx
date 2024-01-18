@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
+import { textRate } from '../../recoil';
 
 export const TextReview = () => {
+  const setText = useSetRecoilState(textRate);
   let [inputCount, setInputCount] = useState(0);
   const onInputHandler = (e: any) => {
     setInputCount(e.target.value.length);
+    setText(e.target.value);
   };
 
   return (

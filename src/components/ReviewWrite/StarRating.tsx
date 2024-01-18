@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { starRate } from '../../recoil';
 
 export const StarRating = ({ totalStars = 5 }) => {
-  const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
+  const [rating, setRating] = useRecoilState(starRate);
 
   return (
     <Starbox>
@@ -15,7 +17,9 @@ export const StarRating = ({ totalStars = 5 }) => {
               type="radio"
               name="rating"
               value={ratingValue}
-              onClick={() => setRating(ratingValue)}
+              onClick={() => {
+                setRating(ratingValue);
+              }}
               style={{ display: 'none' }}
             />
             <Starimg

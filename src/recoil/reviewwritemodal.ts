@@ -9,5 +9,14 @@ const tagitem = atom<string[]>({
   key: 'tagitem',
   default: [],
 });
+const starRate = atom<number>({
+  key: 'starRate',
+  default: 0,
+});
 
-export { reviewmodalState, tagitem };
+const textRate = atom<string>({
+  key: 'textRate',
+  default: '',
+});
+
+export { reviewmodalState, tagitem, starRate, textRate };

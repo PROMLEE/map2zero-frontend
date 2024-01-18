@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Tagitem } from '../StoreDetail';
+import { Tagitem } from '.';
 export const Storetag = () => {
   const tags = ['#태그1태그1태그1', '#태그2', '#태그3태그3', '#태그4', '#태그5', '#태그6태그6태그6ㄴㄴㄴ'];
 

@@ -1,10 +1,14 @@
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { reviewmodalState } from '../../recoil';
-import { StarRating, Storetag, TextReview, Addpic } from '../StoreDetail';
+import { StarRating, Storetag, TextReview, Addpic } from '.';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { reviewmodalState, starRate, textRate, tagitem } from '../../recoil';
 
 export const ReviewWrite = () => {
   const setModal = useSetRecoilState(reviewmodalState);
+  const star = useRecoilValue(starRate);
+  const text = useRecoilValue(textRate);
+  const tag = useRecoilValue(tagitem);
+  const isConditionMet = star !== 0 && text !== '';
 
   return (
     <Background>
@@ -32,7 +36,14 @@ export const ReviewWrite = () => {
           사진을 추가해 주세요
         </Texts>
         <Addpic />
-        <CompleteButton>작성 완료</CompleteButton>
+        <CompleteButton
+          disabled={!isConditionMet}
+          onClick={() => {
+            console.log(text);
+          }}
+        >
+          작성 완료
+        </CompleteButton>
       </Modal>
     </Background>
   );
@@ -76,7 +87,7 @@ const Xbutton = styled.img`
   height: 1.5rem;
   right: 1.6rem;
   top: 1.6rem;
-  &:hover {
+  &:active {
     cursor: pointer;
   }
   @media (max-width: 768px) {
@@ -123,12 +134,13 @@ const CompleteButton = styled.button`
   font-family: 'Noto Sans KR';
   font-weight: 600;
   border-radius: 0.8rem;
-  background: #f2f2f2;
-  color: #565656;
-  /* background: #0b5c71; */
-  /* color: #fff; */
-  &:hover {
-    cursor: pointer;
+  background-color: #0b5c71;
+  color: #fff;
+  cursor: pointer;
+  &:disabled {
+    cursor: auto;
+    background-color: #f2f2f2;
+    color: #565656;
   }
   @media (max-width: 768px) {
     width: 90%;
