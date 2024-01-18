@@ -19,7 +19,6 @@ export const Tagitem = (props: Props) => {
     }
     setModal(onpresstags);
     settagon(!tagon);
-    console.log(tagon, tags);
   };
   return (
     <TagItem $istagon={tagon} onClick={onpress}>

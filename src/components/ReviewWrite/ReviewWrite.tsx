@@ -53,7 +53,7 @@ export const ReviewWrite = () => {
         <CompleteButton
           disabled={!isConditionMet}
           onClick={() => {
-            console.log(text);
+            console.log({ star: star, tag: tag, text: text });
           }}
         >
           작성 완료
