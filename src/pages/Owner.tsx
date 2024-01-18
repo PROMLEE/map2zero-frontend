@@ -61,7 +61,7 @@ const Wrap = styled.div`
 const Title = styled.h1`
   font-size: 1.6rem;
   margin: 6rem 0 1rem 0;
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -73,7 +73,7 @@ const ContentWrap = styled.div`
   @media all and (min-width: 768px) and (max-width: 1000px) {
     width: 90%;
   }
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     width: 81.75rem;
   }
 `;
@@ -91,7 +91,7 @@ const OwnerBtn = styled.button`
   margin-top: 6rem;
   margin-bottom: 2rem;
   cursor: pointer;
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     line-height: 12rem;
     height: 12rem;
     width: 81.75rem;

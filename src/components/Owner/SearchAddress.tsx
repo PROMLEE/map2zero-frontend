@@ -69,7 +69,7 @@ const AddressBtn = styled.button`
   border: 0.1rem solid rgba(255, 100, 100, 1);
   margin-bottom: 1rem;
   cursor: pointer;
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     line-height: 8rem;
     height: 8rem;
     width: 26rem;
@@ -94,7 +94,7 @@ const AddressInput = styled.input`
     outline: none;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     padding: 2.5rem;
     margin-bottom: 2.5rem;
     font-size: 3.5rem;

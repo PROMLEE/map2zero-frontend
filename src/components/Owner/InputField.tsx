@@ -31,7 +31,7 @@ const OwnerLabel = styled.label`
   padding-left: 0.8rem;
   padding: 0 0 1.6rem 0.8rem;
   margin-top: 4.7rem;
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     font-size: 3.5rem;
     padding-left: 2rem;
     padding: 0 0 4rem 2rem;
@@ -49,7 +49,7 @@ const OwnerInput = styled.input`
   &:focus {
     outline: none;
   }
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     padding: 0 0 4rem 2rem;
     border-bottom-width: 0.25rem;
     font-size: 3.5rem;
