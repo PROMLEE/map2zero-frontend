@@ -1,20 +1,25 @@
 import styled from 'styled-components';
 import { ReviewWrite } from '../components';
-import { useRecoilState } from 'recoil';
+import { SlideBox, StoreIndex, Productlist, Eventlist, Reviewlist } from '../components/StoreDetail';
+import { useRecoilValue } from 'recoil';
 import { reviewmodalState } from '../recoil';
 
 export default function StoreDetail() {
-  let [modal, setModal] = useRecoilState(reviewmodalState);
+  const modal = useRecoilValue(reviewmodalState);
   return (
-    <>
-      <ReviewWriteButton onClick={() => setModal(true)}>dkdkdkkd</ReviewWriteButton>
+    <DetailBox>
+      <SlideBox />
+      <StoreIndex />
+      <Productlist />
+      <Eventlist />
+      <Reviewlist />
       {modal == true ? <ReviewWrite /> : null}
-    </>
+    </DetailBox>
   );
 }
-const ReviewWriteButton = styled.div`
-  font-size: 20px;
-  &:hover {
-    cursor: pointer;
-  }
+const DetailBox = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 `;

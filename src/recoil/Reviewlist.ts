@@ -1,0 +1,123 @@
+import { atom } from 'recoil';
+import { ReviewType } from './types';
+
+const MyReviewState = atom<ReviewType[]>({
+  key: 'myreview',
+  default: [
+    {
+      nickname: '내닉네임',
+      star: 5,
+      tag: ['# 좋아요', '# 나빠요'],
+      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      reviewurl: [
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      ],
+      text: 'string',
+      like: 50,
+      code: 30,
+    },
+  ],
+});
+
+const ReviewState = atom<ReviewType[]>({
+  key: 'ReviewsState',
+  default: [
+    {
+      nickname: '닉네임',
+      star: 3,
+      tag: ['# 좋아요', '# 나빠요'],
+      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      reviewurl: [],
+      text: 'string',
+      like: 5,
+      code: 0,
+    },
+    {
+      nickname: '닉네임',
+      star: 3,
+      tag: ['# 좋아요', '# 나빠요'],
+      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      reviewurl: [
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+        `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      ],
+      text: 'stringdddddddddddddddddddddddddddddddddddddddddd\nddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd dddddddddddddddddddddddddddddddddddddddddddddddddd',
+      like: 5,
+      code: 0,
+    },
+    {
+      nickname: '닉네임',
+      star: 3,
+      tag: ['# 좋아요', '# 나빠요'],
+      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      reviewurl: [],
+      text: 'string',
+      like: 5,
+      code: 0,
+    },
+    {
+      nickname: '닉네임',
+      star: 3,
+      tag: ['# 좋아요', '# 나빠요'],
+      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      reviewurl: [],
+      text: 'string',
+      like: 5,
+      code: 0,
+    },
+    {
+      nickname: '닉네임',
+      star: 3,
+      tag: ['# 좋아요', '# 나빠요'],
+      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      reviewurl: [],
+      text: 'string',
+      like: 5,
+      code: 0,
+    },
+    {
+      nickname: '닉네임',
+      star: 3,
+      tag: ['# 좋아요', '# 나빠요'],
+      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      reviewurl: [],
+      text: 'string',
+      like: 5,
+      code: 0,
+    },
+    {
+      nickname: '닉네임',
+      star: 3,
+      tag: ['# 좋아요', '# 나빠요'],
+      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      reviewurl: [],
+      text: 'string',
+      like: 5,
+      code: 0,
+    },
+    {
+      nickname: '닉네임',
+      star: 3,
+      tag: ['# 좋아요', '# 나빠요'],
+      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
+      reviewurl: [],
+      text: 'string',
+      like: 5,
+      code: 0,
+    },
+  ],
+});
+
+export { ReviewState, MyReviewState };
