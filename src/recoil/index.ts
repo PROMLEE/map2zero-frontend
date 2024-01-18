@@ -1,3 +1,4 @@
 import { exampleState } from "./example";
+import { popUpModalState } from "./confirmModal";
 
-export { exampleState };
+export { exampleState ,popUpModalState };
