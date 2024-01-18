@@ -1,3 +1,5 @@
 import { exampleState } from "./example";
 import {InputState} from "./Owner/owner"
-export { exampleState ,InputState };
+import { popUpModalState } from "./confirmModal";
+
+export { exampleState ,popUpModalState ,InputState};
