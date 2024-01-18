@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 const reviewmodalState = atom<boolean>({
   key: 'reviewmodal',
-  default: true,
+  default: false,
 });
 
 const tagitem = atom<string[]>({

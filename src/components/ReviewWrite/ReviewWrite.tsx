@@ -2,17 +2,31 @@ import styled from 'styled-components';
 import { StarRating, Storetag, TextReview, Addpic } from '.';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { reviewmodalState, starRate, textRate, tagitem } from '../../recoil';
+import { useEffect, useRef } from 'react';
 
 export const ReviewWrite = () => {
   const setModal = useSetRecoilState(reviewmodalState);
+  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
   const star = useRecoilValue(starRate);
   const text = useRecoilValue(textRate);
   const tag = useRecoilValue(tagitem);
   const isConditionMet = star !== 0 && text !== '';
+  const closeModal = (event: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      setModal(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', closeModal);
+    return () => {
+      document.removeEventListener('mousedown', closeModal);
+    };
+  }, []);
 
   return (
     <Background>
-      <Modal>
+      <Modal ref={modalRef}>
         <Xbutton
           src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
           onClick={() => {
@@ -87,7 +101,7 @@ const Xbutton = styled.img`
   height: 1.5rem;
   right: 1.6rem;
   top: 1.6rem;
-  &:active {
+  &:hover {
     cursor: pointer;
   }
   @media (max-width: 768px) {
