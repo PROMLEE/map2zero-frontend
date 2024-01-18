@@ -1,10 +1,23 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Home, Search, Login, Mypage, StoreDetail } from './pages';
 import { Navigationbar } from './components';
+import {
+  Home,
+  Search,
+  Login,
+  Mypage,
+  KakaoLoginHandeler,
+  NaverLoginHandeler,
+  Setting,
+  Owner,
+  StoreDetail,
+} from './pages';
+
+import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
+
 export default function App() {
   return (
-    <div>
+    <Background>
       <BrowserRouter>
         <GlobalStyle />
         <Navigationbar />
@@ -12,10 +25,17 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/login/auth/callback/kakao" element={<KakaoLoginHandeler />} />
+          <Route path="/login/auth/callback/naver" element={<NaverLoginHandeler />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/setting" element={<Setting />} />
+          <Route path="/owner" element={<Owner />} />
           <Route path="/store" element={<StoreDetail />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </Background>
   );
 }
+const Background = styled.div`
+  height: 100vh;
+`;
