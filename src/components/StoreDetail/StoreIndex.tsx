@@ -13,4 +13,9 @@ export const StoreIndex = () => {
 const StoreIndexBox = styled.div`
   display: flex;
   flex-direction: column;
+  width: 41%;
+  align-items: center;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;

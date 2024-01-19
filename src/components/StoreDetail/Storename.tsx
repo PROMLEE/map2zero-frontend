@@ -1,12 +1,23 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 
 export const StoreName = () => {
+  const [handlebookmark, sethandlebookmark] = useState(true);
   return (
     <DetailBox>
       <Name>매장명</Name>
       <div>
-        <Link src={`${process.env.PUBLIC_URL}/assets/StoreDetail/share.png`} />
-        <Link src={`${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark.png`} />
+        <LinkButton src={`${process.env.PUBLIC_URL}/assets/StoreDetail/share.svg`} />
+        <LinkButton
+          onClick={() => {
+            sethandlebookmark(!handlebookmark);
+          }}
+          src={
+            handlebookmark
+              ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark.png`
+              : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.png`
+          }
+        />
       </div>
     </DetailBox>
   );
@@ -18,6 +29,11 @@ const DetailBox = styled.div`
   margin-top: 3.2rem;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 6rem;
+    height: 8.75rem;
+  }
 `;
 const Name = styled.div`
   align-items: center;
@@ -25,8 +41,19 @@ const Name = styled.div`
   font-family: 'Noto Sans KR';
   font-size: 2rem;
   font-weight: 600;
+  @media (max-width: 768px) {
+    font-size: 5rem;
+  }
 `;
-const Link = styled.img`
-  width: 3.8rem;
-  height: 4rem;
+const LinkButton = styled.img`
+  width: 1.5152rem;
+  height: 2rem;
+  margin: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    width: 3.375rem;
+    height: 3.75rem;
+  }
 `;

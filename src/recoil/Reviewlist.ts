@@ -6,6 +6,7 @@ const MyReviewState = atom<ReviewType[]>({
   default: [
     {
       nickname: '내닉네임',
+      date: '2024.00.00',
       star: 5,
       tag: ['# 좋아요', '# 나빠요'],
       url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
@@ -26,6 +27,7 @@ const ReviewState = atom<ReviewType[]>({
   default: [
     {
       nickname: '닉네임',
+      date: '2024.00.00',
       star: 3,
       tag: ['# 좋아요', '# 나빠요'],
       url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
@@ -36,6 +38,7 @@ const ReviewState = atom<ReviewType[]>({
     },
     {
       nickname: '닉네임',
+      date: '2024.00.00',
       star: 3,
       tag: ['# 좋아요', '# 나빠요'],
       url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
@@ -59,6 +62,7 @@ const ReviewState = atom<ReviewType[]>({
     },
     {
       nickname: '닉네임',
+      date: '2024.00.00',
       star: 3,
       tag: ['# 좋아요', '# 나빠요'],
       url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
@@ -69,6 +73,7 @@ const ReviewState = atom<ReviewType[]>({
     },
     {
       nickname: '닉네임',
+      date: '2024.00.00',
       star: 3,
       tag: ['# 좋아요', '# 나빠요'],
       url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
@@ -79,6 +84,7 @@ const ReviewState = atom<ReviewType[]>({
     },
     {
       nickname: '닉네임',
+      date: '2024.00.00',
       star: 3,
       tag: ['# 좋아요', '# 나빠요'],
       url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
@@ -89,6 +95,7 @@ const ReviewState = atom<ReviewType[]>({
     },
     {
       nickname: '닉네임',
+      date: '2024.00.00',
       star: 3,
       tag: ['# 좋아요', '# 나빠요'],
       url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
@@ -99,6 +106,7 @@ const ReviewState = atom<ReviewType[]>({
     },
     {
       nickname: '닉네임',
+      date: '2024.00.00',
       star: 3,
       tag: ['# 좋아요', '# 나빠요'],
       url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
@@ -109,6 +117,7 @@ const ReviewState = atom<ReviewType[]>({
     },
     {
       nickname: '닉네임',
+      date: '2024.00.00',
       star: 3,
       tag: ['# 좋아요', '# 나빠요'],
       url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,

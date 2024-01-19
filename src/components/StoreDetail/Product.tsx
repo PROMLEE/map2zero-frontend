@@ -23,6 +23,17 @@ const Box = styled.div`
   flex-direction: column;
   border-bottom: 0.5px solid;
   border-color: #f2f2f2;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    gap: 0rem;
+    width: 100%;
+    padding: 4rem;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 11.5rem;
+  }
 `;
 const ProductName = styled.div`
   color: #000;
@@ -31,6 +42,9 @@ const ProductName = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
 `;
 const ProductPrice = styled.div`
   color: var(--dark-gray, #565656);
@@ -39,4 +53,7 @@ const ProductPrice = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
 `;

@@ -6,13 +6,6 @@ interface itemsProps {
   name: string;
 }
 
-const SliderItem = styled.div`
-  img {
-    width: 92.4rem;
-    height: 48rem;
-  }
-`;
-
 const items: itemsProps[] = [
   {
     item: `${process.env.PUBLIC_URL}/assets/StoreDetail/example_pic.png`,
@@ -23,7 +16,7 @@ const items: itemsProps[] = [
     name: '이미지02',
   },
   {
-    item: `${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.png`,
+    item: `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`,
     name: '이미지03',
   },
 ];
@@ -40,4 +33,14 @@ function Item() {
   );
 }
 
+const SliderItem = styled.div`
+  img {
+    width: 92.4rem;
+    height: 48rem;
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 93.75rem;
+    }
+  }
+`;
 export default Item;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { MyReviewState } from '../../recoil';
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 
 export const MyReview = ({ nickname, star, tag, url, reviewurl, text, like, code, id }: Props) => {
   const [likeon, setlike] = useState(false);
-  const [reviews, setReviews] = useRecoilState(MyReviewState);
+  const setReviews = useSetRecoilState(MyReviewState);
 
   const increaseLike = (index: number) => {
     setReviews((prevReviews) => {
@@ -46,8 +46,8 @@ export const MyReview = ({ nickname, star, tag, url, reviewurl, text, like, code
                   key={index}
                   src={
                     index < star
-                      ? `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.png`
-                      : `${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.png`
+                      ? `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`
+                      : `${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.svg`
                   }
                   alt={`Star ${index}`}
                 />
@@ -59,8 +59,8 @@ export const MyReview = ({ nickname, star, tag, url, reviewurl, text, like, code
           <LikeImg
             src={
               likeon
-                ? `${process.env.PUBLIC_URL}/assets/StoreDetail/like.png`
-                : `${process.env.PUBLIC_URL}/assets/StoreDetail/not_like.png`
+                ? `${process.env.PUBLIC_URL}/assets/StoreDetail/like.svg`
+                : `${process.env.PUBLIC_URL}/assets/StoreDetail/not_like.svg`
             }
             onClick={() => {
               likeon ? decreaseLike(id) : increaseLike(id);
@@ -78,7 +78,7 @@ export const MyReview = ({ nickname, star, tag, url, reviewurl, text, like, code
         </ReviewImgBox>
         <ReviewTagBox>
           {tag.map((item, index) => (
-            <ReviewTag>{item}</ReviewTag>
+            <ReviewTag key={index}>{item}</ReviewTag>
           ))}
         </ReviewTagBox>
         <ReviewText>{text}</ReviewText>
@@ -93,6 +93,9 @@ const Box = styled.div`
   flex-direction: column;
   border-top: 0.5px solid #f2f2f2;
   border-bottom: 0.5px solid #f2f2f2;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const ReviewTop = styled.div`
   display: flex;
@@ -100,25 +103,41 @@ const ReviewTop = styled.div`
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
+  @media (max-width: 768px) {
+    padding: 4rem 4rem 0rem 4rem;
+  }
 `;
 const Profile = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 1.6rem;
+  @media (max-width: 768px) {
+    gap: 4rem;
+  }
+`;
+const ProfileImg = styled.img`
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 100%;
+  @media (max-width: 768px) {
+    width: 12rem;
+    height: 12rem;
+  }
 `;
 const ProfileBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.6rem;
+  gap: 0.2rem;
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+  }
 `;
 
 const Nickname = styled.div`
-  width: 14.3rem;
   height: 1.7rem;
   overflow: hidden;
   color: #000;
-
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: 'Noto Sans KR';
@@ -126,14 +145,37 @@ const Nickname = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  @media (max-width: 768px) {
+    height: 4.25rem;
+    font-size: 3.5rem;
+    font-weight: 600;
+  }
+`;
+
+const DateText = styled.div`
+  color: #e0e0e0;
+  font-size: 1.2rem;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
 `;
 
 const Stars = styled.div`
   display: flex;
 `;
+
 const Rate = styled.img`
   width: 1.2rem;
   height: 1.2rem;
+  @media (max-width: 768px) {
+    width: 3rem;
+    height: 3rem;
+    margin: 0.2rem;
+  }
 `;
 const LikeBox = styled.div`
   display: flex;
@@ -142,6 +184,10 @@ const LikeBox = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  @media (max-width: 768px) {
+    padding: 2rem;
+    gap: 1.25rem;
+  }
 `;
 
 const LikeImg = styled.img`
@@ -149,6 +195,10 @@ const LikeImg = styled.img`
   height: 1.5rem;
   &:hover {
     cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    width: 4rem;
+    height: 3.75rem;
   }
 `;
 
@@ -159,6 +209,9 @@ const LikeNum = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
 `;
 
 const ReviewBottom = styled.div`
@@ -167,12 +220,10 @@ const ReviewBottom = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 0.8rem;
-`;
-
-const ProfileImg = styled.img`
-  width: 4.8rem;
-  height: 4.8rem;
-  border-radius: 100%;
+  @media (max-width: 768px) {
+    padding: 4rem 4rem 4rem 20rem;
+    gap: 2rem;
+  }
 `;
 
 const ReviewImgBox = styled.div`
@@ -180,15 +231,30 @@ const ReviewImgBox = styled.div`
   gap: 0.2rem;
   width: 100%;
   flex-wrap: wrap;
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 const ReviewImg = styled.img`
   width: 8.9rem;
   height: 8.9rem;
+  @media (max-width: 768px) {
+    width: 22.25rem;
+    height: 22.25rem;
+  }
 `;
 const ReviewTagBox = styled.div`
   display: flex;
   gap: 0.4rem;
   flex-wrap: wrap;
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;
 const ReviewTag = styled.div`
   margin-top: 0.5rem;
@@ -196,7 +262,7 @@ const ReviewTag = styled.div`
   padding: 0.4rem 0.8rem;
   color: #fff;
   text-align: center;
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans KR';
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;
@@ -206,6 +272,13 @@ const ReviewTag = styled.div`
   &:hover {
     cursor: pointer;
   }
+  @media (max-width: 768px) {
+    border-radius: 4rem;
+    font-size: 2.5rem;
+    padding: 1rem 2rem;
+    width: 15rem;
+    height: 5.5rem;
+  }
 `;
 
 const ReviewText = styled.div`
@@ -213,9 +286,13 @@ const ReviewText = styled.div`
   color: #565656;
   font-family: 'Noto Sans KR';
   font-size: 1rem;
-  font-style: normal;
   font-weight: 400;
   line-height: normal;
-  text-overflow: visible;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: pre-line;
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    width: 100%;
+  }
 `;

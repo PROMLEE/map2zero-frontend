@@ -18,7 +18,7 @@ export const Reviewlist = () => {
     <SellingBox>
       <Title>
         <ReviewTitle>
-          리뷰 <ReviewNum>(42)</ReviewNum>
+          리뷰 <span>(42)</span>
         </ReviewTitle>
         <RightText onClick={() => setModal(true)}>리뷰쓰기</RightText>
       </Title>
@@ -50,12 +50,19 @@ const SellingBox = styled.div`
   display: flex;
   margin-top: 4rem;
   flex-direction: column;
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-top: 5.25rem;
+  }
 `;
 const Title = styled.div`
   display: flex;
   height: 2.2rem;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    height: 6.25rem;
+  }
 `;
 const ReviewTitle = styled.div`
   color: #000;
@@ -64,14 +71,16 @@ const ReviewTitle = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-`;
-const ReviewNum = styled.span`
-  color: #848484;
-  font-family: 'Noto Sans KR';
+  @media (max-width: 768px) {
+    font-size: 4.5rem;
+  }
+  span {
+    color: #848484;
+  }
 `;
 const RightText = styled.div`
-  color: var(--dark-gray, #565656);
-  font-family: 'Noto Sans';
+  color: #565656;
+  font-family: 'Noto Sans KR';
   font-size: 1.2rem;
   font-style: normal;
   font-weight: 400;
@@ -79,7 +88,11 @@ const RightText = styled.div`
   &:hover {
     cursor: pointer;
   }
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
 `;
+
 const MyReviewText = styled.div`
   width: 92.4rem;
   height: 3.2rem;
@@ -90,45 +103,63 @@ const MyReviewText = styled.div`
   text-align: center;
   font-family: 'Noto Sans KR';
   font-size: 1.2rem;
-  font-style: normal;
   font-weight: 600;
   line-height: normal;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 8rem;
+    padding: 2rem 4rem;
+    gap: 2.5rem;
+    border-radius: 2rem 2rem 0rem 0rem;
+    font-size: 3rem;
+  }
 `;
 
 const MyReviewbox = styled.div`
   margin-top: 2.4rem;
   border-radius: 0.8rem;
   border: 1px solid #f4ece1;
+  @media (max-width: 768px) {
+    border-radius: 2rem;
+  }
 `;
 
-const Reviews = styled.div`
-  width: 92.4rem;
-  display: flex;
-  flex-direction: column;
-  margin-top: 0.8rem;
-`;
 const ToggleWrapper = styled.div`
   margin-top: 1.6rem;
   margin-left: auto;
   display: inline-flex;
-  position: relative;
   align-items: center;
   background-color: #f2f2f2;
   border-radius: 2rem;
   width: 10.8rem;
   height: 3rem;
   cursor: pointer;
+  @media (max-width: 768px) {
+    margin-top: 4rem;
+    border-radius: 5rem;
+    width: 27rem;
+    height: 7.5rem;
+  }
 `;
 
 const ToggleBackground = styled.div<{ $activeToggle: boolean }>`
   position: absolute;
   border-radius: 2rem;
   background-color: #fff;
-  box-shadow: 0px 0px 0.4rem 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
   width: 5.4rem;
   height: 3rem;
   transition: all 300ms ease-in-out;
   transform: ${(props) => (props.$activeToggle ? 'translateX(0)' : 'translateX(100%)')};
+  @media (max-width: 768px) {
+    display: flex;
+    height: 7.5rem;
+    width: 13.5rem;
+    padding: 1.25rem 2.5rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5rem;
+  }
 `;
 
 const ToggleButton = styled.div<{ $active: boolean }>`
@@ -137,9 +168,25 @@ const ToggleButton = styled.div<{ $active: boolean }>`
   transition: all 300ms ease-in-out;
   color: ${(props) => (props.$active ? '#565656' : '#E0E0E0')};
   z-index: 2;
-
   text-align: center;
   font-family: 'Noto Sans KR';
   font-size: 1.2rem;
   font-weight: 400;
+  line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
+`;
+
+const Reviews = styled.div`
+  width: 92.4rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.8rem;
+  margin-bottom: 2rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 15rem;
+  }
 `;

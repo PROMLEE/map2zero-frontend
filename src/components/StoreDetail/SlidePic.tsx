@@ -62,6 +62,10 @@ const StyledSlider = styled(Slider)`
     background: rgba(255, 255, 255, 0.3);
     color: transparent;
     cursor: pointer;
+    @media (max-width: 768px) {
+      width: 6rem;
+      height: 1rem;
+    }
   }
 
   .dots_custom li.slick-active button {
@@ -84,6 +88,10 @@ const SlideWrapper = styled.section`
   position: relative;
   width: 92.4rem;
   height: 48rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 93.75rem;
+  }
 `;
 const Customdot = styled.div`
   position: absolute;

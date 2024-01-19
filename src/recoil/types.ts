@@ -4,6 +4,7 @@ export interface exampleType {
 }
 export interface ReviewType {
   nickname: string;
+  date: string;
   star: number;
   tag: string[];
   url: string;

@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
 
 export const DetailBox = () => {
@@ -6,10 +7,16 @@ export const DetailBox = () => {
   return (
     <Details>
       <ReviewIndex>
-        <Img src={`${process.env.PUBLIC_URL}/assets/StoreDetail/star.png`} $height={'2rem'} />
+        <Img src={`${process.env.PUBLIC_URL}/assets/StoreDetail/star.svg`} $height={'2rem'} $heightm={'5rem'} />
         <Text $color={'#FF6464'}>4.5</Text>
-        <Text $color={'#565656'}>리뷰(42)</Text>
-        <Img src={`${process.env.PUBLIC_URL}/assets/StoreDetail/arrow.png`} $height={'1.1rem'} />
+        <ReviewButton
+          onClick={() => {
+            window.scrollTo({ top: 1000, behavior: 'smooth' });
+          }}
+        >
+          <Text $color={'#565656'}>리뷰(42)</Text>
+          <Img src={`${process.env.PUBLIC_URL}/assets/StoreDetail/arrow.svg`} $height={'1.1rem'} $heightm={'2.75rem'} />
+        </ReviewButton>
       </ReviewIndex>
       <Intro>{text}</Intro>
       <Links>
@@ -18,8 +25,8 @@ export const DetailBox = () => {
           <Name>홈페이지</Name>
         </Link>
         <Link>
-          <URL>@aaaaa</URL>
-          <URL>http://dddd</URL>
+          <URL href={'https://www.instagram.com'}>@aaaaa</URL>
+          <URL href={'https://www.naver.com/'}>http://dddd</URL>
         </Link>
       </Links>
     </Details>
@@ -30,15 +37,25 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   width: 92.4rem;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const ReviewIndex = styled.div`
   display: flex;
   height: 2.6rem;
   gap: 0.8rem;
   align-items: center;
+  @media (max-width: 768px) {
+    height: 5rem;
+    gap: 2rem;
+  }
 `;
-const Img = styled.img<{ $height: string }>`
+const Img = styled.img<{ $height: string; $heightm: string }>`
   height: ${(props) => props.$height};
+  @media (max-width: 768px) {
+    height: ${(props) => props.$heightm};
+  }
 `;
 const Text = styled.div<{ $color: string }>`
   color: ${(props) => props.$color};
@@ -46,6 +63,21 @@ const Text = styled.div<{ $color: string }>`
   font-size: 1.4rem;
   font-weight: 400;
   line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 3.5rem;
+  }
+`;
+const ReviewButton = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    gap: 2rem;
+  }
 `;
 const Intro = styled.div`
   white-space: pre-line;
@@ -55,17 +87,30 @@ const Intro = styled.div`
   font-size: 1rem;
   font-weight: 400;
   line-height: normal;
+  @media (max-width: 768px) {
+    margin-top: 4rem;
+    width: 100%;
+    font-size: 2.5rem;
+    color: rgba(0, 0, 0, 0.6);
+  }
 `;
 
 const Links = styled.div`
   margin-top: 2.9rem;
   display: flex;
   gap: 1.6rem;
+  @media (max-width: 768px) {
+    margin-top: 1.5rem;
+    gap: 4rem;
+  }
 `;
 const Link = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  @media (max-width: 768px) {
+    gap: 2rem;
+  }
 `;
 const Name = styled.div`
   color: #565656;
@@ -74,12 +119,25 @@ const Name = styled.div`
   font-size: 1rem;
   font-weight: 500;
   line-height: normal;
+  @media (max-width: 768px) {
+    height: 3.5rem;
+    font-size: 2.5rem;
+    font-weight: 400;
+  }
 `;
-const URL = styled.div`
+const URL = styled.a`
   color: #0b5c71;
   height: 1.4rem;
   font-family: 'Noto Sans KR';
   font-size: 1.2rem;
   font-weight: 400;
   text-decoration-line: underline;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    height: 3.5rem;
+    font-size: 3rem;
+    font-weight: 400;
+  }
 `;

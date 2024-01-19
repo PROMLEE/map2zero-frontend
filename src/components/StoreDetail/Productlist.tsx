@@ -62,17 +62,28 @@ const SellingBox = styled.div`
   display: flex;
   margin-top: 4rem;
   flex-direction: column;
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-top: 6rem;
+  }
 `;
 const Title = styled.div`
   display: flex;
   height: 2.2rem;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 5.5rem;
+  }
 `;
 const LeftText = styled.div`
   display: flex;
   align-items: center;
-  gap: 1.6rem;
+  gap: 1rem;
+  @media (max-width: 768px) {
+    gap: 0.4rem;
+  }
 `;
 
 const SellingTitle = styled.div`
@@ -82,19 +93,25 @@ const SellingTitle = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 4rem;
+  }
 `;
 const SellingCount = styled.div`
-  color: #000;
+  color: #848484;
   font-family: 'Noto Sans KR';
   font-size: 1.2rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 4rem;
+  }
 `;
 
 const RightText = styled.div`
-  color: var(--dark-gray, #565656);
-  font-family: 'Noto Sans';
+  color: #565656;
+  font-family: 'Noto Sans KR';
   font-size: 1.2rem;
   font-style: normal;
   font-weight: 400;
@@ -102,10 +119,17 @@ const RightText = styled.div`
   &:hover {
     cursor: pointer;
   }
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
 `;
+
 const Products = styled.div`
   margin-top: 1.6rem;
   gap: 4%;
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 768px) {
+    margin-top: 4rem;
+  }
 `;

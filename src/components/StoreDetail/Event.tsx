@@ -26,18 +26,29 @@ const Box = styled.div`
   height: 24rem;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
   background-color: #d9d9d9;
+  @media (max-width: 768px) {
+    width: 60rem;
+    height: 60rem;
+  }
 `;
 const EventImg = styled.img`
   height: 16.7rem;
   width: 24rem;
+  @media (max-width: 768px) {
+    width: 60rem;
+    height: 41.75rem;
+  }
 `;
 const EventInfo = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1.6rem;
   gap: 0.8rem;
+  @media (max-width: 768px) {
+    padding: 4rem;
+    gap: 2rem;
+  }
 `;
 const EventName = styled.div`
   color: #000;
@@ -46,6 +57,10 @@ const EventName = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 3.5rem;
+    font-weight: 600;
+  }
 `;
 const EventDate = styled.div`
   color: var(--dark-gray, #565656);
@@ -54,4 +69,8 @@ const EventDate = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
 `;
