@@ -13,10 +13,21 @@ export const Linkbuttons = () => {
   };
   return (
     <PicBox>
-      <Button href="https://map.naver.com/">
-        <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
-        <ButtonText>위치</ButtonText>
-      </Button>
+      {isMobile ? (
+        <>
+          <Button href="nmap://map?lat=37.4979502&lng=127.0276368&zoom=20&appname=com.example.myapp">
+            <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
+            <ButtonText>위치</ButtonText>
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button href="https://naver.me/FM1XyM8D">
+            <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
+            <ButtonText>위치</ButtonText>
+          </Button>
+        </>
+      )}
       <Line />
       {isMobile ? (
         <>

@@ -23,9 +23,6 @@ const Box = styled.div`
   flex-direction: column;
   border-bottom: 0.5px solid;
   border-color: #f2f2f2;
-  &:hover {
-    cursor: pointer;
-  }
   @media (max-width: 768px) {
     gap: 0rem;
     width: 100%;
