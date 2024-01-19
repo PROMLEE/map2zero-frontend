@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function Header() {
+export const Navigationbar = () => {
   return (
     <>
       {/* 모바일 네비게이션 바 (하단) */}
@@ -62,7 +62,7 @@ export default function Header() {
       </NavPc>
     </>
   );
-}
+};
 
 const NavMobile = styled.div`
   position: fixed;

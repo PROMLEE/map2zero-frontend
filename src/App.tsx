@@ -1,7 +1,16 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Navigationbar } from './components';
-import { Home, Search, Login, Mypage, KakaoLoginHandeler, NaverLoginHandeler, Setting, Owner } from './pages';
-
+import {
+  Home,
+  Search,
+  Login,
+  Mypage,
+  KakaoLoginHandeler,
+  NaverLoginHandeler,
+  Setting,
+  Owner,
+  StoreDetail,
+} from './pages';
 
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
@@ -21,6 +30,7 @@ export default function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/owner" element={<Owner />} />
+          <Route path="/store" element={<StoreDetail />} />
         </Routes>
       </BrowserRouter>
     </Background>
