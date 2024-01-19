@@ -94,6 +94,9 @@ const Modal = styled.div`
     width: 100%;
     height: 90%;
   }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const Xbutton = styled.img`
   position: absolute;

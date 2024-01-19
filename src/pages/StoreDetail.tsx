@@ -6,6 +6,7 @@ import { reviewmodalState } from '../recoil';
 
 export default function StoreDetail() {
   const modal = useRecoilValue(reviewmodalState);
+  document.body.style.overflow = modal ? 'hidden' : 'unset';
   return (
     <DetailBox>
       <Mobiletop pagename="상세 페이지" />
