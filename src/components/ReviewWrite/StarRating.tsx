@@ -25,8 +25,8 @@ export const StarRating = ({ totalStars = 5 }) => {
             <Starimg
               src={
                 ratingValue <= (hover || rating)
-                  ? `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.png`
-                  : `${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.png`
+                  ? `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`
+                  : `${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.svg`
               }
               onMouseEnter={() => setHover(ratingValue)}
               onMouseLeave={() => setHover(rating)}

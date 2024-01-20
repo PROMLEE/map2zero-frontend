@@ -31,6 +31,7 @@ const Mobiletopbar = styled.div`
   font-style: normal;
   font-weight: 510;
   line-height: normal;
+  z-index: 999;
   @media screen and (min-width: 768px) {
     display: none;
   }

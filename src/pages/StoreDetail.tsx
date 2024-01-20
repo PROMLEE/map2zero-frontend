@@ -1,20 +1,27 @@
 import styled from 'styled-components';
-import { ReviewWrite } from '../components';
-import { useRecoilState } from 'recoil';
+import { ReviewWrite, Mobiletop } from '../components';
+import { SlideBox, StoreIndex, Productlist, Eventlist, Reviewlist } from '../components/StoreDetail';
+import { useRecoilValue } from 'recoil';
 import { reviewmodalState } from '../recoil';
 
 export default function StoreDetail() {
-  let [modal, setModal] = useRecoilState(reviewmodalState);
+  const modal = useRecoilValue(reviewmodalState);
+  document.body.style.overflow = modal ? 'hidden' : 'unset';
   return (
-    <>
-      <ReviewWriteButton onClick={() => setModal(true)}>dkdkdkkd</ReviewWriteButton>
+    <DetailBox>
+      <Mobiletop pagename="상세 페이지" />
+      <SlideBox />
+      <StoreIndex />
+      <Productlist />
+      <Eventlist />
+      <Reviewlist />
       {modal == true ? <ReviewWrite /> : null}
-    </>
+    </DetailBox>
   );
 }
-const ReviewWriteButton = styled.div`
-  font-size: 20px;
-  &:hover {
-    cursor: pointer;
-  }
+const DetailBox = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 `;

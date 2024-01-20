@@ -1,12 +1,17 @@
 import React from 'react';
 import { BookMarkDummy } from './Dummy/BookMarkDummy';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const BookMarkList = () => {
+  const navigate = useNavigate();
+  const onClickBookMark = () => {
+    navigate(`/store`);
+  };
   return (
     <Wrap>
       <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
-      <BookMarks>
+      <BookMarks onClick={onClickBookMark}>
         {BookMarkDummy.map((i) => (
           <BookMark key={i.storeName}>
             <StoreImg src={`${process.env.PUBLIC_URL}assets/MyPage/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
