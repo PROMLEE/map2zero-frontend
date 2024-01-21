@@ -1,8 +1,23 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {} from '../../recoil';
 import { SearchDummy } from './SearchDummy';
 
 const SearchResultList = () => {
+
+  // const [isClicked, setIsClicked] = useState<string | null>(null);
+
+
+  // const handleClick = (id : string) => {
+  //   setIsClicked(id);
+
+const [clickedIds, setClickedIds] = useState<Record<string, boolean>>({}); // 초기에는 클릭된 아이콘 ID가 없습니다.
+
+  const handleClick = (id: string) => {
+    setClickedIds(prevState => ({ ...prevState, [id]: !prevState[id] }));
+
+
+  }
 
     return (
       <SearchResult>
@@ -13,14 +28,22 @@ const SearchResultList = () => {
           <AddressFrame>
             <AddressText>{i.address}</AddressText>
             <NumReview>
-              <p style={{textAlign: 'right', color: '#E0E0E0', fontSize: 10, fontFamily: 'Noto Sans', fontWeight: '400', wordWrap: 'break-word'}}>(42)</p>
+              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/greenstar.png`} alt="초록별아이콘"/>
+              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/greenstar.png`} alt="초록별아이콘"/>
+              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/greenstar.png`} alt="초록별아이콘"/>
+              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/graystar.png`} alt="회색별아이콘"/>
+              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/graystar.png`} alt="회색별아이콘"/>
+              <p>(42)</p>
             </NumReview>
           </AddressFrame>
           <StoreFrame>
             <StoreImg src={`${process.env.PUBLIC_URL}assets/Search/${i.photo}`} alt={`${i.storeName}의 이미지`} />
           </StoreFrame>
           <BookMarkFrame>
-          <BookMarkIcon src={`${process.env.PUBLIC_URL}/assets/Search/bookmark.png`} alt="북마크아이콘" />
+          <BookMarkIcon 
+          src={clickedIds [i.storeName] ?`${process.env.PUBLIC_URL}/assets/Search/fullbookmark.png` : `${process.env.PUBLIC_URL}/assets/Search/emptybookmark.png`}
+          alt="북마크아이콘"
+          onClick={() => handleClick(i.storeName)} />
           </BookMarkFrame>
         </Container>
       ))}
@@ -95,6 +118,23 @@ const NumReview = styled.div`
   justify-content: flex-start;
   align-items: center;
   display: inline-flex;
+
+  & > p {
+    color: #E0E0E0;
+    font-family: Noto Sans;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: right;
+  }
+
+`;
+
+const StarReview = styled.img`
+  width: 12px
+  height: 12px
+
 `;
 
 const StoreFrame = styled.div`
