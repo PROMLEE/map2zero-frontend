@@ -5,13 +5,7 @@ import { SearchDummy } from './SearchDummy';
 
 const SearchResultList = () => {
 
-  // const [isClicked, setIsClicked] = useState<string | null>(null);
-
-
-  // const handleClick = (id : string) => {
-  //   setIsClicked(id);
-
-const [clickedIds, setClickedIds] = useState<Record<string, boolean>>({}); // 초기에는 클릭된 아이콘 ID가 없습니다.
+const [clickedIds, setClickedIds] = useState<Record<string, boolean>>({}); // 초기에는 클릭된 아이콘 ID x
 
   const handleClick = (id: string) => {
     setClickedIds(prevState => ({ ...prevState, [id]: !prevState[id] }));
