@@ -5,8 +5,8 @@ import NoSearchFile from '../components/SearchFile/NoSearchFile'
 export default function Search() {
   return (
     <ContentWrap>
-      {/* <SearchResultList/> */}
-      <NoSearchFile/>
+      <SearchResultList/>
+      {/* <NoSearchFile/> */}
     </ContentWrap>
   );
 }

@@ -10,13 +10,15 @@ const [clickedIds, setClickedIds] = useState<Record<string, boolean>>({}); // ì´
   const handleClick = (id: string) => {
     setClickedIds(prevState => ({ ...prevState, [id]: !prevState[id] }));
 
-
   }
+
+  const [activeStore, setActiveStore] = useState<string | null>(null);
 
     return (
       <SearchResult>
       {SearchDummy.map((i) => (
-        <Container key={i.storeName}>
+        <Container 
+        key={i.storeName}>
           <SearchText>{i.storeName}</SearchText>
           <ProductText>{i.storeProduct}</ProductText>
           <AddressFrame>
@@ -45,16 +47,6 @@ const [clickedIds, setClickedIds] = useState<Record<string, boolean>>({}); // ì´
     );
 };
 
-const Container = styled.div`
-  width: 924px;
-  height: 162px;
-  position: relative;
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px #F2F2F2 solid;
-  margin-bottom: 24px;
-`;
 
 const SearchResult = styled.div`
   display: flex;
@@ -64,6 +56,26 @@ const SearchResult = styled.div`
   width: 100%;
   margin-top: 331px;
   
+`;
+
+const Container = styled.div`
+  width: 924px;
+  height: 162px;
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px #F2F2F2 solid;
+  margin-bottom: 24px;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    background-color: lightgray;
+  }
+
 `;
 
 const SearchText = styled.div`
