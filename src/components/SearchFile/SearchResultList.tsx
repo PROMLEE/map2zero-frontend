@@ -3,16 +3,14 @@ import styled from 'styled-components';
 import {} from '../../recoil';
 import { SearchDummy } from './SearchDummy';
 
-const SearchResultList = () => {
+export const SearchResultList = () => {
 
 const [clickedIds, setClickedIds] = useState<Record<string, boolean>>({}); // 초기에는 클릭된 아이콘 ID x
 
-  const handleClick = (id: string) => {
+const handleClick = (id: string) => {
     setClickedIds(prevState => ({ ...prevState, [id]: !prevState[id] }));
 
-  }
-
-  const [activeStore, setActiveStore] = useState<string | null>(null);
+}
 
     return (
       <SearchResult>
@@ -55,7 +53,7 @@ const SearchResult = styled.div`
   align-items: center;
   width: 100%;
   margin-top: 331px;
-  
+
 `;
 
 const Container = styled.div`
@@ -76,7 +74,19 @@ const Container = styled.div`
     background-color: lightgray;
   }
 
+
+  @media (max-width: 768px) {
+    width: 327px;
+    height: 128px;
+    margin: 24px;
+
+    // 미디어 쿼리 내부에서 hover 효과를 초기화
+    &:hover {
+      transform: none;
+    }
+  }
 `;
+
 
 const SearchText = styled.div`
   left: 178px;
@@ -87,6 +97,11 @@ const SearchText = styled.div`
   font-family: 'Noto Sans';
   font-weight: 500;
   word-wrap: break-word;
+
+  @media (max-width: 768px) {
+    left: 143px;
+  }
+  
 `;
 
 const ProductText = styled.div`
@@ -98,6 +113,10 @@ const ProductText = styled.div`
   font-family: 'Noto Sans';
   font-weight: 400;
   word-wrap: break-word;
+
+  @media (max-width: 768px) {
+    left: 143px;
+  }
 `;
 
 const AddressFrame = styled.div`
@@ -109,6 +128,10 @@ const AddressFrame = styled.div`
   align-items: flex-start;
   gap: 8px;
   display: inline-flex;
+
+  @media (max-width: 768px) {
+    left: 143px;
+  }
 `;
 
 const AddressText = styled.div`
@@ -117,6 +140,10 @@ const AddressText = styled.div`
   font-family: 'Noto Sans';
   font-weight: 400;
   word-wrap: break-word;
+
+  @media (max-width: 768px) {
+    left: 143px;
+  }
 `;
 
 const NumReview = styled.div`
@@ -150,6 +177,11 @@ const StoreFrame = styled.div`
   top: 0;
   position: absolute;
   background: white;
+
+  @media (max-width: 768px) {
+    width: 127px;
+    height: 128px;
+  }
 `;
 
 const StoreImg = styled.img`
@@ -159,6 +191,11 @@ const StoreImg = styled.img`
   top: 0;
   position: absolute;
   background: #D9D9D9;
+
+  @media (max-width: 768px) {
+    width: 127px;
+    height: 128px;
+  }
 `;
 
 
@@ -171,14 +208,17 @@ const BookMarkFrame = styled.div`
   align-items: flex-start;
   gap: 10px;
   display: inline-flex;
+
+  @media (max-width: 768px) {
+
+  }
 `;
 
 const BookMarkIcon = styled.img`
   width: 11.72px;
   height: 15px;
   position: relative;
+
 `;
 
 
-
-export default SearchResultList;
