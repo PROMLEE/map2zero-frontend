@@ -1,23 +1,27 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { ReactComponent as Map_mobile } from '../assets/Navbar/map_mobile.svg';
+import { ReactComponent as Home_mobile } from '../assets/Navbar/home_mobile.svg';
+import { ReactComponent as Search_mobile } from '../assets/Navbar/search_mobile.svg';
+import { ReactComponent as User_mobile } from '../assets/Navbar/user_mobile.svg';
 
 export const Navigationbar = () => {
   return (
     <>
       {/* 모바일 네비게이션 바 (하단) */}
       <NavMobile>
-        <Link to="/mypage">
-          <LinksliMobile src={`${process.env.PUBLIC_URL}/assets/Navbar/map_mobile.png`} />
-        </Link>
-        <Link to="/">
-          <LinksliMobile src={`${process.env.PUBLIC_URL}/assets/Navbar/home_mobile.png`} />
-        </Link>
-        <Link to="/search">
-          <LinksliMobile src={`${process.env.PUBLIC_URL}/assets/Navbar/search_mobile.png`} />
-        </Link>
-        <Link to="/login">
-          <LinksliMobile src={`${process.env.PUBLIC_URL}/assets/Navbar/user_mobile.png`} />
-        </Link>
+        <NavLinkStyle to="/mypage">
+          <Map_mobile />
+        </NavLinkStyle>
+        <NavLinkStyle to="/">
+          <Home_mobile />
+        </NavLinkStyle>
+        <NavLinkStyle to="/search">
+          <Search_mobile />
+        </NavLinkStyle>
+        <NavLinkStyle to="/login">
+          <User_mobile />
+        </NavLinkStyle>
       </NavMobile>
       {/* PC 네비게이션 바 (상단) */}
       <Box />
@@ -31,17 +35,17 @@ export const Navigationbar = () => {
       />
       <Link to="/search">
         <Navimg
-          src={`${process.env.PUBLIC_URL}/assets/Navbar/searchimg.png`}
-          $top="2.7rem"
+          src={`${process.env.PUBLIC_URL}/assets/Navbar/searchimg.svg`}
+          $top="3.45rem"
           $left="auto"
-          $right="8rem"
-          $width="3rem"
-          $height="3rem"
+          $right="8.75rem"
+          $width="1.5rem"
+          $height="1.5rem"
         />
       </Link>
       <Link to="/login">
         <Navimg
-          src={`${process.env.PUBLIC_URL}/assets/Navbar/userimg.png`}
+          src={`${process.env.PUBLIC_URL}/assets/Navbar/userimg.svg`}
           $top="2.2rem"
           $left="auto"
           $right="2.4rem"
@@ -50,38 +54,39 @@ export const Navigationbar = () => {
         />
       </Link>
       <NavPc>
-        <Link to="/">
+        <NavLinkStyle to="/">
           <LinksliPc>홈</LinksliPc>
-        </Link>
-        <Link to="/mypage">
+        </NavLinkStyle>
+        <NavLinkStyle to="/map">
           <LinksliPc>매장 위치</LinksliPc>
-        </Link>
-        <Link to="/mypage">
+        </NavLinkStyle>
+        <NavLinkStyle to="/mypage">
           <LinksliPc>About us</LinksliPc>
-        </Link>
+        </NavLinkStyle>
       </NavPc>
     </>
   );
 };
 
 const NavMobile = styled.div`
+  display: none;
   position: fixed;
   bottom: 0rem;
   width: 100%;
   height: 12.25rem;
   background-color: #fcfcfc;
   box-shadow: 0rem 0rem 0.4rem 0rem rgba(0, 0, 0, 0.25);
-  display: flex;
   align-items: center;
   justify-content: space-around;
   z-index: 1;
-  @media screen and (min-width: 768px) {
-    display: none;
+  @media screen and (max-width: 768px) {
+    display: flex;
   }
 `;
 const NavPc = styled.div`
   position: fixed;
-  display: none;
+  display: flex;
+  height: 100%;
   background: #fff;
   box-shadow: 0rem 0rem 0.4rem 0rem rgba(0, 0, 0, 0.25);
   width: 100%;
@@ -90,43 +95,50 @@ const NavPc = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1;
-  @media screen and (min-width: 768px) {
-    display: flex;
+  gap: 4rem;
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;
 const Box = styled.div`
   position: relative;
-  display: none;
+  display: flex;
   width: 100%;
   height: 8rem;
   top: 0rem;
-  @media screen and (min-width: 768px) {
-    display: flex;
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;
 export const Navimg = styled.img<{ $top: string; $left: string; $right: string; $width: string; $height: string }>`
   position: fixed;
-  display: none;
+  display: block;
   top: ${($props) => $props.$top};
   left: ${($props) => $props.$left};
   right: ${($props) => $props.$right};
   width: ${($props) => $props.$width};
   height: ${($props) => $props.$height};
   z-index: 2;
-  @media screen and (min-width: 768px) {
-    display: block;
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;
 const LinksliPc = styled.div`
-  color: var(--dark-gray, #565656);
-  font-family: 'SF Pro';
+  font-family: 'Noto Sans KR';
+  height: 100%;
   font-size: 2rem;
   font-style: normal;
-  font-weight: 510;
   float: left;
   padding: 1rem;
-  margin-left: 3rem;
 `;
-const LinksliMobile = styled.img`
-  height: 12.25rem;
+const NavLinkStyle = styled(NavLink)`
+  color: var(--dark-gray, #565656);
+  font-weight: 500;
+  &.active {
+    color: #000;
+    font-weight: 600;
+    path {
+      fill: #ff6464;
+    }
+  }
 `;
