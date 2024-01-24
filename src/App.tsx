@@ -10,6 +10,7 @@ import {
   Setting,
   Owner,
   StoreDetail,
+  SellingProduct,
 } from './pages';
 
 import styled from 'styled-components';
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/setting" element={<Setting />} />
           <Route path="/owner" element={<Owner />} />
           <Route path="/store" element={<StoreDetail />} />
+          <Route path="/sellingproduct" element={<SellingProduct />} />
         </Routes>
       </BrowserRouter>
     </Background>

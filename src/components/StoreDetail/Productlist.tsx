@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Product } from './Product';
+import { Link } from 'react-router-dom';
+
 export const Productlist = () => {
   const productlist = [
     {
@@ -46,7 +48,9 @@ export const Productlist = () => {
           <SellingTitle>판매중인 제품</SellingTitle>
           <SellingCount>(30)</SellingCount>
         </LeftText>
-        <RightText>전체보기</RightText>
+        <Link to="/sellingproduct" style={{ textDecoration: 'none' }}>
+          <RightText>전체보기</RightText>
+        </Link>
       </Title>
       <Products>
         {productlist.slice(0, 6).map((item, index) => {
