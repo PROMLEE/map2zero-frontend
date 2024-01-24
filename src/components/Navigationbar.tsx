@@ -1,44 +1,144 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { ReactComponent as Map_mobile } from '../assets/Navbar/map_mobile.svg';
+import { ReactComponent as Home_mobile } from '../assets/Navbar/home_mobile.svg';
+import { ReactComponent as Search_mobile } from '../assets/Navbar/search_mobile.svg';
+import { ReactComponent as User_mobile } from '../assets/Navbar/user_mobile.svg';
 
-export default function Header() {
+export const Navigationbar = () => {
   return (
-    <Mainheader>
-      <Link to="/">
-        <Logo src="assets/ecolink.png" alt="로고" />
+    <>
+      {/* 모바일 네비게이션 바 (하단) */}
+      <NavMobile>
+        <NavLinkStyle to="/mypage">
+          <Map_mobile />
+        </NavLinkStyle>
+        <NavLinkStyle to="/">
+          <Home_mobile />
+        </NavLinkStyle>
+        <NavLinkStyle to="/search">
+          <Search_mobile />
+        </NavLinkStyle>
+        <NavLinkStyle to="/login">
+          <User_mobile />
+        </NavLinkStyle>
+      </NavMobile>
+      {/* PC 네비게이션 바 (상단) */}
+      <Box />
+      <Navimg
+        src={`${process.env.PUBLIC_URL}/assets/Navbar/logo.png`}
+        $top="1rem"
+        $left="2.4rem"
+        $right="auto"
+        $width="7.6904rem"
+        $height="6rem"
+      />
+      <Link to="/search">
+        <Navimg
+          src={`${process.env.PUBLIC_URL}/assets/Navbar/searchimg.svg`}
+          $top="3.45rem"
+          $left="auto"
+          $right="8.75rem"
+          $width="1.5rem"
+          $height="1.5rem"
+        />
       </Link>
-      <Links>
-        <Link to="/search">
-          <Linksli>검색</Linksli>
-        </Link>
-        <Link to="/login">
-          <Linksli>로그인</Linksli>
-        </Link>
-        <Link to="/mypage">
-          <Linksli>마이페이지</Linksli>
-        </Link>
-      </Links>
-    </Mainheader>
+      <Link to="/login">
+        <Navimg
+          src={`${process.env.PUBLIC_URL}/assets/Navbar/userimg.svg`}
+          $top="2.2rem"
+          $left="auto"
+          $right="2.4rem"
+          $width="4rem"
+          $height="4rem"
+        />
+      </Link>
+      <NavPc>
+        <NavLinkStyle to="/">
+          <LinksliPc>홈</LinksliPc>
+        </NavLinkStyle>
+        <NavLinkStyle to="/map">
+          <LinksliPc>매장 위치</LinksliPc>
+        </NavLinkStyle>
+        <NavLinkStyle to="/mypage">
+          <LinksliPc>About us</LinksliPc>
+        </NavLinkStyle>
+      </NavPc>
+    </>
   );
-}
+};
 
-const Mainheader = styled.div`
+const NavMobile = styled.div`
+  display: none;
+  position: fixed;
+  bottom: 0rem;
   width: 100%;
+  height: 12.25rem;
+  background-color: #fcfcfc;
+  box-shadow: 0rem 0rem 0.4rem 0rem rgba(0, 0, 0, 0.25);
+  align-items: center;
+  justify-content: space-around;
+  z-index: 1;
+  @media screen and (max-width: 768px) {
+    display: flex;
+  }
+`;
+const NavPc = styled.div`
+  position: fixed;
   display: flex;
-  text-align: center;
-  border-bottom: black solid 1px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 0rem 0rem 0.4rem 0rem rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 8rem;
+  top: 0rem;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  gap: 4rem;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
-const Logo = styled.img`
-  width: 40px;
-  margin-top: 10px;
-  margin-left: 80px;
-  margin-right: 10px;
+const Box = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 8rem;
+  top: 0rem;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
-const Links = styled.ul`
-  list-style: none;
-  padding: 0;
+export const Navimg = styled.img<{ $top: string; $left: string; $right: string; $width: string; $height: string }>`
+  position: fixed;
+  display: block;
+  top: ${($props) => $props.$top};
+  left: ${($props) => $props.$left};
+  right: ${($props) => $props.$right};
+  width: ${($props) => $props.$width};
+  height: ${($props) => $props.$height};
+  z-index: 2;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
-const Linksli = styled.li`
+const LinksliPc = styled.div`
+  font-family: 'Noto Sans KR';
+  height: 100%;
+  font-size: 2rem;
+  font-style: normal;
   float: left;
-  padding-left: 25px;
+  padding: 1rem;
+`;
+const NavLinkStyle = styled(NavLink)`
+  color: var(--dark-gray, #565656);
+  font-weight: 500;
+  &.active {
+    color: #000;
+    font-weight: 600;
+    path {
+      fill: #ff6464;
+    }
+  }
 `;
