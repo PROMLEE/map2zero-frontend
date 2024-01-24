@@ -7,5 +7,6 @@ import Login from './Login/Login';
 import KakaoLoginHandeler from './Login/KakaoLoginHandeler';
 import NaverLoginHandeler from './Login/NaverLoginHandeler';
 import StoreDetail from './StoreDetail';
+import NickName from './NickName';
 
-export { Home, Search, Mypage, Login, KakaoLoginHandeler, NaverLoginHandeler, Setting, Owner, StoreDetail };
+export { Home, Search, Mypage, Login, KakaoLoginHandeler, NaverLoginHandeler, Setting, Owner, StoreDetail, NickName };
