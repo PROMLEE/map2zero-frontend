@@ -131,6 +131,7 @@ const AddressFrame = styled.div`
 
   @media (max-width: 768px) {
     left: 143px;
+    top: 70px;
   }
 `;
 
@@ -143,6 +144,7 @@ const AddressText = styled.div`
 
   @media (max-width: 768px) {
     left: 143px;
+    margin-top: 8px;
   }
 `;
 
@@ -167,6 +169,10 @@ const NumReview = styled.div`
 const StarReview = styled.img`
   width: 12px
   height: 12px
+
+  @media (max-width: 768px) {
+    width: 127px;
+  }
 
 `;
 
@@ -210,14 +216,20 @@ const BookMarkFrame = styled.div`
   display: inline-flex;
 
   @media (max-width: 768px) {
+    padding: 16px;
+    left: 283px;
+    top: 0;
+    position: absolute;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    display: inline-flex;
 
-  }
 `;
 
 const BookMarkIcon = styled.img`
   width: 11.72px;
   height: 15px;
-  position: relative;
 
 `;
 
