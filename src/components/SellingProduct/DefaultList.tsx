@@ -10,6 +10,10 @@ export const DefaultList = () => {
 };
 const ProductBox = styled.div`
   width: 92.4rem;
-  gap: 2.4rem;
   flex-wrap: wrap;
+  margin-bottom: 11rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    overflow: hidden;
+  }
 `;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Mobiletop } from '../components';
+import { Mobiletop, ScrollToTop } from '../components';
 import { SearchBar, DefaultList } from '../components/SellingProduct';
 import { useState } from 'react';
 
@@ -19,6 +19,7 @@ export const SellingProduct = () => {
   };
   return (
     <ProductBox>
+      <ScrollToTop />
       <Mobiletop pagename="판매중인 제품" />
       <Title>판매중인 제품</Title>
       <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
@@ -30,8 +31,11 @@ const ProductBox = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 800rem auto;
   width: 92.4rem;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;
 const Title = styled.div`
   width: 92.4rem;
@@ -41,4 +45,7 @@ const Title = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;

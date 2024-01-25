@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import SlidePic from './SlidePic';
-import { Product } from '../SellingProduct';
+import { Product, SlidePic } from '../SellingProduct';
 
 const productlist = [
   {
@@ -66,7 +65,12 @@ export const Item = () => {
 const SliderItem = styled.div``;
 const List = styled.div`
   display: flex;
+  overflow: scroll;
   flex-wrap: wrap;
   width: 92.4rem;
   gap: 2.4rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    gap: 2%;
+  }
 `;

@@ -16,14 +16,15 @@ interface sliderProps {
 }
 
 const list = ['전체', '주방용품', '위생용품', '욕실용품', '식료품', '필기용품'];
-function SlidePic({ children, className, autoplay = false, speed = 300, loop = false }: sliderProps) {
+export const SlidePic = ({ children, className, autoplay = false, speed = 300, loop = false }: sliderProps) => {
   const settings = useMemo<Settings>(
     () => ({
       dots: true,
       infinite: loop,
       speed: speed,
       slidesToShow: 1,
-      draggable: false,
+      arrows: false,
+      // draggable: false,
       autoplay: Boolean(autoplay),
       appendDots: (dots: string[]) => <Customdot>{dots}</Customdot>,
       customPaging: (i) => <CustomTab>{list[i]}</CustomTab>,
@@ -36,9 +37,7 @@ function SlidePic({ children, className, autoplay = false, speed = 300, loop = f
       <StyledSlider {...settings}>{children}</StyledSlider>
     </SlideWrapper>
   );
-}
-
-export default SlidePic;
+};
 
 const StyledSlider = styled(Slider)`
   .dots_custom {
@@ -46,20 +45,27 @@ const StyledSlider = styled(Slider)`
     align-items: center;
     display: flex;
     gap: 1.6rem;
+    @media (max-width: 768px) {
+      height: 7.75rem;
+      gap: 0;
+    }
   }
 
   .dots_custom li {
     height: 100%;
     cursor: pointer;
-
-    display: inline-flex;
-    color: #000;
+    display: inline;
+    color: #565656;
     width: 6.4rem;
     font-family: 'Noto Sans KR';
     font-size: 1.4rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    @media (max-width: 768px) {
+      font-size: 3rem;
+      width: 16.125rem;
+    }
   }
 
   .dots_custom li button {
@@ -67,14 +73,20 @@ const StyledSlider = styled(Slider)`
     width: 6.4rem;
     cursor: pointer;
     @media (max-width: 768px) {
-      width: 6rem;
-      height: 1rem;
+      font-size: 3rem;
+      width: 16.125rem;
     }
   }
 
   .dots_custom li.slick-active {
     border-bottom: 1px solid #565656;
     width: 6.4rem;
+    color: #000;
+    font-weight: 600;
+    @media (max-width: 768px) {
+      font-size: 3rem;
+      width: 16.125rem;
+    }
   }
 `;
 
@@ -82,17 +94,22 @@ const SlideWrapper = styled.section`
   width: 100%;
   margin-top: 9rem;
   @media (max-width: 768px) {
-    width: 100%;
-    height: 93.75rem;
+    margin-top: 17.75rem;
   }
 `;
 const Customdot = styled.div`
   position: absolute;
   width: 100%;
   top: -5.8rem;
+  @media (max-width: 768px) {
+    top: -13.75rem;
+  }
 `;
 const CustomTab = styled.div`
   padding-top: 1rem;
   width: 100%;
   text-align: center;
+  @media (max-width: 768px) {
+    padding-top: 2.5rem;
+  }
 `;

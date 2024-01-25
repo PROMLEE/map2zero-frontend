@@ -38,19 +38,21 @@ const SearchWrap = styled.div`
 const SearchInput = styled.input`
   width: 100%;
   border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 0.55rem;
+  padding-bottom: 1.36rem;
   outline: none;
   color: #000;
   font-size: 1.4rem;
   font-family: 'Noto Sans KR';
-  font-weight: 510;
+  font-weight: 500;
   &::placeholder {
     font-size: 1.6rem;
     color: #e0e0e0;
   }
   @media (max-width: 768px) {
-    margin-top: 4rem;
-    font-size: 3.5rem;
+    font-size: 3.2rem;
+    &::placeholder {
+      font-size: 3.5rem;
+    }
   }
 `;
 
@@ -59,4 +61,9 @@ const SearchImg = styled.img`
   width: 3rem;
   height: 3rem;
   cursor: pointer;
+  @media (max-width: 768px) {
+    width: 7.5rem;
+    height: 7.5rem;
+    padding: 1.5rem;
+  }
 `;
