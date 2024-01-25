@@ -12,7 +12,7 @@ export const Navigationbar = () => {
     <>
       {/* 모바일 네비게이션 바 (하단) */}
       <NavMobile>
-        <NavLinkStyle to="/mypage">
+        <NavLinkStyle to="/map">
           <Map_mobile />
         </NavLinkStyle>
         <NavLinkStyle to="/">
@@ -21,6 +21,15 @@ export const Navigationbar = () => {
         <NavLinkStyle to="/search">
           <Search_mobile />
         </NavLinkStyle>
+        {userinfo.islogin ? (
+          <NavLinkStyle to="/mypage">
+            <User_mobile />
+          </NavLinkStyle>
+        ) : (
+          <NavLinkStyle to="/login">
+            <User_mobile />
+          </NavLinkStyle>
+        )}
         <NavLinkStyle to="/login">
           <User_mobile />
         </NavLinkStyle>
