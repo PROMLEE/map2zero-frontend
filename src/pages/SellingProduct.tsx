@@ -31,10 +31,10 @@ const ProductBox = styled.div`
   align-items: center;
   flex-direction: column;
   margin: 0 auto 0 auto;
-  width: 50%;
+  width: 92.4rem;
 `;
 const Title = styled.div`
-  width: 100%;
+  width: 92.4rem;
   margin-top: 6.4rem;
   font-family: 'Noto Sans KR';
   font-size: 1.6rem;

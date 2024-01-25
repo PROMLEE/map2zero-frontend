@@ -9,8 +9,7 @@ export const DefaultList = () => {
   );
 };
 const ProductBox = styled.div`
-  /* margin: 0 auto 0 auto; */
-  width: 100%;
+  width: 92.4rem;
   gap: 2.4rem;
   flex-wrap: wrap;
 `;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Slick from './SlidePic';
+import SlidePic from './SlidePic';
 import { Product } from '../SellingProduct';
 
 const productlist = [
@@ -49,9 +49,9 @@ const productlist = [
 
 export const Item = () => {
   return (
-    <Slick>
-      {productlist.map((item, index) => (
-        <SliderItem key={index}>
+    <SlidePic>
+      {[...Array(6)].map((item) => (
+        <SliderItem key={item}>
           <List>
             {productlist.map((item, index) => {
               return <Product {...item} key={index} />;
@@ -59,7 +59,7 @@ export const Item = () => {
           </List>
         </SliderItem>
       ))}
-    </Slick>
+    </SlidePic>
   );
 };
 
@@ -67,4 +67,6 @@ const SliderItem = styled.div``;
 const List = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 92.4rem;
+  gap: 2.4rem;
 `;
