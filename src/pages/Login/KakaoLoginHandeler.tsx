@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { UserInfoState } from '../../recoil';
+import { useNavigate } from 'react-router-dom';
 
 const KakaoLoginHandeler = () => {
   const userInfo = useSetRecoilState(UserInfoState);
+  const navigate = useNavigate();
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
     axios
@@ -22,10 +24,11 @@ const KakaoLoginHandeler = () => {
             const data = res.data.data;
             data['islogin'] = true;
             userInfo(data);
+            console.log(data);
             if (data.is_new_user) {
-              window.location.href = '/nickname';
+              navigate('/nickname');
             } else {
-              window.location.href = '/';
+              navigate(`/`);
             }
           })
           .catch(() => {

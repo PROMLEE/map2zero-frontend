@@ -4,8 +4,10 @@ import { ReactComponent as Map_mobile } from '../assets/Navbar/map_mobile.svg';
 import { ReactComponent as Home_mobile } from '../assets/Navbar/home_mobile.svg';
 import { ReactComponent as Search_mobile } from '../assets/Navbar/search_mobile.svg';
 import { ReactComponent as User_mobile } from '../assets/Navbar/user_mobile.svg';
-
+import { useRecoilValue } from 'recoil';
+import { UserInfoState } from '../recoil';
 export const Navigationbar = () => {
+  const userinfo = useRecoilValue(UserInfoState);
   return (
     <>
       {/* 모바일 네비게이션 바 (하단) */}
@@ -43,16 +45,30 @@ export const Navigationbar = () => {
           $height="1.5rem"
         />
       </Link>
-      <Link to="/login">
-        <Navimg
-          src={`${process.env.PUBLIC_URL}/assets/Navbar/userimg.svg`}
-          $top="2.2rem"
-          $left="auto"
-          $right="2.4rem"
-          $width="4rem"
-          $height="4rem"
-        />
-      </Link>
+      {userinfo.islogin ? (
+        <Link to="/mypage">
+          <Navimg
+            src={userinfo.profile_photo.url}
+            $top="2.2rem"
+            $left="auto"
+            $right="2.4rem"
+            $width="4rem"
+            $height="4rem"
+          />
+        </Link>
+      ) : (
+        <Link to="/login">
+          <Navimg
+            src={`${process.env.PUBLIC_URL}/assets/Navbar/userimg.svg`}
+            $top="2.2rem"
+            $left="auto"
+            $right="2.4rem"
+            $width="4rem"
+            $height="4rem"
+          />
+        </Link>
+      )}
+
       <NavPc>
         <NavLinkStyle to="/">
           <LinksliPc>홈</LinksliPc>
@@ -60,7 +76,7 @@ export const Navigationbar = () => {
         <NavLinkStyle to="/map">
           <LinksliPc>매장 위치</LinksliPc>
         </NavLinkStyle>
-        <NavLinkStyle to="/mypage">
+        <NavLinkStyle to="/aboutus">
           <LinksliPc>About us</LinksliPc>
         </NavLinkStyle>
       </NavPc>
