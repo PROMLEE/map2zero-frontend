@@ -19,7 +19,6 @@ export const Product = ({ product, price, imgurl, code }: Props) => {
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 4rem;
   width: 21.2rem;
   height: 26.7rem;
   align-items: flex-start;
@@ -29,6 +28,7 @@ const Box = styled.div`
     cursor: pointer;
   }
   @media (max-width: 768px) {
+    margin-bottom: 4rem;
     width: 49%;
     height: 51.5rem;
   }
@@ -41,7 +41,6 @@ const ProductImg = styled.img`
   @media (max-width: 768px) {
     width: 100%;
     height: 37.75rem;
-    object-fit: fill;
   }
 `;
 

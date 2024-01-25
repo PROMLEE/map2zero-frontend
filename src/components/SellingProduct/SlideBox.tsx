@@ -50,19 +50,18 @@ export const Item = () => {
   return (
     <SlidePic>
       {[...Array(6)].map((item) => (
-        <SliderItem key={item}>
+        <div key={item}>
           <List>
             {productlist.map((item, index) => {
               return <Product {...item} key={index} />;
             })}
           </List>
-        </SliderItem>
+        </div>
       ))}
     </SlidePic>
   );
 };
 
-const SliderItem = styled.div``;
 const List = styled.div`
   display: flex;
   overflow: scroll;
