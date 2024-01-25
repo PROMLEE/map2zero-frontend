@@ -13,3 +13,13 @@ export interface ReviewType {
   like: number;
   code: number;
 }
+export interface UserInfo {
+  islogin: boolean;
+  email: string;
+  nickname: string;
+  profile_photo: {
+    url: string;
+  };
+  is_new_user: boolean;
+  type: string;
+}
