@@ -52,7 +52,7 @@ const SearchResult = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 331px;
+  margin-top: 48px;
 
 `;
 
@@ -94,7 +94,7 @@ const SearchText = styled.div`
   position: absolute;
   color: #0B5C71;
   font-size: 16px;
-  font-family: 'Noto Sans';
+  font-family: Noto Sans KR;
   font-weight: 500;
   word-wrap: break-word;
 
@@ -110,7 +110,7 @@ const ProductText = styled.div`
   position: absolute;
   color: #565656;
   font-size: 12px;
-  font-family: 'Noto Sans';
+  font-family: Noto Sans KR;
   font-weight: 400;
   word-wrap: break-word;
 
@@ -138,7 +138,7 @@ const AddressFrame = styled.div`
 const AddressText = styled.div`
   color: #565656;
   font-size: 10px;
-  font-family: 'Noto Sans';
+  font-family: Noto Sans KR;
   font-weight: 400;
   word-wrap: break-word;
 
@@ -156,7 +156,7 @@ const NumReview = styled.div`
 
   & > p {
     color: #E0E0E0;
-    font-family: Noto Sans;
+    font-family: Noto Sans KR;
     font-size: 10px;
     font-weight: 400;
     line-height: 14px;

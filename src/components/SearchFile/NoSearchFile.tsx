@@ -23,16 +23,16 @@ const Wrap = styled.div`
 const NoSearch = styled.img`
     width: 120px;
     height: 120px;
-    margin: 482px 900px 16px 900px;
+    margin: 119px 900px 16px 900px;
 
 `;
 
 const NoSearchText = styled.p`
  color: #CCCCCC;
- fontSize: 14px;
- fontFamily: 'Noto Sans';
- fontWeight: 500px;
- wordWrap: 'break-word'
+ font-size: 14px;
+ font-family: 'Noto Sans';
+ font-weight: 500px;
+ word-wrap: 'break-word'
  margin-bottom: 298px;
 
 `;
