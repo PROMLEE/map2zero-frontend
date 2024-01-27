@@ -8,6 +8,7 @@ import KakaoLoginHandeler from './Login/KakaoLoginHandeler';
 import NaverLoginHandeler from './Login/NaverLoginHandeler';
 import StoreDetail from './StoreDetail';
 import { SellingProduct } from './SellingProduct';
+import { Map } from './Map';
 
 export {
   Home,
@@ -20,4 +21,5 @@ export {
   Owner,
   StoreDetail,
   SellingProduct,
+  Map,
 };
