@@ -30,7 +30,7 @@ export const Map = () => {
     for (let i = 1; i < 20; i++) {
       const marker = new naver.maps.Marker({
         map: map,
-        position: new naver.maps.LatLng(37 + i / 100, 127.039573 + i / 100),
+        position: new naver.maps.LatLng(37.4758514 + i / 100, 126.9544896 + i / 100),
         icon: {
           url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
           scaledSize: new naver.maps.Size(35, 35),
@@ -58,6 +58,13 @@ export const Map = () => {
         } else {
           map.panTo(e.coord);
           infowindows[i].open(map, markers[i]);
+          for (let i = 0; i < markers.length; i++) {
+            naver.maps.Event.once(map, 'click', function () {
+              if (infowindows[i].getMap()) {
+                infowindows[i].close();
+              }
+            });
+          }
         }
       });
     }
@@ -94,13 +101,6 @@ export const Map = () => {
       });
     });
 
-    naver.maps.Event.once(map, 'click', function () {
-      for (let i = 0; i < markers.length; i++) {
-        if (infowindows[i].getMap()) {
-          infowindows[i].close();
-        }
-      }
-    });
     // 지도 줌 인/아웃 시 마커 업데이트 이벤트 핸들러
     naver.maps.Event.addListener(map, 'zoom_changed', () => {
       if (map !== null) {
@@ -110,9 +110,6 @@ export const Map = () => {
     // 지도 드래그 시 마커 업데이트 이벤트 핸들러
     naver.maps.Event.addListener(map, 'dragend', () => {
       if (map !== null) {
-        for (let i = 0; i < markers.length; i++) {
-          infowindows[i].close();
-        }
         updateMarkers(map, markers);
       }
     });
