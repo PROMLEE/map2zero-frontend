@@ -21,7 +21,7 @@ export const MarkerInfo = () => {
             <BookmarkImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark.png`} />
           </TopBox>
           <AdressBox>매장 주소</AdressBox>
-          <BottomButton>매장 상세보기 {'>>'}</BottomButton>
+          <BottomButton href="/store">매장 상세보기 {'>>'}</BottomButton>
         </TextBox>
       </InfoBox>
     </MarkerBox>
@@ -107,7 +107,8 @@ const AdressBox = styled.div`
   font-weight: 400;
   line-height: normal;
 `;
-const BottomButton = styled.div`
+const BottomButton = styled.a`
+  text-decoration: none;
   margin-top: 1.4rem;
   margin-left: auto;
   display: flex;

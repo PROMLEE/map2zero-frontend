@@ -1,18 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { MarkerInfo } from '../components';
 import { renderToString } from 'react-dom/server';
+import styled from 'styled-components';
 
 export const Map = () => {
+  const [myLocation, setMyLocation] = useState<{ latitude: number; longitude: number }>({ latitude: 0, longitude: 0 });
   const strinnng = renderToString(<MarkerInfo />);
 
   let map: any = null;
-  const initMap = () => {
+  const initMap = (myLocation: { latitude: number; longitude: number }) => {
     map = new naver.maps.Map('map', {
-      center: new naver.maps.LatLng(37, 127.039573),
+      center: new naver.maps.LatLng(myLocation.latitude, myLocation.longitude),
       zoom: 13,
+      disableKineticPan: false,
+      scaleControl: false,
       zoomControl: true,
       zoomControlOptions: {
         position: naver.maps.Position.RIGHT_CENTER,
+      },
+      logoControl: true, // 로고 컨트롤러
+      logoControlOptions: {
+        position: naver.maps.Position.BOTTOM_LEFT,
       },
     });
     // 마커들이 담겨있는 배열
@@ -26,9 +34,9 @@ export const Map = () => {
         icon: {
           url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
           scaledSize: new naver.maps.Size(35, 35),
-          // size: new naver.maps.Size(35, 35),
-          // origin: new naver.maps.Point(0, 0),
-          // anchor: new naver.maps.Point(25, 26),
+          size: new naver.maps.Size(35, 35),
+          origin: new naver.maps.Point(0, 0),
+          anchor: new naver.maps.Point(25, 26),
         },
       });
       infowindows.push(
@@ -48,6 +56,7 @@ export const Map = () => {
         if (infowindows[i].getMap()) {
           infowindows[i].close();
         } else {
+          map.panTo(e.coord);
           infowindows[i].open(map, markers[i]);
         }
       });
@@ -72,6 +81,26 @@ export const Map = () => {
         }
       }
     };
+    var locationBtnHtml =
+      '<a href="#" ><img src="/assets/Map/Gps.svg" style="width:4rem; margin-bottom:42vh; margin-right:0.5rem;"/></a>';
+
+    naver.maps.Event.once(map, 'init', function () {
+      var customControl = new naver.maps.CustomControl(locationBtnHtml, {
+        position: naver.maps.Position.RIGHT_BOTTOM,
+      });
+      customControl.setMap(map);
+      naver.maps.Event.addDOMListener(customControl.getElement(), 'click', function () {
+        map.setCenter(new naver.maps.LatLng(myLocation.latitude, myLocation.longitude));
+      });
+    });
+
+    naver.maps.Event.once(map, 'click', function () {
+      for (let i = 0; i < markers.length; i++) {
+        if (infowindows[i].getMap()) {
+          infowindows[i].close();
+        }
+      }
+    });
     // 지도 줌 인/아웃 시 마커 업데이트 이벤트 핸들러
     naver.maps.Event.addListener(map, 'zoom_changed', () => {
       if (map !== null) {
@@ -81,21 +110,45 @@ export const Map = () => {
     // 지도 드래그 시 마커 업데이트 이벤트 핸들러
     naver.maps.Event.addListener(map, 'dragend', () => {
       if (map !== null) {
+        for (let i = 0; i < markers.length; i++) {
+          infowindows[i].close();
+        }
         updateMarkers(map, markers);
       }
     });
   };
   useEffect(() => {
-    initMap();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setMyLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    } else {
+      window.alert('현재위치를 알수 없습니다.');
+    }
   }, []);
+  useEffect(() => {
+    if (typeof myLocation !== 'string') {
+      initMap(myLocation);
+    }
+  }, [myLocation]);
 
   const mapStyle = {
-    width: '100%',
-    height: '90%',
+    width: '100vw',
+    height: '130vh',
   };
   return (
-    <>
-      <div id="map" style={mapStyle} />
-    </>
+    <MapWrap>
+      <NavMap id="map" style={mapStyle} />
+    </MapWrap>
   );
 };
+
+const NavMap = styled.div``;
+const MapWrap = styled.div`
+  position: fixed;
+  height: 100vh;
+  overflow: hidden;
+`;
