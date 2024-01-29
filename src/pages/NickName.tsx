@@ -1,6 +1,9 @@
 import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { Mobiletop } from '../components';
+import { useRecoilState } from 'recoil';
+import { imgModalState } from '../recoil';
+import ImgModal from '../components/Modal/ImgModal';
 
 export default function NickName() {
   const DEFAULT_IMG = `${process.env.PUBLIC_URL}/assets/NickName/profile.png`;
@@ -11,25 +14,21 @@ export default function NickName() {
   const MAX_LENGTH = 8; //글자수 제한
   const [message, setMessage] = useState(false); //중복 경고 메시지
   const [readOnly, setReadOnly] = useState(false);
+  const [modalOpen, setModalOpen] = useRecoilState(imgModalState);
+
+  const modalHandler = () => {
+    setModalOpen(!modalOpen);
+  };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      setSelectedFile(file);
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
+    //setPreview();
   };
 
   const handleUpload = async () => {
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-    }
+    // if (selectedFile) {
+    //   const formData = new FormData();
+    //   formData.append('file', selectedFile);
+    // }
   };
 
   //글자 수 계산 & 내용 저장 & 크기 조절
@@ -55,19 +54,13 @@ export default function NickName() {
 
   return (
     <Container>
+      <ImgModal />
       <Mobiletop pagename="닉네임 설정" />
       <h1>닉네임 설정</h1>
       <ImageDiv>
         {preview && <ProfileImg src={preview} alt="preview" />}
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          style={{ display: 'none' }}
-          id="imageInput"
-          onChange={handleFileChange}
-        />
-        <label htmlFor="imageInput" onClick={handleUpload}>
+        <input style={{ display: 'none' }} id="imageInput" onChange={handleFileChange} />
+        <label htmlFor="imageInput" onClick={modalHandler}>
           <img src={`${process.env.PUBLIC_URL}/assets/NickName/plus.svg`} alt="plus" />
         </label>
       </ImageDiv>
