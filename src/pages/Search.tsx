@@ -5,6 +5,8 @@ import { SearchBar } from '../components/Search/SearchBar';
 import { RecentSearchList } from '../components/Search/RecentSearchList';
 import { PopularSearchList } from '../components/Search/PopularSearchList';
 import { Mobiletop } from '../components';
+import {SearchResultList} from '../components/SearchFile/SearchResultList';
+import NoSearchFile from '../components/SearchFile/NoSearchFile'
 
 export default function Search() {
   const [searchText, setSearchText] = useState('');
@@ -32,7 +34,10 @@ export default function Search() {
         <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
       </SearchContainer>
       {searchResultView ? (
-        <div>결과 리스트 출력</div>
+        <div>
+          <SearchResultList/>
+        {/* <NoSearchFile/> */}
+        </div>
       ) : (
         <SearchList>
           <RecentSearchList />

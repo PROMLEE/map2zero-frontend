@@ -8,5 +8,18 @@ import KakaoLoginHandeler from './Login/KakaoLoginHandeler';
 import NaverLoginHandeler from './Login/NaverLoginHandeler';
 import StoreDetail from './StoreDetail';
 import NickName from './NickName';
+import { SellingProduct } from './SellingProduct';
 
-export { Home, Search, Mypage, Login, KakaoLoginHandeler, NaverLoginHandeler, Setting, Owner, StoreDetail, NickName };
+export {
+  Home,
+  Search,
+  Mypage,
+  Login,
+  KakaoLoginHandeler,
+  NaverLoginHandeler,
+  Setting,
+  Owner,
+  StoreDetail,
+  SellingProduct,
+  NickName,
+};
