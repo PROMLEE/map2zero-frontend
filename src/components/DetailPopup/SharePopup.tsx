@@ -151,7 +151,7 @@ const PicTexts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
   align-items: flex-start;
 
   @media (max-width: 768px) {
-  font-size: 3rem;
+//   font-size: 3rem;
   margin-top: ${(props) => props.$margintopMB};
   margin-left: 6.5rem;
   }
