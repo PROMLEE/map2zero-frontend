@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
+import { useState, useCallback } from "react";
+
+import {DetailPopup} from '../../components/DetailPopup/DetailPopup';
+
 
 export const Linkbuttons = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림/닫힘 상태를 관리하는 상태값입니다.
+
   const phonenumber = '010-0000-0000';
   const copyClipboard = async (text: string, successAction?: () => void, failAction?: () => void) => {
     try {
@@ -11,6 +17,16 @@ export const Linkbuttons = () => {
       failAction && failAction();
     }
   };
+
+  const handleOpenModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+
   return (
     <PicBox>
       {isMobile ? (
@@ -48,13 +64,46 @@ export const Linkbuttons = () => {
         </>
       )}
       <Line />
-      <Button href="https://naver.me/GyNv7dGv">
+      <Button onClick={handleOpenModal}> {/* 매장 정보 버튼을 클릭하면 모달을 열도록 핸들러를 추가했습니다. */}
         <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/storefront.svg`} />
         <ButtonText>매장정보</ButtonText>
       </Button>
+      
+      {/* 모달 컴포넌트 */}
+      {isModalOpen && (
+        <Modal onClick={handleCloseModal}>
+          {/* 모달 내용 */}
+          <DetailPopup/>
+          {/* 추가적인 매장 정보 내용을 여기에 작성하세요 */}
+        </Modal>
+      )}
     </PicBox>
   );
 };
+
+
+
+const Modal = styled.div`
+  margin-top: 1.6rem;
+  display: flex;
+  width: 92.4rem;
+  height: 6.3rem;
+  padding: 1.6rem;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid;
+  border-color: #f2f2f2;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 4rem;
+    height: 12.25rem;
+  }
+`;
+
+
 
 const PicBox = styled.div`
   margin-top: 1.6rem;
