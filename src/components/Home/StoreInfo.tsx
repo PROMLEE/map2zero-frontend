@@ -1,10 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { StoreInfoDummyType } from './Dummy/StoreDummy';
 
+const navigate = useNavigate();
+const onClickStore = () => {
+  navigate(`/store`);
+};
+
 const StoreInfo = ({ info }: { info: StoreInfoDummyType }) => {
   return (
-    <Container>
+    <Container onClick={onClickStore}>
       <ImgWrap>
         <img src={info.img} alt={info.name} />
         <Promotation>{info.promotion}</Promotation>
@@ -49,7 +55,7 @@ const ImgWrap = styled.div`
     top: 49rem;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 0.2rem;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
     z-index: 1;
   }
@@ -62,11 +68,13 @@ const Promotation = styled.p`
   bottom: 3.6rem;
   font-size: 1.8rem;
   left: 2.4rem;
+  z-index: 2;
 `;
 const Arrow = styled.div`
   > img {
     height: 3rem;
     width: 2rem;
+    z-index: 2;
   }
 
   position: absolute;

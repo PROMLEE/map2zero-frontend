@@ -9,7 +9,7 @@ export  type StoreInfoDummyType = {
 
 export const  StoreInfoDummy: StoreInfoDummyType = 
   {
-    img: `${process.env.PUBLIC_URL}/assets/Home/부리1.jpeg`,
+    img: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
     name: '매장명',
     address : '매장주소',
     reviewCount: 42,

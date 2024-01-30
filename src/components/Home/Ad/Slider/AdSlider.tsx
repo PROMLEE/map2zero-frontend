@@ -69,12 +69,12 @@ const StyledSlider = styled(Slider)`
     border-radius: 0.8rem;
   }
   .slick-prev {
-    left: 10px !important;
+    left: 40px !important;
     z-index: 1;
   }
 
   .slick-next {
-    right: 10px !important;
+    right: 40px !important;
     z-index: 1;
   }
 `;

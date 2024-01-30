@@ -1,6 +1,6 @@
-import Ad from './Ad/Ad';
+import AdSlider from './Ad/Slider/AdSlider'
 import StoreInfo from './StoreInfo';
 import Items from './Items';
 
 
-export {  Ad, Items,StoreInfo };
+export {  AdSlider, Items,StoreInfo };
