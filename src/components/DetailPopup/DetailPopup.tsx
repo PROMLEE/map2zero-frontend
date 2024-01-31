@@ -33,31 +33,31 @@ export const DetailPopup = () => {
 
         <Information>
         <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/pets.svg`} alt="검색결과 없음" />
+        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/pets.svg`}/>
         <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
           반려동물 동반 
         </PicTexts>
         </PicInformation>
         <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/local_parking.svg`} alt="검색결과 없음" />
+        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/local_parking.svg`}/>
         <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
           주차가능
         </PicTexts>
         </PicInformation>
         <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/valve.svg`} alt="검색결과 없음" />
+        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/valve.svg`}/>
         <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
           리필스테이션
         </PicTexts>
         </PicInformation>
         <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/no_stroller.svg`} alt="검색결과 없음" />
+        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/no_stroller.svg`}/>
         <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
           노키즈존
         </PicTexts>
         </PicInformation>
         <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/barcode_scanner.svg`} alt="검색결과 없음" />
+        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/barcode_scanner.svg`}/>
         <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
           제로페이
         </PicTexts>
@@ -68,7 +68,7 @@ export const DetailPopup = () => {
         <Texts $margintopPC={'0'} $margintopMB={'0'}>
           운영정보
         </Texts>
-        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`} alt="검색결과 없음" />
+        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`}/>
         <TimeInfo>
           월 10:00 - 20:00<br />
           화 10:00 - 20:00<br />
@@ -84,7 +84,7 @@ export const DetailPopup = () => {
         <Texts $margintopPC={'0'} $margintopMB={'0'}>
             위치&ensp;&ensp;&ensp;&nbsp;
         </Texts>
-        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/location_on.svg`} alt="검색결과 없음" />
+        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/location_on.svg`}/>
         <TimeInfo>
             서울특별시 마포구 성미산로 155, 1층
         </TimeInfo>
@@ -96,7 +96,7 @@ export const DetailPopup = () => {
         <Texts $margintopPC={'0'} $margintopMB={'0'}>
           전화번호
         </Texts>
-        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/call.svg`} alt="검색결과 없음" />
+        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/call.svg`}/>
         <TimeInfo>
             010-0000-0000
         </TimeInfo>
@@ -125,7 +125,6 @@ const Background = styled.div`
 const Modal = styled.div`
   position: fixed;
   display: flex;
-  overflow: scroll;
   flex-direction: column;
   background: #fff;
   z-index: 3;
@@ -135,11 +134,11 @@ const Modal = styled.div`
   padding-bottom: 6rem;
 
   @media (max-width: 768px) {
-    border-radius: 4rem 4rem 0rem 0rem;
-    bottom: 0rem;
-    width: 100%;
-    height: 90%;
+    width: 327px;
+    height: 374px;
+    border-radius: 16px;
   }
+
 `;
 
 const Xbutton = styled.img`
@@ -161,60 +160,63 @@ const Xbutton = styled.img`
 
 const Title = styled.div`
   color: black;
-  position: relative;
-  margin-top: 5.6rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 56px;
+  margin-left: 26.7rem;
+  margin-right: 26.7rem;
   font-family: 'SF Pro';
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: 510;
-  wordWrap: 'break-word'
+  wordWrap: 'break-word';
+  justify-content: center;
+
 
   @media (max-width: 768px) {
-    font-size: 4rem;
+    margin-left: 12.4rem;
+    margin-right: 12.4rem;
+    justify-content: center;
+    text-align: center;
   }
 `;
 
 const Information = styled.div`
   justify-content: center;
   width: 100%;
-  height: 100%;
   position: relative;
   text-align: center;
   justify-content: center;
   display: flex;
-  flex-wrap: wrap;
   
-  @media (max-width: 768px) {
-    font-size: 4rem;
-  }
 `;
 
 const PicTexts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
   position: relative;
   color: #000;
   font-family: 'Noto Sans KR';
-  font-size: 0.8rem;
+  font-size: 8px;
   font-weight: 500;
-  wordWrap: 'break-word';
   margin-top: 0.8rem;
-  justify-content: space-between;
-  align-items: flex-start;
   margin-bottom: 0;
 
   @media (max-width: 768px) {
-  font-size: 3rem;
-  margin-top: ${(props) => props.$margintopMB};
-  margin-left: 6.5rem;
-  }
+    width: 47px;
+    text-align: justify;
+    }
+
 `;
 
 const PicInformation = styled.div`
     left: 0;
     top: 0;
     position: relative;
-    margin-top: 3.2rem;
-    text-align: relative;
+    margin-top: 32px;
+    text-align: flex;
+
+    @media (max-width: 768px) {
+      width: 3.7rem;
+      height: 4.3rem;
+      margin: 24px;
+      align-items: center;
+      }
 
 `;
 
@@ -224,11 +226,16 @@ const Image = styled.img`
   position: relative;
   padding: 0rem 2.4rem 0rem 2.4rem;
 
+  @media (max-width: 768px) {
+    padding: 0;
+    margin: auto;
+    }
+
 `;
 
 const InfoImage = styled.img`
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 12px;
+    height: 12px;
     position: relative;
     margin: 0rem 0.8rem 0rem 1.6rem;
 
@@ -240,7 +247,9 @@ const TimeInfo = styled.div`
   font-family: 'Noto Sans';
   font-weight: 400;
 
-  
+  @media (max-width: 768px) {
+  }
+
 `;
 
 const TimInformation = styled.div`
@@ -249,16 +258,18 @@ const TimInformation = styled.div`
   font-family: 'Noto Sans';
   font-weight: 400;
   word-wrap: break-word;
-  height: 11.2rem;
-  width: 29.2rem;
-  margin-left: 13.8rem;
-  margin-top: 3.2rem;
+  height: 112px;
+  width: 292px;
+  margin-left: 138px;
+  margin-top: 32px;
 
   display: flex;
   flex-direction: row;
 
   @media (max-width: 768px) {
     font-size: 4rem;
+    margin-top: 24px;
+    margin-left: 24px;
   }
 `;
 
@@ -269,23 +280,18 @@ const Texts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
   position: relative;
   margin-top: ${(props) => props.$margintopPC};
   width: auto;
-
+  font-weight: 600;
   justify-content: space-between;
   align-items: flex-start;
   white-space: nowrap;
 
 
-    // 운영정보
-    color: black;
-    font-size: 1.2rem;
-    fontFamily: 'Noto Sans';
-    font-Weight: 600;
-    word-wrap: 'break-word'
+
 
   @media (max-width: 768px) {
   font-size: 3rem;
   margin-top: ${(props) => props.$margintopMB};
-  margin-left: 6.5rem;
+  text-align: center;
   }
 `;
 

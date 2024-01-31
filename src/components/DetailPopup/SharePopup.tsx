@@ -80,7 +80,6 @@ const Background = styled.div`
 const Modal = styled.div`
   position: fixed;
   display: flex;
-  overflow: scroll;
   flex-direction: column;
   background: #fff;
   z-index: 3;
@@ -89,8 +88,9 @@ const Modal = styled.div`
   border-radius: 1.6rem;
   padding-bottom: 6rem;
   @media (max-width: 768px) {
-    border-radius: 4rem 4rem 0rem 0rem;
-    bottom: 0rem;
+    width: 327px;
+    height: 195px;
+    border-radius: 16px;
   }
 `;
 const Xbutton = styled.img`
@@ -143,24 +143,20 @@ const PicTexts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
   position: relative;
   color: #000;
   font-family: 'Noto Sans KR';
-  font-size: 1rem;
+  font-size: 10px;
   font-weight: 500;
   wordWrap: 'break-word';
-  margin-top: 1.6rem;
+  margin-top: 16px;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 0;
 
-  @media (max-width: 768px) {
-//   font-size: 3rem;
-  margin-top: ${(props) => props.$margintopMB};
-  margin-left: 6.5rem;
-  }
 `;
 
 const Information = styled.div`
   justify-content: center;
-  width: 29.2rem;
-  height: 5.2rem;
+  width: 292px;
+  height: 52px;
   position: relative;
   text-align: center;
   justify-content: center;
@@ -171,17 +167,27 @@ const Information = styled.div`
   
   @media (max-width: 768px) {
     font-size: 4rem;
+    width: 246px;
+    height: 50px;
   }
 `;
 
 const Frame407 = styled.div`
-  width: 5.2rem;
-  height: 5.2rem;
+  width: 52px;
+  height: 52px;
   background: #F4ECE1;
-  border-radius: 3rem;
+  border-radius: 30px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   display: inline-flex;
+
+
+  @media (max-width: 768px) {
+    width: 24;
+    height: 24;
+    position: relative;
+  }
+
 
 `;
