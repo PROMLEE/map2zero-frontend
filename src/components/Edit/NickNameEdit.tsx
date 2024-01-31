@@ -20,6 +20,7 @@ const NickNameEdit = () => {
     }));
   };
 
+  //편집 가능하게 변경
   const onEditHandler = () => {
     setNickName((prevState) => ({
       ...prevState,

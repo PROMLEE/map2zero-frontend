@@ -5,6 +5,7 @@ import { nickNameState } from '../../recoil';
 const EditButton = () => {
   const [nickname, setNickName] = useRecoilState(nickNameState);
 
+  //닉네임 중복 체크 및 편집 불가능하게 적용
   const onButtonHandler = () => {
     if (nickname.nickname === '중복') {
       setNickName((prevState) => ({

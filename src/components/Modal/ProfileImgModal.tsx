@@ -15,24 +15,26 @@ const ProfileImgModal = () => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const editorRef = useRef<AvatarEditor | null>(null);
-  const [profileImgImage, setProfileImgImage] = useRecoilState(profileImgState);
+  const [_, setProfileImgImage] = useRecoilState(profileImgState);
   const [scale, setScale] = useState(1);
 
+  //이미지 확대/축소 기능
   const handleScaleChange = (event: React.WheelEvent<HTMLDivElement>) => {
     const newScale = scale - event.deltaY * 0.01;
     setScale(Math.min(Math.max(1, newScale), 3));
   };
 
+  //수정한 이미지 등록
   const saveHandler = () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas();
       const croppedImage = canvas.toDataURL();
       setProfileImgImage(croppedImage);
-      console.log(profileImgImage); //서버에 profileImgImage를 보내야함
       setModalOpen(!modalOpen);
     }
   };
 
+  //스크롤 동작 제어
   useEffect(() => {
     if (modalOpen) {
       const prevScrollY = preventScroll();
@@ -42,6 +44,7 @@ const ProfileImgModal = () => {
     }
   }, [modalOpen]);
 
+  //파일명을 저장하고, Data URL 형태로 변환
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -56,6 +59,7 @@ const ProfileImgModal = () => {
     }
   };
 
+  //파일 선택
   const onButtonClick = () => {
     if (imageSrc) {
       const formData = new FormData();
