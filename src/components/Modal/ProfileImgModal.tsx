@@ -2,20 +2,20 @@ import React, { useEffect, useState, useRef } from 'react';
 import Modal from 'react-modal';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { imgModalState } from '../../recoil';
+import { imgModalState, profileImgState } from '../../recoil';
 import { preventScroll, allowScroll } from './scroll';
 import AvatarEditor from 'react-avatar-editor';
 
 Modal.setAppElement('#root');
 
-const ImgModal = () => {
+const ProfileImgModal = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isMobile = windowWidth <= 768 ? true : false;
   const [modalOpen, setModalOpen] = useRecoilState(imgModalState);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const editorRef = useRef<AvatarEditor | null>(null);
-  const [croppedImage, setCroppedImage] = useState('');
+  const [profileImgImage, setProfileImgImage] = useRecoilState(profileImgState);
   const [scale, setScale] = useState(1);
 
   const handleScaleChange = (event: React.WheelEvent<HTMLDivElement>) => {
@@ -23,11 +23,13 @@ const ImgModal = () => {
     setScale(Math.min(Math.max(1, newScale), 3));
   };
 
-  const handleSave = () => {
+  const saveHandler = () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas();
       const croppedImage = canvas.toDataURL();
-      setCroppedImage(croppedImage);
+      setProfileImgImage(croppedImage);
+      console.log(profileImgImage); //서버에 profileImgImage를 보내야함
+      setModalOpen(!modalOpen);
     }
   };
 
@@ -146,18 +148,17 @@ const ImgModal = () => {
           취소
         </button>
         <button
-          onClick={handleSave}
+          onClick={saveHandler}
           style={{ color: '#FFF', border: '0.5px solid #F2F2F2', background: '#0B5C71', marginLeft: '8px' }}
         >
           등록
         </button>
       </ButtonContainer>
-      <img src={croppedImage} style={{ borderRadius: 100 }} />
     </Modal>
   );
 };
 
-export default ImgModal;
+export default ProfileImgModal;
 
 const CropContainer = styled.div`
   position: relative;
