@@ -183,7 +183,7 @@ const FileContainer = styled.div`
     margin-right: 8px;
 
     color: #000;
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-size: 12px;
     font-weight: 400;
     cursor: pointer;
@@ -197,7 +197,7 @@ const FileContainer = styled.div`
     border: 0.5px solid #e0e0e0;
 
     color: #000;
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-size: 12px;
     font-weight: 400;
   }
@@ -209,7 +209,7 @@ const MessageContainer = styled.ul`
   li {
     margin-top: 8px;
     color: #000;
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-size: 8px;
     font-weight: 400;
   }
@@ -224,7 +224,7 @@ const ButtonContainer = styled.div`
     padding: 16px 54px;
     border-radius: 8px;
 
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;

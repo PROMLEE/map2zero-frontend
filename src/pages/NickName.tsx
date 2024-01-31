@@ -32,7 +32,7 @@ const Container = styled.div`
   h1 {
     margin-top: 5.6rem;
     color: #181818;
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-size: 16px;
     font-weight: 600;
 

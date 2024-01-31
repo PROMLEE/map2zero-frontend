@@ -31,13 +31,14 @@ export default EditButton;
 
 const Button = styled.button`
   display: flex;
-  width: 29.2rem;
-  padding: 16px;
   justify-content: center;
   align-items: center;
+  width: 29.2rem;
+  padding: 16px;
+  margin-bottom: 24px;
   gap: 10px;
   border-radius: 8px;
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans KR';
   font-size: 12px;
   font-weight: 600;
   background: #0b5c71;
@@ -46,7 +47,6 @@ const Button = styled.button`
 
   @media (max-width: 768px) {
     width: 81.75rem;
-    margin-bottom: 7.75rem;
   }
 
   &:disabled {

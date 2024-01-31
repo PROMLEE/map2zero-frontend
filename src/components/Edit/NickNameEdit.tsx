@@ -72,7 +72,7 @@ const InputDiv = styled.div<{ $message: boolean }>`
 
       &::placeholder {
         color: #e0e0e0;
-        font-family: 'Noto Sans';
+        font-family: 'Noto Sans KR';
         font-size: 14px;
         font-weight: 400;
       }
@@ -90,7 +90,7 @@ const InputDiv = styled.div<{ $message: boolean }>`
 
   p {
     color: #ff6464;
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-size: 10px;
     font-weight: 400;
     margin-top: 4px;

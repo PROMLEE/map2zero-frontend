@@ -18,3 +18,13 @@ export const nickNameState = atom<{ nickname: string; message: boolean; readonly
     readonly: false,
   },
 });
+
+export const logoutModalState = atom<boolean>({
+  key: 'logoutModal',
+  default: false,
+});
+
+export const withdrawModalState = atom<boolean>({
+  key: 'withdrawModal',
+  default: false,
+});

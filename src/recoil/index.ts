@@ -4,7 +4,7 @@ import { reviewmodalState, tagitem, starRate, textRate } from './reviewwritemoda
 import { ReviewState, MyReviewState } from './Reviewlist';
 import { InputState } from './Owner/owner';
 import { searchToggleState, sellingProductSearchToggle } from './searchToggleState';
-import { imgModalState, profileImgState, nickNameState } from './editState';
+import { imgModalState, profileImgState, nickNameState, logoutModalState, withdrawModalState } from './editState';
 
 export {
   exampleState,
@@ -21,4 +21,6 @@ export {
   imgModalState,
   profileImgState,
   nickNameState,
+  logoutModalState,
+  withdrawModalState,
 };

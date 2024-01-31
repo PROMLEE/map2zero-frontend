@@ -33,7 +33,7 @@ const KakaoDiv = styled.div`
     color: #565656;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-size: 10px;
     font-weight: 400;
   }
