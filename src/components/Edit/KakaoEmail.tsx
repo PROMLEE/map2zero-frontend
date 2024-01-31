@@ -22,7 +22,6 @@ const KakaoDiv = styled.div`
   gap: 8px;
   border-radius: 8px;
   border: 1px solid #f2f2f2;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 768px) {
     width: 81.75rem;

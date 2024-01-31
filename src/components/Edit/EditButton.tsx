@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { nickNameState } from '../../recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { nickNameState, profileImgState } from '../../recoil';
 
 const EditButton = () => {
   const [nickname, setNickName] = useRecoilState(nickNameState);
+  const profileImg = useRecoilValue(profileImgState);
 
   //닉네임 중복 체크 및 편집 불가능하게 적용
   const onButtonHandler = () => {
@@ -20,7 +21,7 @@ const EditButton = () => {
   };
 
   return (
-    <Button disabled={nickname.nickname === ''} onClick={onButtonHandler}>
+    <Button disabled={nickname.nickname === '' || profileImg === ''} onClick={onButtonHandler}>
       적용
     </Button>
   );

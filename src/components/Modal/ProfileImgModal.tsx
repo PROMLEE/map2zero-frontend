@@ -119,18 +119,23 @@ const ProfileImgModal = () => {
       }}
     >
       <CropContainer>
-        {imageSrc && (
+        {imageSrc ? (
           <div onWheel={handleScaleChange}>
             <AvatarEditor
               ref={editorRef}
               image={imageSrc}
               width={150}
               height={150}
+              color={[217, 217, 217]}
               borderRadius={100}
               scale={scale}
               rotate={0}
             />
           </div>
+        ) : (
+          <DefaultImg>
+            <div></div>
+          </DefaultImg>
         )}
       </CropContainer>
       <FileContainer>
@@ -153,6 +158,7 @@ const ProfileImgModal = () => {
         </button>
         <button
           onClick={saveHandler}
+          disabled={imageSrc === null}
           style={{ color: '#FFF', border: '0.5px solid #F2F2F2', background: '#0B5C71', marginLeft: '8px' }}
         >
           등록
@@ -167,6 +173,20 @@ export default ProfileImgModal;
 const CropContainer = styled.div`
   position: relative;
   height: 200px;
+`;
+
+const DefaultImg = styled.div`
+  width: 200px;
+  height: 200px;
+  padding: 25px;
+  background: #d9d9d9;
+
+  > div {
+    width: 150px;
+    height: 150px;
+    background: #fff;
+    border-radius: 100%;
+  }
 `;
 
 const FileContainer = styled.div`
@@ -228,5 +248,9 @@ const ButtonContainer = styled.div`
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
+
+    &:disabled {
+      cursor: default;
+    }
   }
 `;

@@ -50,16 +50,7 @@ const ImageDiv = styled.div`
   label {
     position: absolute;
     bottom: 0.5rem;
-    right: 0.3rem;
-    width: 30px;
-    height: 30px;
-    padding: 8px;
-    border-radius: 100px;
-    background: #fff;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    right: 0.5rem;
     cursor: pointer;
   }
 `;
