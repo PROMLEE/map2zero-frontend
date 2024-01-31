@@ -2,11 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { StoreInfoDummyType } from './Dummy/StoreDummy';
+import { ReactComponent as ArrowIcon } from '../../assets/Home/arrow.svg';
 
 const StoreInfo = ({ info }: { info: StoreInfoDummyType }) => {
   const navigate = useNavigate();
   const onClickStore = () => {
-    navigate(`/store`);
+    navigate('');
   };
 
   return (
@@ -15,7 +16,7 @@ const StoreInfo = ({ info }: { info: StoreInfoDummyType }) => {
         <img src={info.img} alt={info.name} />
         <Promotation>{info.promotion}</Promotation>
         <Arrow>
-          <img src={`${process.env.PUBLIC_URL}/assets/Home/arrow.svg`} alt={'화살표'} />
+          <ArrowIcon fill={'#ffffff'} width={'3rem'} height={'2rem'} alt={'화살표'} />
         </Arrow>
       </ImgWrap>
 
@@ -71,12 +72,7 @@ const Promotation = styled.p`
   z-index: 2;
 `;
 const Arrow = styled.div`
-  > img {
-    height: 3rem;
-    width: 2rem;
-    z-index: 2;
-  }
-
+  z-index: 2;
   position: absolute;
   bottom: 3.6rem;
   right: 2.4rem;

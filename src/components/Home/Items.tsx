@@ -10,13 +10,22 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState(0);
   const [startScroll, setStartScroll] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [isClicked, setIsClicked] = useState(false);
 
   const onClickStore = () => {
-    navigate(`/store`);
+    if (!isDragging) {
+      // 드래그가 아니라면 클릭 이벤트 처리
+      navigate(`/store`);
+    }
   };
+
   const onDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
+    setDragStartX(e.pageX);
     setIsDrag(true);
+    setIsClicked(true); // 클릭 상태 설정
 
     if (scrollRef.current) {
       setStartX(e.pageX + scrollRef.current.scrollLeft);
@@ -26,29 +35,34 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
 
   const onDragEnd = () => {
     setIsDrag(false);
-    if (scrollRef.current) {
-      const endScroll = scrollRef.current.scrollLeft; // 스크롤 종료 위치
-
-      if (startScroll !== endScroll) {
-        // 스크롤이 발생했음
-        // 클릭 이벤트 무시
-      } else {
-        // 스크롤이 발생하지 않음
-        // 클릭 이벤트 처리
-        onClickStore();
-      }
+    if (isClicked) {
+      // 드래그가 아니고 클릭 상태라면
+      onClickStore();
     }
+    setIsDragging(false);
+    setIsClicked(false); // 마우스 업 시 모든 상태 초기화
   };
 
   const onDragMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isDrag && scrollRef.current) {
-      const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
-      scrollRef.current.scrollLeft = startX - e.pageX;
+      const moveX = e.pageX;
+      const minDragDistance = 10;
 
-      if (scrollLeft === 0) {
-        setStartX(e.pageX);
-      } else if (scrollWidth <= clientWidth + scrollLeft) {
-        setStartX(e.pageX + scrollLeft);
+      if (Math.abs(moveX - dragStartX) > minDragDistance) {
+        setIsDragging(true);
+        setIsClicked(false); // 드래그 발생 시 클릭 상태 해제
+      }
+
+      if (isDragging) {
+        // 드래그 로직
+        const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
+        scrollRef.current.scrollLeft = startX - e.pageX;
+
+        if (scrollLeft === 0) {
+          setStartX(e.pageX);
+        } else if (scrollWidth <= clientWidth + scrollLeft) {
+          setStartX(e.pageX + scrollLeft);
+        }
       }
     }
   };
@@ -89,7 +103,7 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
           <StoreNameContainer>
             <p>{item.storeName}</p>
             <div>
-              <ArrowIcon fill={'#565656'} width={'1.2rem'} height={'1rem'} />
+              <ArrowIcon fill={'#565656'} width={'1.2rem'} height={'1rem'} alt={'화살표'} />
             </div>
           </StoreNameContainer>
         </Item>
