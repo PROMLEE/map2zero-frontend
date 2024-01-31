@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { StoreInfoDummyType } from './Dummy/StoreDummy';
 
-const navigate = useNavigate();
-const onClickStore = () => {
-  navigate(`/store`);
-};
-
 const StoreInfo = ({ info }: { info: StoreInfoDummyType }) => {
+  const navigate = useNavigate();
+  const onClickStore = () => {
+    navigate(`/store`);
+  };
+
   return (
     <Container onClick={onClickStore}>
       <ImgWrap>

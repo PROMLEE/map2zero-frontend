@@ -2,14 +2,70 @@ import styled from 'styled-components';
 import { ItemDummyType } from './Dummy/ItemDummy';
 import { ReactComponent as ArrowIcon } from '../../assets/Home/arrow.svg';
 import { useNavigate } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
 
 const Items = ({ info }: { info: ItemDummyType[] }) => {
   const navigate = useNavigate();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDrag, setIsDrag] = useState(false);
+  const [startX, setStartX] = useState(0);
+
   const onClickStore = () => {
     navigate(`/store`);
   };
+  const onDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDrag(true);
+
+    if (scrollRef.current) {
+      setStartX(e.pageX + scrollRef.current.scrollLeft);
+    }
+  };
+
+  const onDragEnd = () => {
+    setIsDrag(false);
+  };
+
+  const onDragMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isDrag && scrollRef.current) {
+      const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
+      scrollRef.current.scrollLeft = startX - e.pageX;
+
+      if (scrollLeft === 0) {
+        setStartX(e.pageX);
+      } else if (scrollWidth <= clientWidth + scrollLeft) {
+        setStartX(e.pageX + scrollLeft);
+      }
+    }
+  };
+
+  // 쓰로틀 구현
+  // util.js
+  const throttle = (func: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void, ms: number) => {
+    let throttled = false;
+    return (...args: [React.MouseEvent<HTMLDivElement, MouseEvent>]) => {
+      if (!throttled) {
+        throttled = true;
+        setTimeout(() => {
+          func(...args);
+          throttled = false;
+        }, ms);
+      }
+    };
+  };
+
+  const delay = 100;
+  const onThrottleDragMove = throttle(onDragMove, delay);
+
   return (
-    <Container onClick={onClickStore}>
+    <Container
+      onClick={onClickStore}
+      onMouseDown={onDragStart}
+      onMouseMove={isDrag ? onThrottleDragMove : undefined}
+      onMouseUp={onDragEnd}
+      onMouseLeave={onDragEnd}
+      ref={scrollRef}
+    >
       {info.map((item, index) => (
         <Item key={index}>
           <ImgContainer>
