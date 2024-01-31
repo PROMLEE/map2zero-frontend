@@ -9,6 +9,7 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState(0);
+  const [startScroll, setStartScroll] = useState(0);
 
   const onClickStore = () => {
     navigate(`/store`);
@@ -19,11 +20,24 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
 
     if (scrollRef.current) {
       setStartX(e.pageX + scrollRef.current.scrollLeft);
+      setStartScroll(scrollRef.current.scrollLeft);
     }
   };
 
   const onDragEnd = () => {
     setIsDrag(false);
+    if (scrollRef.current) {
+      const endScroll = scrollRef.current.scrollLeft; // 스크롤 종료 위치
+
+      if (startScroll !== endScroll) {
+        // 스크롤이 발생했음
+        // 클릭 이벤트 무시
+      } else {
+        // 스크롤이 발생하지 않음
+        // 클릭 이벤트 처리
+        onClickStore();
+      }
+    }
   };
 
   const onDragMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -59,7 +73,6 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
 
   return (
     <Container
-      onClick={onClickStore}
       onMouseDown={onDragStart}
       onMouseMove={isDrag ? onThrottleDragMove : undefined}
       onMouseUp={onDragEnd}
