@@ -179,7 +179,7 @@ const ImgContainer = styled.div`
       height: 37.75rem;
     }
     &::after {
-      top: 28rem;
+      top: 20rem;
     }
   }
 `;
