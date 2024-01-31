@@ -1,38 +1,25 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import HomeContents from './Contents/HomeContents';
+
 const HomeTap = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const tabClickHandler = (index: number) => {
-    setActiveIndex(index);
-  };
 
-  const tabContArr = [
-    {
-      tabTitle: (
-        <TapTitle active={activeIndex === 0} onClick={() => tabClickHandler(0)}>
-          <h1>추천</h1>
-        </TapTitle>
-      ),
-      tabCont: <HomeContents />,
-    },
-    {
-      tabTitle: (
-        <TapTitle active={activeIndex === 1} onClick={() => tabClickHandler(1)}>
-          <h1>최신</h1>
-        </TapTitle>
-      ),
-      tabCont: <div> 탭2 내용 </div>,
-    },
+  const tabs = [
+    { title: '추천', content: <HomeContents /> },
+    { title: '최신', content: <div> 탭2 내용 </div> },
   ];
+
   return (
     <>
       <TapMenu>
-        {tabContArr.map((section) => {
-          return section.tabTitle;
-        })}
+        {tabs.map((tab, index) => (
+          <TapTitle key={index} active={activeIndex === index} onClick={() => setActiveIndex(index)}>
+            <h1>{tab.title}</h1>
+          </TapTitle>
+        ))}
       </TapMenu>
-      <div>{tabContArr[activeIndex].tabCont}</div>
+      <div>{tabs[activeIndex].content}</div>
     </>
   );
 };
@@ -47,7 +34,9 @@ const TapMenu = styled.ul`
     height: 9rem;
   }
 `;
-const TapTitle = styled.li<{ active: boolean }>`
+const TapTitle = styled.li.withConfig({
+  shouldForwardProp: (prop) => prop !== 'active', //active라는 이름의 prop이 DOM 요소로 전달되지 X
+})<{ active: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,8 +49,8 @@ const TapTitle = styled.li<{ active: boolean }>`
   ${(props) =>
     props.active &&
     css`
-      color: #000000;
       border-bottom: 0.25rem solid;
     `}
 `;
+
 export default HomeTap;
