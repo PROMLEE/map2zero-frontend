@@ -9,7 +9,6 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [dragState, setDragState] = useState({ dragging: false, startX: 0, clicked: false });
-  // const [isClicked, setIsClicked] = useState(false);
 
   const onClickStore = () => {
     if (dragState.clicked && dragState.dragging) {
@@ -19,14 +18,13 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
 
   const onDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault(); // 기본 드래그 막음
-
-    setDragState((prevState) => ({
-      ...prevState,
-      dragging: true,
-      startX: e.pageX,
-      clicked: true,
-      // 현재 위치
-    }));
+    if (scrollRef.current) {
+      setDragState({
+        dragging: true,
+        startX: e.pageX + scrollRef.current.scrollLeft,
+        clicked: true,
+      });
+    }
   };
 
   const onDragEnd = () => {
@@ -44,20 +42,18 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
       if (Math.abs(moveX - dragState.startX) >= minDragDistance) {
         setDragState((prevState) => ({
           ...prevState,
-          clicked: false, // 현재 위치
+          clicked: false,
         }));
+
         const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
-        //전체 스크롤 가능 너비 , 요소의 실제 보이는 너비 , 현재 가로 스크롤 위치
         scrollRef.current.scrollLeft = dragState.startX - e.pageX;
-        // 드래그시 스크롤 위치 업데이트
+
         if (scrollLeft === 0) {
-          // 가장 왼쪽일 때 == 움직이고 있는 마우스의 x좌표 == startX
           setDragState((prevState) => ({
             ...prevState,
-            startX: e.pageX, // 현재 위치
+            startX: e.pageX,
           }));
         } else if (scrollWidth <= clientWidth + scrollLeft) {
-          // 가장 오른쪽일 때 == 움직이고 있는 마우스의 x좌표 == 현재 스크롤된 길이 scrollLeft의 합
           setDragState((prevState) => ({
             ...prevState,
             startX: e.pageX + scrollLeft,
@@ -67,7 +63,7 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
         // 거리가 짧으면 클릭으로 간주
         setDragState((prevState) => ({
           ...prevState,
-          clicked: true, // 현재 위치
+          clicked: true,
         }));
       }
     }
