@@ -1,16 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Modal from 'react-modal';
+import React, { useState, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { imgModalState, profileImgState } from '../../recoil';
-import { preventScroll, allowScroll } from './scroll';
 import AvatarEditor from 'react-avatar-editor';
 
-Modal.setAppElement('#root');
-
 const ProfileImgModal = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const isMobile = windowWidth <= 768 ? true : false;
   const [modalOpen, setModalOpen] = useRecoilState(imgModalState);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -33,16 +27,6 @@ const ProfileImgModal = () => {
       setModalOpen(!modalOpen);
     }
   };
-
-  //스크롤 동작 제어
-  useEffect(() => {
-    if (modalOpen) {
-      const prevScrollY = preventScroll();
-      return () => {
-        allowScroll(prevScrollY);
-      };
-    }
-  }, [modalOpen]);
 
   //파일명을 저장하고, Data URL 형태로 변환
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,104 +55,100 @@ const ProfileImgModal = () => {
     setModalOpen(!modalOpen);
   };
 
-  //윈도우 크기에 따른 모바일, PC 크기
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   return (
-    <Modal
-      isOpen={modalOpen}
-      style={{
-        overlay: {
-          backgroundColor: ' rgba(0, 0, 0, 0.3)',
-          width: '100%',
-          boxSizing: 'border-box',
-        },
-        content: {
-          boxSizing: 'border-box',
-          justifyContent: 'center',
-          overflow: 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-          borderRadius: '24px',
-          alignItems: 'center',
-          backgroundColor: 'white',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          position: 'relative',
-          paddingTop: '56px',
-          paddingBottom: '40px',
-          ...(isMobile
-            ? {
-                width: '81.75rem',
-              }
-            : {
-                width: '60.8rem',
-              }),
-        },
-      }}
-    >
-      <CropContainer>
-        {imageSrc ? (
-          <div onWheel={handleScaleChange}>
-            <AvatarEditor
-              ref={editorRef}
-              image={imageSrc}
-              width={150}
-              height={150}
-              color={[217, 217, 217]}
-              borderRadius={100}
-              scale={scale}
-              rotate={0}
-            />
-          </div>
-        ) : (
-          <DefaultImg>
-            <div></div>
-          </DefaultImg>
-        )}
-      </CropContainer>
-      <FileContainer>
-        <input id="fileInput" type="file" accept="image/*" onChange={onFileChange} style={{ display: 'none' }} />
-        <label htmlFor="fileInput" onClick={onButtonClick}>
-          파일선택
-        </label>
-        {fileName ? <p>{fileName}</p> : <p>선택한 파일이 없습니다</p>}
-      </FileContainer>
-      <MessageContainer>
-        <li>사진 파일은 10MB 미만의 JPG, JPEG, PNG, GIF 파일만 업로드 가능</li>
-        <li>사진 크기는 150*150 픽셀로 노출됩니다.</li>
-      </MessageContainer>
-      <ButtonContainer>
-        <button
-          onClick={modalHandler}
-          style={{ color: '#848484', border: '0.5px solid #848484', background: '#FFF', marginRight: '8px' }}
-        >
-          취소
-        </button>
-        <button
-          onClick={saveHandler}
-          disabled={imageSrc === null}
-          style={{ color: '#FFF', border: '0.5px solid #F2F2F2', background: '#0B5C71', marginLeft: '8px' }}
-        >
-          등록
-        </button>
-      </ButtonContainer>
-    </Modal>
+    <BackDrop>
+      <Modal>
+        <CropContainer>
+          {imageSrc ? (
+            <div onWheel={handleScaleChange}>
+              <AvatarEditor
+                ref={editorRef}
+                image={imageSrc}
+                width={150}
+                height={150}
+                color={[217, 217, 217]}
+                borderRadius={100}
+                scale={scale}
+                rotate={0}
+              />
+            </div>
+          ) : (
+            <DefaultImg>
+              <div></div>
+            </DefaultImg>
+          )}
+        </CropContainer>
+        <FileContainer>
+          <input id="fileInput" type="file" accept="image/*" onChange={onFileChange} style={{ display: 'none' }} />
+          <label htmlFor="fileInput" onClick={onButtonClick}>
+            파일선택
+          </label>
+          {fileName ? <p>{fileName}</p> : <p>선택한 파일이 없습니다</p>}
+        </FileContainer>
+        <MessageContainer>
+          <li>사진 파일은 10MB 미만의 JPG, JPEG, PNG, GIF 파일만 업로드 가능</li>
+          <li>사진 크기는 150*150 픽셀로 노출됩니다.</li>
+        </MessageContainer>
+        <ButtonContainer>
+          <button
+            onClick={modalHandler}
+            style={{ color: '#848484', border: '0.5px solid #848484', background: '#FFF', marginRight: '8px' }}
+          >
+            취소
+          </button>
+          <button
+            onClick={saveHandler}
+            disabled={imageSrc === null}
+            style={{ color: '#FFF', border: '0.5px solid #F2F2F2', background: '#0B5C71', marginLeft: '8px' }}
+          >
+            등록
+          </button>
+        </ButtonContainer>
+      </Modal>
+    </BackDrop>
   );
 };
 
 export default ProfileImgModal;
+
+const BackDrop = styled.div`
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const Modal = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  overflow-y: scroll;
+  z-index: 3;
+  padding-top: 56px;
+  padding-bottom: 40px;
+  border-radius: 24px;
+  width: 60.8rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    width: 81.75rem;
+  }
+`;
 
 const CropContainer = styled.div`
   position: relative;

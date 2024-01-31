@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 import { Mobiletop } from '../components';
-import ProfileImgModal from '../components/Modal/ProfileImgModal';
+import ProfileImgModal from '../components/Edit/ProfileImgModal';
 import ProfileEdit from '../components/Edit/ProfileEdit';
 import NickNameEdit from '../components/Edit/NickNameEdit';
 import KakaoEmail from '../components/Edit/KakaoEmail';
 import EditButton from '../components/Edit/EditButton';
+import { useRecoilValue } from 'recoil';
+import { imgModalState } from '../recoil';
 
 export default function NickName() {
+  const modalOpen = useRecoilValue(imgModalState);
+
   return (
     <Container>
-      <ProfileImgModal />
+      {modalOpen && <ProfileImgModal />}
       <Mobiletop pagename="닉네임 설정" />
       <h1>닉네임 설정</h1>
       <ProfileEdit />
