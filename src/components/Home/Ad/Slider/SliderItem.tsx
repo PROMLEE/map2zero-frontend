@@ -9,11 +9,11 @@ const SliderItem = ({ item }: { item: AdItemType }) => {
     <>
       <ImgWrap>
         <img src={item.img} alt={item.title} />
+        <InfoWrap>
+          <h1>{item.title}</h1>
+          <p>{item.date}</p>
+        </InfoWrap>
       </ImgWrap>
-      <InfoWrap>
-        <h1>{item.title}</h1>
-        <p>{item.date}</p>
-      </InfoWrap>
     </>
   );
 };
@@ -22,13 +22,12 @@ export default SliderItem;
 
 const ImgWrap = styled.div`
   position: relative;
-  img {
-    height: 59.6rem;
 
+  > img {
+    height: 56rem;
     width: 100%;
     @media (max-width: 768px) {
-      /* width: 100%;
-      height: 93.75rem; */
+      height: 140rem;
     }
   }
 
@@ -42,21 +41,36 @@ const ImgWrap = styled.div`
     background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
     z-index: 1;
   }
+  @media (max-width: 768px) {
+    &::after {
+      top: 60rem;
+    }
+  }
 `;
 
 const InfoWrap = styled.div`
-  position: absolute;
   bottom: 7rem;
-  margin-left: 50rem;
+  left: 20%;
   z-index: 2;
-
+  position: absolute;
   > h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: #fff;
+    @media (max-width: 768px) {
+      font-size: 5rem;
+      margin-bottom: 2.5rem;
+    }
   }
   > p {
     font-size: 1.6rem;
     color: #fff;
+    @media (max-width: 768px) {
+      font-size: 4rem;
+    }
+  }
+  @media (max-width: 768px) {
+    left: 6rem;
+    bottom: 16rem;
   }
 `;

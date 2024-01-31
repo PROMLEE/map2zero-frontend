@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { ItemDummyType } from './Dummy/ItemDummy';
-import { ReactComponent as ArrowIcon } from '../../assets/Home/arrow.svg';
+import { ItemDummyType } from '../Dummy/ItemDummy';
+import { ReactComponent as ArrowIcon } from '../../../assets/Home/arrow.svg';
 import { useNavigate } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
 
@@ -84,7 +84,7 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
     };
   };
 
-  const delay = 100;
+  const delay = 10;
   const onThrottleDragMove = throttle(onDragMove, delay);
 
   return (
@@ -105,7 +105,7 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
           <StoreNameContainer>
             <p>{item.storeName}</p>
             <div>
-              <ArrowIcon fill={'#565656'} width={'1.2rem'} height={'1rem'} alt={'화살표'} />
+              <CustomArrowIcon fill={'#565656'} alt={'화살표'} />
             </div>
           </StoreNameContainer>
         </Item>
@@ -130,6 +130,11 @@ const Container = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  @media (max-width: 768px) {
+    width: calc(100vw - 5%);
+    margin-left: 5%;
+  }
 `;
 
 const Item = styled.div`
@@ -143,6 +148,12 @@ const Item = styled.div`
   display: flex;
   flex-direction: column;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    margin-right: 4rem;
+    width: 37.75rem;
+    height: 44.75rem;
+  }
 `;
 
 const ImgContainer = styled.div`
@@ -163,6 +174,14 @@ const ImgContainer = styled.div`
     background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
     z-index: 1;
   }
+  @media (max-width: 768px) {
+    > img {
+      height: 37.75rem;
+    }
+    &::after {
+      top: 28rem;
+    }
+  }
 `;
 const Name = styled.p`
   position: absolute;
@@ -172,6 +191,12 @@ const Name = styled.p`
   bottom: 5.1rem;
   left: 1.6rem;
   z-index: 2;
+
+  @media (max-width: 768px) {
+    font-size: 3.5rem;
+    bottom: 7.5rem;
+    left: 4rem;
+  }
 `;
 const Promotion = styled.p`
   position: absolute;
@@ -181,8 +206,22 @@ const Promotion = styled.p`
   bottom: 1.6rem;
   left: 1.6rem;
   z-index: 2;
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    bottom: 4rem;
+    left: 4rem;
+  }
 `;
 
+const CustomArrowIcon = styled(ArrowIcon)`
+  width: 1.2rem;
+  height: 1rem;
+  @media (max-width: 768px) {
+    width: 2em;
+    height: 2.4rem;
+  }
+`;
 const StoreNameContainer = styled.div`
   display: flex;
   height: 100%;
@@ -194,5 +233,12 @@ const StoreNameContainer = styled.div`
     margin-bottom: 0.1rem;
     margin-right: 1.6rem;
     font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+    > p {
+      margin-right: 4rem;
+    }
   }
 `;

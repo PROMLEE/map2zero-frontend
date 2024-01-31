@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -39,12 +38,19 @@ const SliderWrap = styled.div`
   height: 56rem;
   width: 100vw;
   margin-bottom: 7rem;
+  @media (max-width: 768px) {
+    height: 140rem;
+  }
 `;
 
 const StyledSlider = styled(Slider)`
   .dots_custom {
     display: inline-block;
     vertical-align: middle;
+    bottom: 2em;
+    @media (max-width: 768px) {
+      bottom: 3rem;
+    }
   }
 
   .dots_custom li {
@@ -53,13 +59,13 @@ const StyledSlider = styled(Slider)`
   }
 
   .dots_custom li button {
-    width: 2.4rem;
+    width: 24rem;
     height: 0.4rem;
     background: rgba(255, 255, 255, 0.3);
     color: transparent;
     cursor: pointer;
     @media (max-width: 768px) {
-      width: 6rem;
+      width: 20rem;
       height: 1rem;
     }
   }
@@ -71,11 +77,25 @@ const StyledSlider = styled(Slider)`
   .slick-prev {
     left: 40px !important;
     z-index: 1;
+
+    @media (max-width: 768px) {
+      left: 10px !important;
+    }
   }
 
   .slick-next {
     right: 40px !important;
+    @media (max-width: 768px) {
+      right: 10px !important;
+    }
     z-index: 1;
+  }
+
+  .slick-track {
+    width: 100%;
+    @media (max-width: 768px) {
+      height: 140rem;
+    }
   }
 `;
 
@@ -84,4 +104,7 @@ const Customdot = styled.div`
   width: 100%;
   bottom: 2.4rem;
   text-align: center;
+  @media (max-width: 768px) {
+    bottom: 6rem;
+  }
 `;
