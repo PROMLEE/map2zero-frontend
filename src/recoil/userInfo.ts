@@ -7,7 +7,7 @@ const UserInfoState = atom<UserInfo>({
     islogin: false,
     email: '',
     nickname: '',
-    profile_photo: { url: '' },
+    photo: { url: '' },
     is_new_user: true,
     type: '',
   },

@@ -56,14 +56,7 @@ export const Navigationbar = () => {
       </Link>
       {userinfo.islogin ? (
         <Link to="/mypage">
-          <Navimg
-            src={userinfo.profile_photo.url}
-            $top="2.2rem"
-            $left="auto"
-            $right="2.4rem"
-            $width="4rem"
-            $height="4rem"
-          />
+          <Navimg src={userinfo.photo.url} $top="2.2rem" $left="auto" $right="2.4rem" $width="4rem" $height="4rem" />
         </Link>
       ) : (
         <Link to="/login">

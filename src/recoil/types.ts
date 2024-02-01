@@ -17,7 +17,7 @@ export interface UserInfo {
   islogin: boolean;
   email: string;
   nickname: string;
-  profile_photo: {
+  photo: {
     url: string;
   };
   is_new_user: boolean;
