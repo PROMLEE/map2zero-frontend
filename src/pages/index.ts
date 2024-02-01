@@ -8,7 +8,7 @@ import KakaoLoginHandeler from './Login/KakaoLoginHandeler';
 import NaverLoginHandeler from './Login/NaverLoginHandeler';
 import StoreDetail from './StoreDetail';
 import { SellingProduct } from './SellingProduct';
-
+import  OwnerMypage from './OwnerMypage';
 export {
   Home,
   Search,
@@ -19,5 +19,5 @@ export {
   Setting,
   Owner,
   StoreDetail,
-  SellingProduct,
+  SellingProduct, OwnerMypage
 };
