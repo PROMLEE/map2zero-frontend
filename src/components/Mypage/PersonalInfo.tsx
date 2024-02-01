@@ -16,7 +16,7 @@ const PersonalInfo = ({ info }: { info: PersonalInfoDummyType }) => {
         </div>
         <InfoWrap>
           {info.storename && <StoreName>{info.storename}</StoreName>}
-          <Name hasStoreName={!!info.storename}>{info.nickname}</Name>
+          <Name hasstorename={!!info.storename}>{info.nickname}</Name>
           <SocialWrap>
             <SocialIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/kakao.png`} alt="소셜아이콘"></SocialIcon>
             <Email>{info.email}</Email>
@@ -50,7 +50,7 @@ const Wrap = styled.div`
   }
   @media (max-width: 768px) {
     margin-top: 0;
-    background-color: rgba(12, 140, 255, 1);
+    background-color: #74b69d;
     width: 100%;
     height: 36rem;
 
@@ -71,15 +71,17 @@ const StoreName = styled.h1`
   font-size: 2.8rem;
   margin-bottom: 2rem;
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 3.5rem;
+    margin-bottom: 1.3rem;
+    color: #fff;
   }
 `;
-const Name = styled.h2<{ hasStoreName: boolean }>`
-  font-size: ${(props) => (props.hasStoreName ? '1.7rem' : '2.8rem')};
+const Name = styled.h2<{ hasstorename: boolean }>`
+  font-size: ${(props) => (props.hasstorename ? '1.7rem' : '2.8rem')};
   font-weight: bold;
   margin: 0 0 2rem 0;
   @media (max-width: 768px) {
-    font-size: ${(props) => (props.hasStoreName ? '0.75rem' : '3.5rem')};
+    font-size: ${(props) => (props.hasstorename ? '2.5rem' : '3.5rem')};
     color: #fff;
   }
 `;

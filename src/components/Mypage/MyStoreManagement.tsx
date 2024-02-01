@@ -30,6 +30,9 @@ const Wrap = styled.div`
     display: flex;
     flex-direction: column;
     margin: 3rem 0 3rem 0;
+    @media (max-width: 768px) {
+      flex-direction: row;
+    }
   }
 `;
 const Title = styled.h1`
@@ -56,12 +59,12 @@ const Btn = styled.button`
   margin-bottom: 1.5rem;
   cursor: pointer;
   @media (max-width: 768px) {
-    /* line-height: 12rem;
-    height: 12rem;
-    width: 81.75rem;
-    font-size: 3.5rem;
-    margin-top: 8.75rem;
-    margin-bottom: 5rem; */
+    height: 11.75rem;
+    line-height: 11.75rem;
+    width: 38rem;
+    font-size: 3rem;
+    margin-right: 4rem;
+    margin-left: 5%;
   }
 `;
 export default MyStoreManagement;
