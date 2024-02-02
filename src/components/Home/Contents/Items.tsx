@@ -215,11 +215,11 @@ const Promotion = styled.p`
 `;
 
 const CustomArrowIcon = styled(ArrowIcon)`
-  width: 1.2rem;
-  height: 1rem;
+  width: 1.8rem;
+  height: 1.5rem;
   @media (max-width: 768px) {
-    width: 2em;
-    height: 2.4rem;
+    width: 3.3rem;
+    height: 3rem;
   }
 `;
 const StoreNameContainer = styled.div`
@@ -233,12 +233,14 @@ const StoreNameContainer = styled.div`
     margin-bottom: 0.1rem;
     margin-right: 1.6rem;
     font-weight: 600;
+    font-size: 1.4rem;
   }
 
   @media (max-width: 768px) {
     padding: 2rem;
     > p {
       margin-right: 4rem;
+      font-size: 3.5rem;
     }
   }
 `;

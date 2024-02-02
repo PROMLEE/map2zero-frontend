@@ -37,6 +37,7 @@ export default StoreInfo;
 const Container = styled.div`
   width: 80%;
   height: 72.3rem;
+  border-bottom: 0.5px solid var(--light-gray, #f2f2f2);
   @media (max-width: 768px) {
     width: 100%;
     height: 125.5rem;
@@ -149,19 +150,18 @@ const Star = styled.img`
 const Score = styled.p`
   font-size: 1.4rem;
   color: #ff6464;
-  margin: 0.5rem 1rem 0 1rem;
+  margin: 0.2rem 1rem 0 1rem;
   @media (max-width: 768px) {
     font-size: 3.5rem;
-    margin: 0.5rem 3rem 0 3rem;
+    margin: 0.2rem 3rem 0 3rem;
   }
 `;
 const Count = styled.p`
   font-size: 1.4rem;
   color: #e0e0e0;
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
   @media (max-width: 768px) {
     font-size: 3.5rem;
-    margin-top: 0.5rem;
   }
 `;
 
