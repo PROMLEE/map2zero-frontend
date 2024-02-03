@@ -12,7 +12,6 @@ import {
   StoreDetail,
   Map,
   SellingProduct,
-  Map,
 } from './pages';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
