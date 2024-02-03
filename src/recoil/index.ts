@@ -3,7 +3,6 @@ import { popUpModalState } from './confirmModal';
 import { reviewmodalState, tagitem, starRate, textRate } from './reviewwritemodal';
 import { ReviewState, MyReviewState } from './Reviewlist';
 import { InputState } from './Owner/owner';
-import { searchToggleState } from './searchToggleState';
 import UserInfoState from './userInfo';
 import { searchToggleState, sellingProductSearchToggle } from './searchToggleState';
 
