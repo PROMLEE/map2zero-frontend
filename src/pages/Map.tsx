@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { MarkerInfo, Mobiletop } from '../components';
+import { MarkerInfo, Mobiletop, Gpsbutton } from '../components';
 import { renderToString } from 'react-dom/server';
 import styled from 'styled-components';
 
 export const Map = () => {
   const [myLocation, setMyLocation] = useState<{ latitude: number; longitude: number }>({ latitude: 0, longitude: 0 });
   const strinnng = renderToString(<MarkerInfo />);
-
+  const gpsbutton = renderToString(<Gpsbutton />);
   let map: any = null;
   const initMap = (myLocation: { latitude: number; longitude: number }) => {
     map = new naver.maps.Map('map', {
@@ -35,8 +35,6 @@ export const Map = () => {
           url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
           scaledSize: new naver.maps.Size(35, 35),
           size: new naver.maps.Size(35, 35),
-          origin: new naver.maps.Point(0, 0),
-          anchor: new naver.maps.Point(25, 26),
         },
       });
       infowindows.push(
@@ -56,15 +54,32 @@ export const Map = () => {
         if (infowindows[i].getMap()) {
           infowindows[i].close();
         } else {
-          map.panTo(e.coord);
-          infowindows[i].open(map, markers[i]);
           for (let i = 0; i < markers.length; i++) {
-            naver.maps.Event.once(map, 'click', function () {
-              if (infowindows[i].getMap()) {
-                infowindows[i].close();
-              }
+            markers[i].setIcon({
+              url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+              scaledSize: new naver.maps.Size(35, 35),
+              size: new naver.maps.Size(35, 35),
             });
           }
+          map.panTo(e.coord);
+          markers[i].setIcon({
+            url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+            scaledSize: new naver.maps.Size(50, 50),
+            size: new naver.maps.Size(50, 50),
+          });
+          infowindows[i].open(map, markers[i]);
+          naver.maps.Event.once(map, 'click', function () {
+            for (let i = 0; i < markers.length; i++) {
+              if (infowindows[i].getMap()) {
+                markers[i].setIcon({
+                  url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+                  scaledSize: new naver.maps.Size(35, 35),
+                  size: new naver.maps.Size(35, 35),
+                });
+                infowindows[i].close();
+              }
+            }
+          });
         }
       });
     }
@@ -88,11 +103,9 @@ export const Map = () => {
         }
       }
     };
-    var locationBtnHtml =
-      '<a href="#" ><img src="/assets/Map/Gps.svg" style="width:4rem; margin-bottom:42vh; margin-right:0.5rem;"/></a>';
 
     naver.maps.Event.once(map, 'init', function () {
-      var customControl = new naver.maps.CustomControl(locationBtnHtml, {
+      var customControl = new naver.maps.CustomControl(gpsbutton, {
         position: naver.maps.Position.RIGHT_BOTTOM,
       });
       customControl.setMap(map);

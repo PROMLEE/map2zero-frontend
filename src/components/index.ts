@@ -5,5 +5,5 @@ import Loginbutton from './Login/Loginbutton';
 import Mobiletop from './Mobiletop';
 import ScrollToTop from './ScrollToTop';
 import { MarkerInfo } from './Map/MarkerInfo';
-
-export { Example, Navigationbar, Loginbutton, Mobiletop, ReviewWrite, ScrollToTop, MarkerInfo };
+import { Gpsbutton } from './Map/Gpsbutton';
+export { Example, Navigationbar, Loginbutton, Mobiletop, ReviewWrite, ScrollToTop, MarkerInfo, Gpsbutton };
