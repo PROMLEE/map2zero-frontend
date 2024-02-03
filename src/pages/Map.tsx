@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MarkerInfo } from '../components';
+import { MarkerInfo, Mobiletop } from '../components';
 import { renderToString } from 'react-dom/server';
 import styled from 'styled-components';
 
@@ -138,6 +138,7 @@ export const Map = () => {
   };
   return (
     <MapWrap>
+      <Mobiletop pagename="지도" />
       <NavMap id="map" style={mapStyle} />
     </MapWrap>
   );

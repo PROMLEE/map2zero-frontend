@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const MarkerInfo = () => {
@@ -34,6 +32,10 @@ const MarkerBox = styled.div`
   height: 31.6rem;
   background-image: url('/assets/Map/balloon.svg');
   background-size: cover;
+  @media screen and (max-width: 768px) {
+    width: 101rem;
+    height: 71rem;
+  }
 `;
 const Title = styled.div`
   color: var(--Main, #0b5c71);
@@ -45,6 +47,11 @@ const Title = styled.div`
   font-weight: bold;
   margin-top: 2.4rem;
   margin-left: 2.4rem;
+  @media screen and (max-width: 768px) {
+    font-size: 5rem;
+    margin-top: 6rem;
+    margin-left: 6rem;
+  }
 `;
 const InfoBox = styled.div`
   display: flex;
@@ -58,6 +65,12 @@ const StoreImg = styled.div`
   margin-left: 2.4rem;
   background-color: #d9d9d9;
   border-radius: 1rem;
+  @media screen and (max-width: 768px) {
+    width: 45rem;
+    height: 45rem;
+    margin-top: 2rem;
+    margin-left: 6rem;
+  }
 `;
 const TextBox = styled.div`
   display: flex;
@@ -66,11 +79,20 @@ const TextBox = styled.div`
   margin-left: 2.4rem;
   width: 17.7rem;
   height: 2rem;
+  @media screen and (max-width: 768px) {
+    width: 40rem;
+    height: 45rem;
+    margin-top: 2rem;
+    margin-left: 3rem;
+  }
 `;
 const TopBox = styled.div`
   display: flex;
   width: 17.7rem;
   justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    width: 40rem;
+  }
 `;
 const StarBox = styled.div`
   display: flex;
@@ -80,6 +102,10 @@ const StarBox = styled.div`
 const Star = styled.img`
   width: 1.4rem;
   height: 1.4rem;
+  @media screen and (max-width: 768px) {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 `;
 
 const Reviewnum = styled.div`
@@ -90,10 +116,17 @@ const Reviewnum = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  @media screen and (max-width: 768px) {
+    font-size: 3rem;
+  }
 `;
 const BookmarkImg = styled.img`
   width: 1.4rem;
   height: 1.8rem;
+  @media screen and (max-width: 768px) {
+    width: 3.5rem;
+    height: 4rem;
+  }
 `;
 const AdressBox = styled.div`
   margin-top: 1.6rem;
@@ -106,6 +139,11 @@ const AdressBox = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  @media screen and (max-width: 768px) {
+    width: 40rem;
+    height: 30rem;
+    font-size: 3rem;
+  }
 `;
 const BottomButton = styled.a`
   text-decoration: none;
@@ -127,4 +165,10 @@ const BottomButton = styled.a`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  @media screen and (max-width: 768px) {
+    width: 20rem;
+    font-size: 2rem;
+    height: 5rem;
+    padding: 0.8rem 1.6rem;
+  }
 `;
