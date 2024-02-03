@@ -12,8 +12,8 @@ import {
   StoreDetail,
   SellingProduct,
   OwnerMypage,
+  Map,
 } from './pages';
-
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 
@@ -35,6 +35,7 @@ export default function App() {
           <Route path="/store" element={<StoreDetail />} />
           <Route path="/sellingproduct" element={<SellingProduct />} />
           <Route path="/owner/mypage" element={<OwnerMypage />} />
+          <Route path="/map" element={<Map />} />
         </Routes>
       </BrowserRouter>
     </Background>
