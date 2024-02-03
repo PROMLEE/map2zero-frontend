@@ -9,6 +9,7 @@ import NaverLoginHandeler from './Login/NaverLoginHandeler';
 import StoreDetail from './StoreDetail';
 import { SellingProduct } from './SellingProduct';
 import { Map } from './Map';
+import { SellingProductManage } from './SellingProductManage';
 
 export {
   Home,
@@ -22,4 +23,5 @@ export {
   StoreDetail,
   SellingProduct,
   Map,
+  SellingProductManage,
 };
