@@ -10,6 +10,7 @@ import StoreDetail from './StoreDetail';
 import NickName from './NickName';
 import { SellingProduct } from './SellingProduct';
 import AccountSetting from './AccountSetting';
+import { Map } from './Map';
 
 export {
   Home,
@@ -24,4 +25,5 @@ export {
   SellingProduct,
   NickName,
   AccountSetting,
+  Map,
 };

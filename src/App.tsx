@@ -13,8 +13,8 @@ import {
   NickName,
   SellingProduct,
   AccountSetting,
+  Map,
 } from './pages';
-
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
 
@@ -37,6 +37,7 @@ export default function App() {
           <Route path="/nickname" element={<NickName />} />
           <Route path="/sellingproduct" element={<SellingProduct />} />
           <Route path="/accountsetting" element={<AccountSetting />} />
+          <Route path="/map" element={<Map />} />
         </Routes>
       </BrowserRouter>
     </Background>
