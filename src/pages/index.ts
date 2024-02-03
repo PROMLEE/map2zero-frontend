@@ -7,8 +7,8 @@ import Login from './Login/Login';
 import KakaoLoginHandeler from './Login/KakaoLoginHandeler';
 import NaverLoginHandeler from './Login/NaverLoginHandeler';
 import StoreDetail from './StoreDetail';
-import Map from './Map';
 import { SellingProduct } from './SellingProduct';
+import { Map } from './Map';
 
 export {
   Home,
