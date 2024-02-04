@@ -4,6 +4,14 @@ import { reviewmodalState, tagitem, starRate, textRate } from './reviewwritemoda
 import { ReviewState, MyReviewState } from './Reviewlist';
 import { InputState } from './Owner/owner';
 import { searchToggleState, sellingProductSearchToggle } from './searchToggleState';
+import {
+  imgModalState,
+  profileImgState,
+  nickNameState,
+  logoutModalState,
+  withdrawModalState,
+  profileNameState,
+} from './editState';
 
 export {
   exampleState,
@@ -17,4 +25,10 @@ export {
   ReviewState,
   MyReviewState,
   sellingProductSearchToggle,
+  imgModalState,
+  profileImgState,
+  nickNameState,
+  logoutModalState,
+  withdrawModalState,
+  profileNameState,
 };
