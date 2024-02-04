@@ -6,6 +6,14 @@ import { InputState } from './Owner/owner';
 import { searchToggleState, sellingProductSearchToggle } from './searchToggleState';
 import { shareModalState } from './sharepopupModal';
 import { detailModalState } from './detailPopupModal';
+import {
+  imgModalState,
+  profileImgState,
+  nickNameState,
+  logoutModalState,
+  withdrawModalState,
+  profileNameState,
+} from './editState';
 
 export {
   exampleState,
@@ -21,4 +29,10 @@ export {
   sellingProductSearchToggle,
   shareModalState,
   detailModalState
+  imgModalState,
+  profileImgState,
+  nickNameState,
+  logoutModalState,
+  withdrawModalState,
+  profileNameState,
 };

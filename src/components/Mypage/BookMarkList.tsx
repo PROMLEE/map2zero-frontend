@@ -14,7 +14,7 @@ const BookMarkList = () => {
       <BookMarks onClick={onClickBookMark}>
         {BookMarkDummy.map((i) => (
           <BookMark key={i.storeName}>
-            <StoreImg src={`${process.env.PUBLIC_URL}assets/MyPage/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
+            <StoreImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${i.photo}`} alt={`${i.storeName}의 이미지`} />
             <BookMarkIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/bookmark.png`} alt="북마크아이콘" />
             <h3>{i.storeName}</h3>
             <p>{i.address}</p>

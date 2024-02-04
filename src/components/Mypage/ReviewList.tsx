@@ -16,7 +16,7 @@ const ReviewList = () => {
       <Reviews>
         {ReviewDummy.map((i) => (
           <Review key={i.storeName} onClick={modalHandler}>
-            <StoreImg src={`${process.env.PUBLIC_URL}assets/MyPage/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
+            <StoreImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
             <div>
               <h3>{i.storeName}</h3>
               <p>{i.content}</p>
