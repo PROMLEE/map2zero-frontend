@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { Mobiletop, ScrollToTop } from '../components';
+import { Mobiletop, ScrollToTop, ProductRegistration } from '../components';
 import NoSearchFile from '../components/SearchFile/NoSearchFile';
 import { SearchBar, DefaultList } from '../components/SellingProduct';
 import { useEffect, useState } from 'react';
-import { productManage } from '../recoil';
-import { useSetRecoilState } from 'recoil';
+import { productManage, productRegistModalState } from '../recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Cookies } from 'react-cookie';
 
 export const SellingProductManage = () => {
@@ -12,6 +12,8 @@ export const SellingProductManage = () => {
   const [searchResultView, setSearchResultView] = useState(false);
   const [showSideMenu, setShowSideMenu] = useState(false);
   const [fadeInOut, setFadeInOut] = useState('');
+  const [modal, setmodal] = useRecoilState(productRegistModalState);
+  document.body.style.overflow = modal ? 'hidden' : 'unset';
 
   const isOwner = useSetRecoilState(productManage);
 
@@ -60,8 +62,9 @@ export const SellingProductManage = () => {
       {searchResultView ? <NoSearchFile /> : <DefaultList />}
       <ButtonBox>
         {showSideMenu ? <ArrowBubble className={'side-menu ' + fadeInOut}>제품추가</ArrowBubble> : null}
-        <Button onMouseOver={showMenuList} onMouseLeave={closeMenuList} />
+        <Button onClick={() => setmodal(true)} onMouseOver={showMenuList} onMouseLeave={closeMenuList} />
       </ButtonBox>
+      {modal == true ? <ProductRegistration /> : null}
     </ProductBox>
   );
 };

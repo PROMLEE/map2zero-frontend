@@ -1,6 +1,17 @@
 import { exampleState } from './example';
 import { popUpModalState } from './confirmModal';
-import { reviewmodalState, tagitem, starRate, textRate } from './reviewwritemodal';
+import {
+  reviewmodalState,
+  productRegistModalState,
+  eventManageModalState,
+  tagitem,
+  starRate,
+  textRate,
+  productName,
+  productPrice,
+  productCategory,
+  productPic,
+} from './modals';
 import { ReviewState, MyReviewState } from './Reviewlist';
 import { InputState } from './Owner/owner';
 import { searchToggleState, sellingProductSearchToggle } from './searchToggleState';
@@ -19,4 +30,10 @@ export {
   MyReviewState,
   sellingProductSearchToggle,
   productManage,
+  productRegistModalState,
+  eventManageModalState,
+  productName,
+  productPrice,
+  productCategory,
+  productPic,
 };

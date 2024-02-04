@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 import { textRate } from '../../recoil';
 
-export const TextReview = () => {
+export const Text = () => {
   const setText = useSetRecoilState(textRate);
   let [inputCount, setInputCount] = useState(0);
   const onInputHandler = (e: any) => {
