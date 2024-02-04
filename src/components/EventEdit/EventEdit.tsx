@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import { Addonepic, Eventname, EventExplane, EventLink, EventDate } from '.';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { eventManageModalState, eventName } from '../../recoil';
+import { eventManageModalState, eventName, eventExplane, eventPic, eventDate } from '../../recoil';
 import { useEffect, useRef } from 'react';
 
 export const EventEdit = () => {
   const setModal = useSetRecoilState(eventManageModalState);
   const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
-  const text = useRecoilValue(eventName);
-  const isConditionMet = text !== '';
+  const eventname = useRecoilValue(eventName);
+  const eventexplane = useRecoilValue(eventExplane);
+  const eventpic = useRecoilValue(eventPic);
+  const eventdate = useRecoilValue(eventDate);
+  const isConditionMet = eventname !== '' && eventexplane !== '';
 
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
