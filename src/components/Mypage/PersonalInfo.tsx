@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-const PersonalInfo = () => {
+import { PersonalInfoDummyType } from './Dummy/PersonalInfoDummy';
+const PersonalInfo = ({ info }: { info: PersonalInfoDummyType }) => {
   const navigate = useNavigate();
 
   const onSettingHandler = () => {
@@ -11,13 +12,14 @@ const PersonalInfo = () => {
     <Wrap>
       <div>
         <div>
-          <PersonalImg src={`${process.env.PUBLIC_URL}/assets/MyPage/white.png`} alt="이미지"></PersonalImg>
+          <PersonalImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${info.photo}`} alt="이미지"></PersonalImg>
         </div>
         <InfoWrap>
-          <Name>사용자 이름</Name>
+          {info.storename && <StoreName>{info.storename}</StoreName>}
+          <Name hasstorename={!!info.storename}>{info.nickname}</Name>
           <SocialWrap>
             <SocialIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/kakao.png`} alt="소셜아이콘"></SocialIcon>
-            <Email>계정아이디@gamil.com</Email>
+            <Email>{info.email}</Email>
           </SocialWrap>
         </InfoWrap>
       </div>
@@ -48,7 +50,7 @@ const Wrap = styled.div`
   }
   @media (max-width: 768px) {
     margin-top: 0;
-    background-color: rgba(12, 140, 255, 1);
+    background-color: #74b69d;
     width: 100%;
     height: 36rem;
 
@@ -65,13 +67,21 @@ const InfoWrap = styled.div`
   margin-left: 3rem;
   flex-direction: column;
 `;
-
-const Name = styled.h1`
+const StoreName = styled.h1`
   font-size: 2.8rem;
+  margin-bottom: 2rem;
+  @media (max-width: 768px) {
+    font-size: 3.5rem;
+    margin-bottom: 1.3rem;
+    color: #fff;
+  }
+`;
+const Name = styled.h2<{ hasstorename: boolean }>`
+  font-size: ${(props) => (props.hasstorename ? '1.7rem' : '2.8rem')};
   font-weight: bold;
   margin: 0 0 2rem 0;
   @media (max-width: 768px) {
-    font-size: 3.5rem;
+    font-size: ${(props) => (props.hasstorename ? '2.5rem' : '3.5rem')};
     color: #fff;
   }
 `;

@@ -1,5 +1,5 @@
 
-type BookMarkDummyType= {
+export type BookMarkDummyType= {
   photo: string;
   storeName: string;
   address: string;
