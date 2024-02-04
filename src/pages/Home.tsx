@@ -1,17 +1,26 @@
 import styled from 'styled-components';
-import { Example, Mobiletop } from '../components';
+import { Mobiletop } from '../components';
+import { AdSlider, Items, StoreInfo } from '../components/Home';
+import HomeTap from '../components/Home/HomeTap';
 
 export default function Homepage() {
   return (
-    <HomeBackground>
+    <ContentWrap>
       <Mobiletop pagename="홈 화면" />
-      <Example />
-    </HomeBackground>
+      <AdSlider />
+      <HomeTap></HomeTap>
+    </ContentWrap>
   );
 }
-const HomeBackground = styled.div`
-  position: relative;
-  height: 95vh;
+
+const ContentWrap = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   width: 100vw;
-  overflow: hidden;
+  padding-bottom: 20.8rem;
+
+  @media (max-width: 768px) {
+    padding-bottom: 52rem;
+  }
 `;
