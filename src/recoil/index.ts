@@ -28,7 +28,7 @@ export {
   MyReviewState,
   sellingProductSearchToggle,
   shareModalState,
-  detailModalState
+  detailModalState,
   imgModalState,
   profileImgState,
   nickNameState,
