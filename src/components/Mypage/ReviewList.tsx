@@ -4,7 +4,14 @@ import { ReviewDummy } from './Dummy/ReviewDummy';
 import { useRecoilState } from 'recoil';
 import { popUpModalState } from '../../recoil';
 import ConfirmModal from '../Modal/ConfirmModal';
-const ReviewList = () => {
+import { Link } from 'react-router-dom';
+
+type ownerProps = {
+  owner?: boolean;
+};
+
+const ReviewList = ({ owner }: ownerProps) => {
+  const url = owner ? 'ownerUrl' : 'defaultUrl';
   const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
   const modalHandler = () => {
     setModalOpen(!modalOpen);
@@ -12,7 +19,11 @@ const ReviewList = () => {
   return (
     <Wrap>
       <ConfirmModal />
-      <ReviewTitle> 내가 쓴 리뷰</ReviewTitle>
+      <div>
+        <ReviewTitle> 내가 쓴 리뷰</ReviewTitle>
+        <MoreDetails to={`${url}`}>더보기 {'>'}</MoreDetails>
+      </div>
+
       <Reviews>
         {ReviewDummy.map((i) => (
           <Review key={i.storeName} onClick={modalHandler}>
@@ -37,28 +48,45 @@ const ReviewList = () => {
 export default ReviewList;
 
 const Wrap = styled.div`
-  width: calc(100vw - 10%);
-  margin-left: 10%;
+  width: 80%;
+  > div {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+  }
   @media (max-width: 768px) {
     width: calc(100vw - 5%);
     margin-left: 5%;
+    > div {
+      margin-top: 6rem;
+    }
+  }
+`;
+
+const MoreDetails = styled(Link)`
+  font-size: 1.2rem;
+  color: #565656;
+  text-decoration: none;
+  @media (max-width: 768px) {
+    font-size: 3rem;
+    margin-right: 10%;
   }
 `;
 
 const ReviewTitle = styled.h1`
-  margin: 4rem 0 2rem 1rem;
+  margin: 0 0 2rem 1rem;
   font-size: 1.4rem;
   @media (max-width: 768px) {
     font-size: 3rem;
-    margin: 6rem 0 4rem 2rem;
+    margin: 0 0 4rem 2rem;
   }
 `;
 
 const Reviews = styled.div`
   display: flex;
   margin-left: 1rem;
-  height: 14rem;
-  overflow-x: auto;
+  height: 17rem;
+  overflow-x: hidden;
   /* 인터넷 익스플로러를 위한 스타일 */
   -ms-overflow-style: none;
 
@@ -72,6 +100,7 @@ const Reviews = styled.div`
   @media (max-width: 768px) {
     height: 25rem;
     padding: 0 0 0 2rem;
+    overflow-x: auto;
   }
 `;
 

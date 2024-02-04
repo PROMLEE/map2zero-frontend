@@ -1,16 +1,23 @@
 import React from 'react';
 import { BookMarkDummy } from './Dummy/BookMarkDummy';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const BookMarkList = () => {
+type ownerProps = {
+  owner?: boolean;
+};
+const BookMarkList = ({ owner }: ownerProps) => {
+  const url = owner ? 'ownerUrl' : 'defaultUrl';
   const navigate = useNavigate();
   const onClickBookMark = () => {
     navigate(`/store`);
   };
   return (
     <Wrap>
-      <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
+      <div>
+        <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
+        <MoreDetails to={`${url}`}>더보기 {'>'}</MoreDetails>
+      </div>
       <BookMarks onClick={onClickBookMark}>
         {BookMarkDummy.map((i) => (
           <BookMark key={i.storeName}>
@@ -26,21 +33,40 @@ const BookMarkList = () => {
 };
 
 const Wrap = styled.div`
-  width: calc(100vw - 10%);
-  margin-left: 10%;
+  width: 80%;
   @media (max-width: 768px) {
     width: calc(100vw - 5%);
     margin-left: 5%;
+    > div {
+      margin-top: 6rem;
+    }
+  }
+
+  > div {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
   }
 `;
+
+const MoreDetails = styled(Link)`
+  font-size: 1.2rem;
+  color: #565656;
+  text-decoration: none;
+  @media (max-width: 768px) {
+    font-size: 3rem;
+    margin-right: 10%;
+  }
+`;
+
 const BookMarkTitle = styled.h1`
-  margin: 2rem 0 0 1rem;
+  margin: 0 0 0 1rem;
   font-size: 1.4rem;
   padding-top: 2rem;
   @media (max-width: 768px) {
     font-size: 3rem;
     padding: 0;
-    margin: 4rem 0 0 2rem;
+    margin: 0 0 0 2rem;
   }
 `;
 
@@ -49,7 +75,8 @@ const BookMarks = styled.div`
   height: 30rem;
   width: 100%;
   padding: 3rem 0 3rem 1rem;
-  overflow-x: auto;
+  overflow-x: hidden;
+
   /* 인터넷 익스플로러를 위한 스타일 */
   -ms-overflow-style: none;
 
@@ -63,6 +90,7 @@ const BookMarks = styled.div`
   @media (max-width: 768px) {
     height: 55rem;
     padding: 5rem 0 5rem 2rem;
+    overflow-x: auto;
   }
 `;
 
