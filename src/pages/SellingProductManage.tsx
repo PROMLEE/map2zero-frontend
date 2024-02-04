@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { Mobiletop, ScrollToTop, ProductRegistration } from '../components';
+import { Mobiletop, ScrollToTop } from '../components';
+import { ProductRegistration } from '../components/ProductRegister';
 import NoSearchFile from '../components/SearchFile/NoSearchFile';
 import { SearchBar, DefaultList } from '../components/SellingProduct';
 import { useEffect, useState } from 'react';
 import { productManage, productRegistModalState } from '../recoil';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Cookies } from 'react-cookie';
 
 export const SellingProductManage = () => {
