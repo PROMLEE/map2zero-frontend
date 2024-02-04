@@ -1,63 +1,83 @@
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { reviewmodalState, starRate, textRate, tagitem } from '../../recoil';
+import { useSetRecoilState } from 'recoil';
+import { shareModalState } from '../../recoil';
 import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 
 export const SharePopup = () => {
-  const setModal = useSetRecoilState(reviewmodalState);
-  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
-  const star = useRecoilValue(starRate);
-  const text = useRecoilValue(textRate);
-  const tag = useRecoilValue(tagitem);
-  const isConditionMet = star !== 0 && text !== '';
-  const closeModal = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setModal(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) { // 타입 단언 사용
+      setIsModalOpen(false);
     }
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', closeModal);
+    if (isModalOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+
     return () => {
-      document.removeEventListener('mousedown', closeModal);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, []);
+  }, [isModalOpen]);
+
+  useEffect(() => {
+    // 모달이 열려있을 때만 이벤트 리스너 등록
+    if (isModalOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isModalOpen]);
 
   return (
     <Background>
-      <Modal ref={modalRef}>
-        <Xbutton
-          src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
-          onClick={() => {
-            setModal(false);
-          }}
-        />
-        <Title>공유하기</Title>
-        <Information>
-        <PicInformation>
-        <Frame407>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/link.svg`} alt="검색결과 없음" />
-        </Frame407>
-        <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-          링크복사 
-        </PicTexts>
-        </PicInformation>
-        <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/simple-icons_kakaotalk.svg`} alt="검색결과 없음" />
-        <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-          카카오톡 
-        </PicTexts>
-        </PicInformation>
-        <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/image 20.jpg`} alt="검색결과 없음" />
-        <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-          페이스북
-        </PicTexts>
-        </PicInformation>
-        </Information>
-      </Modal>
+      {isModalOpen && (
+        <Modal ref={modalRef} >
+          <Xbutton
+            src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
+            onClick={handleCloseModal}
+          />
+      <Title>공유하기</Title>
+      <Information>
+      <PicInformation>
+      <Frame407>
+      <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/link.svg`} alt="검색결과 없음" />
+      </Frame407>
+      <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
+        링크복사 
+      </PicTexts>
+      </PicInformation>
+      <PicInformation>
+      <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/simple-icons_kakaotalk.svg`} alt="검색결과 없음" />
+      <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
+        카카오톡 
+      </PicTexts>
+      </PicInformation>
+      <PicInformation>
+      <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/image 20.jpg`} alt="검색결과 없음" />
+      <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
+        페이스북
+      </PicTexts>
+      </PicInformation>
+      </Information>
+    </Modal>
+          )}
     </Background>
-  );
+);
 };
 
 const Background = styled.div`
@@ -71,7 +91,6 @@ const Background = styled.div`
   height: 100vh;
   z-index: 2;
   background: rgba(0, 0, 0, 0.3);
-  margin-top: 6.4rem;
 
   @media (max-width: 768px) {
     background-color: rgba(0, 0, 0, 0.5);

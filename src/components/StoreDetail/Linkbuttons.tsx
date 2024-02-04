@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 import { useState, useCallback } from "react";
-
 import {DetailPopup} from '../../components/DetailPopup/DetailPopup';
+import { useRecoilValue } from 'recoil';
+import { detailModalState } from '../../recoil';
 
 
 export const Linkbuttons = () => {
+  const modal = useRecoilValue(detailModalState);
+  document.body.style.overflow = modal ? 'hidden' : 'unset';
+
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림/닫힘 상태를 관리하는 상태값입니다.
 
   const phonenumber = '010-0000-0000';
@@ -69,12 +73,10 @@ export const Linkbuttons = () => {
         <ButtonText>매장정보</ButtonText>
       </Button>
       
-      {/* 모달 컴포넌트 */}
+
       {isModalOpen && (
         <Modal onClick={handleCloseModal}>
-          {/* 모달 내용 */}
           <DetailPopup/>
-          {/* 추가적인 매장 정보 내용을 여기에 작성하세요 */}
         </Modal>
       )}
     </PicBox>
@@ -93,9 +95,7 @@ const Modal = styled.div`
   align-items: center;
   border-bottom: 0.5px solid;
   border-color: #f2f2f2;
-  &:hover {
-    cursor: pointer;
-  }
+
   @media (max-width: 768px) {
     width: 100%;
     padding: 4rem;
@@ -115,9 +115,7 @@ const PicBox = styled.div`
   align-items: center;
   border-bottom: 0.5px solid;
   border-color: #f2f2f2;
-  &:hover {
-    cursor: pointer;
-  }
+
   @media (max-width: 768px) {
     width: 100%;
     padding: 4rem;
@@ -132,6 +130,9 @@ const Button = styled.a`
   align-items: center;
   gap: 1.6rem;
   text-decoration-line: none;
+  &:hover {
+    cursor: pointer;
+  }
   @media (max-width: 768px) {
     gap: 4rem;
   }
@@ -151,6 +152,7 @@ const ButtonText = styled.div`
   font-size: 1.2rem;
   font-style: normal;
   font-weight: 400;
+  
   @media (max-width: 768px) {
     font-size: 3rem;
     height: 4rem;

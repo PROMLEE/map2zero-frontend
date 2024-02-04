@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
-import { reviewmodalState } from '../../recoil';
+import { detailModalState } from '../../recoil';
 import { useEffect, useRef } from 'react';
 
 export const DetailPopup = () => {
-  const setModal = useSetRecoilState(reviewmodalState);
+  const setModal = useSetRecoilState(detailModalState);
   const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -160,13 +160,11 @@ const Xbutton = styled.img`
 
 const Title = styled.div`
   color: black;
-  margin-top: 56px;
-  margin-left: 26.7rem;
-  margin-right: 26.7rem;
-  font-family: 'SF Pro';
+  margin: 56px auto 0 auto;
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-weight: 510;
-  wordWrap: 'break-word';
+  wor-wrap: 'break-word';
   justify-content: center;
 
 
@@ -244,7 +242,7 @@ const InfoImage = styled.img`
 const TimeInfo = styled.div`
   color: black;
   font-size: 12px;
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans KR';
   font-weight: 400;
 
   @media (max-width: 768px) {
@@ -255,7 +253,7 @@ const TimeInfo = styled.div`
 const TimInformation = styled.div`
   color: black;
   font-size: 12px;
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans KR';
   font-weight: 400;
   word-wrap: break-word;
   height: 112px;
