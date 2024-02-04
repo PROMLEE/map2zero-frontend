@@ -10,6 +10,11 @@ export const profileImgState = atom<string>({
   default: '',
 });
 
+export const profileNameState = atom<string>({
+  key: 'profileName',
+  default: '선택한 파일이 없습니다',
+});
+
 export const nickNameState = atom<{ nickname: string; message: boolean; readonly: boolean }>({
   key: 'nickName',
   default: {

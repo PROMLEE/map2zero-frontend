@@ -1,16 +1,29 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { imgModalState, profileImgState } from '../../recoil';
+import { imgModalState, profileImgState, profileNameState } from '../../recoil';
 import AvatarEditor from 'react-avatar-editor';
+import PinchZoom from './PinchZoom';
 
 const ProfileImgModal = () => {
   const [modalOpen, setModalOpen] = useRecoilState(imgModalState);
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [imageSrc, setImageSrc] = useRecoilState(profileImgState);
+  const [fileName, setFileName] = useRecoilState<string>(profileNameState);
   const editorRef = useRef<AvatarEditor | null>(null);
   const [_, setProfileImgImage] = useRecoilState(profileImgState);
   const [scale, setScale] = useState(1);
+  const cropContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (cropContainerRef.current) {
+      PinchZoom({
+        screen: cropContainerRef.current,
+        target: cropContainerRef.current,
+        setState: setScale,
+        getState: () => ({ scale }),
+      });
+    }
+  }, []);
 
   //이미지 확대/축소 기능
   const handleScaleChange = (event: React.WheelEvent<HTMLDivElement>) => {
@@ -33,6 +46,7 @@ const ProfileImgModal = () => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setFileName(file.name);
+      setScale(1);
       const reader = new FileReader();
       reader.addEventListener('load', () => {
         setImageSrc(reader.result as string);
@@ -58,7 +72,7 @@ const ProfileImgModal = () => {
   return (
     <BackDrop>
       <Modal>
-        <CropContainer>
+        <CropContainer ref={cropContainerRef}>
           {imageSrc ? (
             <div onWheel={handleScaleChange}>
               <AvatarEditor
@@ -83,7 +97,7 @@ const ProfileImgModal = () => {
           <label htmlFor="fileInput" onClick={onButtonClick}>
             파일선택
           </label>
-          {fileName ? <p>{fileName}</p> : <p>선택한 파일이 없습니다</p>}
+          <p>{fileName}</p>
         </FileContainer>
         <MessageContainer>
           <li>사진 파일은 10MB 미만의 JPG, JPEG, PNG, GIF 파일만 업로드 가능</li>
