@@ -21,6 +21,15 @@ import { ReviewState, MyReviewState } from './Reviewlist';
 import { InputState } from './Owner/owner';
 import { searchToggleState, sellingProductSearchToggle } from './searchToggleState';
 import { productManage } from './isowner';
+import {
+  imgModalState,
+  profileImgState,
+  nickNameState,
+  logoutModalState,
+  withdrawModalState,
+  profileNameState,
+} from './editState';
+
 
 export {
   exampleState,
@@ -46,4 +55,10 @@ export {
   eventLink,
   eventExplane,
   eventPic,
+  imgModalState,
+  profileImgState,
+  nickNameState,
+  logoutModalState,
+  withdrawModalState,
+  profileNameState,
 };
