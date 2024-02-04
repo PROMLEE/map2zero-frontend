@@ -13,7 +13,6 @@ import {
   SellingProduct,
   OwnerMypage,
   Map,
-  SellingProduct,
 } from './pages';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
