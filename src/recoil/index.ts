@@ -21,6 +21,8 @@ import { ReviewState, MyReviewState } from './Reviewlist';
 import { InputState } from './Owner/owner';
 import { searchToggleState, sellingProductSearchToggle } from './searchToggleState';
 import { productManage } from './isowner';
+import { shareModalState } from './sharepopupModal';
+import { detailModalState } from './detailPopupModal';
 import {
   imgModalState,
   profileImgState,
@@ -55,6 +57,8 @@ export {
   eventLink,
   eventExplane,
   eventPic,
+  shareModalState,
+  detailModalState,
   imgModalState,
   profileImgState,
   nickNameState,
