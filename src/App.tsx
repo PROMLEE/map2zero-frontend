@@ -11,6 +11,7 @@ import {
   Owner,
   StoreDetail,
   SellingProduct,
+  OwnerMypage,
   Map,
   SellingProductManage,
   EventManage,
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/sellingproduct" element={<SellingProduct />} />
           <Route path="/sellingproductmanage" element={<SellingProductManage />} />
           <Route path="/eventmanage" element={<EventManage />} />
+          <Route path="/owner/mypage" element={<OwnerMypage />} />
           <Route path="/map" element={<Map />} />
         </Routes>
       </BrowserRouter>
