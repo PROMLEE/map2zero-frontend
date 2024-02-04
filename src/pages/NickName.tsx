@@ -12,7 +12,7 @@ export default function NickName() {
   const modalOpen = useRecoilValue(imgModalState);
 
   return (
-    <Container>
+    <Container $nonescroll={modalOpen}>
       {modalOpen && <ProfileImgModal />}
       <Mobiletop pagename="닉네임 설정" />
       <h1>닉네임 설정</h1>
@@ -24,10 +24,14 @@ export default function NickName() {
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<{ $nonescroll: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: ${(props) => (props.$nonescroll ? 'hidden' : 'auto')};
+  position: ${(props) => (props.$nonescroll ? 'fixed' : 'static')};
+  left: 0;
+  right: 0;
 
   h1 {
     margin-top: 5.6rem;

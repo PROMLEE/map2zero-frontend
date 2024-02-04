@@ -9,7 +9,7 @@ import NaverLoginHandeler from './Login/NaverLoginHandeler';
 import StoreDetail from './StoreDetail';
 import NickName from './NickName';
 import { SellingProduct } from './SellingProduct';
-import AccountSetting from './AccountSetting';
+import AccountSetting from './Setting';
 
 export {
   Home,

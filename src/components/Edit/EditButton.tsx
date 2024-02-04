@@ -21,7 +21,7 @@ const EditButton = () => {
   };
 
   return (
-    <Button disabled={nickname.nickname === '' || profileImg === ''} onClick={onButtonHandler}>
+    <Button disabled={nickname.nickname === '' && profileImg === ''} onClick={onButtonHandler}>
       적용
     </Button>
   );

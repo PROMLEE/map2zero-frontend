@@ -12,7 +12,6 @@ import {
   StoreDetail,
   NickName,
   SellingProduct,
-  AccountSetting,
 } from './pages';
 
 import styled from 'styled-components';
@@ -36,7 +35,6 @@ export default function App() {
           <Route path="/store" element={<StoreDetail />} />
           <Route path="/nickname" element={<NickName />} />
           <Route path="/sellingproduct" element={<SellingProduct />} />
-          <Route path="/accountsetting" element={<AccountSetting />} />
         </Routes>
       </BrowserRouter>
     </Background>

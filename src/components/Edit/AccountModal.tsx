@@ -49,15 +49,10 @@ const Modal = styled.div`
   align-items: center;
   justify-content: center;
   background: #fff;
-  overflow-y: scroll;
   z-index: 3;
   border-radius: 16px;
   width: 47.2rem;
   height: 24.2rem;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 
   @media (max-width: 768px) {
     width: 81.75rem;
