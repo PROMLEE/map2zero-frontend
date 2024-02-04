@@ -5,11 +5,25 @@ import { SearchBar, DefaultList } from '../components/SellingProduct';
 import { useEffect, useState } from 'react';
 import { productManage } from '../recoil';
 import { useSetRecoilState } from 'recoil';
+import { Cookies } from 'react-cookie';
 
 export const SellingProductManage = () => {
   const [searchText, setSearchText] = useState('');
   const [searchResultView, setSearchResultView] = useState(false);
+  const [showSideMenu, setShowSideMenu] = useState(false);
+  const [fadeInOut, setFadeInOut] = useState('');
+
   const isOwner = useSetRecoilState(productManage);
+
+  const cookies = new Cookies();
+
+  const setCookie = (name: string, value: string, options?: any) => {
+    return cookies.set(name, value, { ...options });
+  };
+
+  const getCookie = (name: string) => {
+    return cookies.get(name);
+  };
 
   const onInputSearchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target.value;
@@ -24,8 +38,19 @@ export const SellingProductManage = () => {
   };
   useEffect(() => {
     isOwner(true);
+    if (!getCookie('sellingproductmanage_visit')) {
+      setShowSideMenu(true);
+      setCookie('sellingproductmanage_visit', 'true');
+    }
   }, []);
-
+  const showMenuList = () => {
+    setFadeInOut('fade-in');
+    setShowSideMenu(true);
+  };
+  const closeMenuList = () => {
+    setFadeInOut('fade-out');
+    setShowSideMenu(false);
+  };
   return (
     <ProductBox>
       <ScrollToTop />
@@ -33,6 +58,10 @@ export const SellingProductManage = () => {
       <Title>판매 제품 관리</Title>
       <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
       {searchResultView ? <NoSearchFile /> : <DefaultList />}
+      <ButtonBox>
+        {showSideMenu ? <ArrowBubble className={'side-menu ' + fadeInOut}>제품추가</ArrowBubble> : null}
+        <Button onMouseOver={showMenuList} onMouseLeave={closeMenuList} />
+      </ButtonBox>
     </ProductBox>
   );
 };
@@ -44,6 +73,18 @@ const ProductBox = styled.div`
   width: 92.4rem;
   @media (max-width: 768px) {
     width: 90%;
+  }
+  .fade-in {
+    opacity: 1;
+    animation: fadeIn ease-in-out 1s;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 `;
 const Title = styled.div`
@@ -57,4 +98,30 @@ const Title = styled.div`
   @media (max-width: 768px) {
     display: none;
   }
+`;
+const ButtonBox = styled.div`
+  position: fixed;
+  bottom: 6rem;
+  width: 92.4rem;
+  margin: 0 auto;
+`;
+const ArrowBubble = styled.div`
+  padding-top: 1rem;
+  color: #0b5c71;
+  font-size: 1rem;
+  text-align: center;
+  margin-left: auto;
+  margin-right: 0.5rem;
+  width: 6.4rem;
+  height: 3.8rem;
+  background-image: url('/assets/ProductList/balloon.svg');
+  bottom: 40px;
+  right: 40px;
+`;
+
+const Button = styled.div`
+  background-image: url('/assets/ProductList/plusbutton.svg');
+  width: 6.4rem;
+  height: 6.4rem;
+  margin: 1rem 0.5rem 0 auto;
 `;
