@@ -10,6 +10,8 @@ import {
   Setting,
   Owner,
   StoreDetail,
+  SellingProduct,
+  OwnerMypage,
   Map,
   SellingProduct,
 } from './pages';
@@ -34,6 +36,7 @@ export default function App() {
           <Route path="/store" element={<StoreDetail />} />
           <Route path="/map" element={<Map />} />
           <Route path="/sellingproduct" element={<SellingProduct />} />
+          <Route path="/owner/mypage" element={<OwnerMypage />} />
           <Route path="/map" element={<Map />} />
         </Routes>
       </BrowserRouter>
