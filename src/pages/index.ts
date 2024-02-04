@@ -10,7 +10,7 @@ import StoreDetail from './StoreDetail';
 import { SellingProduct } from './SellingProduct';
 import { Map } from './Map';
 import { SellingProductManage } from './SellingProductManage';
-
+import { EventManage } from './Evnentmanage';
 export {
   Home,
   Search,
@@ -24,4 +24,5 @@ export {
   SellingProduct,
   Map,
   SellingProductManage,
+  EventManage,
 };
