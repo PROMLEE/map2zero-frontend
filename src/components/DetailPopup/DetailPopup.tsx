@@ -19,7 +19,6 @@ export const DetailPopup = () => {
     };
   }, []);
 
-
   return (
     <Background>
       <Modal ref={modalRef}>
@@ -32,74 +31,46 @@ export const DetailPopup = () => {
         <Title>매장정보</Title>
 
         <Information>
-        <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/pets.svg`}/>
-        <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-          반려동물 동반 
-        </PicTexts>
-        </PicInformation>
-        <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/local_parking.svg`}/>
-        <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-          주차가능
-        </PicTexts>
-        </PicInformation>
-        <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/valve.svg`}/>
-        <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-          리필스테이션
-        </PicTexts>
-        </PicInformation>
-        <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/no_stroller.svg`}/>
-        <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-          노키즈존
-        </PicTexts>
-        </PicInformation>
-        <PicInformation>
-        <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/barcode_scanner.svg`}/>
-        <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-          제로페이
-        </PicTexts>
-        </PicInformation>
+          <PicInformation>
+            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/pets.svg`} />
+            <PicTexts>반려동물 동반</PicTexts>
+          </PicInformation>
+          <PicInformation>
+            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/local_parking.svg`} />
+            <PicTexts>주차가능</PicTexts>
+          </PicInformation>
+          <PicInformation>
+            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/valve.svg`} />
+            <PicTexts>리필스테이션</PicTexts>
+          </PicInformation>
+          <PicInformation>
+            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/no_stroller.svg`} />
+            <PicTexts>노키즈존</PicTexts>
+          </PicInformation>
+          <PicInformation>
+            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/barcode_scanner.svg`} />
+            <PicTexts>제로페이</PicTexts>
+          </PicInformation>
         </Information>
 
         <TimInformation>
-        <Texts $margintopPC={'0'} $margintopMB={'0'}>
-          운영정보
-        </Texts>
-        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`}/>
-        <TimeInfo>
-          월 10:00 - 20:00<br />
-          화 10:00 - 20:00<br />
-          수 정기 휴무<br />
-          목 10:00 - 20:00<br />
-          금 10:00 - 20:00<br />
-          토 9:00 - 22:00<br />
-          일 정기 휴무
-        </TimeInfo>
+          <Texts>운영정보</Texts>
+          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`} />
+          <TimeInfo>
+            <div>월 10:00 - 20:00</div> <div>화 10:00 - 20:00</div> <div>수 정기 휴무</div>
+            <div>목 10:00 - 20:00</div> <div>금 10:00 - 20:00</div> <div>토 9:00 - 22:00</div>
+            <div>일 정기 휴무</div>
+          </TimeInfo>
         </TimInformation>
-
         <TimInformation>
-        <Texts $margintopPC={'0'} $margintopMB={'0'}>
-            위치&ensp;&ensp;&ensp;&nbsp;
-        </Texts>
-        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/location_on.svg`}/>
-        <TimeInfo>
-            서울특별시 마포구 성미산로 155, 1층
-        </TimeInfo>
+          <Texts>위치&ensp;&ensp;&ensp;&nbsp;</Texts>
+          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/location_on.svg`} />
+          <TimeInfo>서울특별시 마포구 성미산로 155, 1층</TimeInfo>
         </TimInformation>
-
-        
-
         <TimInformation>
-        <Texts $margintopPC={'0'} $margintopMB={'0'}>
-          전화번호
-        </Texts>
-        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/call.svg`}/>
-        <TimeInfo>
-            010-0000-0000
-        </TimeInfo>
+          <Texts>전화번호</Texts>
+          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/call.svg`} />
+          <TimeInfo>010-0000-0000</TimeInfo>
         </TimInformation>
       </Modal>
     </Background>
@@ -138,7 +109,6 @@ const Modal = styled.div`
     height: 374px;
     border-radius: 16px;
   }
-
 `;
 
 const Xbutton = styled.img`
@@ -164,9 +134,7 @@ const Title = styled.div`
   font-family: 'Noto Sans KR';
   font-size: 20px;
   font-weight: 510;
-  wor-wrap: 'break-word';
   justify-content: center;
-
 
   @media (max-width: 768px) {
     margin-left: 12.4rem;
@@ -183,10 +151,9 @@ const Information = styled.div`
   text-align: center;
   justify-content: center;
   display: flex;
-  
 `;
 
-const PicTexts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
+const PicTexts = styled.div`
   position: relative;
   color: #000;
   font-family: 'Noto Sans KR';
@@ -198,24 +165,22 @@ const PicTexts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
   @media (max-width: 768px) {
     width: 47px;
     text-align: justify;
-    }
-
+  }
 `;
 
 const PicInformation = styled.div`
-    left: 0;
-    top: 0;
-    position: relative;
-    margin-top: 32px;
-    text-align: flex;
+  left: 0;
+  top: 0;
+  position: relative;
+  margin-top: 32px;
+  text-align: flex;
 
-    @media (max-width: 768px) {
-      width: 3.7rem;
-      height: 4.3rem;
-      margin: 24px;
-      align-items: center;
-      }
-
+  @media (max-width: 768px) {
+    width: 3.7rem;
+    height: 4.3rem;
+    margin: 24px;
+    align-items: center;
+  }
 `;
 
 const Image = styled.img`
@@ -227,16 +192,14 @@ const Image = styled.img`
   @media (max-width: 768px) {
     padding: 0;
     margin: auto;
-    }
-
+  }
 `;
 
 const InfoImage = styled.img`
-    width: 12px;
-    height: 12px;
-    position: relative;
-    margin: 0rem 0.8rem 0rem 1.6rem;
-
+  width: 12px;
+  height: 12px;
+  position: relative;
+  margin: 0rem 0.8rem 0rem 1.6rem;
 `;
 
 const TimeInfo = styled.div`
@@ -244,10 +207,11 @@ const TimeInfo = styled.div`
   font-size: 12px;
   font-family: 'Noto Sans KR';
   font-weight: 400;
-
+  div {
+    height: 1.5rem;
+  }
   @media (max-width: 768px) {
   }
-
 `;
 
 const TimInformation = styled.div`
@@ -271,25 +235,17 @@ const TimInformation = styled.div`
   }
 `;
 
-
-
-
-const Texts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
+const Texts = styled.div`
   position: relative;
-  margin-top: ${(props) => props.$margintopPC};
   width: auto;
   font-weight: 600;
   justify-content: space-between;
   align-items: flex-start;
   white-space: nowrap;
 
-
-
-
   @media (max-width: 768px) {
-  font-size: 3rem;
-  margin-top: ${(props) => props.$margintopMB};
-  text-align: center;
+    font-size: 3rem;
+    text-align: center;
   }
 `;
 

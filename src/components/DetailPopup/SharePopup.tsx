@@ -2,82 +2,48 @@ import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 import { shareModalState } from '../../recoil';
 import { useEffect, useRef } from 'react';
-import { useState } from 'react';
 
 export const SharePopup = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const setModal = useSetRecoilState(shareModalState);
 
   const handleOutsideClick = (e: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) { // 타입 단언 사용
-      setIsModalOpen(false);
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      setModal(false);
     }
   };
 
   useEffect(() => {
-    if (isModalOpen) {
-      document.addEventListener('mousedown', handleOutsideClick);
-    } else {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    }
-
+    document.addEventListener('mousedown', handleOutsideClick);
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [isModalOpen]);
-
-  useEffect(() => {
-    // 모달이 열려있을 때만 이벤트 리스너 등록
-    if (isModalOpen) {
-      document.addEventListener('mousedown', handleOutsideClick);
-    } else {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [isModalOpen]);
+  }, []);
 
   return (
     <Background>
-      {isModalOpen && (
-        <Modal ref={modalRef} >
-          <Xbutton
-            src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
-            onClick={handleCloseModal}
-          />
-      <Title>공유하기</Title>
-      <Information>
-      <PicInformation>
-      <Frame407>
-      <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/link.svg`} alt="검색결과 없음" />
-      </Frame407>
-      <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-        링크복사 
-      </PicTexts>
-      </PicInformation>
-      <PicInformation>
-      <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/simple-icons_kakaotalk.svg`} alt="검색결과 없음" />
-      <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-        카카오톡 
-      </PicTexts>
-      </PicInformation>
-      <PicInformation>
-      <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/image 20.jpg`} alt="검색결과 없음" />
-      <PicTexts $margintopPC={'0'} $margintopMB={'0'}>
-        페이스북
-      </PicTexts>
-      </PicInformation>
-      </Information>
-    </Modal>
-          )}
+      <Modal ref={modalRef}>
+        <Xbutton src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`} onClick={() => setModal(false)} />
+        <Title>공유하기</Title>
+        <Information>
+          <PicInformation>
+            <Frame407>
+              <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/link.svg`} alt="검색결과 없음" />
+            </Frame407>
+            <PicTexts>링크복사</PicTexts>
+          </PicInformation>
+          <PicInformation>
+            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/simple-icons_kakaotalk.svg`} alt="검색결과 없음" />
+            <PicTexts>카카오톡</PicTexts>
+          </PicInformation>
+          <PicInformation>
+            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/image 20.jpg`} alt="검색결과 없음" />
+            <PicTexts>페이스북</PicTexts>
+          </PicInformation>
+        </Information>
+      </Modal>
     </Background>
-);
+  );
 };
 
 const Background = styled.div`
@@ -145,31 +111,27 @@ const Image = styled.img`
   width: 24;
   height: 24;
   position: relative;
-
 `;
 
 const PicInformation = styled.div`
-    left: 0;
-    top: 0;
-    position: relative;
-    margin-top: 3.2rem;
-    text-align: relative;
-    margin: 0 auto 0 auto;
-
+  left: 0;
+  top: 0;
+  position: relative;
+  margin-top: 3.2rem;
+  text-align: relative;
+  margin: 0 auto 0 auto;
 `;
 
-const PicTexts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
+const PicTexts = styled.div`
   position: relative;
   color: #000;
   font-family: 'Noto Sans KR';
   font-size: 10px;
   font-weight: 500;
-  wordWrap: 'break-word';
   margin-top: 16px;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 0;
-
 `;
 
 const Information = styled.div`
@@ -183,7 +145,7 @@ const Information = styled.div`
   flex-wrap: wrap;
   margin-top: 0;
   margin: auto;
-  
+
   @media (max-width: 768px) {
     font-size: 4rem;
     width: 246px;
@@ -194,19 +156,16 @@ const Information = styled.div`
 const Frame407 = styled.div`
   width: 52px;
   height: 52px;
-  background: #F4ECE1;
+  background: #f4ece1;
   border-radius: 30px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   display: inline-flex;
 
-
   @media (max-width: 768px) {
     width: 24;
     height: 24;
     position: relative;
   }
-
-
 `;

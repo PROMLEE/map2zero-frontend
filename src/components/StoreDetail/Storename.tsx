@@ -1,36 +1,15 @@
 import styled from 'styled-components';
-import { useState, useCallback } from "react";
-import { SharePopup } from '../../components/DetailPopup/SharePopup';
-
-
+import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { shareModalState } from '../../recoil';
 export const StoreName = () => {
-
   const [handlebookmark, sethandlebookmark] = useState(true);
-
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림/닫힘 상태를 관리하는 상태값입니다.
-
-  const handleOpenModal = useCallback(() => {
-    setIsModalOpen(true);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-  }, []);
-
-  
+  const setmodal = useSetRecoilState(shareModalState);
   return (
     <DetailBox>
       <Name>매장명</Name>
       <div>
-        <LinkButton 
-        onClick={handleOpenModal}
-        src={`${process.env.PUBLIC_URL}/assets/StoreDetail/share.svg`} 
-        />
-      {isModalOpen && (
-        <Modal onClick={handleCloseModal}>
-          <SharePopup/>
-        </Modal>
-      )}
+        <LinkButton onClick={() => setmodal(true)} src={`${process.env.PUBLIC_URL}/assets/StoreDetail/share.svg`} />
         <LinkButton
           onClick={() => {
             sethandlebookmark(!handlebookmark);
@@ -55,7 +34,6 @@ const Modal = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  
   @media (max-width: 768px) {
     width: 100%;
     margin-top: 6rem;

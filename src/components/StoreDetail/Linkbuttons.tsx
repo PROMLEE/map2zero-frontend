@@ -1,16 +1,10 @@
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import { useState, useCallback } from "react";
-import {DetailPopup} from '../../components/DetailPopup/DetailPopup';
-import { useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { detailModalState } from '../../recoil';
 
-
 export const Linkbuttons = () => {
-  const modal = useRecoilValue(detailModalState);
-  document.body.style.overflow = modal ? 'hidden' : 'unset';
-
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림/닫힘 상태를 관리하는 상태값입니다.
+  const setModal = useSetRecoilState(detailModalState);
 
   const phonenumber = '010-0000-0000';
   const copyClipboard = async (text: string, successAction?: () => void, failAction?: () => void) => {
@@ -21,15 +15,6 @@ export const Linkbuttons = () => {
       failAction && failAction();
     }
   };
-
-  const handleOpenModal = useCallback(() => {
-    setIsModalOpen(true);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-  }, []);
-
 
   return (
     <PicBox>
@@ -68,42 +53,14 @@ export const Linkbuttons = () => {
         </>
       )}
       <Line />
-      <Button onClick={handleOpenModal}> {/* 매장 정보 버튼을 클릭하면 모달을 열도록 핸들러를 추가했습니다. */}
+      <Button onClick={() => setModal(true)}>
+        {/* 매장 정보 버튼을 클릭하면 모달을 열도록 핸들러를 추가했습니다. */}
         <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/storefront.svg`} />
         <ButtonText>매장정보</ButtonText>
       </Button>
-      
-
-      {isModalOpen && (
-        <Modal onClick={handleCloseModal}>
-          <DetailPopup/>
-        </Modal>
-      )}
     </PicBox>
   );
 };
-
-
-
-const Modal = styled.div`
-  margin-top: 1.6rem;
-  display: flex;
-  width: 92.4rem;
-  height: 6.3rem;
-  padding: 1.6rem;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 0.5px solid;
-  border-color: #f2f2f2;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    padding: 4rem;
-    height: 12.25rem;
-  }
-`;
-
-
 
 const PicBox = styled.div`
   margin-top: 1.6rem;
@@ -152,7 +109,7 @@ const ButtonText = styled.div`
   font-size: 1.2rem;
   font-style: normal;
   font-weight: 400;
-  
+
   @media (max-width: 768px) {
     font-size: 3rem;
     height: 4rem;
