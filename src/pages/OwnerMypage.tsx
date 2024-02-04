@@ -1,11 +1,14 @@
+import React from 'react';
 import styled from 'styled-components';
-import { BookMarkList, ReviewList, PersonalInfo, StoreOwner } from '../components/Mypage';
-import { PersonalInfoDummy } from '../components/Mypage/Dummy/PersonalInfoDummy';
-export default function Mypage() {
+import { BookMarkList, ReviewList, PersonalInfo, StoreOwner, MyStoreManagement } from '../components/Mypage';
+import { OwnerPersonalInfoDummy } from '../components/Mypage/Dummy/PersonalInfoDummy';
+const OwnerMypage = () => {
   return (
     <ContentWrap>
-      <PersonalInfo info={PersonalInfoDummy} />
+      <PersonalInfo info={OwnerPersonalInfoDummy} />
       <Line />
+      <MyStoreManagement />
+      <Line mobileVisible />
       <BookMarkList />
       <Line mobileVisible />
       <ReviewList />
@@ -13,7 +16,8 @@ export default function Mypage() {
       <StoreOwner />
     </ContentWrap>
   );
-}
+};
+
 type LineType = {
   mobileVisible?: boolean;
 };
@@ -34,3 +38,5 @@ const Line = styled.hr<LineType>`
     display: ${(props) => (props.mobileVisible ? 'flex' : 'none')};
   }
 `;
+
+export default OwnerMypage;
