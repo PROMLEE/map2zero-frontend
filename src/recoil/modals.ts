@@ -5,10 +5,6 @@ const reviewmodalState = atom<boolean>({
   default: false,
 });
 
-const productRegistModalState = atom<boolean>({
-  key: 'productRegistModalState',
-  default: false,
-});
 const tagitem = atom<string[]>({
   key: 'tagitem',
   default: [],
@@ -23,8 +19,8 @@ const textRate = atom<string>({
   default: '',
 });
 
-const eventManageModalState = atom<boolean>({
-  key: 'eventManageModalState',
+const productRegistModalState = atom<boolean>({
+  key: 'productRegistModalState',
   default: false,
 });
 const productName = atom<string>({
@@ -43,6 +39,32 @@ const productPic = atom<File[]>({
   key: 'productPic',
   default: [],
 });
+
+const eventManageModalState = atom<boolean>({
+  key: 'eventManageModalState',
+  default: false,
+});
+const eventName = atom<string>({
+  key: 'evnetName',
+  default: '',
+});
+const eventDate = atom<string>({
+  key: 'eventDate',
+  default: '',
+});
+const eventLink = atom<string[]>({
+  key: 'eventLink',
+  default: [],
+});
+const eventPic = atom<File[]>({
+  key: 'eventPic',
+  default: [],
+});
+
+const eventExplane = atom<string>({
+  key: 'eventExplane',
+  default: '',
+});
 export {
   reviewmodalState,
   productRegistModalState,
@@ -54,4 +76,9 @@ export {
   productPrice,
   productCategory,
   productPic,
+  eventName,
+  eventDate,
+  eventLink,
+  eventExplane,
+  eventPic,
 };

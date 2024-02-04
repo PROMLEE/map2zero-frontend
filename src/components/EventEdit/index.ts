@@ -1,11 +1,12 @@
 import { EventEdit } from './EventEdit';
-import { Name } from './Name';
-import { Price } from './Price';
+import { Eventname } from './Eventname';
 import { Addonepic } from './Addonepic';
-import { Category } from './Category';
-import { CategoryItem } from './CategoryItem';
 import { DefaultList } from './DefaultList';
 import { Item } from './SlideBox';
 import { SlidePic } from './SlidePic';
 import { Product } from './Product';
-export { EventEdit, Name, Price, Addonepic, Category, CategoryItem, Product, DefaultList, Item, SlidePic };
+import { EventExplane } from './EventExplane';
+import { EventLink } from './EventLink';
+import { EventDate } from './EventDate';
+
+export { EventEdit, Eventname, Addonepic, Product, DefaultList, Item, SlidePic, EventExplane, EventLink, EventDate };

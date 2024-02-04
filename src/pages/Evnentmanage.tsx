@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { Mobiletop, ScrollToTop } from '../components';
 import { EventEdit, DefaultList } from '../components/EventEdit';
 import { useEffect, useState } from 'react';
-import { productManage, productRegistModalState } from '../recoil';
+import { productManage, eventManageModalState } from '../recoil';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Cookies } from 'react-cookie';
 
 export const EventManage = () => {
   const [showSideMenu, setShowSideMenu] = useState(false);
   const [fadeInOut, setFadeInOut] = useState('');
-  const [modal, setmodal] = useRecoilState(productRegistModalState);
+  const [modal, setmodal] = useRecoilState(eventManageModalState);
   document.body.style.overflow = modal ? 'hidden' : 'unset';
 
   const isOwner = useSetRecoilState(productManage);
@@ -42,7 +42,7 @@ export const EventManage = () => {
   return (
     <ProductBox>
       <ScrollToTop />
-      <Mobiletop pagename="판매 제품 관리" />
+      <Mobiletop pagename="이벤트 관리" />
       <Title>이벤트 관리</Title>
       <DefaultList />
       <ButtonBox>

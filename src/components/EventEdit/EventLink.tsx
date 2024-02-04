@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
-import { productName } from '../../recoil';
+import { eventLink } from '../../recoil';
 
-export const Name = () => {
-  const setText = useSetRecoilState(productName);
+export const EventLink = () => {
+  const setText = useSetRecoilState(eventLink);
   const onInputHandler = (e: any) => {
     setText(e.target.value);
   };
 
   return (
     <Namebox>
-      <TextBox placeholder="최대 8글자" onChange={onInputHandler} maxLength={8} />
+      <TextBox placeholder="이벤트 페이지 접속 링크" onChange={onInputHandler} />
     </Namebox>
   );
 };

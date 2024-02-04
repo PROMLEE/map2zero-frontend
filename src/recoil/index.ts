@@ -11,6 +11,11 @@ import {
   productPrice,
   productCategory,
   productPic,
+  eventName,
+  eventDate,
+  eventLink,
+  eventExplane,
+  eventPic,
 } from './modals';
 import { ReviewState, MyReviewState } from './Reviewlist';
 import { InputState } from './Owner/owner';
@@ -36,4 +41,9 @@ export {
   productPrice,
   productCategory,
   productPic,
+  eventName,
+  eventDate,
+  eventLink,
+  eventExplane,
+  eventPic,
 };

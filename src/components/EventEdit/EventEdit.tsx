@@ -1,15 +1,14 @@
 import styled from 'styled-components';
-import { Category, Addonepic, Name, Price } from '.';
+import { Addonepic, Eventname, EventExplane, EventLink, EventDate } from '.';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { productRegistModalState, productName, productCategory } from '../../recoil';
+import { eventManageModalState, eventName } from '../../recoil';
 import { useEffect, useRef } from 'react';
 
 export const EventEdit = () => {
-  const setModal = useSetRecoilState(productRegistModalState);
+  const setModal = useSetRecoilState(eventManageModalState);
   const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
-  const text = useRecoilValue(productName);
-  const category = useRecoilValue(productCategory);
-  const isConditionMet = text !== '' && category[0];
+  const text = useRecoilValue(eventName);
+  const isConditionMet = text !== '';
 
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -33,23 +32,27 @@ export const EventEdit = () => {
             setModal(false);
           }}
         />
-        <Title>판매 제품 등록</Title>
+        <Title>이벤트 등록</Title>
         <Texts $margintopPC={'3.7rem'} $margintopMB={'10.25rem'}>
-          품목명을 작성해 주세요
+          이벤트 명을 작성해 주세요
         </Texts>
-        <Name />
+        <Eventname />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
-          카테고리를 선택해 주세요 (중복 가능)
+          이벤트 기간을 설정해 주세요
         </Texts>
-        <Category />
+        <EventDate />
         <Texts $margintopPC={'5.6rem'} $margintopMB={'6.5rem'}>
-          가격을 작성해 주세요
+          신청 링크를 작성해 주세요
         </Texts>
-        <Price />
+        <EventLink />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
           사진을 추가해 주세요
         </Texts>
         <Addonepic />
+        <Texts $margintopPC={'5.6rem'} $margintopMB={'6.5rem'}>
+          설명을 작성해 주세요
+        </Texts>
+        <EventExplane />
         <CompleteButton disabled={!isConditionMet}>작성 완료</CompleteButton>
       </Modal>
     </Background>
@@ -135,7 +138,7 @@ const CompleteButton = styled.button`
   width: 32.7rem;
   padding: 1.6rem;
   text-align: center;
-  margin-top: 6.1rem;
+  margin-top: 3rem;
   margin-left: auto;
   margin-right: auto;
   font-size: 1.2rem;
