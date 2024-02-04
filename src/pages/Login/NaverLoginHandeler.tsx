@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router';
 import { UserInfoState } from '../../recoil';
 
-const KakaoLoginHandeler = () => {
+const NaverLoginHandler = () => {
   const userInfo = useSetRecoilState(UserInfoState);
   const navigate = useNavigate();
   useEffect(() => {
@@ -53,4 +53,4 @@ const KakaoLoginHandeler = () => {
   );
 };
 
-export default KakaoLoginHandeler;
+export default NaverLoginHandler;
