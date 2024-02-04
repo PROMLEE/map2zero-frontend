@@ -1,6 +1,5 @@
-import { useMemo } from 'react';
 import styled from 'styled-components';
-import Slider, { Settings } from 'react-slick';
+import Slider from 'react-slick';
 
 interface sliderProps {
   /** 슬라이더 아이템 요소 */
@@ -17,21 +16,17 @@ interface sliderProps {
 
 const list = ['진행중', '종료'];
 export const SlidePic = ({ children, className, autoplay = false, speed = 300, loop = false }: sliderProps) => {
-  const settings = useMemo<Settings>(
-    () => ({
-      dots: true,
-      infinite: loop,
-      speed: speed,
-      slidesToShow: 1,
-      arrows: false,
-      // draggable: false,
-      autoplay: Boolean(autoplay),
-      appendDots: (dots: string[]) => <Customdot>{dots}</Customdot>,
-      customPaging: (i) => <CustomTab>{list[i]}</CustomTab>,
-      dotsClass: 'dots_custom',
-    }),
-    [autoplay, loop, speed],
-  );
+  const settings = {
+    dots: true,
+    infinite: loop,
+    speed: speed,
+    slidesToShow: 1,
+    arrows: false,
+    autoplay: Boolean(autoplay),
+    appendDots: (dots: string[]) => <Customdot>{dots}</Customdot>,
+    customPaging: (i: number) => <CustomTab>{list[i]}</CustomTab>,
+    dotsClass: 'dots_custom',
+  };
   return (
     <SlideWrapper className={className}>
       <StyledSlider {...settings}>{children}</StyledSlider>
