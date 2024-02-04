@@ -90,7 +90,6 @@ const ProductBox = styled.div`
 const Title = styled.div`
   width: 92.4rem;
   margin-top: 6.4rem;
-  font-family: 'Noto Sans KR';
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 600;
