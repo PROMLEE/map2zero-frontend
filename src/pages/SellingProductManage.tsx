@@ -103,6 +103,10 @@ const ButtonBox = styled.div`
   bottom: 6rem;
   width: 92.4rem;
   margin: 0 auto;
+  @media (max-width: 768px) {
+    width: 90%;
+    bottom: 20rem;
+  }
 `;
 const ArrowBubble = styled.div`
   padding-top: 1rem;
@@ -114,8 +118,16 @@ const ArrowBubble = styled.div`
   width: 6.4rem;
   height: 3.8rem;
   background-image: url('/assets/ProductList/balloon.svg');
-  bottom: 40px;
-  right: 40px;
+  bottom: 4rem;
+  right: 4rem;
+  @media (max-width: 768px) {
+    padding-top: 2rem;
+    font-size: 2.5rem;
+    width: 16rem;
+    height: 10rem;
+    bottom: 40px;
+    right: 40px;
+  }
 `;
 
 const Button = styled.div`
@@ -123,4 +135,9 @@ const Button = styled.div`
   width: 6.4rem;
   height: 6.4rem;
   margin: 1rem 0.5rem 0 auto;
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    width: 16rem;
+    height: 16rem;
+  }
 `;

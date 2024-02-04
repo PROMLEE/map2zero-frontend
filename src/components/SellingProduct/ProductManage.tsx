@@ -120,11 +120,12 @@ const BottomBox = styled.div`
   height: 2.9rem;
   width: 100%;
   @media (max-width: 768px) {
-    padding: 2rem;
     font-size: 2.5rem;
+    height: 7.1rem;
   }
 `;
 const ProductPrice = styled.div`
+  height: 2.9rem;
   align-self: stretch;
   font-size: 1rem;
   padding: 0.8rem;
@@ -132,13 +133,18 @@ const ProductPrice = styled.div`
   font-weight: 400;
   line-height: normal;
   @media (max-width: 768px) {
+    padding: 2rem;
     font-size: 2.5rem;
+    height: 7.1rem;
   }
 `;
 const ProductDropbox = styled.div`
   height: 100%;
   width: 6.4rem;
+  height: 2.9rem;
   @media (max-width: 768px) {
+    width: 15rem;
+    height: 7.1rem;
   }
 `;
 const DropdownButton = styled.button<{ $isDropdownopen: boolean }>`
@@ -158,10 +164,15 @@ const DropdownButton = styled.button<{ $isDropdownopen: boolean }>`
   &:hover {
     cursor: pointer;
   }
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    height: 7.1rem;
+    width: 15rem;
+  }
 `;
 const DropdownText = styled.li`
   position: relative;
-  background-color: #f2f2f2;
+  background-color: #fff;
   text-align: center;
   padding: 0.8rem;
   font-size: 1rem;
@@ -172,5 +183,10 @@ const DropdownText = styled.li`
   height: 2.9rem;
   &:hover {
     cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    width: 15rem;
+    height: 7.1rem;
   }
 `;
