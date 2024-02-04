@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { imgModalState, profileImgState, profileNameState } from '../../recoil';
 import AvatarEditor from 'react-avatar-editor';
@@ -7,7 +7,8 @@ import PinchZoom from './PinchZoom';
 
 const ProfileImgModal = () => {
   const [modalOpen, setModalOpen] = useRecoilState(imgModalState);
-  const [imageSrc, setImageSrc] = useRecoilState(profileImgState);
+  const profileImg = useRecoilValue(profileImgState);
+  const [imageSrc, setImageSrc] = useState(profileImg);
   const [fileName, setFileName] = useRecoilState<string>(profileNameState);
   const editorRef = useRef<AvatarEditor | null>(null);
   const [_, setProfileImgImage] = useRecoilState(profileImgState);
@@ -70,8 +71,8 @@ const ProfileImgModal = () => {
   };
 
   return (
-    <BackDrop>
-      <Modal>
+    <BackDrop onClick={modalHandler}>
+      <Modal onClick={(event) => event.stopPropagation()}>
         <CropContainer ref={cropContainerRef}>
           {imageSrc ? (
             <div onWheel={handleScaleChange}>

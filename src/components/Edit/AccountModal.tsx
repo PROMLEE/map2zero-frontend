@@ -10,8 +10,8 @@ type TAccountModal = {
 
 const AccountModal: React.FC<TAccountModal> = ({ title, confirmText, cancelText, confirmHandler, cancelHandler }) => {
   return (
-    <BackDrop>
-      <Modal>
+    <BackDrop onClick={confirmHandler}>
+      <Modal onClick={(event) => event.stopPropagation()}>
         <img src={`${process.env.PUBLIC_URL}/assets/Edit/close.svg`} alt="close" onClick={cancelHandler} />
         <h1>{title}</h1>
         <ButtonDiv>

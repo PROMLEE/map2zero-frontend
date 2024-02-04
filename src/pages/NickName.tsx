@@ -30,6 +30,7 @@ const Container = styled.div<{ $nonescroll: boolean }>`
   align-items: center;
   overflow: ${(props) => (props.$nonescroll ? 'hidden' : 'auto')};
   position: ${(props) => (props.$nonescroll ? 'fixed' : 'static')};
+  z-index: ${(props) => (props.$nonescroll ? 2 : 0)};
   left: 0;
   right: 0;
 
