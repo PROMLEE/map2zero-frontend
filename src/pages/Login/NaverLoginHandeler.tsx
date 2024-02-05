@@ -1,27 +1,45 @@
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useSetRecoilState } from 'recoil';
+import { useNavigate } from 'react-router';
+import { UserInfoState } from '../../recoil';
 
-const KakaoLoginHandeler = () => {
+const NaverLoginHandler = () => {
+  const userInfo = useSetRecoilState(UserInfoState);
+  const navigate = useNavigate();
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
-    const state = new URL(window.location.href).searchParams.get('state');
-    console.log(code);
-    console.log(state);
-
-    // axios.post('/api/client/login/oauth/naver', {
-    //   authorizationCode: code,
-    //   state: state
-    // }).then((response) => {
-    //   //spring에서 발급된 jwt 반환 localStorage 저장
-    //   localStorage.setItem("accessToken", response.headers.accesstoken);
-
-    //   //메인 페이지로 이동
-    //   window.location.href = "/";
-    // }).catch((err) => {
-    //   //에러발생 시 경고처리 후 login 페이지로 전환
-    //   alert(err.response.data.detail);
-    //   window.location.href = "/login";
-    // })
+    axios
+      .get(`${process.env.REACT_APP_API_URL}oauth2/state/naver`)
+      .then((res) => {
+        console.log(res);
+        const accessToken = res.headers['authorization'];
+        axios.defaults.headers.common['Authorization'] = `${accessToken}`;
+        const state = res.data.data.state;
+        axios
+          .get(`${process.env.REACT_APP_API_URL}oauth2/code`, { params: { state: state, code: code } })
+          .then((res) => {
+            localStorage.setItem('accessToken', res.config.params.code);
+            axios.defaults.headers.common['Authorization'] = `${res.config.params.code}`;
+            const data = res.data.data;
+            data['islogin'] = true;
+            userInfo(data);
+            console.log(data);
+            if (data.is_new_user) {
+              navigate('/nickname');
+            } else {
+              navigate(`/`);
+            }
+          })
+          .catch(() => {
+            alert('로그인 오류!');
+            window.location.href = '/login';
+          });
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {});
   }, []);
 
   return (
@@ -35,4 +53,4 @@ const KakaoLoginHandeler = () => {
   );
 };
 
-export default KakaoLoginHandeler;
+export default NaverLoginHandler;

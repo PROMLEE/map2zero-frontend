@@ -34,6 +34,7 @@ export default function App() {
           <Route path="/setting" element={<Setting />} />
           <Route path="/owner" element={<Owner />} />
           <Route path="/store" element={<StoreDetail />} />
+          <Route path="/map" element={<Map />} />
           <Route path="/nickname" element={<NickName />} />
           <Route path="/sellingproduct" element={<SellingProduct />} />
           <Route path="/owner/mypage" element={<OwnerMypage />} />

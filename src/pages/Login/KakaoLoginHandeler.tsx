@@ -1,26 +1,45 @@
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useSetRecoilState } from 'recoil';
+import { UserInfoState } from '../../recoil';
+import { useNavigate } from 'react-router-dom';
 
 const KakaoLoginHandeler = () => {
+  const userInfo = useSetRecoilState(UserInfoState);
+  const navigate = useNavigate();
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
-    console.log(code);
-    //spring 서버로 인증키를 통해 유저정보를 획득하고 로그인 처리 요청
-    // axios
-    //   .post('/api/client/login/oauth/kakao', {
-    //     authorizationCode: code,
-    //   })
-    //   .then((response) => {
-    //     //spring에서 발급된 jwt localStorage 저장
-    //     localStorage.setItem('accessToken', response.headers.accesstoken);
-    //     //메인 페이지로 이동
-    //     window.location.href = '/';
-    //   })
-    //   .catch((err) => {
-    //     //에러발생 시 경고처리 후 login 페이지로 전환
-    //     alert(err.response.data.detail);
-    //     window.location.href = '/login';
-    //   });
+    axios
+      .get(`${process.env.REACT_APP_API_URL}oauth2/state/kakao`)
+      .then((res) => {
+        console.log(res);
+        const accessToken = res.headers['authorization'];
+        axios.defaults.headers.common['Authorization'] = `${accessToken}`;
+        const state = res.data.data.state;
+        axios
+          .get(`${process.env.REACT_APP_API_URL}oauth2/code`, { params: { state: state, code: code } })
+          .then((res) => {
+            localStorage.setItem('accessToken', res.config.params.code);
+            axios.defaults.headers.common['Authorization'] = `${res.config.params.code}`;
+            const data = res.data.data;
+            data['islogin'] = true;
+            userInfo(data);
+            console.log(data);
+            if (data.is_new_user) {
+              navigate('/nickname');
+            } else {
+              navigate(`/`);
+            }
+          })
+          .catch(() => {
+            alert('로그인 오류!');
+            window.location.href = '/login';
+          });
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {});
   }, []);
 
   return (
