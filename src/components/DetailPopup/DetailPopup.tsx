@@ -88,6 +88,7 @@ export const DetailPopup = () => {
           운영정보
         </Texts>
         <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`}/>
+        
         <TimeInfo>
           월 10:00 - 20:00<br />
           화 10:00 - 20:00<br />
