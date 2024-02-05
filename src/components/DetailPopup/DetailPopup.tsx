@@ -8,7 +8,7 @@ export const DetailPopup = () => {
   const storeDetail = useRecoilValue(StoreState);
   const [storeInfo, setstoreInfo] = useState([false, false, false, false, false]);
   const setModal = useSetRecoilState(detailModalState);
-  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
+  const modalRef = useRef<HTMLDivElement>(null);
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setModal(false);
@@ -84,24 +84,19 @@ export const DetailPopup = () => {
         </Information>
 
         <TimInformation>
-          <Texts>운영정보</Texts>
-          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`} />
-          <TimeInfo>
-            {storeDetail.operating_hours.map((item, index) => {
-              return (
-                <div key={index}>
-                  {item.day_of_week}{' '}
-                  {item.regular_holiday ? (
-                    <>
-                      {item.start_time} - {item.end_time}
-                    </>
-                  ) : (
-                    <>정기 휴무</>
-                  )}
-                </div>
-              );
-            })}
-          </TimeInfo>
+        <Texts $margintopPC={'0'} $margintopMB={'0'}>
+          운영정보
+        </Texts>
+        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`}/>
+        <TimeInfo>
+          월 10:00 - 20:00<br />
+          화 10:00 - 20:00<br />
+          수 정기 휴무<br />
+          목 10:00 - 20:00<br />
+          금 10:00 - 20:00<br />
+          토 9:00 - 22:00<br />
+          일 정기 휴무
+        </TimeInfo>
         </TimInformation>
         <TimInformation>
           <Texts>위치&ensp;&ensp;&ensp;&nbsp;</Texts>
@@ -133,6 +128,13 @@ const Background = styled.div`
   background: rgba(0, 0, 0, 0.3);
   @media (max-width: 768px) {
     background-color: rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const InfoDiv = styled.div`
+  height: 20px;
+  @media (max-width: 768px) {
+    height: 17px;
   }
 `;
 
