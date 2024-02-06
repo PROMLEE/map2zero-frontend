@@ -2,16 +2,19 @@ import styled from 'styled-components';
 
 interface Props {
   product: string;
-  price: string;
+  date: string;
   imgurl: string;
   code: number;
 }
-export const Product = ({ product, price, imgurl, code }: Props) => {
+export const Product = ({ product, date, imgurl, code }: Props) => {
   return (
     <Box>
       <ProductImg src={imgurl} alt={product} />
       <ProductName>{product}</ProductName>
-      <ProductPrice>{price}</ProductPrice>
+      <Bottombox>
+        <ProductPrice>{date}</ProductPrice>
+        <img src={`${process.env.PUBLIC_URL}/assets/Eventmanage/doublearrow.svg`} />
+      </Bottombox>
     </Box>
   );
 };
@@ -23,6 +26,7 @@ const Box = styled.div`
   height: 26.7rem;
   align-items: flex-start;
   border-radius: 0.8rem;
+  background-color: #d9d9d9;
   border: 0.5px solid #f2f2f2;
   &:hover {
     cursor: pointer;
@@ -36,7 +40,6 @@ const Box = styled.div`
 const ProductImg = styled.img`
   width: 21.2rem;
   height: 21.2rem;
-  background-color: #d9d9d9;
   border-radius: 0.8rem 0.8rem 0 0;
   @media (max-width: 768px) {
     width: 100%;
@@ -57,8 +60,16 @@ const ProductName = styled.div`
     font-size: 3rem;
   }
 `;
-const ProductPrice = styled.div`
+const Bottombox = styled.div`
+  display: flex;
+  justify-content: space-between;
   padding: 0.8rem;
+  width: 100%;
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+`;
+const ProductPrice = styled.div`
   height: 1.2rem;
   align-self: stretch;
   color: #000;
@@ -67,7 +78,6 @@ const ProductPrice = styled.div`
   font-weight: 400;
   line-height: normal;
   @media (max-width: 768px) {
-    padding: 2rem;
     font-size: 2.5rem;
   }
 `;

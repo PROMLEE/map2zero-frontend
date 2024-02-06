@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { tagitem } from '../../recoil';
+import { productCategory } from '../../recoil';
 
 interface Props {
   tag: string;
 }
-export const Tagitem = (props: Props) => {
-  const [tags, setModal] = useRecoilState(tagitem);
+export const CategoryItem = (props: Props) => {
+  const [tags, setModal] = useRecoilState(productCategory);
   const [tagon, settagon] = useState<boolean>(false);
 
   const onpress = () => {
@@ -21,19 +21,19 @@ export const Tagitem = (props: Props) => {
     settagon(!tagon);
   };
   return (
-    <TagItem istagon={tagon} onClick={onpress}>
+    <TagItem $istagon={tagon} onClick={onpress}>
       {props.tag}
     </TagItem>
   );
 };
 
-const TagItem = styled.div<{ istagon: boolean }>`
+const TagItem = styled.div<{ $istagon: boolean }>`
   padding: 1rem 2rem;
   height: 5.5rem;
   border-radius: 4rem;
   border: 1px solid #74b69d;
-  background-color: ${(props) => (props.istagon ? '#74b69d' : '#FFF')};
-  color: ${(props) => (props.istagon ? '#FFF' : '#74b69d')};
+  background-color: ${(props) => (props.$istagon ? '#74b69d' : '#FFF')};
+  color: ${(props) => (props.$istagon ? '#FFF' : '#74b69d')};
   text-align: center;
   font-family: 'Noto Sans KR';
   font-size: 2.5rem;

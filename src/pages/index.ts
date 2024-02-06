@@ -11,7 +11,8 @@ import NickName from './NickName';
 import { SellingProduct } from './SellingProduct';
 import OwnerMypage from './OwnerMypage';
 import { Map } from './Map';
-
+import { SellingProductManage } from './SellingProductManage';
+import { EventManage } from './Evnentmanage';
 export {
   Home,
   Search,
@@ -26,4 +27,6 @@ export {
   NickName,
   OwnerMypage,
   Map,
+  SellingProductManage,
+  EventManage,
 };

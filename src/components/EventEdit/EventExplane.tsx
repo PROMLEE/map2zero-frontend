@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
-import { textRate } from '../../recoil';
+import { eventExplane } from '../../recoil';
 
-export const TextReview = () => {
-  const setText = useSetRecoilState(textRate);
+export const EventExplane = () => {
+  const setText = useSetRecoilState(eventExplane);
   let [inputCount, setInputCount] = useState(0);
   const onInputHandler = (e: any) => {
     setInputCount(e.target.value.length);
@@ -36,12 +36,13 @@ const TextBox = styled.textarea`
   background: #f2f2f2;
   resize: none;
   font-size: 1rem;
-  font-family: 'Noto Sans KR';
+  outline: none;
   &::placeholder {
     color: #848484;
     font-weight: 400;
   }
   @media (max-width: 768px) {
+    width: 100%;
     font-size: 2.5rem;
     border-radius: 2rem;
     padding: 4rem;
@@ -57,7 +58,6 @@ const Textcount = styled.div`
   text-align: right;
   font-size: 0.8rem;
   padding: 0.8rem;
-  font-family: 'Noto Sans KR';
   @media (max-width: 768px) {
     font-size: 2rem;
     padding: 2rem;

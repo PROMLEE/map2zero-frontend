@@ -1,16 +1,18 @@
 import styled from 'styled-components';
-import { StarRating, Storetag, Text, Addpic } from '.';
+import { Addonepic, Eventname, EventExplane, EventLink, EventDate } from '.';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { reviewmodalState, starRate, textRate, tagitem } from '../../recoil';
+import { eventManageModalState, eventName, eventExplane, eventPic, eventDate } from '../../recoil';
 import { useEffect, useRef } from 'react';
 
-export const ReviewWrite = () => {
-  const setModal = useSetRecoilState(reviewmodalState);
+export const EventEdit = () => {
+  const setModal = useSetRecoilState(eventManageModalState);
   const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
-  const star = useRecoilValue(starRate);
-  const text = useRecoilValue(textRate);
-  const tag = useRecoilValue(tagitem);
-  const isConditionMet = star !== 0 && text !== '';
+  const eventname = useRecoilValue(eventName);
+  const eventexplane = useRecoilValue(eventExplane);
+  const eventpic = useRecoilValue(eventPic);
+  const eventdate = useRecoilValue(eventDate);
+  const isConditionMet = eventname !== '' && eventexplane !== '';
+
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setModal(false);
@@ -33,31 +35,28 @@ export const ReviewWrite = () => {
             setModal(false);
           }}
         />
-        <Title>리뷰 작성</Title>
+        <Title>이벤트 등록</Title>
         <Texts $margintopPC={'3.7rem'} $margintopMB={'10.25rem'}>
-          별점을 선택해 주세요
+          이벤트 명을 작성해 주세요
         </Texts>
-        <StarRating />
+        <Eventname />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
-          태그를 선택해 주세요
+          이벤트 기간을 설정해 주세요
         </Texts>
-        <Storetag />
+        <EventDate />
         <Texts $margintopPC={'5.6rem'} $margintopMB={'6.5rem'}>
-          리뷰를 작성해 주세요
+          신청 링크를 작성해 주세요
         </Texts>
-        <Text />
+        <EventLink />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
           사진을 추가해 주세요
         </Texts>
-        <Addpic />
-        <CompleteButton
-          disabled={!isConditionMet}
-          onClick={() => {
-            console.log({ star: star, tag: tag, text: text });
-          }}
-        >
-          작성 완료
-        </CompleteButton>
+        <Addonepic />
+        <Texts $margintopPC={'5.6rem'} $margintopMB={'6.5rem'}>
+          설명을 작성해 주세요
+        </Texts>
+        <EventExplane />
+        <CompleteButton disabled={!isConditionMet}>작성 완료</CompleteButton>
       </Modal>
     </Background>
   );
@@ -119,9 +118,8 @@ const Title = styled.div`
   margin-top: 6.25rem;
   margin-left: auto;
   margin-right: auto;
-  font-family: 'Noto Sans KR';
   font-size: 1.6rem;
-  font-weight: 500;
+  font-weight: 800;
   @media (max-width: 768px) {
     font-size: 4rem;
   }
@@ -130,10 +128,9 @@ const Texts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
   position: relative;
   margin-top: ${(props) => props.$margintopPC};
   color: #000;
-  font-family: 'Noto Sans KR';
   margin-left: 6.4rem;
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 800;
   @media (max-width: 768px) {
     font-size: 3rem;
     margin-top: ${(props) => props.$margintopMB};
@@ -144,11 +141,10 @@ const CompleteButton = styled.button`
   width: 32.7rem;
   padding: 1.6rem;
   text-align: center;
-  margin-top: 6.1rem;
+  margin-top: 3rem;
   margin-left: auto;
   margin-right: auto;
   font-size: 1.2rem;
-  font-family: 'Noto Sans KR';
   font-weight: 600;
   border-radius: 0.8rem;
   background-color: #0b5c71;

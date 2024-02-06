@@ -14,6 +14,8 @@ import {
   SellingProduct,
   OwnerMypage,
   Map,
+  SellingProductManage,
+  EventManage,
 } from './pages';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
@@ -37,6 +39,8 @@ export default function App() {
           <Route path="/map" element={<Map />} />
           <Route path="/nickname" element={<NickName />} />
           <Route path="/sellingproduct" element={<SellingProduct />} />
+          <Route path="/sellingproductmanage" element={<SellingProductManage />} />
+          <Route path="/eventmanage" element={<EventManage />} />
           <Route path="/owner/mypage" element={<OwnerMypage />} />
           <Route path="/map" element={<Map />} />
         </Routes>

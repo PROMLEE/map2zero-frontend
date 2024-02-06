@@ -14,7 +14,7 @@ interface sliderProps {
   loop?: boolean;
 }
 
-const list = ['전체', '주방용품', '위생용품', '욕실용품', '식료품', '필기용품', '악세사리', '기타'];
+const list = ['진행중', '종료'];
 export const SlidePic = ({ children, className, autoplay = false, speed = 300, loop = false }: sliderProps) => {
   const settings = {
     dots: true,
@@ -22,7 +22,6 @@ export const SlidePic = ({ children, className, autoplay = false, speed = 300, l
     speed: speed,
     slidesToShow: 1,
     arrows: false,
-    // draggable: false,
     autoplay: Boolean(autoplay),
     appendDots: (dots: string[]) => <Customdot>{dots}</Customdot>,
     customPaging: (i: number) => <CustomTab>{list[i]}</CustomTab>,
