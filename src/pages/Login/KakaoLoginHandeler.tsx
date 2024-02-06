@@ -19,7 +19,7 @@ const KakaoLoginHandeler = () => {
         axios
           .get(`${process.env.REACT_APP_API_URL}oauth2/code`, { params: { state: state, code: code } })
           .then((res) => {
-            localStorage.setItem('accessToken', res.config.params.code);
+            localStorage.setItem('accessToken', res.headers['authorization']);
             axios.defaults.headers.common['Authorization'] = `${res.config.params.code}`;
             const data = res.data.data;
             data['islogin'] = true;
