@@ -4,10 +4,23 @@ import { ReactComponent as Map_mobile } from '../assets/Navbar/map_mobile.svg';
 import { ReactComponent as Home_mobile } from '../assets/Navbar/home_mobile.svg';
 import { ReactComponent as Search_mobile } from '../assets/Navbar/search_mobile.svg';
 import { ReactComponent as User_mobile } from '../assets/Navbar/user_mobile.svg';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { UserInfoState } from '../recoil';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 export const Navigationbar = () => {
-  const userinfo = useRecoilValue(UserInfoState);
+  const [userinfo, setuserinfo] = useRecoilState(UserInfoState);
+  const accessToken = localStorage.getItem('accessToken');
+  const [data, setData] = useState(accessToken);
+  useEffect(() => {
+    setData(accessToken);
+    if (data) {
+      axios.get(`${process.env.REACT_APP_API_URL}my-page`, { headers: { Authorization: accessToken } }).then((res) => {
+        const newinfo = { ...userinfo, photo: { url: res.data.data.photo.url } };
+        setuserinfo(newinfo);
+      });
+    }
+  }, [accessToken]);
   return (
     <>
       {/* 모바일 네비게이션 바 (하단) */}
@@ -21,7 +34,7 @@ export const Navigationbar = () => {
         <NavLinkStyle to="/search">
           <Search_mobile />
         </NavLinkStyle>
-        {userinfo.islogin ? (
+        {data ? (
           <NavLinkStyle to="/mypage">
             <User_mobile />
           </NavLinkStyle>
@@ -36,41 +49,37 @@ export const Navigationbar = () => {
       </NavMobile>
       {/* PC 네비게이션 바 (상단) */}
       <Box />
-      <Navimg
-        src={`${process.env.PUBLIC_URL}/assets/Navbar/logo.png`}
-        $top="1rem"
-        $left="2.4rem"
-        $right="auto"
-        $width="7.6904rem"
-        $height="6rem"
-      />
-      <Link to="/search">
-        <Navimg
-          src={`${process.env.PUBLIC_URL}/assets/Navbar/searchimg.svg`}
-          $top="3.45rem"
-          $left="auto"
-          $right="8.75rem"
-          $width="1.5rem"
-          $height="1.5rem"
-        />
-      </Link>
-      {userinfo.islogin ? (
-        <Link to="/mypage">
-          <Navimg src={userinfo.photo.url} $top="2.2rem" $left="auto" $right="2.4rem" $width="4rem" $height="4rem" />
-        </Link>
-      ) : (
-        <Link to="/login">
+      <Logoimg src={`${process.env.PUBLIC_URL}/assets/Navbar/logo.png`} />
+      <RightBox>
+        <Link to="/search">
           <Navimg
-            src={`${process.env.PUBLIC_URL}/assets/Navbar/userimg.svg`}
-            $top="2.2rem"
+            src={`${process.env.PUBLIC_URL}/assets/Navbar/searchimg.svg`}
+            $top="3.45rem"
             $left="auto"
-            $right="2.4rem"
-            $width="4rem"
-            $height="4rem"
+            $right="8.75rem"
+            $width="1.5rem"
+            $height="1.5rem"
           />
         </Link>
-      )}
-
+        {data !== null ? (
+          <Link to="/mypage">
+            <Navimg
+              src={
+                userinfo.photo.url !== '' ? userinfo.photo.url : `${process.env.PUBLIC_URL}/assets/Navbar/userimg.svg`
+              }
+              $top="1.5rem"
+              $left="auto"
+              $right="2.4rem"
+              $width="4rem"
+              $height="4rem"
+            />
+          </Link>
+        ) : (
+          <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
+            <BeforeLogin>로그인 / 회원가입</BeforeLogin>
+          </Link>
+        )}
+      </RightBox>
       <NavPc>
         <NavLinkStyle to="/">
           <LinksliPc>홈</LinksliPc>
@@ -128,19 +137,60 @@ const Box = styled.div`
     display: none;
   }
 `;
-export const Navimg = styled.img<{ $top: string; $left: string; $right: string; $width: string; $height: string }>`
+
+const RightBox = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  top: 2.5rem;
+  left: auto;
+  right: 2.4rem;
+  width: 12rem;
+  height: 4rem;
+  z-index: 2;
+`;
+const Logoimg = styled.img`
   position: fixed;
   display: block;
-  top: ${($props) => $props.$top};
-  left: ${($props) => $props.$left};
-  right: ${($props) => $props.$right};
-  width: ${($props) => $props.$width};
-  height: ${($props) => $props.$height};
+  top: 1rem;
+  left: 2.4rem;
+  right: auto;
+  width: 7.6904rem;
+  height: 6rem;
   z-index: 2;
   @media screen and (max-width: 768px) {
     display: none;
   }
 `;
+const Navimg = styled.img<{
+  $top: string;
+  $left: string;
+  $right: string;
+  $width: string;
+  $height: string;
+}>`
+  top: ${($props) => $props.$top};
+  left: ${($props) => $props.$left};
+  right: ${($props) => $props.$right};
+  width: ${($props) => $props.$width};
+  height: ${($props) => $props.$height};
+  border-radius: 100%;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const BeforeLogin = styled.div`
+  text-decoration: none;
+  font-size: 1.2rem;
+  width: 10rem;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
 const LinksliPc = styled.div`
   font-family: 'Noto Sans KR';
   height: 100%;
