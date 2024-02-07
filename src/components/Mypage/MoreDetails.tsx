@@ -34,32 +34,35 @@ const MoreDetails = ({owner} : ownerProps) => {
 
 const Wrap = styled.div`
   width: 80%;
-  justify-content: flex-start;
+  justify-content: center;
   @media (max-width: 768px) {
-    width: calc(100vw - 5%);
-    margin-left: 5%;
+    //width: calc(100vw - 5%);
+     width: 310px;
+     margin: 5%;
     > div {
       margin-top: 6rem;
+
     }
   }
 
   > div {
-    margin-top: 4rem;
-    margin-left: 36rem;
+    margin-top: 40px;
+    //margin-left: 27.5rem;
+    margin-left: auto;
     display: flex;
     justify-content: flex-start;
   }
 `;
 
 const BookMarkTitle = styled.h1`
-  margin: 0 0 0 1rem;
+  margin: 0 0 0 26rem;
   font-size: 1.4rem;
   padding-top: 2rem;
-  margin-bottom: 0;
+  justify-content: center;
+  align-items: center;
+  
   @media (max-width: 768px) {
-    font-size: 3rem;
-    padding: 0;
-    margin: 0 0 0 2rem;
+    display: none;
   }
 `;
 
@@ -68,6 +71,8 @@ const BookMarks = styled.div`
   height: 700px;
   padding: 0 0 3rem 1rem;
   flex-wrap: wrap;
+  align-items: center;
+
 
 
   /* 인터넷 익스플로러를 위한 스타일 */
@@ -81,9 +86,11 @@ const BookMarks = styled.div`
     display: none;
   }
   @media (max-width: 768px) {
-    height: 55rem;
+    width: 70rem;
+    height: 100rem;
     padding: 5rem 0 5rem 2rem;
-    overflow-x: auto;
+    margin: 0;
+   //overflow-x: auto;
   }
 `;
 
