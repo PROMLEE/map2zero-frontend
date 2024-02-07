@@ -9,9 +9,9 @@ const OwnerMypage = () => {
       <Line />
       <MyStoreManagement />
       <Line mobileVisible />
-      <BookMarkList />
+      <BookMarkList owner />
       <Line mobileVisible />
-      <ReviewList />
+      <ReviewList owner />
       <Line mobileVisible />
       <StoreOwner />
     </ContentWrap>

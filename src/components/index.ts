@@ -1,4 +1,3 @@
-import { Example } from './Example';
 import { Navigationbar } from './Navigationbar';
 import { ReviewWrite } from './ReviewWrite/ReviewWrite';
 import Loginbutton from './Login/Loginbutton';
@@ -8,4 +7,4 @@ import { MarkerInfo } from './Map/MarkerInfo';
 import { Gpsbutton } from './Map/Gpsbutton';
 import { EventDetail } from './EventDetail/EventDetail';
 
-export { Example, Navigationbar, Loginbutton, Mobiletop, ReviewWrite, ScrollToTop, MarkerInfo, Gpsbutton, EventDetail };
+export { Navigationbar, Loginbutton, Mobiletop, ReviewWrite, ScrollToTop, MarkerInfo, Gpsbutton, EventDetail };

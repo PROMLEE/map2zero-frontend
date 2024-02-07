@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 import { Mobiletop, ScrollToTop } from '../components';
+import NoSearchFile from '../components/SearchFile/NoSearchFile';
 import { SearchBar, DefaultList } from '../components/SellingProduct';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { productManage } from '../recoil';
 
 export const SellingProduct = () => {
   const [searchText, setSearchText] = useState('');
   const [searchResultView, setSearchResultView] = useState(false);
+  const isOwner = useSetRecoilState(productManage);
+
   const onInputSearchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target.value;
     setSearchText(target);
@@ -17,13 +22,17 @@ export const SellingProduct = () => {
       setSearchResultView(true);
     }
   };
+
+  useEffect(() => {
+    isOwner(false);
+  }, []);
   return (
     <ProductBox>
       <ScrollToTop />
       <Mobiletop pagename="판매중인 제품" />
       <Title>판매중인 제품</Title>
       <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
-      {searchResultView ? <DefaultList /> : <DefaultList />}
+      {searchResultView ? <NoSearchFile /> : <DefaultList />}
     </ProductBox>
   );
 };

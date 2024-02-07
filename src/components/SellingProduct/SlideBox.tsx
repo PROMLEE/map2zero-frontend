@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { Product, SlidePic } from '../SellingProduct';
+import { Product, SlidePic, ProductManage } from '.';
+import { productManage } from '../../recoil';
+import { useRecoilValue } from 'recoil';
 
 const productlist = [
   {
@@ -47,13 +49,14 @@ const productlist = [
 ];
 
 export const Item = () => {
+  const isOwner = useRecoilValue(productManage);
   return (
     <SlidePic>
-      {[...Array(6)].map((item) => (
-        <div key={item}>
+      {[...Array(8)].map((item, index) => (
+        <div key={index}>
           <List>
             {productlist.map((item, index) => {
-              return <Product {...item} key={index} />;
+              return isOwner ? <ProductManage {...item} key={index} /> : <Product {...item} key={index} />;
             })}
           </List>
         </div>
@@ -64,10 +67,11 @@ export const Item = () => {
 
 const List = styled.div`
   display: flex;
-  overflow: scroll;
+  overflow: visible;
   flex-wrap: wrap;
   width: 92.4rem;
   gap: 2.4rem;
+  padding-bottom: 10rem;
   @media (max-width: 768px) {
     width: 100%;
     gap: 2%;

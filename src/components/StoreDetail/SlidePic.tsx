@@ -1,6 +1,5 @@
-import { useMemo } from 'react';
 import styled from 'styled-components';
-import Slider, { Settings } from 'react-slick';
+import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -19,23 +18,20 @@ interface sliderProps {
 }
 
 function SlidePic({ children, className, autoplay = true, speed = 300, loop = true }: sliderProps) {
-  const settings = useMemo<Settings>(
-    () => ({
-      dots: true,
-      infinite: loop,
-      speed: speed,
-      slidesToShow: 1,
-      autoplay: Boolean(autoplay),
-      autoplaySpeed: typeof autoplay === 'boolean' ? 3000 : autoplay,
-      appendDots: (dots: any) => (
-        <Customdot>
-          <ul> {dots} </ul>
-        </Customdot>
-      ),
-      dotsClass: 'dots_custom',
-    }),
-    [autoplay, loop, speed],
-  );
+  const settings = {
+    dots: true,
+    infinite: loop,
+    speed: speed,
+    slidesToShow: 1,
+    autoplay: Boolean(autoplay),
+    autoplaySpeed: typeof autoplay === 'boolean' ? 3000 : autoplay,
+    appendDots: (dots: any) => (
+      <Customdot>
+        <ul> {dots} </ul>
+      </Customdot>
+    ),
+    dotsClass: 'dots_custom',
+  };
   return (
     <SlideWrapper className={className}>
       <StyledSlider {...settings}>{children}</StyledSlider>

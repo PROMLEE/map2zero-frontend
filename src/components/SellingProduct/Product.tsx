@@ -47,8 +47,6 @@ const ProductImg = styled.img`
 const ProductName = styled.div`
   padding-left: 0.8rem;
   padding-top: 0.8rem;
-  color: #000;
-  font-family: 'Noto Sans KR';
   font-size: 1.2rem;
   font-style: normal;
   font-weight: 600;
@@ -60,19 +58,16 @@ const ProductName = styled.div`
   }
 `;
 const ProductPrice = styled.div`
-  padding-left: 0.8rem;
-  padding-top: 0.8rem;
+  padding: 0.8rem;
   height: 1.2rem;
   align-self: stretch;
   color: #000;
-  font-family: 'Noto Sans KR';
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   @media (max-width: 768px) {
-    padding-left: 2rem;
-    padding-top: 2rem;
+    padding: 2rem;
     font-size: 2.5rem;
   }
 `;

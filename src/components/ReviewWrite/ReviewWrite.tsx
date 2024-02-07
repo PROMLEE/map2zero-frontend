@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StarRating, Storetag, TextReview, Addpic } from '.';
+import { StarRating, Storetag, Text, Addpic } from '.';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { reviewmodalState, starRate, textRate, tagitem } from '../../recoil';
 import { useEffect, useRef } from 'react';
@@ -45,7 +45,7 @@ export const ReviewWrite = () => {
         <Texts $margintopPC={'5.6rem'} $margintopMB={'6.5rem'}>
           리뷰를 작성해 주세요
         </Texts>
-        <TextReview />
+        <Text />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
           사진을 추가해 주세요
         </Texts>

@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
+import { useSetRecoilState } from 'recoil';
+import { detailModalState } from '../../recoil';
 
 export const Linkbuttons = () => {
+  const setModal = useSetRecoilState(detailModalState);
+
   const phonenumber = '010-0000-0000';
   const copyClipboard = async (text: string, successAction?: () => void, failAction?: () => void) => {
     try {
@@ -11,6 +15,7 @@ export const Linkbuttons = () => {
       failAction && failAction();
     }
   };
+
   return (
     <PicBox>
       {isMobile ? (
@@ -48,7 +53,8 @@ export const Linkbuttons = () => {
         </>
       )}
       <Line />
-      <Button href="https://naver.me/GyNv7dGv">
+      <Button onClick={() => setModal(true)}>
+        {/* 매장 정보 버튼을 클릭하면 모달을 열도록 핸들러를 추가했습니다. */}
         <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/storefront.svg`} />
         <ButtonText>매장정보</ButtonText>
       </Button>
@@ -66,9 +72,7 @@ const PicBox = styled.div`
   align-items: center;
   border-bottom: 0.5px solid;
   border-color: #f2f2f2;
-  &:hover {
-    cursor: pointer;
-  }
+
   @media (max-width: 768px) {
     width: 100%;
     padding: 4rem;
@@ -83,6 +87,9 @@ const Button = styled.a`
   align-items: center;
   gap: 1.6rem;
   text-decoration-line: none;
+  &:hover {
+    cursor: pointer;
+  }
   @media (max-width: 768px) {
     gap: 4rem;
   }
@@ -102,6 +109,7 @@ const ButtonText = styled.div`
   font-size: 1.2rem;
   font-style: normal;
   font-weight: 400;
+
   @media (max-width: 768px) {
     font-size: 3rem;
     height: 4rem;
