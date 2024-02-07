@@ -19,6 +19,7 @@ import {
 } from './pages';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
+import MoreDetails from './components/Mypage/MoreDetails';
 
 export default function App() {
   return (
@@ -43,6 +44,8 @@ export default function App() {
           <Route path="/eventmanage" element={<EventManage />} />
           <Route path="/owner/mypage" element={<OwnerMypage />} />
           <Route path="/map" element={<Map />} />
+          <Route path="/bookmarkdetail" element={<MoreDetails />} />
+
         </Routes>
       </BrowserRouter>
     </Background>

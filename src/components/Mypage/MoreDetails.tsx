@@ -6,24 +6,17 @@ import { Link, useNavigate } from 'react-router-dom';
 type ownerProps = {
   owner?: boolean;
 };
-const BookMarkList = ({ owner }: ownerProps) => {
+const MoreDetails = ({owner} : ownerProps) => {
   const url = owner ? 'ownerUrl' : 'defaultUrl';
   const navigate = useNavigate();
   const onClickBookMark = () => {
     navigate(`/store`);
-  };
-  const onClickDetailBookMark = () => {
-    navigate(`/bookmarkdetail`);
-  };
-
-  
-  
+  }
 
   return (
     <Wrap>
-      <div onClick={onClickDetailBookMark}>
-        <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
-        <MoreDetails to={`/bookmarkdetail`}>더보기 {'>'}</MoreDetails>
+      <div>
+      <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
       </div>
       <BookMarks onClick={onClickBookMark}>
         {BookMarkDummy.map((i) => (
@@ -41,6 +34,7 @@ const BookMarkList = ({ owner }: ownerProps) => {
 
 const Wrap = styled.div`
   width: 80%;
+  justify-content: flex-start;
   @media (max-width: 768px) {
     width: calc(100vw - 5%);
     margin-left: 5%;
@@ -51,18 +45,9 @@ const Wrap = styled.div`
 
   > div {
     margin-top: 4rem;
+    margin-left: 36rem;
     display: flex;
-    justify-content: space-between;
-  }
-`;
-
-const MoreDetails = styled(Link)`
-  font-size: 1.2rem;
-  color: #565656;
-  text-decoration: none;
-  @media (max-width: 768px) {
-    font-size: 3rem;
-    margin-right: 10%;
+    justify-content: flex-start;
   }
 `;
 
@@ -70,6 +55,7 @@ const BookMarkTitle = styled.h1`
   margin: 0 0 0 1rem;
   font-size: 1.4rem;
   padding-top: 2rem;
+  margin-bottom: 0;
   @media (max-width: 768px) {
     font-size: 3rem;
     padding: 0;
@@ -78,11 +64,11 @@ const BookMarkTitle = styled.h1`
 `;
 
 const BookMarks = styled.div`
-  display: flex;
-  height: 30rem;
-  width: 100%;
-  padding: 3rem 0 3rem 1rem;
-  overflow-x: hidden;
+  width: 928px;
+  height: 700px;
+  padding: 0 0 3rem 1rem;
+  flex-wrap: wrap;
+
 
   /* 인터넷 익스플로러를 위한 스타일 */
   -ms-overflow-style: none;
@@ -102,7 +88,8 @@ const BookMarks = styled.div`
 `;
 
 const BookMark = styled.div`
-  margin-right: 2.4rem;
+ 
+  margin: 0rem 2rem 2rem 0;
   width: 16.2rem;
   height: 23rem;
   border: solid;
@@ -164,4 +151,5 @@ const BookMarkIcon = styled.img`
     height: 3.75rem;
   }
 `;
-export default BookMarkList;
+
+export default MoreDetails;

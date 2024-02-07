@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BookMarkList, ReviewList, PersonalInfo, StoreOwner } from '../components/Mypage';
+import { BookMarkList, ReviewList, PersonalInfo, StoreOwner} from '../components/Mypage';
 import { PersonalInfoDummy } from '../components/Mypage/Dummy/PersonalInfoDummy';
 export default function Mypage() {
   return (
