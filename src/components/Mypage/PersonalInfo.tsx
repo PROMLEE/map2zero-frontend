@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { PersonalInfoDummyType } from './Dummy/PersonalInfoDummy';
+import PersonalInfoApi from '../../apis/Mypage/PersonalInfoApi';
+import axios from 'axios';
 const PersonalInfo = ({ info }: { info: PersonalInfoDummyType }) => {
   const navigate = useNavigate();
 
   const onSettingHandler = () => {
     navigate('/setting');
   };
+
+  useEffect(() => {
+    PersonalInfoApi();
+  }, []);
+
   return (
     <Wrap>
       <div>
