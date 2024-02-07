@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { StarRating, Storetag, TextReview, Addpic } from '.';
 import { useSetRecoilState } from 'recoil';
+import { EvnetImg } from '.';
 import { eventDetailModal } from '../../recoil';
 import { useEffect, useRef } from 'react';
 
@@ -29,7 +29,27 @@ export const EventDetail = () => {
             setModal(false);
           }}
         />
-        <Title>리뷰 작성</Title>
+        <EvnetImg />
+        <Details>
+          <Topbox>
+            <Title>이벤트명</Title>
+            <EditIcon src={`${process.env.PUBLIC_URL}/assets/EventDetail/edit.svg`} />
+            <EditText>이벤트 수정</EditText>
+          </Topbox>
+          <StateBox>
+            <State>진행중</State>
+            <Date>2024.01.01 - 2024.01.31</Date>
+          </StateBox>
+          <Summary>{`이벤트 설명 100자 내외 정도록 두면 될 것 같아요\n
+ㅇ늡르애ㅡ내ㅏㅡㅍㄷㄱ민ㅋㅇㄹ,ㅊ ㅌㅋ플우ㅑ넣ㄱ소ㅑㅓ다플ㅋㅇ,ㅣㄴ;ㅊ\n
+ㅁㅈㅎ고퍄ㅜㅏㅡㅊㅌ킬구머ㅗ뎌ㅑㅓㅐㅏㅊㅇㄴ\n
+ㄱㅁㄱㅍ야ㅕㅊ누먿갸ㅜㅍ러ㅏㅡㅊ누먀ㅓㅗㄷㅎ겨ㅓㅏㅡㅇㄴㅊ\n
+ㄻㄷ조ㅠㅕㅛㅊ눡모ㅠㅜㅇㄴ`}</Summary>
+          <LinkBox>
+            신청 링크
+            <URL href="#">http://dddd</URL>
+          </LinkBox>
+        </Details>
       </Modal>
     </Background>
   );
@@ -86,15 +106,89 @@ const Xbutton = styled.img`
     top: 4rem;
   }
 `;
+
+const Details = styled.div`
+  margin: 0 auto;
+  width: 80%;
+  flex-direction: column;
+`;
 const Title = styled.div`
-  position: relative;
-  margin-top: 6.25rem;
-  margin-left: auto;
-  margin-right: auto;
-  font-family: 'Noto Sans KR';
-  font-size: 1.6rem;
-  font-weight: 500;
+  font-size: 2rem;
+  font-weight: 600;
   @media (max-width: 768px) {
     font-size: 4rem;
+  }
+`;
+const Topbox = styled.div`
+  margin-top: 4rem;
+  display: flex;
+  align-items: center;
+`;
+
+const EditIcon = styled.img`
+  margin-left: auto;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const EditText = styled.div`
+  margin-left: 1rem;
+  font-size: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const StateBox = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+`;
+const State = styled.div`
+  display: flex;
+  width: 7.1rem;
+  height: 3.5rem;
+  background-color: #74b69d;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3rem;
+  padding-bottom: 0.2rem;
+`;
+
+const Date = styled.div`
+  font-size: 1.6rem;
+  margin-left: 1rem;
+  font-weight: 500;
+`;
+const Summary = styled.div`
+  white-space: pre-line;
+  margin-top: 2rem;
+  width: 100%;
+  font-size: 1.2rem;
+  line-height: 0.8rem;
+  color: #848484;
+`;
+const LinkBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 2.5rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+`;
+const URL = styled.a`
+  margin-left: 2rem;
+  color: #0b5c71;
+  height: 1.4rem;
+  font-size: 1.2rem;
+  text-decoration-line: underline;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    height: 3.5rem;
+    font-size: 3rem;
+    font-weight: 400;
   }
 `;

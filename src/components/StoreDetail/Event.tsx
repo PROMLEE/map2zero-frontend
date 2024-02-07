@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-
+import { eventDetailModal } from '../../recoil';
+import { useSetRecoilState } from 'recoil';
 interface Props {
   event: string;
   start: string;
@@ -8,8 +9,13 @@ interface Props {
   code: number;
 }
 export const Event = ({ event, start, end, url, code }: Props) => {
+  const setEventDetailModal = useSetRecoilState(eventDetailModal);
   return (
-    <Box>
+    <Box
+      onClick={() => {
+        setEventDetailModal(true);
+      }}
+    >
       <EventImg src={url} />
       <EventInfo>
         <EventName>{event}</EventName>
@@ -27,6 +33,9 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #d9d9d9;
+  &:hover {
+    cursor: pointer;
+  }
   @media (max-width: 768px) {
     width: 60rem;
     height: 60rem;

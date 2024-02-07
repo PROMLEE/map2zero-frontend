@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReviewWrite, Mobiletop, EventDetail } from '../components';
+import { ReviewWrite, Mobiletop, EventDetail, ScrollToTop } from '../components';
 import { SharePopup } from '../components/DetailPopup/SharePopup';
 import { DetailPopup } from '../components/DetailPopup/DetailPopup';
 import { SlideBox, StoreIndex, Productlist, Eventlist, Reviewlist } from '../components/StoreDetail';
@@ -17,6 +17,7 @@ export default function StoreDetail() {
   document.body.style.overflow = eventmodal ? 'hidden' : 'unset';
   return (
     <DetailBox>
+      <ScrollToTop />
       <Mobiletop pagename="상세 페이지" />
       <SlideBox />
       <StoreIndex />
