@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
-import { EvnetImg } from '.';
+import { SlideBox } from '.';
 import { eventDetailModal } from '../../recoil';
 import { useEffect, useRef } from 'react';
 
@@ -29,7 +29,7 @@ export const EventDetail = () => {
             setModal(false);
           }}
         />
-        <EvnetImg />
+        <SlideBox />
         <Details>
           <Topbox>
             <Title>이벤트명</Title>
