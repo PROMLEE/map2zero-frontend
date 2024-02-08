@@ -4,18 +4,18 @@ import { PersonalInfoDummy } from '../components/Mypage/Dummy/PersonalInfoDummy'
 export default function Mypage() {
   return (
     <ContentWrap>
-      <PersonalInfo info={PersonalInfoDummy} />
+      <PersonalInfo />
       <Line />
       <BookMarkList />
-      <Line mobileVisible />
+      <Line $mobileVisible />
       <ReviewList />
-      <Line mobileVisible />
+      <Line $mobileVisible />
       <StoreOwner />
     </ContentWrap>
   );
 }
 type LineType = {
-  mobileVisible?: boolean;
+  $mobileVisible?: boolean;
 };
 
 const ContentWrap = styled.div`
@@ -31,6 +31,6 @@ const Line = styled.hr<LineType>`
   background-color: #d9d9d9;
   @media (max-width: 768px) {
     width: 85%;
-    display: ${(props) => (props.mobileVisible ? 'flex' : 'none')};
+    display: ${(props) => (props.$mobileVisible ? 'flex' : 'none')};
   }
 `;

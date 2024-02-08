@@ -1,31 +1,27 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { PersonalInfoDummyType } from './Dummy/PersonalInfoDummy';
-import PersonalInfoApi from '../../apis/Mypage/PersonalInfoApi';
-import axios from 'axios';
-const PersonalInfo = ({ info }: { info: PersonalInfoDummyType }) => {
-  const navigate = useNavigate();
+import { useRecoilValue } from 'recoil';
+import { InfoState } from '../../recoil/Mypage/myPageState';
 
+const PersonalInfo = () => {
+  const navigate = useNavigate();
+  const info = useRecoilValue(InfoState);
   const onSettingHandler = () => {
     navigate('/setting');
   };
-
-  useEffect(() => {
-    PersonalInfoApi();
-  }, []);
 
   return (
     <Wrap>
       <div>
         <div>
-          <PersonalImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${info.photo}`} alt="이미지"></PersonalImg>
+          <PersonalImg src={info.photo.url} alt="이미지"></PersonalImg>
         </div>
         <InfoWrap>
-          {info.storename && <StoreName>{info.storename}</StoreName>}
-          <Name hasstorename={!!info.storename}>{info.nickname}</Name>
+          {info.is_manager && <StoreName>"매장명"</StoreName>}
+          <Name $hasstorename={!!info.is_manager}>{info.nickname}</Name>
           <SocialWrap>
-            <SocialIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/kakao.png`} alt="소셜아이콘"></SocialIcon>
+            <SocialIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/${info.type}.png`} alt="소셜아이콘"></SocialIcon>
             <Email>{info.email}</Email>
           </SocialWrap>
         </InfoWrap>
@@ -83,12 +79,12 @@ const StoreName = styled.h1`
     color: #fff;
   }
 `;
-const Name = styled.h2<{ hasstorename: boolean }>`
-  font-size: ${(props) => (props.hasstorename ? '1.7rem' : '2.8rem')};
+const Name = styled.h2<{ $hasstorename: boolean }>`
+  font-size: ${(props) => (props.$hasstorename ? '1.7rem' : '2.8rem')};
   font-weight: bold;
   margin: 0 0 2rem 0;
   @media (max-width: 768px) {
-    font-size: ${(props) => (props.hasstorename ? '2.5rem' : '3.5rem')};
+    font-size: ${(props) => (props.$hasstorename ? '2.5rem' : '3.5rem')};
     color: #fff;
   }
 `;

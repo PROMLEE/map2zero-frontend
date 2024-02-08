@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BookMarkList, ReviewList, PersonalInfo, StoreOwner, MyStoreManagement } from '../components/Mypage';
-import { OwnerPersonalInfoDummy } from '../components/Mypage/Dummy/PersonalInfoDummy';
 const OwnerMypage = () => {
   return (
     <ContentWrap>
-      <PersonalInfo info={OwnerPersonalInfoDummy} />
+      <PersonalInfo />
       <Line />
       <MyStoreManagement />
       <Line mobileVisible />
