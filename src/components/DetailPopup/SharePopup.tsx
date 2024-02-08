@@ -19,6 +19,14 @@ export const SharePopup = () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, []);
+  // 뒤로가기 버튼 누를 시 모달 닫기
+  useEffect(() => {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => setModal(false));
+    return () => {
+      window.removeEventListener('popstate', () => setModal(false));
+    };
+  }, []);
 
   return (
     <Background>
@@ -55,7 +63,7 @@ const Background = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 2;
+  z-index: 4;
   background: rgba(0, 0, 0, 0.3);
 
   @media (max-width: 768px) {
@@ -67,7 +75,7 @@ const Modal = styled.div`
   display: flex;
   flex-direction: column;
   background: #fff;
-  z-index: 3;
+  z-index: 5;
   width: 60.8rem;
   height: 26.9rem;
   border-radius: 1.6rem;

@@ -25,6 +25,14 @@ const ConfirmModal = () => {
       };
     }
   }, [modalOpen]);
+  // 뒤로가기 버튼 누를 시 모달 닫기
+  useEffect(() => {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => setModalOpen(false));
+    return () => {
+      window.removeEventListener('popstate', () => setModalOpen(false));
+    };
+  }, []);
 
   return (
     <Modal

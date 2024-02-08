@@ -19,6 +19,15 @@ export const DetailPopup = () => {
     };
   }, []);
 
+  // 뒤로가기 버튼 누를 시 모달 닫기
+  useEffect(() => {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => setModal(false));
+    return () => {
+      window.removeEventListener('popstate', () => setModal(false));
+    };
+  }, []);
+
   return (
     <Background>
       <Modal ref={modalRef}>
@@ -86,7 +95,7 @@ const Background = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 2;
+  z-index: 4;
   background: rgba(0, 0, 0, 0.3);
   @media (max-width: 768px) {
     background-color: rgba(0, 0, 0, 0.5);
@@ -98,7 +107,7 @@ const Modal = styled.div`
   display: flex;
   flex-direction: column;
   background: #fff;
-  z-index: 3;
+  z-index: 5;
   width: 60.8rem;
   height: 41.9rem;
   border-radius: 1.6rem;
@@ -131,11 +140,9 @@ const Xbutton = styled.img`
 const Title = styled.div`
   color: black;
   margin: 56px auto 0 auto;
-  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-weight: 510;
   justify-content: center;
-
   @media (max-width: 768px) {
     margin-left: 12.4rem;
     margin-right: 12.4rem;
@@ -145,26 +152,24 @@ const Title = styled.div`
 `;
 
 const Information = styled.div`
+  margin-top: 2rem;
   justify-content: center;
   width: 100%;
-  position: relative;
   text-align: center;
-  justify-content: center;
   display: flex;
+  gap: 3rem;
+  @media (max-width: 768px) {
+    margin-top: 5rem;
+  }
 `;
 
 const PicTexts = styled.div`
   position: relative;
-  color: #000;
-  font-family: 'Noto Sans KR';
-  font-size: 8px;
+  font-size: 1rem;
   font-weight: 500;
   margin-top: 0.8rem;
-  margin-bottom: 0;
-
   @media (max-width: 768px) {
-    width: 47px;
-    text-align: justify;
+    font-size: 2rem;
   }
 `;
 
@@ -172,62 +177,58 @@ const PicInformation = styled.div`
   left: 0;
   top: 0;
   position: relative;
-  margin-top: 32px;
   text-align: flex;
-
+  height: 4.3rem;
   @media (max-width: 768px) {
-    width: 3.7rem;
-    height: 4.3rem;
-    margin: 24px;
+    width: 13rem;
     align-items: center;
   }
 `;
 
 const Image = styled.img`
-  width: 24;
-  height: 24;
-  position: relative;
-  padding: 0rem 2.4rem 0rem 2.4rem;
-
+  width: 2.4rem;
+  height: 2.4rem;
   @media (max-width: 768px) {
-    padding: 0;
-    margin: auto;
+    width: 6rem;
+    height: 6rem;
   }
 `;
 
 const InfoImage = styled.img`
   width: 12px;
   height: 12px;
-  position: relative;
   margin: 0rem 0.8rem 0rem 1.6rem;
+  @media (max-width: 768px) {
+    margin: 0rem 2rem 0rem 4rem;
+  }
 `;
 
 const TimeInfo = styled.div`
   color: black;
-  font-size: 12px;
-  font-family: 'Noto Sans KR';
+  font-size: 1.2rem;
   font-weight: 400;
   div {
     height: 1.5rem;
   }
   @media (max-width: 768px) {
+    font-size: 3rem;
+    div {
+      height: 3.7rem;
+    }
   }
 `;
 
 const TimInformation = styled.div`
   color: black;
   font-size: 12px;
-  font-family: 'Noto Sans KR';
   font-weight: 400;
   word-wrap: break-word;
   height: 112px;
   width: 292px;
   margin-left: 138px;
   margin-top: 32px;
-
   display: flex;
   flex-direction: row;
-
   @media (max-width: 768px) {
     font-size: 4rem;
     margin-top: 24px;

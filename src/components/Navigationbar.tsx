@@ -118,7 +118,7 @@ const NavMobile = styled.div`
   box-shadow: 0rem 0rem 0.4rem 0rem rgba(0, 0, 0, 0.25);
   align-items: center;
   justify-content: space-around;
-  z-index: 1;
+  z-index: 3;
   @media screen and (max-width: 768px) {
     display: flex;
   }

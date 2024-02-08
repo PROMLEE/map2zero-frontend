@@ -23,7 +23,19 @@ export const ProductRegistration = () => {
       document.removeEventListener('mousedown', closeModal);
     };
   }, []);
+  // 뒤로가기 버튼 누를 시 모달 닫기
+  const handleEvent = () => {
+    history.pushState(null, '', location.href);
+    setModal(false);
+  };
 
+  useEffect(() => {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', handleEvent);
+    return () => {
+      window.removeEventListener('popstate', handleEvent);
+    };
+  }, []);
   return (
     <Background>
       <Modal ref={modalRef}>
@@ -64,7 +76,7 @@ const Background = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 2;
+  z-index: 4;
   background: rgba(0, 0, 0, 0.3);
   @media (max-width: 768px) {
     background-color: rgba(0, 0, 0, 0.5);
@@ -76,7 +88,7 @@ const Modal = styled.div`
   overflow: scroll;
   flex-direction: column;
   background: #fff;
-  z-index: 3;
+  z-index: 5;
   width: 60.8rem;
   height: 80rem;
   border-radius: 1.6rem;

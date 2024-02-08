@@ -10,13 +10,11 @@ import { useEffect, useState } from 'react';
 
 export default function StoreDetail() {
   const params = useParams();
-  const modal = useRecoilValue(reviewmodalState);
+  const Reviewmodal = useRecoilValue(reviewmodalState);
   const sharemodal = useRecoilValue(shareModalState);
   const detailmodal = useRecoilValue(detailModalState);
   const [storeId, setstoreId] = useState(0);
-  document.body.style.overflow = modal ? 'hidden' : 'unset';
-  document.body.style.overflow = sharemodal ? 'hidden' : 'unset';
-  document.body.style.overflow = detailmodal ? 'hidden' : 'unset';
+  document.body.style.overflow = Reviewmodal || sharemodal || detailmodal ? 'hidden' : 'unset';
   useEffect(() => {
     const paramId = params.storeid;
     if (paramId) {
@@ -33,7 +31,7 @@ export default function StoreDetail() {
       <Productlist />
       <Eventlist />
       <Reviewlist />
-      {modal == true ? <ReviewWrite /> : null}
+      {Reviewmodal == true ? <ReviewWrite /> : null}
       {sharemodal == true ? <SharePopup /> : null}
       {detailmodal == true ? <DetailPopup /> : null}
     </DetailBox>
