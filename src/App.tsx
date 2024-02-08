@@ -35,7 +35,8 @@ export default function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/owner" element={<Owner />} />
-          <Route path="/store" element={<StoreDetail />} />
+          <Route path="/store/:storeid" element={<StoreDetail />} />
+          <Route path="/store/" element={<StoreDetail />} />
           <Route path="/map" element={<Map />} />
           <Route path="/nickname" element={<NickName />} />
           <Route path="/sellingproduct" element={<SellingProduct />} />

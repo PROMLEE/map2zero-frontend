@@ -16,31 +16,14 @@ export const StoreName = () => {
           }}
           src={
             handlebookmark
-              ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark.png`
-              : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.png`
+              ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
+              : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.svg`
           }
         />
       </div>
     </DetailBox>
   );
 };
-
-const Modal = styled.div`
-  position: fixed;
-  display: flex;
-  width: 92.4rem;
-  height: 4.5rem;
-  margin-top: 3.2rem;
-  justify-content: space-between;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    margin-top: 6rem;
-    height: 8.75rem;
-  }
-`;
-
 const DetailBox = styled.div`
   display: flex;
   width: 92.4rem;

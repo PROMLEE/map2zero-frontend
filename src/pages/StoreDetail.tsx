@@ -5,16 +5,28 @@ import { DetailPopup } from '../components/DetailPopup/DetailPopup';
 import { SlideBox, StoreIndex, Productlist, Eventlist, Reviewlist } from '../components/StoreDetail';
 import { useRecoilValue } from 'recoil';
 import { reviewmodalState, shareModalState, detailModalState } from '../recoil';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function StoreDetail() {
+  const params = useParams();
   const modal = useRecoilValue(reviewmodalState);
   const sharemodal = useRecoilValue(shareModalState);
   const detailmodal = useRecoilValue(detailModalState);
+  const [storeId, setstoreId] = useState(0);
   document.body.style.overflow = modal ? 'hidden' : 'unset';
   document.body.style.overflow = sharemodal ? 'hidden' : 'unset';
   document.body.style.overflow = detailmodal ? 'hidden' : 'unset';
+  useEffect(() => {
+    const paramId = params.storeid;
+    if (paramId) {
+      setstoreId(Number(paramId));
+    }
+  }, [params.storeid]);
+
   return (
     <DetailBox>
+      {/* {storeId} */}
       <Mobiletop pagename="상세 페이지" />
       <SlideBox />
       <StoreIndex />
