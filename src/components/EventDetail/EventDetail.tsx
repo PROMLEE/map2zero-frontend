@@ -37,7 +37,8 @@ export const EventDetail = () => {
             <EditText>이벤트 수정</EditText>
           </Topbox>
           <StateBox>
-            <State>진행중</State>
+            <OnState>진행중</OnState>
+            <OffState>종료</OffState>
             <Date>2024.01.01 - 2024.01.31</Date>
           </StateBox>
           <Summary>{`이벤트 설명 100자 내외 정도록 두면 될 것 같아요\n
@@ -96,6 +97,7 @@ const Xbutton = styled.img`
   height: 1.5rem;
   right: 1.6rem;
   top: 1.6rem;
+  z-index: 3;
   &:hover {
     cursor: pointer;
   }
@@ -112,6 +114,12 @@ const Details = styled.div`
   width: 80%;
   flex-direction: column;
 `;
+const Topbox = styled.div`
+  margin-top: 4rem;
+  display: flex;
+  align-items: center;
+`;
+
 const Title = styled.div`
   font-size: 2rem;
   font-weight: 600;
@@ -119,16 +127,14 @@ const Title = styled.div`
     font-size: 4rem;
   }
 `;
-const Topbox = styled.div`
-  margin-top: 4rem;
-  display: flex;
-  align-items: center;
-`;
 
 const EditIcon = styled.img`
   margin-left: auto;
   &:hover {
     cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    width: 12px;
   }
 `;
 const EditText = styled.div`
@@ -137,13 +143,21 @@ const EditText = styled.div`
   &:hover {
     cursor: pointer;
   }
+  @media (max-width: 768px) {
+    margin-left: 2rem;
+    font-size: 2.5rem;
+  }
 `;
 const StateBox = styled.div`
   margin-top: 2rem;
   display: flex;
   align-items: center;
+  @media (max-width: 768px) {
+    margin-top: 5rem;
+  }
 `;
-const State = styled.div`
+
+const OnState = styled.div`
   display: flex;
   width: 7.1rem;
   height: 3.5rem;
@@ -155,12 +169,42 @@ const State = styled.div`
   align-items: center;
   border-radius: 3rem;
   padding-bottom: 0.2rem;
+  @media (max-width: 768px) {
+    width: 16rem;
+    height: 8rem;
+    border-radius: 10rem;
+    font-size: 3rem;
+    padding-bottom: 0.6rem;
+  }
 `;
-
+const OffState = styled.div`
+  display: flex;
+  width: 5.8rem;
+  height: 3.5rem;
+  background-color: #e0e0e0;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3rem;
+  padding-bottom: 0.2rem;
+  @media (max-width: 768px) {
+    width: 13rem;
+    height: 8rem;
+    border-radius: 10rem;
+    font-size: 3rem;
+    padding-bottom: 0.6rem;
+  }
+`;
 const Date = styled.div`
   font-size: 1.6rem;
   margin-left: 1rem;
   font-weight: 500;
+  @media (max-width: 768px) {
+    font-size: 4rem;
+    margin-left: 2.5rem;
+  }
 `;
 const Summary = styled.div`
   white-space: pre-line;
@@ -169,6 +213,11 @@ const Summary = styled.div`
   font-size: 1.2rem;
   line-height: 0.8rem;
   color: #848484;
+  @media (max-width: 768px) {
+    margin-top: 5rem;
+    font-size: 3rem;
+    line-height: 2.5rem;
+  }
 `;
 const LinkBox = styled.div`
   display: flex;
@@ -176,6 +225,10 @@ const LinkBox = styled.div`
   margin-top: 2.5rem;
   font-size: 1.6rem;
   font-weight: 500;
+  @media (max-width: 768px) {
+    margin-top: 5rem;
+    font-size: 4rem;
+  }
 `;
 const URL = styled.a`
   margin-left: 2rem;
@@ -183,12 +236,13 @@ const URL = styled.a`
   height: 1.4rem;
   font-size: 1.2rem;
   text-decoration-line: underline;
+  font-weight: 400;
   &:hover {
     cursor: pointer;
   }
   @media (max-width: 768px) {
+    margin-left: 5rem;
     height: 3.5rem;
     font-size: 3rem;
-    font-weight: 400;
   }
 `;

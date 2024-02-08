@@ -39,7 +39,7 @@ const SliderItem = styled.div`
     height: 48rem;
     @media (max-width: 768px) {
       width: 100%;
-      height: 93.75rem;
+      height: 90rem;
     }
   }
 `;
