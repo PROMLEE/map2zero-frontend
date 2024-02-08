@@ -83,6 +83,10 @@ const PageButton = styled.li<{ $url: string }>`
   &:hover {
     cursor: pointer;
   }
+  @media (max-width: 768px) {
+    width: 1.8rem;
+    height: 3rem;
+  }
 `;
 
 const PageNum = styled.li<{ $current: boolean }>`
@@ -92,6 +96,10 @@ const PageNum = styled.li<{ $current: boolean }>`
   font-weight: 500;
   &:hover {
     cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    padding: 1.2rem;
+    font-size: ${(props) => (props.$current ? '4rem;' : '3rem')};
   }
 `;
 const SellingBox = styled.div`
@@ -112,6 +120,11 @@ const SellingBox = styled.div`
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    @media (max-width: 768px) {
+      margin-bottom: 25rem;
+      gap: 5rem;
+      height: 10rem;
+    }
   }
 `;
 const Title = styled.div`

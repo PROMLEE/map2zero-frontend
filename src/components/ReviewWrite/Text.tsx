@@ -22,21 +22,20 @@ export const Text = () => {
 const ReviewBox = styled.div`
   display: flex;
   width: 90%;
+  margin: 0 auto;
   flex-direction: column;
   align-items: flex-start;
 `;
 const TextBox = styled.textarea`
-  width: 90%;
+  width: 100%;
   height: 16.5rem;
   padding: 1.6rem;
   margin-top: 1.4rem;
-  margin-left: 6rem;
   border-radius: 0.8rem;
   border: 0.5px solid #e0e0e0;
   background: #f2f2f2;
   resize: none;
   font-size: 1rem;
-  font-family: 'Noto Sans KR';
   &::placeholder {
     color: #848484;
     font-weight: 400;
@@ -51,13 +50,11 @@ const TextBox = styled.textarea`
   }
 `;
 const Textcount = styled.div`
-  width: 90%;
-  margin-left: 6rem;
+  width: 100%;
   color: #e0e0e0;
   text-align: right;
   font-size: 0.8rem;
   padding: 0.8rem;
-  font-family: 'Noto Sans KR';
   @media (max-width: 768px) {
     font-size: 2rem;
     padding: 2rem;

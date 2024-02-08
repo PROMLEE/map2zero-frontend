@@ -119,7 +119,6 @@ const Title = styled.div`
   margin-top: 6.25rem;
   margin-left: auto;
   margin-right: auto;
-  font-family: 'Noto Sans KR';
   font-size: 1.6rem;
   font-weight: 500;
   @media (max-width: 768px) {
@@ -127,17 +126,14 @@ const Title = styled.div`
   }
 `;
 const Texts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
-  position: relative;
   margin-top: ${(props) => props.$margintopPC};
-  color: #000;
-  font-family: 'Noto Sans KR';
   margin-left: 6.4rem;
   font-size: 1.2rem;
   font-weight: 500;
   @media (max-width: 768px) {
+    width: 90%;
     font-size: 3rem;
     margin-top: ${(props) => props.$margintopMB};
-    margin-left: 6.5rem;
   }
 `;
 const CompleteButton = styled.button`
