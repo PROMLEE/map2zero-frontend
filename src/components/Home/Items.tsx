@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { ItemDummyType } from '../Dummy/ItemDummy';
-import { ReactComponent as ArrowIcon } from '../../../assets/Home/arrow.svg';
+import { ItemDummyType } from './Dummy/ItemDummy';
+import { ReactComponent as ArrowIcon } from '../../assets/Home/arrow.svg';
 import { useNavigate } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
 
