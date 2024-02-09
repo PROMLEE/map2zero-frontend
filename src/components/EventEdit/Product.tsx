@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
+import { eventDetailModal } from '../../recoil';
 
 interface Props {
   product: string;
@@ -7,8 +9,13 @@ interface Props {
   code: number;
 }
 export const Product = ({ product, date, imgurl, code }: Props) => {
+  const setEventDetailModal = useSetRecoilState(eventDetailModal);
   return (
-    <Box>
+    <Box
+      onClick={() => {
+        setEventDetailModal(true);
+      }}
+    >
       <ProductImg src={imgurl} alt={product} />
       <ProductName>{product}</ProductName>
       <Bottombox>
