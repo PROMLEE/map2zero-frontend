@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Mobiletop, ScrollToTop } from '../components';
+import { EventDetail, Mobiletop, ScrollToTop } from '../components';
 import { EventEdit, DefaultList } from '../components/EventEdit';
 import { useEffect, useState } from 'react';
-import { productManage, eventManageModalState } from '../recoil';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { productManage, eventManageModalState, eventDetailModal } from '../recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Cookies } from 'react-cookie';
 
 export const EventManage = () => {
@@ -11,7 +11,8 @@ export const EventManage = () => {
   const [fadeInOut, setFadeInOut] = useState('');
   const [modal, setmodal] = useRecoilState(eventManageModalState);
   document.body.style.overflow = modal ? 'hidden' : 'unset';
-
+  const eventmodal = useRecoilValue(eventDetailModal);
+  document.body.style.overflow = eventmodal ? 'hidden' : 'unset';
   const isOwner = useSetRecoilState(productManage);
 
   const cookies = new Cookies();
@@ -50,6 +51,7 @@ export const EventManage = () => {
         <Button onClick={() => setmodal(true)} onMouseOver={showMenuList} onMouseLeave={closeMenuList} />
       </ButtonBox>
       {modal == true ? <EventEdit /> : null}
+      {eventmodal == true ? <EventDetail /> : null}
     </ProductBox>
   );
 };
