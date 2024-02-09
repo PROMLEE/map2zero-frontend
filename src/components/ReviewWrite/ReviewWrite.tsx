@@ -24,6 +24,14 @@ export const ReviewWrite = () => {
     };
   }, []);
 
+  useEffect(() => {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => setModal(false));
+    return () => {
+      window.removeEventListener('popstate', () => setModal(false));
+    };
+  }, []);
+
   return (
     <Background>
       <Modal ref={modalRef}>
@@ -71,7 +79,7 @@ const Background = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 2;
+  z-index: 4;
   background: rgba(0, 0, 0, 0.3);
   @media (max-width: 768px) {
     background-color: rgba(0, 0, 0, 0.5);
@@ -83,7 +91,7 @@ const Modal = styled.div`
   overflow: scroll;
   flex-direction: column;
   background: #fff;
-  z-index: 3;
+  z-index: 5;
   width: 60.8rem;
   height: 80rem;
   border-radius: 1.6rem;
@@ -119,7 +127,6 @@ const Title = styled.div`
   margin-top: 6.25rem;
   margin-left: auto;
   margin-right: auto;
-  font-family: 'Noto Sans KR';
   font-size: 1.6rem;
   font-weight: 500;
   @media (max-width: 768px) {
@@ -127,17 +134,14 @@ const Title = styled.div`
   }
 `;
 const Texts = styled.div<{ $margintopPC: string; $margintopMB: string }>`
-  position: relative;
   margin-top: ${(props) => props.$margintopPC};
-  color: #000;
-  font-family: 'Noto Sans KR';
   margin-left: 6.4rem;
   font-size: 1.2rem;
   font-weight: 500;
   @media (max-width: 768px) {
+    width: 90%;
     font-size: 3rem;
     margin-top: ${(props) => props.$margintopMB};
-    margin-left: 6.5rem;
   }
 `;
 const CompleteButton = styled.button`
@@ -148,7 +152,6 @@ const CompleteButton = styled.button`
   margin-left: auto;
   margin-right: auto;
   font-size: 1.2rem;
-  font-family: 'Noto Sans KR';
   font-weight: 600;
   border-radius: 0.8rem;
   background-color: #0b5c71;

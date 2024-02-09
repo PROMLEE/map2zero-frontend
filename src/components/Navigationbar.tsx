@@ -8,19 +8,35 @@ import { useRecoilState } from 'recoil';
 import { UserInfoState } from '../recoil';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+
 export const Navigationbar = () => {
   const [userinfo, setuserinfo] = useRecoilState(UserInfoState);
   const accessToken = localStorage.getItem('accessToken');
   const [data, setData] = useState(accessToken);
   useEffect(() => {
     setData(accessToken);
+  }, [accessToken]);
+
+  useEffect(() => {
+    getProfileImg();
+  }, []);
+  const getProfileImg = async () => {
     if (data) {
-      axios.get(`${process.env.REACT_APP_API_URL}my-page`, { headers: { Authorization: accessToken } }).then((res) => {
+      try {
+        const res: any = await axios.get(`${process.env.REACT_APP_API_URL}my-page`, {
+          headers: { Authorization: accessToken },
+        });
         const newinfo = { ...userinfo, photo: { url: res.data.data.photo.url } };
         setuserinfo(newinfo);
-      });
+      } catch (err: any) {
+        if (err.response.status === 401) {
+          localStorage.removeItem('accessToken');
+          setData(null);
+        }
+      }
     }
-  }, [accessToken]);
+  };
+
   return (
     <>
       {/* 모바일 네비게이션 바 (하단) */}
@@ -43,9 +59,6 @@ export const Navigationbar = () => {
             <User_mobile />
           </NavLinkStyle>
         )}
-        <NavLinkStyle to="/login">
-          <User_mobile />
-        </NavLinkStyle>
       </NavMobile>
       {/* PC 네비게이션 바 (상단) */}
       <Box />
@@ -105,7 +118,7 @@ const NavMobile = styled.div`
   box-shadow: 0rem 0rem 0.4rem 0rem rgba(0, 0, 0, 0.25);
   align-items: center;
   justify-content: space-around;
-  z-index: 1;
+  z-index: 3;
   @media screen and (max-width: 768px) {
     display: flex;
   }

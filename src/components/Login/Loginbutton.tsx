@@ -60,7 +60,6 @@ const Logo = styled.img`
 const LoginText = styled.div`
   margin-top: 2.4rem;
   color: #565656;
-  font-family: 'Noto Sans KR';
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 400;
@@ -77,7 +76,6 @@ const LoginMiniText = styled.div`
   align-items: center;
   gap: 0.8rem;
   color: #565656;
-  font-family: 'Noto Sans KR';
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;

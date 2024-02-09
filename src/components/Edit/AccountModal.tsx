@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 type TAccountModal = {
@@ -9,6 +10,15 @@ type TAccountModal = {
 };
 
 const AccountModal: React.FC<TAccountModal> = ({ title, confirmText, cancelText, confirmHandler, cancelHandler }) => {
+  // 뒤로가기 버튼 누를 시 모달 닫기
+  useEffect(() => {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', cancelHandler);
+    return () => {
+      window.removeEventListener('popstate', cancelHandler);
+    };
+  }, []);
+
   return (
     <BackDrop onClick={confirmHandler}>
       <Modal onClick={(event) => event.stopPropagation()}>

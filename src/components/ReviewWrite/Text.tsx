@@ -22,26 +22,33 @@ export const Text = () => {
 const ReviewBox = styled.div`
   display: flex;
   width: 90%;
+  margin: 0 auto;
   flex-direction: column;
   align-items: flex-start;
 `;
 const TextBox = styled.textarea`
-  width: 90%;
+  width: 48.4rem;
   height: 16.5rem;
   padding: 1.6rem;
-  margin-top: 1.4rem;
-  margin-left: 6rem;
+  margin: 1.4rem auto 0 auto;
   border-radius: 0.8rem;
   border: 0.5px solid #e0e0e0;
   background: #f2f2f2;
   resize: none;
   font-size: 1rem;
-  font-family: 'Noto Sans KR';
+  outline: none;
+  &:hover {
+    background: #00000040;
+  }
+  &:focus {
+    background: transparent;
+  }
   &::placeholder {
     color: #848484;
     font-weight: 400;
   }
   @media (max-width: 768px) {
+    width: 100%;
     font-size: 2.5rem;
     border-radius: 2rem;
     padding: 4rem;
@@ -51,14 +58,15 @@ const TextBox = styled.textarea`
   }
 `;
 const Textcount = styled.div`
-  width: 90%;
-  margin-left: 6rem;
+  width: 48.4rem;
+  padding: 1.6rem;
+  margin: 0 auto;
   color: #e0e0e0;
   text-align: right;
   font-size: 0.8rem;
   padding: 0.8rem;
-  font-family: 'Noto Sans KR';
   @media (max-width: 768px) {
+    width: 100%;
     font-size: 2rem;
     padding: 2rem;
     height: 6.5rem;

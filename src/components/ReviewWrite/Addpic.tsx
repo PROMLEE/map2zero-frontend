@@ -26,7 +26,7 @@ export const Addpic = () => {
         id="imageInput"
       />
       <CameraButton htmlFor="imageInput" style={{ cursor: 'pointer' }}>
-        <Pic src={`${process.env.PUBLIC_URL}/assets/StoreDetail/new_pic.png`} />
+        <Pic src={`${process.env.PUBLIC_URL}/assets/StoreDetail/new_pic.svg`} />
       </CameraButton>
     </PicBox>
   );
@@ -49,9 +49,19 @@ const PicBox = styled.div`
 const CameraButton = styled.label`
   width: 6.6rem;
   height: 6.6rem;
+  border-radius: 1rem;
+  &:hover {
+    background-color: #00000040;
+  }
+  &:active {
+    box-shadow:
+      0px 0px 10px 0px rgba(0, 0, 0, 0.25) inset,
+      0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  }
   @media (max-width: 768px) {
     width: 16.5rem;
     height: 16.5rem;
+    border-radius: 2.5rem;
   }
 `;
 const Pic = styled.img`
