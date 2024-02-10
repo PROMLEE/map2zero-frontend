@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { StoreInfoDummyType } from '../Dummy/StoreDummy';
-import { ReactComponent as ArrowIcon } from '../../../assets/Home/arrow.svg';
+import { StoreInfoDummyType } from './Dummy/StoreDummy';
+import { ReactComponent as ArrowIcon } from '../../assets/Home/arrow.svg';
 
 const StoreInfo = ({ info }: { info: StoreInfoDummyType }) => {
   const navigate = useNavigate();
