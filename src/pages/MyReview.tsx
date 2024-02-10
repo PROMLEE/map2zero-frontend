@@ -3,6 +3,7 @@ import { ReviewDummy } from '../components/Mypage/Dummy/ReviewDummy';
 import { useRecoilState } from 'recoil';
 import { popUpModalState } from '../recoil';
 import AccountModal from '../components/Edit/AccountModal';
+import { Mobiletop } from '../components';
 
 export default function MyReview() {
   const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
@@ -18,6 +19,7 @@ export default function MyReview() {
 
   return (
     <Container $nonescroll={modalOpen}>
+      <Mobiletop pagename="내가 쓴 리뷰" />
       {modalOpen && (
         <AccountModal
           title="리뷰를 삭제할까요?"
@@ -30,21 +32,25 @@ export default function MyReview() {
       <h1>내가 쓴 리뷰</h1>
       <Reviews>
         {ReviewDummy.map((i) => (
-          <Review key={i.storeName} onClick={modalHandler}>
+          <Review key={i.storeName}>
             <StoreImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
-            <Contents>
-              <h3>{i.storeName}</h3>
-              <p>{i.content}</p>
-            </Contents>
             <Heart>
-              <img src={`${process.env.PUBLIC_URL}/assets/MyPage/favorite.png`} alt="좋아요아이콘" />
+              <img src={`${process.env.PUBLIC_URL}/assets/ReviewList/heart.svg`} alt="heart" />
               <p>{i.favoriteCount}</p>
             </Heart>
-            <TrashWrap>
-              <TrashIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/trash.png`} alt="삭제아이콘" />
-              <TrashText>삭제</TrashText>
-            </TrashWrap>
-            <Date>{i.date}</Date>
+            <DataWrap>
+              <Contents>
+                <h3>{i.storeName}</h3>
+                <p>{i.content}</p>
+              </Contents>
+              <RightWrap>
+                <Date>{i.date}</Date>
+                <TrashWrap onClick={modalHandler}>
+                  <TrashIcon src={`${process.env.PUBLIC_URL}/assets/ReviewList/trash.svg`} alt="trash" />
+                  <TrashText>삭제</TrashText>
+                </TrashWrap>
+              </RightWrap>
+            </DataWrap>
           </Review>
         ))}
       </Reviews>
@@ -62,6 +68,12 @@ const Container = styled.div<{ $nonescroll: boolean }>`
   left: 0;
   right: 0;
 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   > h1 {
     margin-top: 6.4rem;
     color: #000000;
@@ -69,7 +81,11 @@ const Container = styled.div<{ $nonescroll: boolean }>`
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 40px;
-    width: 924px;
+    width: 92.4rem;
+
+    @media (max-width: 1000px) {
+      width: 72rem;
+    }
 
     @media (max-width: 768px) {
       display: none;
@@ -92,7 +108,7 @@ const Reviews = styled.div`
 const Review = styled.div`
   width: 45rem;
   height: 10rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #f2f2f2;
   border-radius: 8px;
   flex-shrink: 0;
   position: relative;
@@ -103,22 +119,13 @@ const Review = styled.div`
     background-color: rgba(0, 0, 0, 0.1);
   }
 
+  @media (max-width: 1000px) {
+    width: 35rem;
+  }
+
   @media (max-width: 768px) {
-  }
-`;
-
-const Contents = styled.div`
-  padding: 8px;
-
-  > h3 {
-    font-size: 14px;
-  }
-
-  > p {
-    font-size: 10px;
-    margin-top: 4px;
-    width: 213px;
-    color: #565656;
+    width: 81.25rem;
+    height: 16rem;
   }
 `;
 
@@ -129,6 +136,7 @@ const StoreImg = styled.img`
   border-bottom-left-radius: 8px;
 
   @media (max-width: 768px) {
+    width: 16rem;
   }
 `;
 
@@ -141,9 +149,18 @@ const Heart = styled.div`
   left: 7.5rem;
   bottom: 0.5rem;
 
-  > svg {
+  @media (max-width: 768px) {
+    left: 12rem;
+  }
+
+  > img {
     width: 16px;
     height: 14px;
+
+    @media (max-width: 768px) {
+      width: 11px;
+      height: 10px;
+    }
   }
 
   > p {
@@ -153,69 +170,91 @@ const Heart = styled.div`
   }
 `;
 
-const FavoriteIcon = styled.img`
-  width: 1.5rem;
-  height: 1.4rem;
-  position: absolute;
-  left: 7.5rem;
-  bottom: 1.7rem;
-  @media (max-width: 768px) {
-    width: 2.6rem;
-    height: 2.5rem;
-    left: 12rem;
-    bottom: 3rem;
+const DataWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  width: 100%;
+`;
+
+const Contents = styled.div`
+  > h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
+
+    @media (max-width: 768px) {
+      font-size: 10px;
+    }
+  }
+
+  > p {
+    font-size: 10px;
+    margin-top: 4px;
+    width: 21.3rem;
+    color: #565656;
+
+    @media (max-width: 1000px) {
+      width: 18rem;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 8px;
+      width: 50rem;
+    }
   }
 `;
 
-const FavoriteCount = styled.p`
-  font-size: 0.9rem;
-  position: absolute;
-  color: rgba(86, 86, 86, 1);
-  bottom: 0.5rem;
-  left: 7.9rem;
+const RightWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+`;
+
+const Date = styled.p`
+  font-size: 10px;
+  color: #d9d9d9;
+
   @media (max-width: 768px) {
-    font-size: 2rem;
-    left: 12.4rem;
+    font-size: 8px;
   }
 `;
+
 const TrashText = styled.p`
   position: absolute;
-  left: 0;
   visibility: hidden;
-  left: 31.5rem;
-  bottom: 0.6rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 2.7rem;
+  color: #565656;
+
   @media (max-width: 768px) {
-    left: 53rem;
-    bottom: 2rem;
+    font-size: 8px;
+    width: 6.25rem;
   }
 `;
+
 const TrashWrap = styled.div`
+  position: relative;
+  width: 2.7rem;
+  height: 2.7rem;
+  margin: -8px;
+
   &:hover ${TrashText} {
-    visibility: visible; /* 호버 시 텍스트 보임 */
+    visibility: visible;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 8px;
+    width: 6.25rem;
+    height: 6.25rem;
   }
 `;
 
 const TrashIcon = styled.img`
-  width: 2rem;
-  height: 2.4rem;
-  right: 0.4rem;
-  bottom: 0.3rem;
-  position: absolute;
-  @media (max-width: 768px) {
-    width: 5rem;
-    height: 6rem;
-  }
-`;
-
-const Date = styled.p`
-  font-size: 1rem;
-  color: #d9d9d9;
-  position: absolute;
-  right: 0.7rem;
-  top: 0.7rem;
-  @media (max-width: 768px) {
-    font-size: 2rem;
-    right: 1.6rem;
-    top: 1.6rem;
-  }
+  width: 100%;
+  height: 100%;
 `;
