@@ -13,6 +13,8 @@ import OwnerMypage from './OwnerMypage';
 import { Map } from './Map';
 import { SellingProductManage } from './SellingProductManage';
 import { EventManage } from './Evnentmanage';
+import MyReview from './MyReview';
+
 export {
   Home,
   Search,
@@ -29,4 +31,5 @@ export {
   Map,
   SellingProductManage,
   EventManage,
+  MyReview,
 };

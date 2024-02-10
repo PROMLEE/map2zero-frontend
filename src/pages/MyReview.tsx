@@ -1,39 +1,45 @@
-import React from 'react';
 import styled from 'styled-components';
-import { ReviewDummy } from './Dummy/ReviewDummy';
+import { ReviewDummy } from '../components/Mypage/Dummy/ReviewDummy';
 import { useRecoilState } from 'recoil';
-import { popUpModalState } from '../../recoil';
-import ConfirmModal from '../Modal/ConfirmModal';
-import { Link } from 'react-router-dom';
+import { popUpModalState } from '../recoil';
+import AccountModal from '../components/Edit/AccountModal';
 
-type ownerProps = {
-  owner?: boolean;
-};
-
-const ReviewList = ({ owner }: ownerProps) => {
-  const url = owner ? 'ownerUrl' : 'review';
+export default function MyReview() {
   const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
+
   const modalHandler = () => {
     setModalOpen(!modalOpen);
   };
-  return (
-    <Wrap>
-      <ConfirmModal />
-      <div>
-        <ReviewTitle> 내가 쓴 리뷰</ReviewTitle>
-        <MoreDetails to={`${url}`}>더보기 {'>'}</MoreDetails>
-      </div>
 
+  //리뷰 삭제
+  const deleteReviewHandler = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  return (
+    <Container $nonescroll={modalOpen}>
+      {modalOpen && (
+        <AccountModal
+          title="리뷰를 삭제할까요?"
+          confirmText="네"
+          cancelText="아니요"
+          confirmHandler={deleteReviewHandler}
+          cancelHandler={modalHandler}
+        />
+      )}
+      <h1>내가 쓴 리뷰</h1>
       <Reviews>
         {ReviewDummy.map((i) => (
           <Review key={i.storeName} onClick={modalHandler}>
             <StoreImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
-            <div>
+            <Contents>
               <h3>{i.storeName}</h3>
               <p>{i.content}</p>
-            </div>
-            <FavoriteIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/favorite.png`} alt="좋아요아이콘" />
-            <FavoriteCount>{i.favoriteCount}</FavoriteCount>
+            </Contents>
+            <Heart>
+              <img src={`${process.env.PUBLIC_URL}/assets/MyPage/favorite.png`} alt="좋아요아이콘" />
+              <p>{i.favoriteCount}</p>
+            </Heart>
             <TrashWrap>
               <TrashIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/trash.png`} alt="삭제아이콘" />
               <TrashText>삭제</TrashText>
@@ -42,115 +48,108 @@ const ReviewList = ({ owner }: ownerProps) => {
           </Review>
         ))}
       </Reviews>
-    </Wrap>
+    </Container>
   );
-};
-export default ReviewList;
+}
 
-const Wrap = styled.div`
-  width: 80%;
-  > div {
-    margin-top: 4rem;
-    display: flex;
-    justify-content: space-between;
-  }
-  @media (max-width: 768px) {
-    width: calc(100vw - 5%);
-    margin-left: 5%;
-    > div {
-      margin-top: 6rem;
+const Container = styled.div<{ $nonescroll: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: ${(props) => (props.$nonescroll ? 'hidden' : 'auto')};
+  position: ${(props) => (props.$nonescroll ? 'fixed' : 'static')};
+  z-index: ${(props) => (props.$nonescroll ? 2 : 0)};
+  left: 0;
+  right: 0;
+
+  > h1 {
+    margin-top: 6.4rem;
+    color: #000000;
+    font-family: 'Noto Sans KR';
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    width: 924px;
+
+    @media (max-width: 768px) {
+      display: none;
     }
   }
 `;
 
-const MoreDetails = styled(Link)`
-  font-size: 1.2rem;
-  color: #565656;
-  text-decoration: none;
-  @media (max-width: 768px) {
-    font-size: 3rem;
-    margin-right: 10%;
-  }
-`;
-
-const ReviewTitle = styled.h1`
-  margin: 0 0 2rem 1rem;
-  font-size: 1.4rem;
-  @media (max-width: 768px) {
-    font-size: 3rem;
-    margin: 0 0 4rem 2rem;
-  }
-`;
-
 const Reviews = styled.div`
-  display: flex;
-  margin-left: 1rem;
-  height: 17rem;
-  overflow-x: hidden;
-  /* 인터넷 익스플로러를 위한 스타일 */
-  -ms-overflow-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 
-  /* 파이어폭스를 위한 스타일 */
-  scrollbar-width: none;
-
-  /* 웹킷(크롬, 사파리, 새로운 엣지) 브라우저를 위한 스타일 */
-  &::-webkit-scrollbar {
-    display: none;
-  }
   @media (max-width: 768px) {
-    height: 25rem;
-    padding: 0 0 0 2rem;
-    overflow-x: auto;
+    margin-top: 24px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 `;
 
 const Review = styled.div`
-  margin-right: 2.4rem;
-  width: 34.8rem;
+  width: 45rem;
   height: 10rem;
-  border: solid;
-  border-color: #d9d9d9;
-  border-width: 1px;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   flex-shrink: 0;
   position: relative;
   display: flex;
   cursor: pointer;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
-  & > div > h3 {
-    font-size: 1.4rem;
-    margin: 0.8rem 0 0 0.8rem;
-  }
-  & > div > p {
-    font-size: 1rem;
-    margin: 0.5rem 0 0 0.8rem;
-    color: rgba(86, 86, 86, 1);
-  }
+
   @media (max-width: 768px) {
-    width: 59.74rem;
-    height: 16rem;
-    margin-right: 4rem;
-    & > div > h3 {
-      font-size: 2.5rem;
-      margin: 2rem;
-    }
-    & > div > p {
-      font-size: 2rem;
-      margin-left: 2rem;
-    }
   }
 `;
+
+const Contents = styled.div`
+  padding: 8px;
+
+  > h3 {
+    font-size: 14px;
+  }
+
+  > p {
+    font-size: 10px;
+    margin-top: 4px;
+    width: 213px;
+    color: #565656;
+  }
+`;
+
 const StoreImg = styled.img`
   width: 10rem;
   height: 100%;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+
   @media (max-width: 768px) {
-    width: 16rem;
+  }
+`;
+
+const Heart = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 7.5rem;
+  bottom: 0.5rem;
+
+  > svg {
+    width: 16px;
+    height: 14px;
+  }
+
+  > p {
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 11px;
   }
 `;
 
@@ -167,6 +166,7 @@ const FavoriteIcon = styled.img`
     bottom: 3rem;
   }
 `;
+
 const FavoriteCount = styled.p`
   font-size: 0.9rem;
   position: absolute;
