@@ -12,15 +12,22 @@ const BookMarkList = ({ owner }: ownerProps) => {
   const onClickBookMark = () => {
     navigate(`/store`);
   };
+  const onClickDetailBookMark = () => {
+    navigate(`/bookmarkdetail`);
+  };
+
+  
+  
+
   return (
     <Wrap>
-      <div>
+      <div onClick={onClickDetailBookMark}>
         <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
-        <MoreDetails to={`${url}`}>더보기 {'>'}</MoreDetails>
+        <MoreDetails to={`/bookmarkdetail`}>더보기 {'>'}</MoreDetails>
       </div>
       <BookMarks onClick={onClickBookMark}>
-        {BookMarkDummy.map((i) => (
-          <BookMark key={i.storeName}>
+        {BookMarkDummy.map((i, index) => (
+          <BookMark key={index}>
             <StoreImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${i.photo}`} alt={`${i.storeName}의 이미지`} />
             <BookMarkIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/bookmark.png`} alt="북마크아이콘" />
             <h3>{i.storeName}</h3>

@@ -26,12 +26,9 @@ const Mobiletopbar = styled.div`
   display: none;
   align-items: center;
   justify-content: center;
-  font-family: 'Noto Sans KR';
   font-size: 4rem;
-  font-style: normal;
   font-weight: 600;
-  line-height: normal;
-  z-index: 2;
+  z-index: 4;
   @media screen and (max-width: 768px) {
     display: flex;
   }
@@ -53,7 +50,7 @@ const Navimg = styled.img`
   left: 4rem;
   width: 7.65625rem;
   height: 10rem;
-  z-index: 2;
+  z-index: 4;
   @media screen and (max-width: 768px) {
     display: block;
   }

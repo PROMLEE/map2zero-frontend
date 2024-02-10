@@ -25,8 +25,8 @@ const ReviewList = ({ owner }: ownerProps) => {
       </div>
 
       <Reviews>
-        {ReviewDummy.map((i) => (
-          <Review key={i.storeName} onClick={modalHandler}>
+        {ReviewDummy.map((i, index) => (
+          <Review key={index} onClick={modalHandler}>
             <StoreImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
             <div>
               <h3>{i.storeName}</h3>

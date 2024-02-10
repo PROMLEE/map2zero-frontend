@@ -3,17 +3,26 @@ import { Review, MyReview } from '../StoreDetail';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { reviewmodalState, ReviewState, MyReviewState } from '../../recoil';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Reviewlist = () => {
   const setModal = useSetRecoilState(reviewmodalState);
   const reviewlist = useRecoilValue(ReviewState);
   const myreviewlist = useRecoilValue(MyReviewState);
   const [activeToggle, setActiveToggle] = useState(true);
-
+  const total_elements = 32;
+  const size = 10;
   const toggleOptions = [
     { label: '인기순', value: activeToggle },
     { label: '최신순', value: !activeToggle },
   ];
+  const totalPages = Math.ceil(total_elements / size);
+  const [currentPage, setcurrentPage] = useState(1);
+  const noPrev = currentPage === 1;
+  const noNext = currentPage === totalPages; // 다음 페이지가 없는 경우
+  const buttonClick = (n: number) => {
+    setcurrentPage(n + 1);
+  };
   return (
     <SellingBox>
       <Title>
@@ -41,10 +50,58 @@ export const Reviewlist = () => {
           return <Review {...item} id={index} key={index} />;
         })}
       </Reviews>
+      <ul>
+        {noPrev ? null : (
+          <PageButton
+            onClick={() => {
+              setcurrentPage(currentPage - 1);
+            }}
+            $url={'url(assets/StoreDetail/LeftStroke.svg)'}
+          />
+        )}
+        {[...Array(totalPages)].map((a, i) => (
+          <PageNum onClick={() => buttonClick(i)} key={i} $current={i + 1 === currentPage}>
+            {i + 1}
+          </PageNum>
+        ))}
+        {noNext ? null : (
+          <PageButton
+            onClick={() => {
+              setcurrentPage(currentPage + 1);
+            }}
+            $url={'url(assets/StoreDetail/RightStroke.svg)'}
+          />
+        )}
+      </ul>
     </SellingBox>
   );
 };
+const PageButton = styled.li<{ $url: string }>`
+  background: ${(props) => props.$url} center no-repeat;
+  width: 0.7rem;
+  height: 1.2rem;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    width: 1.8rem;
+    height: 3rem;
+  }
+`;
 
+const PageNum = styled.li<{ $current: boolean }>`
+  font-size: ${(props) => (props.$current ? '1.5rem;' : '1.2rem')};
+  padding: 0.5rem;
+  color: ${(props) => (props.$current ? '#0b5c71' : 'black')};
+  font-weight: 500;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    padding: 1.2rem;
+    font-size: ${(props) => (props.$current ? '4rem;' : '3rem')};
+  }
+`;
 const SellingBox = styled.div`
   width: 92.4rem;
   display: flex;
@@ -53,6 +110,21 @@ const SellingBox = styled.div`
   @media (max-width: 768px) {
     width: 90%;
     margin-top: 5.25rem;
+  }
+  ul {
+    list-style: none;
+    margin-bottom: 10rem;
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    @media (max-width: 768px) {
+      margin-bottom: 25rem;
+      gap: 5rem;
+      height: 10rem;
+    }
   }
 `;
 const Title = styled.div`
@@ -94,14 +166,13 @@ const RightText = styled.div`
 `;
 
 const MyReviewText = styled.div`
-  width: 92.4rem;
+  width: 100%;
   height: 3.2rem;
   padding: 0.8rem 1.6rem;
-  border-radius: 0.8rem 0.8rem 0rem 0rem;
+  border-radius: 0.7rem 0.7rem 0rem 0rem;
   background: #f4ece1;
   color: #848484;
   text-align: center;
-  font-family: 'Noto Sans KR';
   font-size: 1.2rem;
   font-weight: 600;
   line-height: normal;
@@ -110,12 +181,13 @@ const MyReviewText = styled.div`
     height: 8rem;
     padding: 2rem 4rem;
     gap: 2.5rem;
-    border-radius: 2rem 2rem 0rem 0rem;
+    border-radius: 1.7rem 1.7rem 0rem 0rem;
     font-size: 3rem;
   }
 `;
 
 const MyReviewbox = styled.div`
+  width: 92.4rem;
   margin-top: 2.4rem;
   border-radius: 0.8rem;
   border: 1px solid #f4ece1;

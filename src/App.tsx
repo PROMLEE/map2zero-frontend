@@ -20,6 +20,7 @@ import {
 } from './pages';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
+import MoreDetails from './components/Mypage/MoreDetails';
 
 export default function App() {
   return (
@@ -36,7 +37,8 @@ export default function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/owner" element={<Owner />} />
-          <Route path="/store" element={<StoreDetail />} />
+          <Route path="/store/:storeid" element={<StoreDetail />} />
+          <Route path="/store/" element={<StoreDetail />} />
           <Route path="/map" element={<Map />} />
           <Route path="/nickname" element={<NickName />} />
           <Route path="/sellingproduct" element={<SellingProduct />} />
@@ -45,6 +47,7 @@ export default function App() {
           <Route path="/owner/mypage" element={<OwnerMypage />} />
           <Route path="/map" element={<Map />} />
           <Route path="/mypage/review" element={<MyReview />} />
+          <Route path="/bookmarkdetail" element={<MoreDetails />} />
         </Routes>
       </BrowserRouter>
     </Background>

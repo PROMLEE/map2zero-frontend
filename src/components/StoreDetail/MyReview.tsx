@@ -40,6 +40,7 @@ export const MyReview = ({ nickname, star, tag, url, reviewurl, text, like, code
           <ProfileImg src={url} />
           <ProfileBox>
             <Nickname>{nickname}</Nickname>
+            <DateText>2024.00.00</DateText>
             <Stars>
               {[...Array(5)].map((_, index) => (
                 <Rate
@@ -91,8 +92,9 @@ const Box = styled.div`
   width: 92.4rem;
   display: flex;
   flex-direction: column;
-  border-top: 0.5px solid #f2f2f2;
-  border-bottom: 0.5px solid #f2f2f2;
+  &:hover {
+    background-color: #00000010;
+  }
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -140,7 +142,6 @@ const Nickname = styled.div`
   color: #000;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: 'Noto Sans KR';
   font-size: 1.4rem;
   font-style: normal;
   font-weight: 500;

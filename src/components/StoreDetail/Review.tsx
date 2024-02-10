@@ -96,6 +96,9 @@ const Box = styled.div`
   @media (max-width: 768px) {
     width: 100%;
   }
+  &:hover {
+    background-color: #00000010;
+  }
 `;
 const ReviewTop = styled.div`
   display: flex;
