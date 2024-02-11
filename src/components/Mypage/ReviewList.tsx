@@ -11,7 +11,7 @@ type ownerProps = {
 };
 
 const ReviewList = ({ owner }: ownerProps) => {
-  const url = owner ? 'ownerUrl' : 'defaultUrl';
+  const url = owner ? 'ownerUrl' : 'review';
   const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
   const modalHandler = () => {
     setModalOpen(!modalOpen);
