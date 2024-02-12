@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { shareModalState } from '../../recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { shareModalState, StoreState } from '../../recoil';
+
 export const StoreName = () => {
+  const storeDetail = useRecoilValue(StoreState);
   const [handlebookmark, sethandlebookmark] = useState(true);
+
   const setmodal = useSetRecoilState(shareModalState);
   return (
     <DetailBox>
-      <Name>매장명</Name>
+      <Name>{storeDetail.name}</Name>
       <div>
         <LinkButton onClick={() => setmodal(true)} src={`${process.env.PUBLIC_URL}/assets/StoreDetail/share.svg`} />
         <LinkButton
@@ -15,7 +18,7 @@ export const StoreName = () => {
             sethandlebookmark(!handlebookmark);
           }}
           src={
-            handlebookmark
+            storeDetail.is_bookmarked
               ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
               : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.svg`
           }

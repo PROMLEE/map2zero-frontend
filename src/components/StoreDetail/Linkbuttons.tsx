@@ -3,10 +3,13 @@ import { isMobile } from 'react-device-detect';
 import { useSetRecoilState } from 'recoil';
 import { detailModalState } from '../../recoil';
 
+import { useRecoilValue } from 'recoil';
+import { StoreState } from '../../recoil';
+
 export const Linkbuttons = () => {
+  const storeDetail = useRecoilValue(StoreState);
   const setModal = useSetRecoilState(detailModalState);
 
-  const phonenumber = '010-0000-0000';
   const copyClipboard = async (text: string, successAction?: () => void, failAction?: () => void) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -45,7 +48,7 @@ export const Linkbuttons = () => {
         <>
           <Button
             href="#"
-            onClick={() => copyClipboard(phonenumber, () => alert('전화번호가 클립보드에 저장되었습니다.'))}
+            onClick={() => copyClipboard(storeDetail.contact, () => alert('전화번호가 클립보드에 저장되었습니다.'))}
           >
             <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/call.svg`} />
             <ButtonText>전화</ButtonText>

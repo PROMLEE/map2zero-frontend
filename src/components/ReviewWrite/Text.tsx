@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { textRate } from '../../recoil';
+import { useRecoilState } from 'recoil';
+import { ReviewWriteState } from '../../recoil/StoreDetail/StoresState';
+import { StoreReviewWrite } from '../../recoil/StoreDetail/types';
 
 export const Text = () => {
-  const setText = useSetRecoilState(textRate);
+  const [reviewState, setreviewState] = useRecoilState<StoreReviewWrite>(ReviewWriteState);
   let [inputCount, setInputCount] = useState(0);
   const onInputHandler = (e: any) => {
     setInputCount(e.target.value.length);
-    setText(e.target.value);
+    setreviewState({ ...reviewState, text: e.target.value });
   };
 
   return (

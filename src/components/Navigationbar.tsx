@@ -26,11 +26,13 @@ export const Navigationbar = () => {
         const res: any = await axios.get(`${process.env.REACT_APP_API_URL}my-page`, {
           headers: { Authorization: accessToken },
         });
-        const newinfo = { ...userinfo, photo: { url: res.data.data.photo.url } };
+        const newinfo = { ...userinfo, photo: { url: res.data.data.photo.url }, islogin: true };
         setuserinfo(newinfo);
       } catch (err: any) {
         if (err.response.status === 401) {
           localStorage.removeItem('accessToken');
+          const newinfo = { ...userinfo, photo: { url: '' }, islogin: false };
+          setuserinfo(newinfo);
           setData(null);
         }
       }
