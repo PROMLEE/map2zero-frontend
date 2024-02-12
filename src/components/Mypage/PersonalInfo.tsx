@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { InfoState } from '../../recoil/Mypage/myPageState';
+import { InfoStateSelector } from '../../recoil/Mypage/myPageState';
 
 const PersonalInfo = () => {
   const navigate = useNavigate();
-  const info = useRecoilValue(InfoState);
+  const info = useRecoilValue(InfoStateSelector);
   const onSettingHandler = () => {
     navigate('/setting');
   };
