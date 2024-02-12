@@ -11,5 +11,5 @@ const InfoStateSelector = selector< PersonalInfoType>({
    
   });
 
-  
+
 export {  InfoStateSelector};

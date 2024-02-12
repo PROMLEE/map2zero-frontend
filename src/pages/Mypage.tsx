@@ -1,7 +1,9 @@
 import styled from 'styled-components';
-import { BookMarkList, ReviewList, PersonalInfo, StoreOwner} from '../components/Mypage';
-import { PersonalInfoDummy } from '../components/Mypage/Dummy/PersonalInfoDummy';
+import { BookMarkList, ReviewList, PersonalInfo, StoreOwner } from '../components/Mypage';
+import { useRecoilValue } from 'recoil';
+import { InfoStateSelector } from '../recoil/Mypage/myPageState';
 export default function Mypage() {
+  const info = useRecoilValue(InfoStateSelector);
   return (
     <ContentWrap>
       <PersonalInfo />
@@ -10,7 +12,7 @@ export default function Mypage() {
       <Line $mobileVisible />
       <ReviewList />
       <Line $mobileVisible />
-      <StoreOwner />
+      {!info.is_manager && <StoreOwner />}
     </ContentWrap>
   );
 }
