@@ -4,8 +4,7 @@ import { useInput } from '../hooks/Owner';
 
 const Owner = () => {
   const { inputs, onHandleChange } = useInput('default'); //배열 대신 객체로 반환
-  const { title, addresses, businessLicenseNum, contact, ceoName } = inputs;
-  //console.log(inputs);
+  const { name, address, business_number, contact, representative } = inputs;
   return (
     <Wrap>
       <Title>점주 신청하기</Title>
@@ -15,18 +14,18 @@ const Owner = () => {
           id="title"
           label="상호명"
           placeholder="상호명을 입력해주세요"
-          value={title}
+          value={name}
           onChange={onHandleChange}
         />
         <InputField
           id="businessLicenseNum"
           label="사업자등록번호"
           placeholder="사업자등록번호를 입력해주세요"
-          value={businessLicenseNum}
+          value={business_number}
           onChange={onHandleChange}
         />
 
-        <InputField label="매장주소" searchAddress={addresses} />
+        <InputField label="매장주소" searchAddress={address} />
 
         <InputField
           id="contact"
@@ -40,7 +39,7 @@ const Owner = () => {
           id="ceoName"
           label="대표명"
           placeholder="대표명을 입력해주세요"
-          value={ceoName}
+          value={representative}
           onChange={onHandleChange}
         />
       </ContentWrap>

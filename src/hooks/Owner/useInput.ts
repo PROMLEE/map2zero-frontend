@@ -9,6 +9,7 @@ const useInput = (type:string) => {
   
   const onHandleChange : React.ChangeEventHandler<HTMLInputElement> = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
+  
 
     setInputs({
       ...inputs,

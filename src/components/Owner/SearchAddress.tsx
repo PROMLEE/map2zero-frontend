@@ -1,19 +1,25 @@
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { AddressesType } from '../../recoil/Owner/ownerTypes';
+import { AddressType } from '../../recoil/Owner/ownerTypes';
 import { useInput } from '../../hooks/Owner';
 
-const SearchAddress = (addresses: AddressesType) => {
-  const { address, detailAddress } = addresses;
+const SearchAddress = (addresses: AddressType) => {
+  const { province, city, road_name, lot_number } = addresses;
+  const { detailAddress, setDetailAddress } = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const { inputs, setInputs, onHandleChange } = useInput('address');
 
   const scriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
 
   const open = useDaumPostcodePopup(scriptUrl);
+
   const handleComplete = (data: any) => {
-    let { address } = data;
+    let { address, jibunAddress, sido, sigungu } = data;
+
+    let road_name = address.replace(`${sido} ${sigungu} `, '');
+    let lot_number = jibunAddress.replace(`${sido} ${sigungu} `, '');
+
     let extraAddress = '';
 
     if (data.addressType === 'R') {
@@ -28,9 +34,12 @@ const SearchAddress = (addresses: AddressesType) => {
 
     setInputs({
       ...inputs,
-      addresses: {
-        ...inputs.addresses,
-        address: address,
+      address: {
+        ...inputs.address,
+        province: sido,
+        city: sigungu,
+        road_name: road_name,
+        lot_number: lot_number,
       },
     });
     isDisabled && setIsDisabled(false);

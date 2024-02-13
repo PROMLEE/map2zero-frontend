@@ -1,13 +1,15 @@
-export interface AddressesType {
-  address: string; 
-  detailAddress: string;          
+export interface AddressType {
+  province: string,
+  city: string,
+  road_name: string,
+  lot_number: string,  
 }
 export interface InputStateType {
-  title: string;
-  businessLicenseNum: number | undefined;
-  addresses:AddressesType;
-  contact: number | undefined;
-  ceoName:string;
+  name: string;
+  business_number: string;
+  address:AddressType;
+  contact: string;
+  representative:string;
 
 }
 
