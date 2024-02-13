@@ -1,66 +1,26 @@
 import styled from 'styled-components';
 import { Event } from '../StoreDetail';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { StoreState } from '../../recoil';
+import StoreEvent from '../../apis/StoreDetail/StoresEvent';
+import { StoreEventtype } from '../../recoil/StoreDetail/types';
+import { useRecoilValue } from 'recoil';
 
 export const Eventlist = () => {
-  const eventlist = [
-    {
-      event: '진행중인 이벤트명',
-      start: '2024.01.18',
-      end: '2024.01.18',
-      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
-      code: 123451,
-    },
-    {
-      event: '진행중인 이벤트명',
-      start: '2024.01.18',
-      end: '2024.01.18',
-      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
-      code: 123452,
-    },
-    {
-      event: '진행중인 이벤트명',
-      start: '2024.01.18',
-      end: '2024.01.18',
-      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
-      code: 123453,
-    },
-    {
-      event: '진행중인 이벤트명',
-      start: '2024.01.18',
-      end: '2024.01.18',
-      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
-      code: 123454,
-    },
-    {
-      event: '진행중인 이벤트명',
-      start: '2024.01.18',
-      end: '2024.01.18',
-      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
-      code: 123455,
-    },
-    {
-      event: '진행중인 이벤트명',
-      start: '2024.01.18',
-      end: '2024.01.18',
-      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
-      code: 123456,
-    },
-    {
-      event: '진행중인 이벤트명',
-      start: '2024.01.18',
-      end: '2024.01.18',
-      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
-      code: 123457,
-    },
-    {
-      event: '진행중인 이벤트명',
-      start: '2024.01.18',
-      end: '2024.01.18',
-      url: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
-      code: 123458,
-    },
-  ];
+  const [eventlist, seteventlist] = useState<StoreEventtype[]>([]);
+  const storeDetail = useRecoilValue(StoreState);
+
+  const getdata = async () => {
+    if (storeDetail.id) {
+      const data = await StoreEvent(storeDetail.id, 10);
+      seteventlist(data.data);
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, [storeDetail]);
+
   // 마우스 드래그 스크롤 구현
   const scrollRef: any = useRef(null);
   const [isDrag, setIsDrag] = useState(false); //드래그중인지 상태확인
@@ -129,7 +89,6 @@ const SellingBox = styled.div`
 `;
 const EventTitle = styled.div`
   color: #000;
-  font-family: 'Noto Sans KR';
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 600;
@@ -141,7 +100,7 @@ const EventTitle = styled.div`
 const Products = styled.div`
   display: flex;
   width: 92.4rem;
-  height: 25rem;
+  /* height: 25rem; */
   overflow-x: scroll;
   overflow-y: hidden;
   gap: 1.6rem;

@@ -1,12 +1,16 @@
 import { useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
+import { ReviewImgState } from '../../recoil/StoreDetail/StoresState';
+import { useRecoilState } from 'recoil';
 
 export const Addpic = () => {
-  const [images, setImages] = useState<string[]>([]);
-
+  const [images, setImages] = useState<any[]>([]);
+  const [reviewState, setreviewState] = useRecoilState(ReviewImgState);
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+      console.log(e.target.files);
+      const fileArray = Array.from(e.target.files);
+      setreviewState(fileArray.concat(reviewState));
       setImages((prevImages) => fileArray.concat(prevImages));
       e.target.value = '';
     }
@@ -15,7 +19,7 @@ export const Addpic = () => {
   return (
     <PicBox>
       {images.map((image, index) => (
-        <Pic key={index} src={image} alt={`Uploaded ${index}`} />
+        <Pic key={index} src={URL.createObjectURL(image)} alt={`Uploaded ${index}`} />
       ))}
       <input
         type="file"

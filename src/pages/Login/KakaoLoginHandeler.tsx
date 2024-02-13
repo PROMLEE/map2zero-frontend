@@ -24,7 +24,6 @@ const KakaoLoginHandeler = () => {
             const data = res.data.data;
             data['islogin'] = true;
             userInfo(data);
-            console.log(data);
             if (data.is_new_user) {
               navigate('/nickname');
             } else {

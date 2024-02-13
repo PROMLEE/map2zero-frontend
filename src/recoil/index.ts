@@ -17,7 +17,6 @@ import {
   eventExplane,
   eventPic,
 } from './modals';
-import { ReviewState, MyReviewState } from './Reviewlist';
 import { InputState } from './Owner/owner';
 import UserInfoState from './userInfo';
 import { searchToggleState, sellingProductSearchToggle, searchResultState } from './searchToggleState';
@@ -33,6 +32,8 @@ import {
   withdrawModalState,
   profileNameState,
 } from './editState';
+import { StoreState } from './StoreDetail/StoresState';
+
 export {
   exampleState,
   popUpModalState,
@@ -42,8 +43,6 @@ export {
   tagitem,
   starRate,
   textRate,
-  ReviewState,
-  MyReviewState,
   UserInfoState,
   sellingProductSearchToggle,
   eventDetailModal,
@@ -68,4 +67,5 @@ export {
   withdrawModalState,
   profileNameState,
   searchResultState,
+  StoreState,
 };

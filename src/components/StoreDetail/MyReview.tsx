@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { MyReviewState } from '../../recoil';
-
+import { StoreReviewtype } from '../../recoil/StoreDetail/types';
 interface Props {
   nickname: string;
   star: number;
@@ -15,38 +13,48 @@ interface Props {
   id: number;
 }
 
-export const MyReview = ({ nickname, star, tag, url, reviewurl, text, like, code, id }: Props) => {
+export const MyReview = ({
+  id,
+  text,
+  created_date,
+  score,
+  like_cnt,
+  writer,
+  photos,
+  tags,
+  liked,
+  isWriter,
+}: StoreReviewtype) => {
   const [likeon, setlike] = useState(false);
-  const setReviews = useSetRecoilState(MyReviewState);
 
-  const increaseLike = (index: number) => {
-    setReviews((prevReviews) => {
-      const newReviews = [...prevReviews]; // 불변성을 위해 복사본 생성
-      newReviews[index] = { ...newReviews[index], like: newReviews[index].like + 1 }; // 해당 리뷰의 like 값을 수정
-      return newReviews;
-    });
-  };
-  const decreaseLike = (index: number) => {
-    setReviews((prevReviews) => {
-      const newReviews = [...prevReviews]; // 불변성을 위해 복사본 생성
-      newReviews[index] = { ...newReviews[index], like: newReviews[index].like - 1 }; // 해당 리뷰의 like 값을 수정
-      return newReviews;
-    });
-  };
+  // const increaseLike = (index: number) => {
+  //   setReviews((prevReviews) => {
+  //     const newReviews = [...prevReviews]; // 불변성을 위해 복사본 생성
+  //     newReviews[index] = { ...newReviews[index], like: newReviews[index].like + 1 }; // 해당 리뷰의 like 값을 수정
+  //     return newReviews;
+  //   });
+  // };
+  // const decreaseLike = (index: number) => {
+  //   setReviews((prevReviews) => {
+  //     const newReviews = [...prevReviews]; // 불변성을 위해 복사본 생성
+  //     newReviews[index] = { ...newReviews[index], like: newReviews[index].like - 1 }; // 해당 리뷰의 like 값을 수정
+  //     return newReviews;
+  //   });
+  // };
   return (
     <Box>
       <ReviewTop>
         <Profile>
-          <ProfileImg src={url} />
+          <ProfileImg src={writer.photo.url} />
           <ProfileBox>
-            <Nickname>{nickname}</Nickname>
+            <Nickname>{writer.nickname}</Nickname>
             <DateText>2024.00.00</DateText>
             <Stars>
               {[...Array(5)].map((_, index) => (
                 <Rate
                   key={index}
                   src={
-                    index < star
+                    index + 1 < score
                       ? `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`
                       : `${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.svg`
                   }
@@ -64,22 +72,22 @@ export const MyReview = ({ nickname, star, tag, url, reviewurl, text, like, code
                 : `${process.env.PUBLIC_URL}/assets/StoreDetail/not_like.svg`
             }
             onClick={() => {
-              likeon ? decreaseLike(id) : increaseLike(id);
+              // likeon ? decreaseLike(id) : increaseLike(id);
               setlike(!likeon);
             }}
           />
-          <LikeNum>{like}</LikeNum>
+          <LikeNum>{like_cnt}</LikeNum>
         </LikeBox>
       </ReviewTop>
       <ReviewBottom>
         <ReviewImgBox>
-          {reviewurl.map((item, index) => (
-            <ReviewImg src={item} alt={`${index}`} key={index} />
+          {photos.map((item, index) => (
+            <ReviewImg src={item.url} alt={`${index}`} key={index} />
           ))}
         </ReviewImgBox>
         <ReviewTagBox>
-          {tag.map((item, index) => (
-            <ReviewTag key={index}>{item}</ReviewTag>
+          {tags.map((item, index) => (
+            <ReviewTag key={index}>{item.name}</ReviewTag>
           ))}
         </ReviewTagBox>
         <ReviewText>{text}</ReviewText>
