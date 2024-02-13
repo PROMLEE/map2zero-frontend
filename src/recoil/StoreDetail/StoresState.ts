@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Store, StoreReviewWrite } from './types';
+import { EventDetailType, Store, StoreReviewWrite } from './types';
 
 const StoreState = atom<Store>({
   key: 'StoreState',
@@ -61,4 +61,29 @@ const ReviewImgState = atom<File[]>({
   default: [],
 });
 
-export { StoreState, ReviewWriteState, ReviewImgState };
+const EventId = atom<number>({
+  key: 'EventId',
+  default: 0,
+});
+
+const EventDetailState = atom<EventDetailType>({
+  key: 'EventDetailState',
+  default: {
+    title: 'string',
+    description: 'string',
+    application_url: 'string',
+    start_date: 'string',
+    end_date: 'string',
+    status: 'string',
+    photos: [
+      {
+        url: 'string',
+        width: 0,
+        height: 0,
+      },
+    ],
+    manager: false,
+  },
+});
+
+export { StoreState, ReviewWriteState, ReviewImgState, EventId, EventDetailState };

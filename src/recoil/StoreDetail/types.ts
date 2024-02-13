@@ -111,3 +111,19 @@ export interface StoreReviewWrite {
   score: number;
   text: string;
 }
+export interface EventDetailType {
+  title: string;
+  description: string;
+  application_url: string;
+  start_date: string;
+  end_date: string;
+  status: string;
+  photos: [
+    {
+      url: string;
+      width: number;
+      height: number;
+    },
+  ];
+  manager: boolean;
+}
