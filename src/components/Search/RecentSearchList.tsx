@@ -1,29 +1,45 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { getRecentSearchApi, deleteSingleRecentSearchApi, deleteAllRecentSearchApi } from '../../apis/SearchApi';
+
+export type TgetRecentSearchResponse = {
+  id: number;
+  keyword: string;
+};
 
 export const RecentSearchList = () => {
-  const [tags, setTags] = useState([
-    '태그1태그1태그1',
-    '태그2',
-    '태그3태그3',
-    '태그4',
-    '태그5태그5태그5',
-    '태그1태그1태그1태그1태그1태그1태그1태그1태그1태그1태그1태그1',
-    '태그5태그5태그5',
-    '태그5태그5태그5',
-    '태그5태그5태그5',
-    '태그5태그5태그5',
-  ]);
+  const [recentSearch, setRecentSearch] = useState<TgetRecentSearchResponse[]>();
+
+  useEffect(() => {
+    recentSearchList();
+  }, []);
+
+  const recentSearchList = async () => {
+    const data = await getRecentSearchApi();
+    if (data) {
+      setRecentSearch(data.data);
+    }
+  };
 
   //최근 검색어 모두 지우기
-  const allClear = () => {
-    setTags([]);
+  const allClear = async () => {
+    if (recentSearch) {
+      const data = await deleteAllRecentSearchApi();
+      if (data) {
+        setRecentSearch([]);
+      }
+    }
   };
 
   //특정 최근 검색어 지우기
-  const itemClear = (index: number) => {
-    const newTags = tags.filter((_, i) => i !== index);
-    setTags(newTags);
+  const itemClear = async (itemId: number) => {
+    if (recentSearch) {
+      const data = await deleteSingleRecentSearchApi({ data: { id: itemId } });
+      if (data.message === 'OK') {
+        const newTags = recentSearch.filter((item) => item.id !== itemId);
+        setRecentSearch(newTags);
+      }
+    }
   };
 
   return (
@@ -33,18 +49,19 @@ export const RecentSearchList = () => {
         <button onClick={allClear}>모두 지우기</button>
       </SearchHead>
       <TagsWrap>
-        {tags.map((item, index) => {
-          return (
-            <TagItem key={index}>
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/Search/delete.png`}
-                alt="삭제"
-                onClick={() => itemClear(index)}
-              />
-              <span>{item.length > 13 ? item.slice(0, 13) + '...' : item}</span>
-            </TagItem>
-          );
-        })}
+        {recentSearch &&
+          recentSearch.map((item) => {
+            return (
+              <TagItem key={item.id}>
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/Search/delete.png`}
+                  alt="삭제"
+                  onClick={() => itemClear(item.id)}
+                />
+                <span>{item.keyword.length > 13 ? item.keyword.slice(0, 13) + '...' : item.keyword}</span>
+              </TagItem>
+            );
+          })}
       </TagsWrap>
     </ListWrap>
   );

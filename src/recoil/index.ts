@@ -19,7 +19,7 @@ import {
 } from './modals';
 import { InputState } from './Owner/owner';
 import UserInfoState from './userInfo';
-import { searchToggleState, sellingProductSearchToggle } from './searchToggleState';
+import { searchToggleState, sellingProductSearchToggle, searchResultState } from './searchToggleState';
 import { eventDetailModal } from './eventDetail';
 import { productManage } from './isowner';
 import { shareModalState } from './sharepopupModal';
@@ -66,5 +66,6 @@ export {
   logoutModalState,
   withdrawModalState,
   profileNameState,
+  searchResultState,
   StoreState,
 };
