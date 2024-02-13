@@ -5,12 +5,17 @@ import { SearchBar } from '../components/Search/SearchBar';
 import { RecentSearchList } from '../components/Search/RecentSearchList';
 import { PopularSearchList } from '../components/Search/PopularSearchList';
 import { Mobiletop } from '../components';
-import {SearchResultList} from '../components/SearchFile/SearchResultList';
-import NoSearchFile from '../components/SearchFile/NoSearchFile'
+import { SearchResultList } from '../components/SearchFile/SearchResultList';
+import NoSearchFile from '../components/SearchFile/NoSearchFile';
+import { getSearchApi } from '../apis/SearchApi';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { searchToggleState, searchResultState } from '../recoil';
 
 export default function Search() {
   const [searchText, setSearchText] = useState('');
   const [searchResultView, setSearchResultView] = useState(false);
+  const activeToggle = useRecoilValue(searchToggleState);
+  const [searchResult, setSearchResult] = useRecoilState(searchResultState);
 
   //입력한 검색어 저장
   const onInputSearchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,9 +24,11 @@ export default function Search() {
   };
 
   //검색했을 때 이벤트
-  const searchHandler = () => {
+  const searchHandler = async () => {
     if (searchText) {
       setSearchResultView(true);
+      const data = await getSearchApi(`?keyword=${searchText}&type=${activeToggle === 0 ? 'STORE' : 'PRODUCT'}&size=5`);
+      setSearchResult(data.data);
     }
   };
 
@@ -34,10 +41,7 @@ export default function Search() {
         <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
       </SearchContainer>
       {searchResultView ? (
-        <div>
-          <SearchResultList/>
-        {/* <NoSearchFile/> */}
-        </div>
+        <div>{searchResult.length > 0 ? <SearchResultList /> : <NoSearchFile />}</div>
       ) : (
         <SearchList>
           <RecentSearchList />

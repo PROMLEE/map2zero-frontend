@@ -23,3 +23,29 @@ export interface UserInfo {
   is_new_user: boolean;
   type: string;
 }
+
+export type Product = {
+  id: number;
+  name: string;
+};
+
+export interface SearchResultType {
+  id: number;
+  name: string;
+  bookmark_cnt: number;
+  review_cnt: number;
+  average_score: number;
+  address: {
+    province: string;
+    city: string;
+    road_name: string;
+    lot_number: string;
+  };
+  photo: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  products: Product[];
+  bookmarked: boolean;
+}
