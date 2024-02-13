@@ -16,7 +16,9 @@ export const RecentSearchList = () => {
 
   const recentSearchList = async () => {
     const data = await getRecentSearchApi();
-    setRecentSearch(data.data);
+    if (data) {
+      setRecentSearch(data.data);
+    }
   };
 
   //최근 검색어 모두 지우기

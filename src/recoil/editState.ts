@@ -1,4 +1,5 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
+import { InfoState } from '../recoil/Mypage/myPageState';
 
 export const imgModalState = atom<boolean>({
   key: 'imgModal',
@@ -7,7 +8,13 @@ export const imgModalState = atom<boolean>({
 
 export const profileImgState = atom<string>({
   key: 'profileImg',
-  default: '',
+  default: selector({
+    key: 'profileImgDefault',
+    get: ({ get }) => {
+      const info = get(InfoState);
+      return info.photo.url;
+    },
+  }),
 });
 
 export const profileNameState = atom<string>({
@@ -17,11 +24,17 @@ export const profileNameState = atom<string>({
 
 export const nickNameState = atom<{ nickname: string; message: boolean; readonly: boolean }>({
   key: 'nickName',
-  default: {
-    nickname: '',
-    message: false,
-    readonly: false,
-  },
+  default: selector({
+    key: 'nickNameDefault',
+    get: ({ get }) => {
+      const info = get(InfoState);
+      return {
+        nickname: info.nickname,
+        message: false,
+        readonly: false,
+      };
+    },
+  }),
 });
 
 export const logoutModalState = atom<boolean>({

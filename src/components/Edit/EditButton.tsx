@@ -1,27 +1,39 @@
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { nickNameState, profileImgState } from '../../recoil';
+import { InfoState } from '../../recoil/Mypage/myPageState';
+import { getNicknameInuseApi, patchNicknameApi } from '../../apis/EditApi';
 
 const EditButton = () => {
+  const info = useRecoilValue(InfoState);
   const [nickname, setNickName] = useRecoilState(nickNameState);
   const profileImg = useRecoilValue(profileImgState);
 
   //닉네임 중복 체크 및 편집 불가능하게 적용
-  const onButtonHandler = () => {
-    if (nickname.nickname === '중복') {
+  const onButtonHandler = async () => {
+    const dataInuse = await getNicknameInuseApi(nickname.nickname);
+    if (dataInuse.data) {
       setNickName((prevState) => ({
         ...prevState,
         message: true,
       }));
+    } else {
+      setNickName((prevState) => ({
+        ...prevState,
+        readonly: true,
+      }));
+      const data = await patchNicknameApi({ nickname: nickname.nickname });
+      if (data.message === 'OK') {
+        console.log('성공');
+      }
     }
-    setNickName((prevState) => ({
-      ...prevState,
-      readonly: true,
-    }));
   };
 
   return (
-    <Button disabled={nickname.nickname === '' && profileImg === ''} onClick={onButtonHandler}>
+    <Button
+      disabled={nickname.nickname === '' || profileImg === '' || nickname.nickname === info.nickname}
+      onClick={onButtonHandler}
+    >
       적용
     </Button>
   );
