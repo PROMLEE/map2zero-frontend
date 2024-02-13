@@ -2,13 +2,15 @@ import styled from 'styled-components';
 import { eventDetailModal } from '../../recoil';
 import { useSetRecoilState } from 'recoil';
 interface Props {
-  event: string;
-  start: string;
-  end: string;
-  url: string;
-  code: number;
+  title: string;
+  start_date: string;
+  end_date: string;
+  photo: {
+    url: string;
+  };
+  id: number;
 }
-export const Event = ({ event, start, end, url, code }: Props) => {
+export const Event = ({ title, start_date, end_date, photo, id }: Props) => {
   const setEventDetailModal = useSetRecoilState(eventDetailModal);
   return (
     <Box
@@ -16,11 +18,11 @@ export const Event = ({ event, start, end, url, code }: Props) => {
         setEventDetailModal(true);
       }}
     >
-      <EventImg src={url} />
+      <EventImg src={photo.url} />
       <EventInfo>
-        <EventName>{event}</EventName>
+        <EventName>{title}</EventName>
         <EventDate>
-          {start} ~ {end}
+          {start_date} ~ {end_date}
         </EventDate>
       </EventInfo>
     </Box>
