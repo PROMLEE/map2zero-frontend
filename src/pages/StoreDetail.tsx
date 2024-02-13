@@ -3,10 +3,13 @@ import { ReviewWrite, Mobiletop, EventDetail, ScrollToTop } from '../components'
 import { SharePopup } from '../components/DetailPopup/SharePopup';
 import { DetailPopup } from '../components/DetailPopup/DetailPopup';
 import { SlideBox, StoreIndex, Productlist, Eventlist, Reviewlist } from '../components/StoreDetail';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { reviewmodalState, shareModalState, detailModalState, eventDetailModal } from '../recoil';
+import { StoreState } from '../recoil/StoreDetail/StoresState';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import StoreDetailApi from '../apis/StoreDetail/Stores';
+import { Store } from '../recoil/StoreDetail/types';
 
 export default function StoreDetail() {
   const params = useParams();
@@ -14,14 +17,19 @@ export default function StoreDetail() {
   const sharemodal = useRecoilValue(shareModalState);
   const detailmodal = useRecoilValue(detailModalState);
   const eventmodal = useRecoilValue(eventDetailModal);
-  const [storeId, setstoreId] = useState(0);
+  const [storeDetail, setstoreDetail] = useRecoilState<Store>(StoreState);
+
   document.body.style.overflow = reviewmodal || sharemodal || detailmodal || eventmodal ? 'hidden' : 'unset';
   useEffect(() => {
-    const paramId = params.storeid;
-    if (paramId) {
-      setstoreId(Number(paramId));
-    }
+    if (params.storeid) getdata(params.storeid);
   }, [params.storeid]);
+
+  const getdata = async (id: string) => {
+    if (id !== '0') {
+      const data = await StoreDetailApi(id);
+      setstoreDetail(data.data);
+    }
+  };
 
   return (
     <DetailBox>
@@ -35,7 +43,7 @@ export default function StoreDetail() {
       <Reviewlist />
       {sharemodal == true ? <SharePopup /> : null}
       {detailmodal == true ? <DetailPopup /> : null}
-      {reviewmodal == true ? <ReviewWrite /> : null}
+      {reviewmodal == true ? <ReviewWrite id={storeDetail.id} /> : null}
       {eventmodal == true ? <EventDetail /> : null}
     </DetailBox>
   );

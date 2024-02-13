@@ -1,20 +1,42 @@
 import styled from 'styled-components';
 import { StarRating, Storetag, Text, Addpic } from '.';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { reviewmodalState, starRate, textRate, tagitem } from '../../recoil';
+import { useSetRecoilState, useResetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
+import { reviewmodalState } from '../../recoil';
+import { ReviewWriteState, ReviewImgState } from '../../recoil/StoreDetail/StoresState';
+import ReviewSend from '../../apis/StoreDetail/ReviewSend';
 import { useEffect, useRef } from 'react';
 
-export const ReviewWrite = () => {
+interface Props {
+  id: number;
+}
+
+export const ReviewWrite = ({ id }: Props) => {
   const setModal = useSetRecoilState(reviewmodalState);
   const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
-  const star = useRecoilValue(starRate);
-  const text = useRecoilValue(textRate);
-  const tag = useRecoilValue(tagitem);
-  const isConditionMet = star !== 0 && text !== '';
+  const [reviewState, setreviewState] = useRecoilState(ReviewWriteState);
+  const reset = useResetRecoilState(ReviewWriteState);
+  const reviewImgState = useRecoilValue(ReviewImgState);
+  const imgreset = useResetRecoilState(ReviewImgState);
+  const isConditionMet = reviewState.score !== 0 && reviewState.text !== '';
+
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setModal(false);
     }
+  };
+
+  const sendReview = async () => {
+    const formData = new FormData();
+    console.log(reviewState);
+    formData.append('request', new Blob([JSON.stringify(reviewState)], { type: 'application/json' }));
+    for (let i = 0; i < reviewImgState.length; i++) {
+      formData.append('images', reviewImgState[i]);
+    }
+    await ReviewSend(formData);
+    alert('리뷰가 작성되었습니다.');
+    reset();
+    imgreset();
+    setModal(false);
   };
 
   useEffect(() => {
@@ -25,6 +47,7 @@ export const ReviewWrite = () => {
   }, []);
 
   useEffect(() => {
+    setreviewState({ ...reviewState, store_id: id });
     history.pushState(null, '', location.href);
     window.addEventListener('popstate', () => setModal(false));
     return () => {
@@ -58,12 +81,7 @@ export const ReviewWrite = () => {
           사진을 추가해 주세요
         </Texts>
         <Addpic />
-        <CompleteButton
-          disabled={!isConditionMet}
-          onClick={() => {
-            console.log({ star: star, tag: tag, text: text });
-          }}
-        >
+        <CompleteButton disabled={!isConditionMet} onClick={sendReview}>
           작성 완료
         </CompleteButton>
       </Modal>
