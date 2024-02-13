@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ReviewDummy } from './Dummy/ReviewDummy';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { popUpModalState } from '../../recoil';
 import ConfirmModal from '../Modal/ConfirmModal';
 import { Link } from 'react-router-dom';
+import { ReviewStateSelector } from '../../recoil/Mypage/myPageState';
 
 type ownerProps = {
   owner?: boolean;
@@ -13,6 +14,9 @@ type ownerProps = {
 const ReviewList = ({ owner }: ownerProps) => {
   const url = owner ? 'ownerUrl' : 'review';
   const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
+  const info = useRecoilValue(ReviewStateSelector);
+  console.log('리뷰 ', info);
+
   const modalHandler = () => {
     setModalOpen(!modalOpen);
   };
