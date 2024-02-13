@@ -18,6 +18,7 @@ export const ReviewWrite = ({ id }: Props) => {
   const reviewImgState = useRecoilValue(ReviewImgState);
   const imgreset = useResetRecoilState(ReviewImgState);
   const isConditionMet = reviewState.score !== 0 && reviewState.text !== '';
+
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setModal(false);
@@ -31,9 +32,8 @@ export const ReviewWrite = ({ id }: Props) => {
     for (let i = 0; i < reviewImgState.length; i++) {
       formData.append('images', reviewImgState[i]);
     }
-    const res = await ReviewSend(formData);
+    await ReviewSend(formData);
     alert('리뷰가 작성되었습니다.');
-    console.log(res);
     reset();
     imgreset();
     setModal(false);

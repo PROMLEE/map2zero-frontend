@@ -21,9 +21,27 @@ const StoreState = atom<Store>({
       road_name: '',
       lot_number: '',
     },
-    photos: [''],
-    operating_hours: [''],
-    store_tags: [''],
+    photos: [
+      {
+        url: '',
+        width: 0,
+        height: 0,
+      },
+    ],
+    operating_hours: [
+      {
+        day_of_week: '',
+        start_time: '',
+        end_time: '',
+        regular_holiday: true,
+      },
+    ],
+    store_tags: [
+      {
+        id: 0,
+        name: '',
+      },
+    ],
     is_bookmarked: true,
   },
 });

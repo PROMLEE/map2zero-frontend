@@ -14,8 +14,8 @@ export const Text = () => {
 
   return (
     <ReviewBox>
-      <TextBox placeholder="최대 100자(띄어쓰기 포함)" onChange={onInputHandler} maxLength={100} />
-      <Textcount>{inputCount}/100</Textcount>
+      <TextBox placeholder="최대 255자(띄어쓰기 포함)" onChange={onInputHandler} maxLength={255} />
+      <Textcount>{inputCount}/255</Textcount>
     </ReviewBox>
   );
 };

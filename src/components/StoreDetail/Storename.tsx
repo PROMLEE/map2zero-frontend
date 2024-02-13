@@ -1,11 +1,21 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { shareModalState, StoreState } from '../../recoil';
-
+import { Bookmark, BookmarkDel } from '../../apis/StoreDetail/Bookmark';
 export const StoreName = () => {
-  const storeDetail = useRecoilValue(StoreState);
-  const [handlebookmark, sethandlebookmark] = useState(true);
+  const [storeDetail, setstoreDetail] = useRecoilState(StoreState);
+  const [handlebookmark, sethandlebookmark] = useState(false);
+
+  const onclickBookmark = async () => {
+    sethandlebookmark(!handlebookmark);
+    setstoreDetail({ ...storeDetail, is_bookmarked: handlebookmark });
+    if (!handlebookmark) {
+      await Bookmark({ store_id: storeDetail.id });
+    } else {
+      await BookmarkDel({ store_id: storeDetail.id });
+    }
+  };
 
   const setmodal = useSetRecoilState(shareModalState);
   return (
@@ -14,11 +24,9 @@ export const StoreName = () => {
       <div>
         <LinkButton onClick={() => setmodal(true)} src={`${process.env.PUBLIC_URL}/assets/StoreDetail/share.svg`} />
         <LinkButton
-          onClick={() => {
-            sethandlebookmark(!handlebookmark);
-          }}
+          onClick={onclickBookmark}
           src={
-            storeDetail.is_bookmarked
+            handlebookmark
               ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
               : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.svg`
           }

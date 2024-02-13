@@ -16,9 +16,27 @@ export interface Store {
     road_name: string;
     lot_number: string;
   };
-  photos: string[];
-  operating_hours: string[];
-  store_tags: string[];
+  photos: [
+    {
+      url: string;
+      width: number;
+      height: number;
+    },
+  ];
+  operating_hours: [
+    {
+      day_of_week: string;
+      start_time: string;
+      end_time: string;
+      regular_holiday: boolean;
+    },
+  ];
+  store_tags: [
+    {
+      id: number;
+      name: string;
+    },
+  ];
   is_bookmarked: boolean;
 }
 

@@ -10,8 +10,7 @@ export const Addpic = () => {
     if (e.target.files) {
       console.log(e.target.files);
       const fileArray = Array.from(e.target.files);
-      setreviewState({ ...reviewState.concat(fileArray) });
-      console.log(reviewState);
+      setreviewState(fileArray.concat(reviewState));
       setImages((prevImages) => fileArray.concat(prevImages));
       e.target.value = '';
     }
