@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ReviewDummy } from './Dummy/ReviewDummy';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { popUpModalState } from '../../recoil';
 import ConfirmModal from '../Modal/ConfirmModal';
@@ -13,13 +12,23 @@ type ownerProps = {
 
 const ReviewList = ({ owner }: ownerProps) => {
   const url = owner ? 'ownerUrl' : 'review';
+  const [displayData, setDisplayData] = useState([]);
   const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
   const info = useRecoilValue(ReviewStateSelector);
-  console.log('리뷰 ', info);
+  console.log('리뷰 ', info.data);
 
   const modalHandler = () => {
     setModalOpen(!modalOpen);
   };
+
+  useEffect(() => {
+    if (window.innerWidth < 784 && info.data) {
+      setDisplayData(info.data.slice(0, 2));
+    } else {
+      setDisplayData(info.data);
+    }
+  }, [window.innerWidth, info]);
+
   return (
     <Wrap>
       <ConfirmModal />
@@ -29,22 +38,23 @@ const ReviewList = ({ owner }: ownerProps) => {
       </div>
 
       <Reviews>
-        {ReviewDummy.map((i, index) => (
-          <Review key={index} onClick={modalHandler}>
-            <StoreImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
-            <div>
-              <h3>{i.storeName}</h3>
-              <p>{i.content}</p>
-            </div>
-            <FavoriteIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/favorite.png`} alt="좋아요아이콘" />
-            <FavoriteCount>{i.favoriteCount}</FavoriteCount>
-            <TrashWrap>
-              <TrashIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/trash.png`} alt="삭제아이콘" />
-              <TrashText>삭제</TrashText>
-            </TrashWrap>
-            <Date>{i.date}</Date>
-          </Review>
-        ))}
+        {displayData &&
+          displayData.map((i: any) => (
+            <Review key={i.id} onClick={modalHandler}>
+              <StoreImg src={i.photo.url} alt={`${i.storeName}}의 이미지`} />
+              <div>
+                <h3>{i.store.name}</h3>
+                <p>{i.text}</p>
+              </div>
+              <FavoriteIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/favorite.png`} alt="좋아요아이콘" />
+              <FavoriteCount>{i.likeCnt}</FavoriteCount>
+              <TrashWrap>
+                <TrashIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/trash.png`} alt="삭제아이콘" />
+                <TrashText>삭제</TrashText>
+              </TrashWrap>
+              <Date>{i.createdDate}</Date>
+            </Review>
+          ))}
       </Reviews>
     </Wrap>
   );

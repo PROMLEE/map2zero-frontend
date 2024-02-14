@@ -1,10 +1,9 @@
-import { selector,atom} from "recoil";
-import { PersonalInfoType } from "./myPageStateTypes";
+import { selector} from "recoil";
 import PersonalInfoApi from "../../apis/Mypage/PersonalInfoApi";
 import ReviewApi from "../../apis/Mypage/ReviewApi";
 
 
-const InfoStateSelector = selector< PersonalInfoType>({
+const InfoStateSelector = selector({
     key: "InfoStateSelector",
     get : async () => {
       const data = await PersonalInfoApi();
@@ -14,7 +13,7 @@ const InfoStateSelector = selector< PersonalInfoType>({
   });
 
 
-  const ReviewStateSelector= selector<any>({
+  const ReviewStateSelector= selector({
     key: "ReviewStateSelector",
     get : async () => {
       const data = await ReviewApi();
@@ -22,7 +21,6 @@ const InfoStateSelector = selector< PersonalInfoType>({
     }
    
   });
-
 
 
 
