@@ -3,8 +3,10 @@ import { ItemDummyType } from './Dummy/ItemDummy';
 import { ReactComponent as ArrowIcon } from '../../assets/Home/arrow.svg';
 import { useNavigate } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
+import { ItemStateType } from '../../recoil/Home/HomeStateType';
 
-const Items = ({ info }: { info: ItemDummyType[] }) => {
+const Items = ({ info }: { info: ItemStateType[] }) => {
+  console.log(info);
   const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -95,15 +97,15 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
       onMouseLeave={onDragEnd}
       ref={scrollRef}
     >
-      {info.map((item, index) => (
-        <Item key={index}>
+      {info.map((item) => (
+        <Item key={item.store_id}>
           <ImgContainer>
-            <img src={item.img} alt={item.itemName} />
-            <Name>{item.itemName}</Name>
-            <Promotion>{item.promotion}</Promotion>
+            <img src={item.photo.url} alt={item.name} />
+            <Name>{item.name}</Name>
+            <Promotion>{item.price}</Promotion>
           </ImgContainer>
           <StoreNameContainer>
-            <p>{item.storeName}</p>
+            <p>{item.name}</p>
             <div>
               <CustomArrowIcon fill={'#565656'} alt={'화살표'} />
             </div>

@@ -6,7 +6,8 @@ import { TodayState } from '../../recoil/Home/HomeState';
 
 const Today = () => {
   const Todayinfo = useRecoilValue(TodayState);
-  return <Items info={ItemDummy} />;
+  console.log(Todayinfo);
+  return <Items info={Todayinfo.data} />;
 };
 
 export default Today;

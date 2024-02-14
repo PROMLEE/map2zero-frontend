@@ -3,8 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { StoreInfoDummyType } from './Dummy/StoreDummy';
 import { ReactComponent as ArrowIcon } from '../../assets/Home/arrow.svg';
+import { NearestStateType } from '../../recoil/Home/HomeStateType';
 
-const StoreInfo = ({ info }: { info: StoreInfoDummyType }) => {
+const StoreInfo = ({ info }: { info: NearestStateType }) => {
+  console.log(info);
+  const ImgURL = info.photo ? info.photo : `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`;
+
   const navigate = useNavigate();
   const onClickStore = () => {
     navigate('');
@@ -13,8 +17,8 @@ const StoreInfo = ({ info }: { info: StoreInfoDummyType }) => {
   return (
     <Container onClick={onClickStore}>
       <ImgWrap>
-        <img src={info.img} alt={info.name} />
-        <Promotation>{info.promotion}</Promotation>
+        <img src={ImgURL} alt={info.name} />
+        <Promotation>{info.address.province}</Promotation>
         <Arrow>
           <CustomArrowIcon fill={'#ffffff'} alt={'화살표'} />
         </Arrow>
@@ -24,10 +28,10 @@ const StoreInfo = ({ info }: { info: StoreInfoDummyType }) => {
         <h1>{info.name}</h1>
         <div>
           <Star src={`${process.env.PUBLIC_URL}/assets/Home/star.svg`} alt={'스타'} />
-          <Score>{info.reviewScore}</Score>
-          <Count>{`(${info.reviewCount})`}</Count>
+          <Score>{info.average_score}</Score>
+          <Count>{`(${info.review_cnt})`}</Count>
         </div>
-        <Address>{info.address}</Address>
+        <Address>{`${info.address.province} ${info.address.city} ${info.address.road_name}`}</Address>
       </Info>
     </Container>
   );

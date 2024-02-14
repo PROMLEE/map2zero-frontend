@@ -2,7 +2,8 @@ import { selector, selectorFamily} from "recoil";
 import {MyApi,TodayApi,TrendApi} from '../../apis/Home'
 import NearestApi from "../../apis/Home/NearestApi";
 
-const MyState= selector<any>({
+
+const MyState= selector({
     key: "MyState",
     get : async () => {
       const data = await MyApi();
@@ -13,7 +14,7 @@ const MyState= selector<any>({
 
 
 
-const TodayState= selector<any>({
+const TodayState= selector({
   key: "TodayState",
   get : async () => {
     const data = await TodayApi();
@@ -35,10 +36,12 @@ const TrendState= selector<any>({
 });
 
 
-const NearestState=selectorFamily<any,any>({
+const NearestState=selectorFamily<any, { latitude: number; longitude: number }|null>({
   key: "NearestState",
   get: (myLocation) => async ({get}) => {
-    // myLocation은 { latitude: number; longitude: number } 형태의 객체
+    if (!myLocation) {
+      return null; 
+    }
     const response = await NearestApi(myLocation.latitude, myLocation.longitude);
     return response; // API 호출 결과 반환
   },

@@ -13,13 +13,13 @@ export default function Homepage() {
       <Trend />
       <h1>오늘의 제로웨이스트 상품</h1>
       <Today />
-      {isLogin() && (
+      {/* {isLogin() && (
         <>
           {' '}
           <h1>내가 북마크한 매장</h1>
           <BookMark />
         </>
-      )}
+      )} */}
       <h1>가까운 곳에 위치한 매장이에요</h1>
       <Nearest />
       <h1>나만의 제품을 만나 보세요</h1>

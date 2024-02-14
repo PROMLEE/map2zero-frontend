@@ -7,6 +7,6 @@ import { baseAPI} from '../customApi'
   } catch (e) {
     console.log(e);
     alert('연동 에러');
-};}
+};} 
 
 export default MyApi; 

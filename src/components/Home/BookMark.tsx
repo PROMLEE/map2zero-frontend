@@ -3,7 +3,7 @@ import StoreInfo from './StoreInfo';
 import { StoreInfoDummy } from './Dummy/StoreDummy';
 
 const BookMark = () => {
-  return <StoreInfo info={StoreInfoDummy} />;
+  return <h1>북마크</h1>;
 };
 
 export default BookMark;

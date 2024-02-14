@@ -6,7 +6,7 @@ import { MyState } from '../../recoil/Home/HomeState';
 
 const My = () => {
   const MyInfo = useRecoilValue(MyState);
-  return <Items info={ItemDummy} />;
+  return <Items info={MyInfo.data} />;
 };
 
 export default My;
