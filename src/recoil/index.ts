@@ -18,7 +18,7 @@ import {
   eventPic,
 } from './modals';
 import { ReviewState, MyReviewState } from './Reviewlist';
-import { InputState } from './Owner/owner';
+// import { InputState } from './Owner/owner';
 import UserInfoState from './userInfo';
 import { searchToggleState, sellingProductSearchToggle } from './searchToggleState';
 import { eventDetailModal } from './eventDetail';
@@ -36,7 +36,7 @@ import {
 export {
   exampleState,
   popUpModalState,
-  InputState,
+  // InputState,
   searchToggleState,
   reviewmodalState,
   tagitem,

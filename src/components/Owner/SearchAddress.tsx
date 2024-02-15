@@ -1,14 +1,15 @@
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { AddressType } from '../../recoil/Owner/ownerTypes';
+import { InputPostState, AddressType } from '../../recoil/Owner/ownerTypes';
 import { useInput } from '../../hooks/Owner';
+import { useRecoilState } from 'recoil';
 
-const SearchAddress = (addresses: AddressType) => {
-  const { province, city, road_name, lot_number } = addresses;
-  const { detailAddress, setDetailAddress } = useState<string>('');
+const SearchAddress = (address: AddressType) => {
+  const { searchAddress, detailAddress } = address;
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const { inputs, setInputs, onHandleChange } = useInput('address');
+  const [addressPostInfo, setAddressPostInfo] = useRecoilState(InputPostState);
 
   const scriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
 
@@ -18,6 +19,7 @@ const SearchAddress = (addresses: AddressType) => {
     let { address, jibunAddress, sido, sigungu } = data;
 
     let road_name = address.replace(`${sido} ${sigungu} `, '');
+    console.log(jibunAddress);
     let lot_number = jibunAddress.replace(`${sido} ${sigungu} `, '');
 
     let extraAddress = '';
@@ -32,16 +34,25 @@ const SearchAddress = (addresses: AddressType) => {
       address += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
 
-    setInputs({
-      ...inputs,
+    setAddressPostInfo({
+      ...addressPostInfo,
       address: {
-        ...inputs.address,
+        ...addressPostInfo.address,
         province: sido,
         city: sigungu,
         road_name: road_name,
         lot_number: lot_number,
       },
     });
+
+    setInputs({
+      ...inputs,
+      address: {
+        ...inputs.address,
+        searchAddress: address,
+      },
+    });
+
     isDisabled && setIsDisabled(false);
   };
 
@@ -52,7 +63,14 @@ const SearchAddress = (addresses: AddressType) => {
   return (
     <>
       <AddressBtn onClick={handleClick}>우편번호찾기</AddressBtn>
-      <AddressInput id="address" type="text" disabled={isDisabled} onChange={onHandleChange} value={address} />
+      <AddressInput
+        id="searchAddress"
+        type="text"
+        disabled={isDisabled}
+        onChange={onHandleChange}
+        value={searchAddress}
+        required
+      />
       <AddressInput
         id="detailAddress"
         type="text"

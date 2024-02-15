@@ -18,7 +18,7 @@ const InputField = ({ id, label, placeholder, value, onChange, searchAddress }: 
       {searchAddress ? (
         <SearchAddress {...searchAddress} />
       ) : (
-        <OwnerInput type="text" id={id} placeholder={placeholder} onChange={onChange} value={value} />
+        <OwnerInput required type="text" id={id} placeholder={placeholder} onChange={onChange} value={value} />
       )}
     </>
   );
