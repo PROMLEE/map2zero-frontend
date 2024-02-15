@@ -19,10 +19,15 @@ jobs:
     steps:
       - name: .env setting
         run: |
-          echo "REACT_APP_API_URL=${{ secrets.REACT_APP_SERVER_IP }}" >> .env
-          echo "REACT_APP_REST_API_KEY_Kakao=${{ secrets.REACT_APP_REST_API_KAKAO }}" >> .env
-          echo "REACT_APP_REDIRECT_URL_Kakao=${{ secrets.REACT_APP_REDIRECT_URL_Kakao }}" >> .env
-          echo "REACT_APP_NAVER_MAP=${{ secrets.REACT_APP_NAVER_MAP }}" >> .env
+          echo "REACT_APP_API_URL=${{ secrets.REACT_APP_SERVER_IP }}" >> .env.production
+          echo "REACT_APP_REST_API_KEY_Kakao=${{ secrets.REACT_APP_REST_API_KAKAO }}" >> .env.production
+          echo "REACT_APP_REDIRECT_URL_Kakao=${{ secrets.REACT_APP_REDIRECT_URL_Kakao }}" >> .env.production
+          echo "REACT_APP_NAVER_MAP=${{ secrets.REACT_APP_NAVER_MAP }}" >> .env.production
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_SERVER_IP }}
+          REACT_APP_REST_API_KEY_Kakao: ${{ secrets.REACT_APP_REST_API_KAKAO }}
+          REACT_APP_REDIRECT_URL_Kakao: ${{ secrets.REACT_APP_REDIRECT_URL_Kakao }}
+          REACT_APP_NAVER_MAP: ${{ secrets.REACT_APP_NAVER_MAP }}
       # 레포지토리에 접근하여 CI서버로 코드를 내려받는 과정입니다.
       - name: checkout Github Action
         uses: actions/checkout@v3
