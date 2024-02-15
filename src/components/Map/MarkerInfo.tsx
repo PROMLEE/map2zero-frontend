@@ -48,7 +48,7 @@ export const MarkerInfo = ({ id, name, photo, bookmarked, review_cnt, average_sc
             <BookmarkImg
               src={
                 bookmarked
-                  ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_0.svg`
+                  ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
                   : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.svg`
               }
             />

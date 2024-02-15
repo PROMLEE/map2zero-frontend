@@ -15,6 +15,7 @@ export interface ReviewType {
 }
 export interface UserInfo {
   islogin: boolean;
+  ismanager: boolean;
   email: string;
   nickname: string;
   photo: {

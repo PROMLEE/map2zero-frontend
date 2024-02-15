@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ReviewTag from '../../apis/StoreDetail/GetTags';
+import GetTags from '../../apis/StoreDetail/GetTags';
 import { StoreTagtype } from '../../recoil/StoreDetail/types';
 import { Tagitem } from '.';
 import { useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ export const Storetag = () => {
   const [tags, settags] = useState<StoreTagtype[]>([]);
 
   const getdata = async () => {
-    const data = await ReviewTag('REVIEW');
+    const data = await GetTags('REVIEW');
     settags(data.data);
   };
 

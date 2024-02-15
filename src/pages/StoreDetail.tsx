@@ -7,7 +7,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { reviewmodalState, shareModalState, detailModalState, eventDetailModal } from '../recoil';
 import { StoreState, EventId, EventDetailState } from '../recoil/StoreDetail/StoresState';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import StoreDetailApi from '../apis/StoreDetail/Stores';
 import { Store, EventDetailType } from '../recoil/StoreDetail/types';
 import GetEventDetail from '../apis/StoreDetail/EventDetail';

@@ -5,6 +5,7 @@ const UserInfoState = atom<UserInfo>({
   key: 'userinfo',
   default: {
     islogin: false,
+    ismanager: false,
     email: '',
     nickname: '',
     photo: { url: '' },

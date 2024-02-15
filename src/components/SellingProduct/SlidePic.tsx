@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Slider from 'react-slick';
-
+import GetTag from '../../apis/StoreDetail/GetTags';
+import { useRecoilValue } from 'recoil';
+import { ProductTags } from '../../recoil/Products/Products';
 interface sliderProps {
   /** 슬라이더 아이템 요소 */
   children: React.ReactNode;
@@ -14,8 +16,10 @@ interface sliderProps {
   loop?: boolean;
 }
 
-const list = ['전체', '주방용품', '위생용품', '욕실용품', '식료품', '필기용품', '악세사리', '기타'];
 export const SlidePic = ({ children, className, autoplay = false, speed = 300, loop = false }: sliderProps) => {
+  const tags = useRecoilValue(ProductTags).list;
+
+  // const list = [{ name: 1 }];
   const settings = {
     dots: true,
     infinite: loop,
@@ -25,7 +29,7 @@ export const SlidePic = ({ children, className, autoplay = false, speed = 300, l
     // draggable: false,
     autoplay: Boolean(autoplay),
     appendDots: (dots: string[]) => <Customdot>{dots}</Customdot>,
-    customPaging: (i: number) => <CustomTab>{list[i]}</CustomTab>,
+    customPaging: (i: number) => <CustomTab>{tags[i]}</CustomTab>,
     dotsClass: 'dots_custom',
   };
   return (

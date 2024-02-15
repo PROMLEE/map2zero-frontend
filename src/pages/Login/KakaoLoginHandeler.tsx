@@ -11,10 +11,11 @@ const KakaoLoginHandeler = () => {
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code') || '';
     Login(state, code)
-      .then((res) => {
+      .then((res: any) => {
         localStorage.setItem('accessToken', res.headers['authorization']);
         const data = res.data.data;
         data['islogin'] = true;
+        data['is_manager'] = false;
         userInfo(data);
         if (data.is_new_user) {
           navigate('/nickname');

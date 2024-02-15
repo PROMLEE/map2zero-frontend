@@ -38,12 +38,11 @@ export default function App() {
           <Route path="/setting" element={<Setting />} />
           <Route path="/owner" element={<Owner />} />
           <Route path="/store/:storeid" element={<StoreDetail />} />
-          <Route path="/store" element={<StoreDetail />} />
           <Route path="/map" element={<Map />} />
           <Route path="/nickname" element={<NickName />} />
-          <Route path="/sellingproduct" element={<SellingProduct />} />
-          <Route path="/sellingproductmanage" element={<SellingProductManage />} />
-          <Route path="/eventmanage" element={<EventManage />} />
+          <Route path="/sellingproduct/:storeid" element={<SellingProduct />} />
+          <Route path="/sellingproductmanage/:storeid" element={<SellingProductManage />} />
+          <Route path="/eventmanage/:storeid" element={<EventManage />} />
           <Route path="/owner/mypage" element={<OwnerMypage />} />
           <Route path="/map" element={<Map />} />
           <Route path="/mypage/review" element={<MyReview />} />

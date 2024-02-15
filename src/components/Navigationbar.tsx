@@ -7,7 +7,7 @@ import { ReactComponent as User_mobile } from '../assets/Navbar/user_mobile.svg'
 import { useRecoilState } from 'recoil';
 import { UserInfoState } from '../recoil';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import PersonalInfoApi from '../apis/Mypage/PersonalInfoApi';
 
 export const Navigationbar = () => {
   const [userinfo, setuserinfo] = useRecoilState(UserInfoState);
@@ -23,15 +23,20 @@ export const Navigationbar = () => {
   const getProfileImg = async () => {
     if (data) {
       try {
-        const res: any = await axios.get(`${process.env.REACT_APP_API_URL}my-page`, {
-          headers: { Authorization: accessToken },
-        });
-        const newinfo = { ...userinfo, photo: { url: res.data.data.photo.url }, islogin: true };
+        const res: any = await PersonalInfoApi();
+        console.log(res);
+        const newinfo = {
+          ...userinfo,
+          photo: { url: res.data.photo.url },
+          islogin: true,
+          is_manager: res.data.is_manager,
+        };
         setuserinfo(newinfo);
       } catch (err: any) {
+        console.log(err);
         if (err.response.status === 401) {
           localStorage.removeItem('accessToken');
-          const newinfo = { ...userinfo, photo: { url: '' }, islogin: false };
+          const newinfo = { ...userinfo, photo: { url: '' }, islogin: false, is_manager: false };
           setuserinfo(newinfo);
           setData(null);
         }
