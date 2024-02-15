@@ -18,7 +18,7 @@ import {
   eventPic,
 } from './modals';
 import { InputState } from './Owner/owner';
-import UserInfoState from './userInfo';
+import { UserInfoState, UserState } from './userInfo';
 import { searchToggleState, sellingProductSearchToggle, searchResultState } from './searchToggleState';
 import { eventDetailModal } from './eventDetail';
 import { productManage } from './isowner';
@@ -68,4 +68,5 @@ export {
   profileNameState,
   searchResultState,
   StoreState,
+  UserState,
 };
