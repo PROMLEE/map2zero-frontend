@@ -1,5 +1,3 @@
-import { useRecoilValue } from 'recoil';
-import {  InputPostStateType, InputState } from '../../recoil/Owner/ownerTypes';
 import { authAPI} from '../customApi'
 
  const OwnerApi =  async(data:any)=> {

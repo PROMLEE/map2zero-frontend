@@ -4,7 +4,10 @@ import { AdSlider, Items, StoreInfo } from '../components/Home';
 import { ItemDummy } from '../components/Home/Dummy/ItemDummy';
 import { StoreInfoDummy } from '../components/Home/Dummy/StoreDummy';
 import isLogin from '../utils/isLogin';
+import { useRecoilValue } from 'recoil';
+import { Session } from '../recoil/session';
 export default function Homepage() {
+  useRecoilValue(Session);
   return (
     <ContentWrap>
       <Mobiletop pagename="홈 화면" />

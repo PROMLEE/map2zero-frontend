@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useState} from 'react';
-import { InputState, InputStateType } from '../../recoil/Owner/ownerTypes';
-import { atom, useRecoilState } from 'recoil';
+import React, { ChangeEvent} from 'react';
+import { InputState } from '../../recoil/Owner/ownerState';
+import {  useRecoilState } from 'recoil';
 
 
 

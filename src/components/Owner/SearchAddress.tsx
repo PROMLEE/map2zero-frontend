@@ -1,7 +1,8 @@
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { InputPostState, AddressType } from '../../recoil/Owner/ownerTypes';
+import { AddressType } from '../../recoil/Owner/ownerStateTypes';
+import { InputPostState } from '../../recoil/Owner/ownerState';
 import { useInput } from '../../hooks/Owner';
 import { useRecoilState } from 'recoil';
 

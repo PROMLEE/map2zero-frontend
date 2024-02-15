@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AddressType } from '../../recoil/Owner/ownerTypes';
+import { AddressType } from '../../recoil/Owner/ownerStateTypes';
 import { SearchAddress } from './index';
 
 type InputFieldType = {

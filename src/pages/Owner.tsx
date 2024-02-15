@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { InputField } from '../components/Owner';
 import { useInput } from '../hooks/Owner';
-import { useRecoilState, useRecoilCallback } from 'recoil';
-import { InputPostState } from '../recoil/Owner/ownerTypes';
+import { useRecoilCallback } from 'recoil';
+import { InputPostState } from '../recoil/Owner/ownerState';
 import OwnerApi from '../apis/Owner/OwnerApi';
 
 const Owner = () => {
@@ -32,8 +32,6 @@ const Owner = () => {
               : '',
           },
         };
-
-        // 상태를 업데이트합니다.
         set(InputPostState, updatedAddress);
         const Info = {
           store: updatedAddress,
@@ -44,10 +42,15 @@ const Owner = () => {
     [inputs],
   );
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    postOwner();
+  };
+
   return (
     <Wrap>
       <Title>점주 신청하기</Title>
-      <OwnerForm>
+      <OwnerForm onSubmit={handleSubmit}>
         <ContentWrap>
           <InputField
             id="name"
@@ -80,7 +83,7 @@ const Owner = () => {
             onChange={onHandleChange}
           />
         </ContentWrap>
-        <OwnerBtn onSubmit={postOwner}>신청완료</OwnerBtn>
+        <OwnerBtn type="submit">신청완료</OwnerBtn>
       </OwnerForm>
     </Wrap>
   );

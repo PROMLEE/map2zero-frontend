@@ -29,6 +29,7 @@ export const Navigationbar = () => {
         const newinfo = { ...userinfo, photo: { url: res.data.data.photo.url } };
         setuserinfo(newinfo);
       } catch (err: any) {
+        console.log(err);
         if (err.response.status === 401) {
           localStorage.removeItem('accessToken');
           setData(null);
