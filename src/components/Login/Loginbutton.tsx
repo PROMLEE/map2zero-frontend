@@ -30,10 +30,10 @@ export default function Loginbutton() {
           <img src={`${process.env.PUBLIC_URL}/assets/Login/kakao.svg`} />
           카카오톡 로그인
         </LoginImg>
-        <LoginImg onClick={loginNaver} $background="#03C85A" $color="white">
+        {/* <LoginImg onClick={loginNaver} $background="#03C85A" $color="white">
           <img src={`${process.env.PUBLIC_URL}/assets/Login/naver.svg`} />
           네이버 로그인
-        </LoginImg>
+        </LoginImg> */}
       </LoginImgs>
     </LoginBox>
   );
