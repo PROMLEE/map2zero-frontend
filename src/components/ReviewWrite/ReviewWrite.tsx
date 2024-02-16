@@ -17,7 +17,7 @@ export const ReviewWrite = ({ id }: Props) => {
   const reviewImgState = useRecoilValue(ReviewImgState);
   const reset = useResetRecoilState(ReviewWriteState);
   const imgreset = useResetRecoilState(ReviewImgState);
-  const isConditionMet = reviewState.score !== 0 && reviewState.text !== '';
+  const isConditionMet = reviewState.score !== 0 && reviewState.text.length >= 10;
 
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
