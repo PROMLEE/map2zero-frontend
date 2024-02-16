@@ -77,7 +77,7 @@ export const ProductRegistration = ({ id }: Prop) => {
         </Texts>
         <Name />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
-          카테고리를 선택해 주세요 (중복 가능)
+          카테고리를 선택해 주세요(단일 선택)
         </Texts>
         <Category />
         <Texts $margintopPC={'5.6rem'} $margintopMB={'6.5rem'}>
