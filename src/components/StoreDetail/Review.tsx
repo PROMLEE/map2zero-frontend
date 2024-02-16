@@ -39,7 +39,9 @@ export const Review = ({
           <ProfileImg src={writer.photo.url} />
           <ProfileBox>
             <Nickname>{writer.nickname}</Nickname>
-            <DateText>{created_date}</DateText>
+            <DateText>
+              {created_date.slice(0, 10)} {created_date.slice(11, 16)}
+            </DateText>
             <Stars>
               {[...Array(5)].map((_, index) => (
                 <Rate
@@ -78,7 +80,7 @@ export const Review = ({
         </ReviewImgBox>
         <ReviewTagBox>
           {tags.map((item, index) => (
-            <ReviewTag key={index}>{item.name}</ReviewTag>
+            <ReviewTag key={index}># {item.name}</ReviewTag>
           ))}
         </ReviewTagBox>
         <ReviewText>{text}</ReviewText>

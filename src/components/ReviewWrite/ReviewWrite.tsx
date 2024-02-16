@@ -79,7 +79,7 @@ export const ReviewWrite = ({ id }: Props) => {
         </Texts>
         <Text />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
-          사진을 추가해 주세요
+          사진을 추가해 주세요 (최대 5장)
         </Texts>
         <Addpic />
         <CompleteButton disabled={!isConditionMet} onClick={sendReview}>

@@ -21,21 +21,16 @@ export const Linkbuttons = () => {
 
   return (
     <PicBox>
-      {isMobile ? (
-        <>
-          <Button href="nmap://map?lat=37.4979502&lng=127.0276368&zoom=20&appname=com.example.myapp">
-            <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
-            <ButtonText>위치</ButtonText>
-          </Button>
-        </>
-      ) : (
-        <>
-          <Button href="https://naver.me/FM1XyM8D">
-            <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
-            <ButtonText>위치</ButtonText>
-          </Button>
-        </>
-      )}
+      <Button
+        href={
+          isMobile
+            ? 'nmap://map?lat=37.4979502&lng=127.0276368&zoom=20&appname=com.example.myapp'
+            : 'https://naver.me/FM1XyM8D'
+        }
+      >
+        <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
+        <ButtonText>위치</ButtonText>
+      </Button>
       <Line />
       {isMobile ? (
         <>
@@ -57,7 +52,6 @@ export const Linkbuttons = () => {
       )}
       <Line />
       <Button onClick={() => setModal(true)}>
-        {/* 매장 정보 버튼을 클릭하면 모달을 열도록 핸들러를 추가했습니다. */}
         <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/storefront.svg`} />
         <ButtonText>매장정보</ButtonText>
       </Button>

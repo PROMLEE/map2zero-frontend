@@ -21,7 +21,7 @@ export const Tagitem = ({ name, id }: StoreTagtype) => {
   };
   return (
     <TagItem $istagon={tagon} onClick={onpress}>
-      {name}
+      # {name}
     </TagItem>
   );
 };

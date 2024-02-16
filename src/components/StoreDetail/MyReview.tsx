@@ -87,7 +87,7 @@ export const MyReview = ({
         </ReviewImgBox>
         <ReviewTagBox>
           {tags.map((item, index) => (
-            <ReviewTag key={index}>{item.name}</ReviewTag>
+            <ReviewTag key={index}># {item.name}</ReviewTag>
           ))}
         </ReviewTagBox>
         <ReviewText>{text}</ReviewText>
