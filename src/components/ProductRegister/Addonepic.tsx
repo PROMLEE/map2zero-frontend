@@ -31,7 +31,7 @@ export const Addonepic = () => {
             id="imageInput"
           />
           <CameraButton htmlFor="imageInput" style={{ cursor: 'pointer' }}>
-            <Pic src={`${process.env.PUBLIC_URL}/assets/StoreDetail/new_pic.png`} />
+            <Pic src={`${process.env.PUBLIC_URL}/assets/StoreDetail/new_pic.svg`} />
           </CameraButton>
         </>
       ) : (

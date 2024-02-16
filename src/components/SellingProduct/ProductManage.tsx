@@ -1,29 +1,34 @@
 import { useState } from 'react';
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-
+import { ProductsSale } from '../../apis/SellingProduct/Products';
 interface Props {
-  product: string;
+  name: string;
   price: string;
-  imgurl: string;
-  code: number;
+  photo: { url: string };
+  on_sale: boolean;
+  id: number;
 }
 
-const Selling = atom<boolean>({
-  key: 'Selling',
-  default: true,
-});
+interface saleProps {
+  id: number;
+  onsale: boolean;
+  setonsale: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-export const DropdownList = () => {
+export const DropdownList = ({ id, setonsale }: saleProps) => {
   const text = ['판매중', '품절'];
-  const setselling = useSetRecoilState(Selling);
+  const ButtonClick = async (i: number) => {
+    console.log(id);
+    setonsale(i === 0 ? true : false);
+    await ProductsSale({ store_product_id: id, on_sale: i === 0 ? true : false });
+  };
   return (
     <ul>
       {text.map((li, i) => (
         <DropdownText
           key={i}
           onClick={() => {
-            setselling(i === 0 ? true : false);
+            ButtonClick(i);
           }}
         >
           {li}
@@ -33,9 +38,8 @@ export const DropdownList = () => {
   );
 };
 
-export const Dropdown = () => {
+export const Dropdown = ({ onsale, setonsale, id }: saleProps) => {
   const [isDropdownView, setDropdownView] = useState(false);
-  const selling = useRecoilValue(Selling);
   const handleClickContainer = () => {
     setDropdownView(!isDropdownView);
   };
@@ -49,7 +53,7 @@ export const Dropdown = () => {
     <ProductDropbox onBlur={handleBlurContainer}>
       <label onClick={handleClickContainer}>
         <DropdownButton $isDropdownopen={isDropdownView}>
-          {selling ? '판매중 ' : '품절 '}
+          {onsale ? '판매중 ' : '품절 '}
           <img
             src={
               isDropdownView
@@ -59,18 +63,19 @@ export const Dropdown = () => {
           ></img>
         </DropdownButton>
       </label>
-      {isDropdownView && <DropdownList />}
+      {isDropdownView && <DropdownList {...{ onsale: onsale, setonsale: setonsale, id: id }} />}
     </ProductDropbox>
   );
 };
-export const ProductManage = ({ product, price, imgurl, code }: Props) => {
+export const ProductManage = ({ name, price, photo, on_sale, id }: Props) => {
+  const [onsale, setonsale] = useState(on_sale);
   return (
     <Box>
-      <ProductImg src={imgurl} alt={product} />
-      <ProductName>{product}</ProductName>
+      <ProductImg src={photo.url} alt={name} />
+      <ProductName>{name}</ProductName>
       <BottomBox>
         <ProductPrice>{price}</ProductPrice>
-        <Dropdown />
+        <Dropdown {...{ onsale: onsale, setonsale: setonsale, id: id }} />
       </BottomBox>
     </Box>
   );

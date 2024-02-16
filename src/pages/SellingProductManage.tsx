@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 import { Mobiletop, ScrollToTop } from '../components';
 import { ProductRegistration } from '../components/ProductRegister';
-import NoSearchFile from '../components/SearchFile/NoSearchFile';
-import { SearchBar, DefaultList } from '../components/SellingProduct';
+import { SearchBar, Item } from '../components/SellingProduct';
 import { useEffect, useState } from 'react';
 import { productManage, productRegistModalState } from '../recoil';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Cookies } from 'react-cookie';
+import { SearchState } from '../recoil/Products/Products';
 
 export const SellingProductManage = () => {
-  const [searchText, setSearchText] = useState('');
-  const [searchResultView, setSearchResultView] = useState(false);
+  const setsearchVal = useSetRecoilState(SearchState);
+  const [text, settext] = useState<string>('');
   const [showSideMenu, setShowSideMenu] = useState(false);
   const [fadeInOut, setFadeInOut] = useState('');
   const [modal, setmodal] = useRecoilState(productRegistModalState);
@@ -30,14 +30,12 @@ export const SellingProductManage = () => {
 
   const onInputSearchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target.value;
-    setSearchText(target);
+    settext(target);
   };
 
   //검색했을 때 이벤트
   const searchHandler = () => {
-    if (searchText) {
-      setSearchResultView(true);
-    }
+    setsearchVal(text);
   };
   useEffect(() => {
     isOwner(true);
@@ -46,6 +44,7 @@ export const SellingProductManage = () => {
       setCookie('sellingproductmanage_visit', 'true');
     }
   }, []);
+
   const showMenuList = () => {
     setFadeInOut('fade-in');
     setShowSideMenu(true);
@@ -59,8 +58,8 @@ export const SellingProductManage = () => {
       <ScrollToTop />
       <Mobiletop pagename="판매 제품 관리" />
       <Title>판매 제품 관리</Title>
-      <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
-      {searchResultView ? <NoSearchFile /> : <DefaultList />}
+      <SearchBar searchText={text} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
+      <Item />
       <ButtonBox>
         {showSideMenu ? <ArrowBubble className={'side-menu ' + fadeInOut}>제품추가</ArrowBubble> : null}
         <Button onClick={() => setmodal(true)} onMouseOver={showMenuList} onMouseLeave={closeMenuList} />

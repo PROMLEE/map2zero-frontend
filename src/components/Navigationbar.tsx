@@ -7,7 +7,6 @@ import { ReactComponent as User_mobile } from '../assets/Navbar/user_mobile.svg'
 import { useRecoilState } from 'recoil';
 import { UserInfoState } from '../recoil';
 import { useEffect, useState } from 'react';
-import PersonalInfoApi from '../apis/Mypage/PersonalInfoApi';
 import { authAPI } from '../apis/customApi';
 
 export const Navigationbar = () => {
@@ -27,9 +26,9 @@ export const Navigationbar = () => {
         const res: any = await authAPI.get(`/my-page`);
         const newinfo = {
           ...userinfo,
-          photo: { url: res.data.photo.url },
+          photo: { url: res.data.data.photo.url },
           islogin: true,
-          is_manager: res.data.is_manager,
+          is_manager: res.data.data.is_manager,
         };
         setuserinfo(newinfo);
       } catch (err: any) {
