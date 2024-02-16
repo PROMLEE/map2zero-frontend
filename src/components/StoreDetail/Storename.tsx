@@ -1,23 +1,24 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { shareModalState, StoreState } from '../../recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { shareModalState, StoreState, UserInfoState } from '../../recoil';
 import { Bookmark, BookmarkDel } from '../../apis/StoreDetail/Bookmark';
+
 export const StoreName = () => {
   const [storeDetail, setstoreDetail] = useRecoilState(StoreState);
-  const [handlebookmark, sethandlebookmark] = useState(false);
+  const islogin = useRecoilValue(UserInfoState);
+  const setmodal = useSetRecoilState(shareModalState);
 
   const onclickBookmark = async () => {
-    sethandlebookmark(!handlebookmark);
-    setstoreDetail({ ...storeDetail, is_bookmarked: handlebookmark });
-    if (!handlebookmark) {
-      await Bookmark({ store_id: storeDetail.id });
+    if (islogin.islogin) {
+      storeDetail.is_bookmarked
+        ? await BookmarkDel({ store_id: storeDetail.id })
+        : await Bookmark({ store_id: storeDetail.id });
+      setstoreDetail({ ...storeDetail, is_bookmarked: !storeDetail.is_bookmarked });
     } else {
-      await BookmarkDel({ store_id: storeDetail.id });
+      alert('로그인 후 이용해주세요');
     }
   };
 
-  const setmodal = useSetRecoilState(shareModalState);
   return (
     <DetailBox>
       <Name>{storeDetail.name}</Name>
@@ -26,7 +27,7 @@ export const StoreName = () => {
         <LinkButton
           onClick={onclickBookmark}
           src={
-            handlebookmark
+            storeDetail.is_bookmarked
               ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
               : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.svg`
           }

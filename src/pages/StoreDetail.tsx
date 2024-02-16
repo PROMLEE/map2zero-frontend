@@ -24,7 +24,7 @@ export default function StoreDetail() {
   document.body.style.overflow = reviewmodal || sharemodal || detailmodal || eventmodal ? 'hidden' : 'unset';
   useEffect(() => {
     if (params.storeid) getdata(params.storeid);
-  }, [params.storeid]);
+  }, []);
 
   useEffect(() => {
     if (eventId) getEventdata(eventId);
@@ -36,6 +36,7 @@ export default function StoreDetail() {
       setstoreDetail(data.data);
     }
   };
+
   const getEventdata = async (id: number) => {
     const data = await GetEventDetail(id);
     seteventDetail(data.data);

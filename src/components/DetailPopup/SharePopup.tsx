@@ -36,16 +36,19 @@ export const SharePopup = () => {
         <Information>
           <PicInformation>
             <Frame407>
-              <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/link.svg`} alt="검색결과 없음" />
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/link.svg`} alt="검색결과 없음" />
             </Frame407>
             <PicTexts>링크복사</PicTexts>
           </PicInformation>
           <PicInformation>
-            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/simple-icons_kakaotalk.svg`} alt="검색결과 없음" />
+            <Image
+              src={`${process.env.PUBLIC_URL}/assets/DetailPopup/simple-icons_kakaotalk.svg`}
+              alt="검색결과 없음"
+            />
             <PicTexts>카카오톡</PicTexts>
           </PicInformation>
           <PicInformation>
-            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/image 20.jpg`} alt="검색결과 없음" />
+            <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/image 20.jpg`} alt="검색결과 없음" />
             <PicTexts>페이스북</PicTexts>
           </PicInformation>
         </Information>
