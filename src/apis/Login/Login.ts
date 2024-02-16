@@ -10,13 +10,16 @@ const Handler = async (provider: string) => {
   }
 };
 
-const Login = async (state: string, code: string) => {
+const Login = async (state: string, code: string, token: string) => {
   try {
-    const response = await authAPI.get(`/oauth2/code`, { params: { state: state, code: code } });
+    const response = await authAPI.get(`/oauth2/code`, {
+      params: { state: state, code: code },
+      headers: { Authorization: token },
+    });
     return response;
   } catch (e) {
     console.log(e);
-    alert('연동 에러');
+    alert('로그인 에러');
   }
 };
 

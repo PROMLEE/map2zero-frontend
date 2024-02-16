@@ -16,7 +16,7 @@ const UserInfoState = atom<UserInfo>({
 
 const UserState = atom({
   key: 'UserCode',
-  default: '',
+  default: { state: '', token: '' },
 });
 
 export { UserInfoState, UserState };

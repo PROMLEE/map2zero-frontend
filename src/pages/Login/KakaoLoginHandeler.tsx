@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { UserInfoState, UserState } from '../../recoil';
+import { useSetRecoilState } from 'recoil';
+import { UserInfoState } from '../../recoil';
 import { useNavigate } from 'react-router-dom';
 import { Login } from '../../apis/Login/Login';
+import { useCookies } from 'react-cookie';
 
 const KakaoLoginHandeler = () => {
   const userInfo = useSetRecoilState(UserInfoState);
-  const state = useRecoilValue(UserState);
   const navigate = useNavigate();
+  const [cookies, , removeCookie] = useCookies(['state', 'token']);
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code') || '';
-    Login(state, code)
+    Login(cookies.state, code, cookies.token)
       .then((res: any) => {
         localStorage.setItem('accessToken', res.headers['authorization']);
         const data = res.data.data;
@@ -23,9 +24,13 @@ const KakaoLoginHandeler = () => {
           navigate(`/`);
         }
       })
-      .catch(() => {
-        alert('로그인 오류!');
-        window.location.href = '/login';
+      .catch((e) => {
+        console.log(e);
+        navigate(`/login`);
+      })
+      .then(() => {
+        removeCookie('state');
+        removeCookie('token');
       });
   }, []);
 

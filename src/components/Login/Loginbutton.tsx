@@ -1,16 +1,14 @@
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { UserState } from '../../recoil';
 import { Handler } from '../../apis/Login/Login';
+import { useCookies } from 'react-cookie';
 
 export default function Loginbutton() {
-  const userState = useSetRecoilState(UserState);
+  const [, setCookie] = useCookies(['state', 'token']);
   const LoginHandler = (provider: string) => {
     Handler(provider).then((res: any) => {
       console.log(res);
-      const accessToken = res.headers['authorization'];
-      userState(res.data.data.state);
-      localStorage.setItem('accessToken', accessToken);
+      setCookie('state', res.data.data.state);
+      setCookie('token', res.headers['authorization']);
       window.location.href = res.data.data.url;
     });
   };
