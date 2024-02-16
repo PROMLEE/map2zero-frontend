@@ -8,6 +8,7 @@ import { useRecoilState } from 'recoil';
 import { UserInfoState } from '../recoil';
 import { useEffect, useState } from 'react';
 import PersonalInfoApi from '../apis/Mypage/PersonalInfoApi';
+import { authAPI } from '../apis/customApi';
 
 export const Navigationbar = () => {
   const [userinfo, setuserinfo] = useRecoilState(UserInfoState);
@@ -23,8 +24,7 @@ export const Navigationbar = () => {
   const getProfileImg = async () => {
     if (data) {
       try {
-        const res: any = await PersonalInfoApi();
-        console.log(res);
+        const res: any = await authAPI.get(`/my-page`);
         const newinfo = {
           ...userinfo,
           photo: { url: res.data.photo.url },
@@ -33,7 +33,6 @@ export const Navigationbar = () => {
         };
         setuserinfo(newinfo);
       } catch (err: any) {
-        console.log(err);
         if (err.response.status === 401) {
           localStorage.removeItem('accessToken');
           const newinfo = { ...userinfo, photo: { url: '' }, islogin: false, is_manager: false };
