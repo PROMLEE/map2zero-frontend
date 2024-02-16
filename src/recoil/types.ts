@@ -50,3 +50,9 @@ export interface SearchResultType {
   products: Product[];
   bookmarked: boolean;
 }
+export interface StoreTagtype {
+  id: number;
+  name: string;
+  color: string;
+  category: string;
+}

@@ -1,22 +1,21 @@
-import { atom, selector } from 'recoil';
-import GetTag from '../../apis/StoreDetail/GetTags';
+import { atom } from 'recoil';
 const SearchState = atom({
   key: 'SearchState',
   default: '',
 });
 
-const ProductTags = selector({
-  key: 'ProductTags',
-  get: async () => {
-    const data = await GetTag('PRODUCT');
-    let result: string[] = ['전체'];
-    let id: any[] = [null];
-    data.forEach((element: any) => {
-      result.push(element.name);
-      id.push(element.id);
-    });
-    return { list: result, ids: id };
+const ProductAdd = atom({
+  key: 'ProductAdd',
+  default: {
+    name: '',
+    tag_id: 0,
+    price: 0,
   },
 });
 
-export { SearchState, ProductTags };
+const ProductImg = atom<File[]>({
+  key: 'ProductImg',
+  default: [],
+});
+
+export { SearchState, ProductAdd, ProductImg };

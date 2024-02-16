@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import Slider from 'react-slick';
-import GetTag from '../../apis/StoreDetail/GetTags';
 import { useRecoilValue } from 'recoil';
-import { ProductTags } from '../../recoil/Products/Products';
+import { GetProductTagList } from '../../recoil';
 interface sliderProps {
   /** 슬라이더 아이템 요소 */
   children: React.ReactNode;
@@ -17,7 +16,7 @@ interface sliderProps {
 }
 
 export const SlidePic = ({ children, className, autoplay = false, speed = 300, loop = false }: sliderProps) => {
-  const tags = useRecoilValue(ProductTags).list;
+  const tags = useRecoilValue(GetProductTagList).list;
 
   // const list = [{ name: 1 }];
   const settings = {

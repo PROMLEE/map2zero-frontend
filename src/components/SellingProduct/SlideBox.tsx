@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { SlidePic, TabContents } from '.';
 import { useRecoilValue } from 'recoil';
-import { ProductTags, SearchState } from '../../recoil/Products/Products';
+import { SearchState } from '../../recoil/Products/Products';
+import { GetProductTagList } from '../../recoil';
 import { SearchResult } from '.';
 
 export const Item = () => {
   const searchVal = useRecoilValue(SearchState);
-  const itemList = useRecoilValue(ProductTags).ids;
+  const itemList = useRecoilValue(GetProductTagList).ids;
   return (
     <ProductBox>
       {searchVal !== '' ? (

@@ -1,20 +1,10 @@
 import styled from 'styled-components';
-import GetTags from '../../apis/StoreDetail/GetTags';
-import { StoreTagtype } from '../../recoil/StoreDetail/types';
+import { GetReviewTag } from '../../recoil';
 import { Tagitem } from '.';
-import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 export const Storetag = () => {
-  const [tags, settags] = useState<StoreTagtype[]>([]);
-
-  const getdata = async () => {
-    const data = await GetTags('REVIEW');
-    settags(data.data);
-  };
-
-  useEffect(() => {
-    getdata();
-  }, []);
+  const tags = useRecoilValue(GetReviewTag);
   return (
     <TagsWrap>
       {tags.map((item, index) => {

@@ -3,10 +3,11 @@ import { Mobiletop, ScrollToTop } from '../components';
 import { ProductRegistration } from '../components/ProductRegister';
 import { SearchBar, Item } from '../components/SellingProduct';
 import { useEffect, useState } from 'react';
-import { productManage, productRegistModalState } from '../recoil';
+import { productRegistModalState } from '../recoil';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Cookies } from 'react-cookie';
 import { SearchState } from '../recoil/Products/Products';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const SellingProductManage = () => {
   const setsearchVal = useSetRecoilState(SearchState);
@@ -15,9 +16,8 @@ export const SellingProductManage = () => {
   const [fadeInOut, setFadeInOut] = useState('');
   const [modal, setmodal] = useRecoilState(productRegistModalState);
   document.body.style.overflow = modal ? 'hidden' : 'unset';
-
-  const isOwner = useSetRecoilState(productManage);
-
+  const isOwner = useLocation().pathname.slice(1, 21) === 'sellingproductmanage';
+  const id = useParams().storeid;
   const cookies = new Cookies();
 
   const setCookie = (name: string, value: string, options?: any) => {
@@ -38,10 +38,11 @@ export const SellingProductManage = () => {
     setsearchVal(text);
   };
   useEffect(() => {
-    isOwner(true);
-    if (!getCookie('sellingproductmanage_visit')) {
-      setShowSideMenu(true);
-      setCookie('sellingproductmanage_visit', 'true');
+    if (isOwner) {
+      if (!getCookie('sellingproductmanage_visit')) {
+        setShowSideMenu(true);
+        setCookie('sellingproductmanage_visit', 'true');
+      }
     }
   }, []);
 
@@ -64,7 +65,7 @@ export const SellingProductManage = () => {
         {showSideMenu ? <ArrowBubble className={'side-menu ' + fadeInOut}>제품추가</ArrowBubble> : null}
         <Button onClick={() => setmodal(true)} onMouseOver={showMenuList} onMouseLeave={closeMenuList} />
       </ButtonBox>
-      {modal == true ? <ProductRegistration /> : null}
+      {modal == true ? <ProductRegistration id={Number(id)} /> : null}
     </ProductBox>
   );
 };

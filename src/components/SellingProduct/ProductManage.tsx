@@ -18,7 +18,6 @@ interface saleProps {
 export const DropdownList = ({ id, setonsale }: saleProps) => {
   const text = ['판매중', '품절'];
   const ButtonClick = async (i: number) => {
-    console.log(id);
     setonsale(i === 0 ? true : false);
     await ProductsSale({ store_product_id: id, on_sale: i === 0 ? true : false });
   };
