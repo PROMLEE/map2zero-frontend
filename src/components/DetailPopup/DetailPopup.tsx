@@ -43,7 +43,7 @@ export const DetailPopup = () => {
     <Background>
       <Modal ref={modalRef}>
         <Xbutton
-          src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.svg`}
+          src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
           onClick={() => {
             setModal(false);
           }}
