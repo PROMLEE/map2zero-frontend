@@ -5,8 +5,8 @@ const StoresReview: any = async (id: string) => {
     const response = await baseAPI.get(`/stores/${id}/reviews`);
     return response.data;
   } catch (e) {
-    // console.log(e);
-    // alert('연동 에러');
+    console.log(e);
+    alert('연동 에러');
   }
 };
 const StoresMyReview: any = async (id: string) => {
@@ -14,8 +14,8 @@ const StoresMyReview: any = async (id: string) => {
     const response = await authAPI.get(`/stores/${id}/my-reviews`);
     return response.data;
   } catch (e) {
-    // console.log(e);
-    // alert('연동 에러');
+    console.log(e);
+    alert('연동 에러');
   }
 };
 

@@ -6,6 +6,7 @@ const Handler = async (provider: string) => {
     return response;
   } catch (e) {
     console.log(e);
+    alert('연동 에러');
   }
 };
 
@@ -15,6 +16,7 @@ const Login = async (state: string, code: string) => {
     return response;
   } catch (e) {
     console.log(e);
+    alert('연동 에러');
   }
 };
 

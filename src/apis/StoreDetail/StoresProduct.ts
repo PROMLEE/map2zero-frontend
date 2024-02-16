@@ -5,8 +5,8 @@ const StoreProduct: any = async (id: string) => {
     const response = await baseAPI.get(`/stores/${id}/products`, { params: { size: 6 } });
     return response.data;
   } catch (e) {
-    // console.log(e);
-    // alert('연동 에러');
+    console.log(e);
+    alert('연동 에러');
   }
 };
 

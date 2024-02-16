@@ -5,8 +5,8 @@ const GetTag: any = async (category: string) => {
     const response = await baseAPI.get(`/tags`, { params: { category: category } });
     return response.data.data;
   } catch (e) {
-    // console.log(e);
-    // alert('연동 에러');
+    console.log(e);
+    alert('연동 에러');
   }
 };
 

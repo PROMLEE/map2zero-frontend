@@ -6,7 +6,7 @@ const ReviewSend: any = async (request: any) => {
     return response.data;
   } catch (e) {
     console.log(e);
-    // alert('연동 에러');
+    alert('연동 에러');
   }
 };
 
