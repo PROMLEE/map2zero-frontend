@@ -17,6 +17,7 @@ import {
   SellingProductManage,
   EventManage,
   MyReview,
+  Err,
 } from './pages';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="/map" element={<Map />} />
           <Route path="/mypage/review" element={<MyReview />} />
           <Route path="/bookmarkdetail" element={<MoreDetails />} />
+          <Route path="/*" element={<Err />} />
         </Routes>
       </BrowserRouter>
     </Background>

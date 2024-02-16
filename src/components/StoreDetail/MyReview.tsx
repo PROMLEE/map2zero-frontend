@@ -54,7 +54,7 @@ export const MyReview = ({
                 <Rate
                   key={index}
                   src={
-                    index + 1 < score
+                    index < score
                       ? `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`
                       : `${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.svg`
                   }
