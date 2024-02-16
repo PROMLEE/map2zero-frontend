@@ -46,7 +46,7 @@ export default function StoreDetail() {
     <DetailBox>
       <ScrollToTop />
       <Mobiletop pagename="상세 페이지" />
-      <SlideBox />
+      {storeDetail.photos.length > 0 ? <SlideBox /> : null}
       <StoreIndex />
       <Productlist />
       <Eventlist />
