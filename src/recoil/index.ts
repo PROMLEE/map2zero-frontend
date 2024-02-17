@@ -17,7 +17,7 @@ import {
 } from './modals';
 import { InputState } from './Owner/owner';
 import { UserInfoState, UserState } from './userInfo';
-import { searchToggleState, sellingProductSearchToggle, searchResultState } from './searchToggleState';
+import { searchToggleState, sellingProductSearchToggle, searchResultState, searchTextState } from './searchState';
 
 import {
   imgModalState,
@@ -65,4 +65,5 @@ export {
   GetStoreTag,
   GetProductTagList,
   appliedprofileImgState,
+  searchTextState,
 };

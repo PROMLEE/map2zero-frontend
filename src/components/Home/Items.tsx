@@ -1,20 +1,17 @@
 import styled from 'styled-components';
-import { ItemDummyType } from './Dummy/ItemDummy';
 import { ReactComponent as ArrowIcon } from '../../assets/Home/arrow.svg';
 import { useNavigate } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { MyState, TodayState } from '../../recoil/Home/HomeState';
 
-const Items = ({ info }: { info: ItemDummyType[] }) => {
+const Items = ({ type }: { type: string }) => {
+  const Info = type === 'my' ? useRecoilValue(MyState) : type === 'today' ? useRecoilValue(TodayState) : undefined;
+
   const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [dragState, setDragState] = useState({ dragging: false, startX: 0, clicked: false });
-
-  const onClickStore = () => {
-    if (dragState.clicked && dragState.dragging) {
-      navigate('/store');
-    }
-  };
 
   const onDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault(); // 기본 드래그 막음
@@ -22,16 +19,13 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
       setDragState({
         dragging: true,
         startX: e.pageX + scrollRef.current.scrollLeft,
-        clicked: true,
+        clicked: false,
       });
     }
   };
 
   const onDragEnd = () => {
-    if (dragState.clicked) {
-      onClickStore();
-    }
-    setDragState({ dragging: false, startX: 0, clicked: false });
+    setDragState({ dragging: false, startX: 0, clicked: dragState.clicked });
   };
 
   const onDragMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -40,32 +34,15 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
       const minDragDistance = 10;
 
       if (Math.abs(moveX - dragState.startX) >= minDragDistance) {
-        setDragState((prevState) => ({
-          ...prevState,
-          clicked: false,
-        }));
-
-        const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
         scrollRef.current.scrollLeft = dragState.startX - e.pageX;
-
-        if (scrollLeft === 0) {
-          setDragState((prevState) => ({
-            ...prevState,
-            startX: e.pageX,
-          }));
-        } else if (scrollWidth <= clientWidth + scrollLeft) {
-          setDragState((prevState) => ({
-            ...prevState,
-            startX: e.pageX + scrollLeft,
-          }));
-        }
-      } else {
-        // 거리가 짧으면 클릭으로 간주
-        setDragState((prevState) => ({
-          ...prevState,
-          clicked: true,
-        }));
+        setDragState((prevState) => ({ ...prevState, clicked: false }));
       }
+    }
+  };
+
+  const onClickItem = (storeId: string) => {
+    if (!dragState.dragging) {
+      navigate(`/store/${storeId}`);
     }
   };
 
@@ -95,21 +72,22 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
       onMouseLeave={onDragEnd}
       ref={scrollRef}
     >
-      {info.map((item, index) => (
-        <Item key={index}>
-          <ImgContainer>
-            <img src={item.img} alt={item.itemName} />
-            <Name>{item.itemName}</Name>
-            <Promotion>{item.promotion}</Promotion>
-          </ImgContainer>
-          <StoreNameContainer>
-            <p>{item.storeName}</p>
-            <div>
-              <CustomArrowIcon fill={'#565656'} alt={'화살표'} />
-            </div>
-          </StoreNameContainer>
-        </Item>
-      ))}
+      {Info &&
+        Info.data.map((item: any) => (
+          <Item key={item.store_id} onClick={() => onClickItem(item.store_id)}>
+            <ImgContainer>
+              <img src={item.photo.url} alt={item.name} />
+              <Name>{item.name}</Name>
+              <Promotion>{item.price}</Promotion>
+            </ImgContainer>
+            <StoreNameContainer>
+              <p>{item.name}</p>
+              <div>
+                <CustomArrowIcon fill={'#565656'} alt={'화살표'} />
+              </div>
+            </StoreNameContainer>
+          </Item>
+        ))}
       <div></div>
     </Container>
   );
@@ -118,6 +96,7 @@ const Items = ({ info }: { info: ItemDummyType[] }) => {
 export default Items;
 
 const Container = styled.div`
+  height: 40rem;
   display: flex;
   width: calc(100vw - 10%);
   margin-left: 10%;
@@ -134,13 +113,14 @@ const Container = styled.div`
   @media (max-width: 768px) {
     width: calc(100vw - 5%);
     margin-left: 5%;
+    height: 50rem;
   }
 `;
 
 const Item = styled.div`
   margin-right: 2.4rem;
   width: 33rem;
-  height: 39rem;
+  height: 40rem;
   border-radius: 8px;
   border: 0.5px solid var(--light-gray, #f2f2f2);
   flex-shrink: 0;
@@ -152,7 +132,7 @@ const Item = styled.div`
   @media (max-width: 768px) {
     margin-right: 4rem;
     width: 37.75rem;
-    height: 44.75rem;
+    height: 46rem;
   }
 `;
 
@@ -240,7 +220,7 @@ const StoreNameContainer = styled.div`
     padding: 2rem;
     > p {
       margin-right: 4rem;
-      font-size: 3.5rem;
+      font-size: 2.5rem;
     }
   }
 `;

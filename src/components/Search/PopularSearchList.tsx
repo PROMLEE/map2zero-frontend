@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getPopularSearchApi } from '../../apis/SearchApi';
+import { useNavigate } from 'react-router-dom';
 
 export type TgetPopularSearchResponse = {
   id: number;
@@ -15,6 +16,7 @@ export type TgetPopularSearchResponse = {
 
 export const PopularSearchList = () => {
   const [popularStore, setPopularStore] = useState<TgetPopularSearchResponse[]>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     PopularSearchList();
@@ -41,16 +43,20 @@ export const PopularSearchList = () => {
     };
   }, []);
 
+  const onPopularHandler = (id: number) => {
+    navigate(`/store/${id}`);
+  };
+
   return (
     <ListWrap>
       <h1>실시간 인기 매장</h1>
       <List>
         <div>
           {popularStore &&
-            popularStore.slice(0, 5).map((item) => {
+            popularStore.slice(0, 5).map((item, index) => {
               return (
-                <Data key={item.id}>
-                  <Num>{item.id}</Num>
+                <Data key={item.id} onClick={() => onPopularHandler(item.id)}>
+                  <Num>{index + 1}</Num>
                   <Text>{item.name.length > MAX_LENGTH ? item.name.slice(0, MAX_LENGTH) + '...' : item.name}</Text>
                 </Data>
               );
@@ -58,10 +64,10 @@ export const PopularSearchList = () => {
         </div>
         <div>
           {popularStore &&
-            popularStore.slice(5, 10).map((item) => {
+            popularStore.slice(5, 10).map((item, index) => {
               return (
-                <Data key={item.id}>
-                  <Num>{item.id}</Num>
+                <Data key={item.id} onClick={() => onPopularHandler(item.id)}>
+                  <Num>{index + 6}</Num>
                   <Text>{item.name.length > MAX_LENGTH ? item.name.slice(0, MAX_LENGTH) + '...' : item.name}</Text>
                 </Data>
               );
@@ -95,6 +101,7 @@ const Data = styled.div`
   font-family: 'Noto Sans KR';
   font-size: 14px;
   font-weight: 400;
+  cursor: pointer;
 `;
 
 const Num = styled.div`
