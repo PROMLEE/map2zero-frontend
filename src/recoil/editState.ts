@@ -17,6 +17,11 @@ export const profileImgState = atom<string>({
   }),
 });
 
+export const appliedprofileImgState = atom<File | null>({
+  key: 'appliedprofileImg',
+  default: null,
+});
+
 export const profileNameState = atom<string>({
   key: 'profileName',
   default: '선택한 파일이 없습니다',

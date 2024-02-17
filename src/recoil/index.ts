@@ -26,6 +26,7 @@ import {
   logoutModalState,
   withdrawModalState,
   profileNameState,
+  appliedprofileImgState,
 } from './editState';
 import { StoreState } from './StoreDetail/StoresState';
 import { GetReviewTag, GetProductTag, GetProductTagList, GetStoreTag } from './tags';
@@ -63,4 +64,5 @@ export {
   GetProductTag,
   GetStoreTag,
   GetProductTagList,
+  appliedprofileImgState,
 };

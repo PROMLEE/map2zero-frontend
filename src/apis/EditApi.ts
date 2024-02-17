@@ -24,13 +24,9 @@ export const patchNicknameApi = async (data: any) => {
   }
 };
 
-export const putPhotoApi = async (data: any) => {
+export const putPhotosApi = async (data: any) => {
   try {
-    const response = await authAPI.put(`/avatars/photos`, data, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await authAPI.put(`/avatars/photos`, data, { headers: { 'content-type': 'multipart/form-data' } });
     return response.data;
   } catch (e) {
     console.log(e);
