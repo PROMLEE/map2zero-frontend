@@ -23,8 +23,8 @@ export const SearchResultList = () => {
 
     const generateStarReviews = (reviewCount: number) => {
       const starReviews = [];
-      const fullStar = `${process.env.PUBLIC_URL}assets/Search/greenstar.png`;
-      const grayStar = `${process.env.PUBLIC_URL}assets/Search/graystar.png`;
+      const fullStar = `${process.env.PUBLIC_URL}assets/Search/staro.svg`;
+      const grayStar = `${process.env.PUBLIC_URL}assets/Search/starx.svg`;
     
       for (let i = 0; i < 5; i++) {
         if (i < Math.round(reviewCount)) {
@@ -67,8 +67,8 @@ export const SearchResultList = () => {
             <BookMarkIcon
               src={
                 i.bookmarked
-                  ? `${process.env.PUBLIC_URL}/assets/Search/fullbookmark.png`
-                  : `${process.env.PUBLIC_URL}/assets/Search/emptybookmark.png`
+                  ? `${process.env.PUBLIC_URL}/assets/Search/북마크o.svg`
+                  : `${process.env.PUBLIC_URL}/assets/Search/북마크x.svg`
               }
               alt="북마크아이콘"
               onClick={() => handleClick(i.id)}
