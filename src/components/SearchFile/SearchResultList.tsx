@@ -47,7 +47,7 @@ export const SearchResultList = () => {
           </ProductText>
           <AddressFrame>
             <AddressText>
-              {i.address.province + ' ' + i.address.city + ' ' + i.address.road_name + ' ' + i.address.lot_number}
+              {i.address.province + ' ' + i.address.city + ' ' + i.address.road_name + ' '}
             </AddressText>
             <NumReview>
               {generateStarReviews(i.average_score)}
@@ -80,19 +80,20 @@ const SearchResultContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  margin-top: 48px;
+  width: 92.4rem;
+  margin-top: 4.8rem;
+
 `;
 
 const Container = styled.div`
-  width: 924px;
+  width: 92.4rem;
   height: 162px;
   position: relative;
   background: white;
   border-radius: 8px;
   overflow: hidden;
   border: 1px #f2f2f2 solid;
-  margin-bottom: 24px;
+  margin-bottom: 2.4rem;
 
   &:hover {
     transform: scale(1.1);
@@ -102,10 +103,10 @@ const Container = styled.div`
     background-color: lightgray;
   }
 
-  @media (max-width: 768px) {
-    width: 327px;
-    height: 128px;
-    margin: 24px;
+  @media (min-width: 768px) and (max-width: 999px) {
+    width: 70.7rem;
+    height: 162px;
+    background: white;
 
     // 미디어 쿼리 내부에서 hover 효과를 초기화
     &:hover {
@@ -191,25 +192,25 @@ const NumReview = styled.div`
 `;
 
 const StarReview = styled.img`
-  width: 12px;
+  width: 1.2rem;
   height: 12px;
 
   @media (max-width: 768px) {
-    width: 127px;
+    width: 2.2rem;
   }
 `;
 
 const StoreFrame = styled.div`
-  width: 162px;
-  height: 162px;
+  width: 16.2rem;
+  height: 16.2rem;
   left: 0;
   top: 0;
   position: absolute;
   background: white;
 
   @media (max-width: 768px) {
-    width: 127px;
-    height: 128px;
+    width: 12.7rem;
+    height: 12.8rem;
   }
 `;
 
@@ -229,7 +230,7 @@ const StoreImg = styled.img`
 
 const BookMarkFrame = styled.div`
   padding: 16px;
-  left: 880px;
+  left: 88rem;
   top: 0;
   position: absolute;
   justify-content: flex-end;
@@ -239,7 +240,7 @@ const BookMarkFrame = styled.div`
 
   @media (max-width: 768px) {
     padding: 16px;
-    left: 283px;
+    left: 82.3rem;
     top: 0;
     position: absolute;
     justify-content: flex-start;
