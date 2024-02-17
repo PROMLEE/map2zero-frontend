@@ -33,3 +33,13 @@ export const putPhotosApi = async (data: any) => {
     return undefined;
   }
 };
+
+export const postLogoutApi = async () => {
+  try {
+    const response = await authAPI.post(`/logout`);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    return undefined;
+  }
+};
