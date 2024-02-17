@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { ReviewDummy } from '../components/Mypage/Dummy/ReviewDummy';
 import { useRecoilState } from 'recoil';
 import { popUpModalState } from '../recoil';
 import AccountModal from '../components/Edit/AccountModal';
 import { Mobiletop } from '../components';
 import { getReviewsApi } from '../apis/ReviewApi';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type TReviewList = {
   id: number;
@@ -36,6 +36,7 @@ type TReviewList = {
 export default function MyReview() {
   const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
   const [reviews, setReviews] = useState<TReviewList[]>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     reviewList();
@@ -82,8 +83,12 @@ export default function MyReview() {
       <Reviews>
         {reviews &&
           reviews.map((item) => (
-            <Review key={item.id}>
-              <StoreImg src={item.photo.url} alt={item.store.name} />
+            <Review key={item.id} onClick={() => navigate(`/store/${item.store.id}`)}>
+              {item.photo && item.photo.url ? (
+                <StoreImg src={item.photo.url} alt={item.store.name} />
+              ) : (
+                <NoneImg></NoneImg>
+              )}
               <Heart>
                 <img src={`${process.env.PUBLIC_URL}/assets/ReviewList/heart.svg`} alt="heart" />
                 <p>{item.likeCnt}</p>
@@ -191,6 +196,18 @@ const StoreImg = styled.img`
   }
 `;
 
+const NoneImg = styled.div`
+  min-width: 10rem;
+  height: 100%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: #d9d9d9;
+
+  @media (max-width: 768px) {
+    min-width: 16rem;
+  }
+`;
+
 const Heart = styled.div`
   position: absolute;
   display: flex;
@@ -253,6 +270,7 @@ const Contents = styled.div`
     @media (max-width: 768px) {
       font-size: 8px;
       line-height: 11px;
+      margin-top: 4px;
     }
   }
 `;
