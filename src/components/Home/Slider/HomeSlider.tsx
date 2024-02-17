@@ -7,12 +7,21 @@ import BaseSliderItem from './BaseSliderItem';
 import { useRecoilValue } from 'recoil';
 import { CurationsState, TrendState } from '../../../recoil/Home/HomeState';
 import StoreInfo from '../StoreInfo';
+import { useCallback, useState } from 'react';
 
 interface StyledSliderProps {
   type: string;
 }
 
 const HomeSlider = ({ type }: { type: string }) => {
+  const [dragging, setDragging] = useState<boolean>(false);
+  const handleBeforeChange = useCallback(() => {
+    setDragging(true);
+  }, []);
+  const handleAfterChange = useCallback(() => {
+    setDragging(false);
+  }, []);
+
   const Info =
     type === 'curation'
       ? useRecoilValue(CurationsState)
@@ -22,6 +31,9 @@ const HomeSlider = ({ type }: { type: string }) => {
           ? useRecoilValue(TrendState)
           : undefined;
   const settings: Settings = {
+    touchThreshold: 30,
+    beforeChange: handleBeforeChange,
+    afterChange: handleAfterChange,
     dots: true,
     infinite: true,
     speed: 300,
@@ -38,7 +50,7 @@ const HomeSlider = ({ type }: { type: string }) => {
 
   const ItemGroup = ({ item }: any) => (
     <>
-      <BaseSliderItem item={item} />
+      <BaseSliderItem item={item} dragging={dragging} />
       <StoreInfo item={item} />
     </>
   );
@@ -49,7 +61,7 @@ const HomeSlider = ({ type }: { type: string }) => {
         {Info &&
           Info.data.map((item: any) =>
             type === 'curation' ? (
-              <CurationSliderItem key={item.id} item={item} />
+              <CurationSliderItem key={item.id} item={item} dragging={dragging} />
             ) : (
               <ItemGroup key={item.id} item={item} />
             ),

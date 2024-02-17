@@ -5,12 +5,13 @@ import { BookMarksState } from '../recoil/Home/HomeState';
 import { useRecoilValue } from 'recoil';
 import HomeSlider from '../components/Home/Slider/HomeSlider';
 import { UserInfoState } from '../recoil';
-
+import { ScrollToTop } from '../components';
 export default function Homepage() {
   const user = useRecoilValue(UserInfoState);
   const bookMarksInfo = useRecoilValue(BookMarksState);
   return (
     <ContentWrap>
+      <ScrollToTop />
       <Mobiletop pagename="홈 화면" />
       <HomeSlider type="curation" />
       <h1>요즘 뜨는 매장</h1>

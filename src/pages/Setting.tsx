@@ -25,12 +25,14 @@ export default function Setting() {
       localStorage.removeItem('accessToken');
       setLogoutModalOpen(!logoutModalOpen);
       navigate('/login');
+      window.location.reload(); // 새로고침(네비바)
     }
   };
 
   //회원탈퇴
   const withdrawHandler = () => {
     setWithdrawModalOpen(!withdrawModalOpen);
+    window.location.reload(); // 새로고침(네비바)
   };
 
   return (

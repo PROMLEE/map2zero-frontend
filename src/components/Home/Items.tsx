@@ -139,7 +139,7 @@ const Item = styled.div`
 const ImgContainer = styled.div`
   position: relative;
   > img {
-    width: 100%;
+    max-width: 100%;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     height: 33rem;
@@ -152,7 +152,6 @@ const ImgContainer = styled.div`
     right: 0;
     bottom: 0.2rem;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
-    z-index: 1;
   }
   @media (max-width: 768px) {
     > img {
