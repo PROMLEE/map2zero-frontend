@@ -1,28 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AdItemType } from '../../Dummy/AdDummy';
+import { AdItemType } from '../Dummy/AdDummy';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const SliderItem = ({ item }: { item: AdItemType }) => {
+const CurationSliderItem = ({ item }: { item: any }) => {
+  const ImgURL = item.photo?.url ? item.photo.url : `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`;
+
   return (
     <>
       <ImgWrap>
-        <img src={item.img} alt={item.title} />
+        <img src={ImgURL} alt={item.title} />
         <InfoWrap>
           <h1>{item.title}</h1>
-          <p>{item.date}</p>
+          <p>{item.description}</p>
         </InfoWrap>
       </ImgWrap>
     </>
   );
 };
 
-export default SliderItem;
+export default CurationSliderItem;
 
 const ImgWrap = styled.div`
   position: relative;
-
   > img {
     height: 56rem;
     width: 100%;

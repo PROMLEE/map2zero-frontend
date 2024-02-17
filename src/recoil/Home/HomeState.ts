@@ -1,6 +1,6 @@
 import { selector, selectorFamily} from "recoil";
-import {MyApi,TodayApi,TrendApi} from '../../apis/Home'
-import NearestApi from "../../apis/Home/NearestApi";
+import {BookMarksApi, CurationsApi, MyApi,NearestApi,TodayApi,TrendApi} from '../../apis/Home'
+import { Session } from "../session";
 
 
 const MyState= selector({
@@ -47,6 +47,27 @@ const NearestState=selectorFamily<any, { latitude: number; longitude: number }|n
   },
  
 });
+const  CurationsState = selector<any>({
+  key: " CurationsState ",
+  get : async () => {
+    const data = await CurationsApi();
+    return data; 
+  }
+ 
+});
+
+const  BookMarksState = selector<any>({
+  key: " BookMarksState",
+  get : async ({get}) => {
+    const session = get(Session);
+    const data = await  BookMarksApi();
+    return data; 
+  }
+ 
+});
+
+
+
 
   
-export { MyState, TodayState, TrendState, NearestState };
+export { MyState, TodayState, TrendState, NearestState, CurationsState , BookMarksState  };

@@ -2,10 +2,23 @@ import styled from 'styled-components';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import SliderItem from './SliderItem';
-import { AdItem } from '../../Dummy/AdDummy';
+import { AdItem } from '../Dummy/AdDummy';
+import CurationSliderItem from './CurationSliderItem';
+import BaseSliderItem from './BaseSliderItem';
+import { useRecoilValue } from 'recoil';
+import { CurationsState, TrendState } from '../../../recoil/Home/HomeState';
+import StoreInfo from '../StoreInfo';
 
-const AdSlider = () => {
+const HomeSlider = ({ type }: { type: string }) => {
+  const Info =
+    type === 'curation'
+      ? // ? useRecoilValue(CurationsState)
+        useRecoilValue(TrendState)
+      : type === 'trend'
+        ? useRecoilValue(TrendState)
+        : type === 'bookmark'
+          ? useRecoilValue(TrendState)
+          : undefined;
   const settings: Settings = {
     dots: true,
     infinite: true,
@@ -21,22 +34,34 @@ const AdSlider = () => {
     dotsClass: 'dots_custom',
   };
 
+  const ItemGroup = ({ item }: any) => (
+    <>
+      <BaseSliderItem item={item} />
+      <StoreInfo item={item} />
+    </>
+  );
+
   return (
     <SliderWrap>
       <StyledSlider {...settings}>
-        {AdItem.map((item, index) => (
-          <SliderItem key={index} item={item} />
-        ))}
+        {Info &&
+          Info.data.map((item: any) =>
+            type === 'curation' ? (
+              <CurationSliderItem key={item.id} item={item} />
+            ) : (
+              <ItemGroup key={item.id} item={item} />
+            ),
+          )}
       </StyledSlider>
     </SliderWrap>
   );
 };
 
-export default AdSlider;
+export default HomeSlider;
 
 const SliderWrap = styled.div`
   height: 56rem;
-  width: 100vw;
+  width: 100%;
   margin-bottom: 7rem;
   @media (max-width: 768px) {
     height: 140rem;

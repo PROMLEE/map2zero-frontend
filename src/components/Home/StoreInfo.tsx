@@ -2,115 +2,23 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { StoreInfoDummyType } from './Dummy/StoreDummy';
-import { ReactComponent as ArrowIcon } from '../../assets/Home/arrow.svg';
 import { NearestStateType } from '../../recoil/Home/HomeStateType';
 
-const StoreInfo = ({ info }: { info: NearestStateType }) => {
-  console.log(info);
-  const ImgURL = info.photo ? info.photo : `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`;
-
-  const navigate = useNavigate();
-  const onClickStore = () => {
-    navigate('');
-  };
-
+const StoreInfo = ({ item }: { item: any }) => {
   return (
-    <Container onClick={onClickStore}>
-      <ImgWrap>
-        <img src={ImgURL} alt={info.name} />
-        <Promotation>{info.address.province}</Promotation>
-        <Arrow>
-          <CustomArrowIcon fill={'#ffffff'} alt={'화살표'} />
-        </Arrow>
-      </ImgWrap>
-
-      <Info>
-        <h1>{info.name}</h1>
-        <div>
-          <Star src={`${process.env.PUBLIC_URL}/assets/Home/star.svg`} alt={'스타'} />
-          <Score>{info.average_score}</Score>
-          <Count>{`(${info.review_cnt})`}</Count>
-        </div>
-        <Address>{`${info.address.province} ${info.address.city} ${info.address.road_name}`}</Address>
-      </Info>
-    </Container>
+    <Info>
+      <h1>{item.name}</h1>
+      <div>
+        <Star src={`${process.env.PUBLIC_URL}/assets/Home/star.svg`} alt={'스타'} />
+        <Score>{item.average_score}</Score>
+        <Count>{`(${item.review_cnt})`}</Count>
+      </div>
+      <Address>{`${item.address.province} ${item.address.city} ${item.address.road_name}`}</Address>
+    </Info>
   );
 };
 
 export default StoreInfo;
-const Container = styled.div`
-  width: 80%;
-  height: 72.3rem;
-  border-bottom: 0.5px solid var(--light-gray, #f2f2f2);
-  @media (max-width: 768px) {
-    width: 100%;
-    height: 125.5rem;
-  }
-`;
-
-const ImgWrap = styled.div`
-  position: relative;
-  img {
-    height: 56rem;
-    width: 100%;
-    @media (max-width: 768px) {
-      width: 100%;
-      height: 93.75rem;
-    }
-  }
-  /* 이미지 위에 그라데이션 추가 */
-  &::after {
-    content: '';
-    position: absolute;
-    top: 49rem;
-    left: 0;
-    right: 0;
-    bottom: 0.2rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
-    z-index: 1;
-  }
-
-  @media (max-width: 768px) {
-    &::after {
-      top: 79rem;
-    }
-  }
-`;
-
-const Promotation = styled.p`
-  color: #fff;
-  font-weight: 600;
-  position: absolute;
-  bottom: 3.6rem;
-  font-size: 1.8rem;
-  left: 2.4rem;
-  z-index: 2;
-
-  @media (max-width: 768px) {
-    font-size: 4.5rem;
-    bottom: 4.6rem;
-    left: 6rem;
-  }
-`;
-const Arrow = styled.div`
-  z-index: 2;
-  position: absolute;
-  bottom: 3.6rem;
-  right: 2.4rem;
-  @media (max-width: 768px) {
-    bottom: 5rem;
-    right: 6rem;
-  }
-`;
-
-const CustomArrowIcon = styled(ArrowIcon)`
-  width: 3rem;
-  height: 2rem;
-  @media (max-width: 768px) {
-    width: 8em;
-    height: 6rem;
-  }
-`;
 
 const Info = styled.div`
   width: 100%;

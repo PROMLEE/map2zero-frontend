@@ -1,4 +1,4 @@
-import AdSlider from './Ad/Slider/AdSlider'
+import AdSlider from './Slider/HomeSlider'
 import StoreInfo from './StoreInfo';
 import Items from './Items';
 import BookMark from './BookMark';

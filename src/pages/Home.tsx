@@ -2,24 +2,28 @@ import styled from 'styled-components';
 import { Mobiletop } from '../components';
 import { BookMark, Nearest, My, AdSlider, Today, Trend, Items, StoreInfo } from '../components/Home';
 import isLogin from '../utils/isLogin';
-import { MyState, TodayState, TrendState } from '../recoil/Home/HomeState';
+import { BookMarksState, MyState, TodayState, TrendState } from '../recoil/Home/HomeState';
 import { useRecoilValue } from 'recoil';
+import HomeSlider from '../components/Home/Slider/HomeSlider';
+import { UserInfoState } from '../recoil';
+import { Session } from '../recoil/session';
 export default function Homepage() {
+  const user = useRecoilValue(UserInfoState);
+  const bookMarksInfo = useRecoilValue(BookMarksState);
   return (
     <ContentWrap>
       <Mobiletop pagename="홈 화면" />
-      <AdSlider />
+      <HomeSlider type="curation" />
       <h1>요즘 뜨는 매장</h1>
       <Trend />
       <h1>오늘의 제로웨이스트 상품</h1>
       <Today />
-      {/* {isLogin() && (
+      {user.islogin && !bookMarksInfo.empty && (
         <>
-          {' '}
           <h1>내가 북마크한 매장</h1>
           <BookMark />
         </>
-      )} */}
+      )}
       <h1>가까운 곳에 위치한 매장이에요</h1>
       <Nearest />
       <h1>나만의 제품을 만나 보세요</h1>
