@@ -1,22 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {} from '../../recoil';
-import { SearchDummy } from './SearchDummy';
 import { useRecoilValue } from 'recoil';
 import { searchResultState } from '../../recoil';
+import { useNavigate } from 'react-router-dom';
+
 
 export const SearchResultList = () => {
   const searchResult = useRecoilValue(searchResultState);
+
   const [clickedIds, setClickedIds] = useState<Record<string, boolean>>({}); // 초기에는 클릭된 아이콘 ID x
 
   const handleClick = (id: number) => {
     setClickedIds((prevState) => ({ ...prevState, [id]: !prevState[id] }));
   };
 
+  const navigate = useNavigate();
+
+  function onClickStore(id: number) {
+      navigate(`/store/${id}`);
+    };
+
+    const generateStarReviews = (reviewCount: number) => {
+      const starReviews = [];
+      const fullStar = `${process.env.PUBLIC_URL}assets/Search/greenstar.png`;
+      const grayStar = `${process.env.PUBLIC_URL}assets/Search/graystar.png`;
+    
+      for (let i = 0; i < 5; i++) {
+        if (i < Math.round(reviewCount)) {
+          starReviews.push(<StarReview key={i} src={fullStar} alt="초록별아이콘" />);
+        } else {
+          starReviews.push(<StarReview key={i} src={grayStar} alt="회색별아이콘" />);
+        }
+      }
+      return starReviews;
+    };
+    
+
+
+  
+
   return (
     <SearchResultContainer>
       {searchResult.map((i) => (
-        <Container key={i.id}>
+        <Container key={i.id} onClick={()=>onClickStore(i.id)}>
           <SearchText>{i.name}</SearchText>
           <ProductText>
             {i.products.map((data) => {
@@ -28,12 +55,8 @@ export const SearchResultList = () => {
               {i.address.province + ' ' + i.address.city + ' ' + i.address.road_name + ' ' + i.address.lot_number}
             </AddressText>
             <NumReview>
-              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/greenstar.png`} alt="초록별아이콘" />
-              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/greenstar.png`} alt="초록별아이콘" />
-              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/greenstar.png`} alt="초록별아이콘" />
-              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/graystar.png`} alt="회색별아이콘" />
-              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/graystar.png`} alt="회색별아이콘" />
-              <p>(42)</p>
+              {generateStarReviews(i.average_score)}
+              <p>({i.review_cnt})</p>
             </NumReview>
           </AddressFrame>
           <StoreFrame>
