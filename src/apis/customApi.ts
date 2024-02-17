@@ -6,7 +6,7 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 const Interceptors = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
-      const token = '401e00e8-56da-45e8-b914-74c31bd3eb26';
+      const token = localStorage.getItem('accessToken');
       if (token) {
         config.headers['Authorization'] = token;
       }
