@@ -4,9 +4,47 @@ import { useRecoilState } from 'recoil';
 import { popUpModalState } from '../recoil';
 import AccountModal from '../components/Edit/AccountModal';
 import { Mobiletop } from '../components';
+import { getReviewsApi } from '../apis/ReviewApi';
+import { useEffect, useState } from 'react';
+
+type TReviewList = {
+  id: number;
+  text: string;
+  createdDate: string;
+  score: number;
+  likeCnt: number;
+  store: {
+    id: number;
+    name: string;
+    address: {
+      province: string;
+      city: string;
+      road_name: string;
+      lot_number: string;
+    };
+  };
+  photo: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  liked: boolean;
+  writer: boolean;
+  isWriter: boolean;
+};
 
 export default function MyReview() {
   const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
+  const [reviews, setReviews] = useState<TReviewList[]>();
+
+  useEffect(() => {
+    reviewList();
+  }, []);
+
+  const reviewList = async () => {
+    const data = await getReviewsApi();
+    setReviews(data.data);
+  };
 
   const modalHandler = () => {
     setModalOpen(!modalOpen);
@@ -15,6 +53,17 @@ export default function MyReview() {
   //리뷰 삭제
   const deleteReviewHandler = () => {
     setModalOpen(!modalOpen);
+  };
+
+  //날짜 형식 수정
+  const formatDate = (dateString: string): string => {
+    const dateObject = new Date(dateString);
+
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+    const date = String(dateObject.getDate()).padStart(2, '0');
+
+    return `${year}.${month}.${date}`;
   };
 
   return (
@@ -31,28 +80,29 @@ export default function MyReview() {
       )}
       <h1>내가 쓴 리뷰</h1>
       <Reviews>
-        {ReviewDummy.map((i) => (
-          <Review key={i.storeName}>
-            <StoreImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${i.photo}`} alt={`${i.storeName}}의 이미지`} />
-            <Heart>
-              <img src={`${process.env.PUBLIC_URL}/assets/ReviewList/heart.svg`} alt="heart" />
-              <p>{i.favoriteCount}</p>
-            </Heart>
-            <DataWrap>
-              <Contents>
-                <h3>{i.storeName}</h3>
-                <p>{i.content}</p>
-              </Contents>
-              <RightWrap>
-                <Date>{i.date}</Date>
-                <TrashWrap onClick={modalHandler}>
-                  <TrashIcon src={`${process.env.PUBLIC_URL}/assets/ReviewList/trash.svg`} alt="trash" />
-                  <TrashText>삭제</TrashText>
-                </TrashWrap>
-              </RightWrap>
-            </DataWrap>
-          </Review>
-        ))}
+        {reviews &&
+          reviews.map((item) => (
+            <Review key={item.id}>
+              <StoreImg src={item.photo.url} alt={item.store.name} />
+              <Heart>
+                <img src={`${process.env.PUBLIC_URL}/assets/ReviewList/heart.svg`} alt="heart" />
+                <p>{item.likeCnt}</p>
+              </Heart>
+              <DataWrap>
+                <Contents>
+                  <h3>{item.store.name}</h3>
+                  <p>{item.text}</p>
+                </Contents>
+                <RightWrap>
+                  <ReviewDate>{formatDate(item.createdDate)}</ReviewDate>
+                  <TrashWrap onClick={modalHandler}>
+                    <TrashIcon src={`${process.env.PUBLIC_URL}/assets/ReviewList/trash.svg`} alt="trash" />
+                    <TrashText>삭제</TrashText>
+                  </TrashWrap>
+                </RightWrap>
+              </DataWrap>
+            </Review>
+          ))}
       </Reviews>
     </Container>
   );
@@ -130,13 +180,14 @@ const Review = styled.div`
 `;
 
 const StoreImg = styled.img`
-  width: 10rem;
+  min-width: 10rem;
   height: 100%;
+  object-fit: cover;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 
   @media (max-width: 768px) {
-    width: 16rem;
+    min-width: 16rem;
   }
 `;
 
@@ -178,10 +229,14 @@ const DataWrap = styled.div`
 `;
 
 const Contents = styled.div`
+  overflow: hidden;
+
   > h3 {
     font-size: 14px;
     font-weight: 500;
     color: #000000;
+    white-space: nowrap;
+    max-width: 180px;
 
     @media (max-width: 768px) {
       font-size: 10px;
@@ -190,17 +245,14 @@ const Contents = styled.div`
 
   > p {
     font-size: 10px;
-    margin-top: 4px;
-    width: 21.3rem;
+    line-height: 15px;
+    margin-top: 5px;
+    margin-right: 5px;
     color: #565656;
-
-    @media (max-width: 1000px) {
-      width: 18rem;
-    }
 
     @media (max-width: 768px) {
       font-size: 8px;
-      width: 50rem;
+      line-height: 11px;
     }
   }
 `;
@@ -212,7 +264,7 @@ const RightWrap = styled.div`
   align-items: flex-end;
 `;
 
-const Date = styled.p`
+const ReviewDate = styled.p`
   font-size: 10px;
   color: #d9d9d9;
 
