@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { searchTextState } from '../../recoil';
 import { getRecentSearchApi, deleteSingleRecentSearchApi, deleteAllRecentSearchApi } from '../../apis/SearchApi';
 
 export type TgetRecentSearchResponse = {
@@ -7,8 +9,13 @@ export type TgetRecentSearchResponse = {
   keyword: string;
 };
 
-export const RecentSearchList = () => {
+export type TsearchHandler = {
+  searchHandler: (search: string) => void;
+};
+
+export const RecentSearchList: React.FC<TsearchHandler> = ({ searchHandler }) => {
   const [recentSearch, setRecentSearch] = useState<TgetRecentSearchResponse[]>();
+  const [searchText, setSearchText] = useRecoilState(searchTextState);
 
   useEffect(() => {
     recentSearchList();
@@ -54,11 +61,18 @@ export const RecentSearchList = () => {
             return (
               <TagItem key={item.id}>
                 <img
-                  src={`${process.env.PUBLIC_URL}/assets/Search/delete.png`}
+                  src={`${process.env.PUBLIC_URL}/assets/Search/delete.svg`}
                   alt="삭제"
                   onClick={() => itemClear(item.id)}
                 />
-                <span>{item.keyword.length > 13 ? item.keyword.slice(0, 13) + '...' : item.keyword}</span>
+                <span
+                  onClick={() => {
+                    setSearchText(item.keyword);
+                    searchHandler(item.keyword);
+                  }}
+                >
+                  {item.keyword.length > 13 ? item.keyword.slice(0, 13) + '...' : item.keyword}
+                </span>
               </TagItem>
             );
           })}
@@ -128,5 +142,7 @@ const TagItem = styled.div`
     font-family: 'Noto Sans KR';
     font-size: 10px;
     font-weight: 400;
+    line-height: 0px;
+    cursor: pointer;
   }
 `;

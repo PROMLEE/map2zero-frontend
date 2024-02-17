@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { imgModalState, profileImgState, profileNameState } from '../../recoil';
+import { imgModalState, profileImgState, profileNameState, appliedprofileImgState } from '../../recoil';
 import AvatarEditor from 'react-avatar-editor';
 import PinchZoom from './PinchZoom';
 
@@ -11,7 +11,8 @@ const ProfileImgModal = () => {
   const [imageSrc, setImageSrc] = useState(profileImg);
   const [fileName, setFileName] = useRecoilState<string>(profileNameState);
   const editorRef = useRef<AvatarEditor | null>(null);
-  const [_, setProfileImgImage] = useRecoilState(profileImgState);
+  const setProfileImg = useSetRecoilState(profileImgState);
+  const setAppliedImgFile = useSetRecoilState(appliedprofileImgState);
   const [scale, setScale] = useState(1);
   const cropContainerRef = useRef<HTMLDivElement | null>(null);
   // 뒤로가기 버튼 누를 시 모달 닫기
@@ -40,12 +41,28 @@ const ProfileImgModal = () => {
     setScale(Math.min(Math.max(1, newScale), 3));
   };
 
+  const dataURLtoFile = (dataurl: string, filename: string): File => {
+    let arr = dataurl.split(',');
+    let mime = arr[0].match(/:(.*?);/)![1];
+    let bstr = atob(arr[1]);
+    let n = bstr.length;
+    let u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  };
+
   //수정한 이미지 등록
-  const saveHandler = () => {
+  const saveHandler = async () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas();
       const croppedImage = canvas.toDataURL();
-      setProfileImgImage(croppedImage);
+
+      const imageFile = dataURLtoFile(croppedImage, 'profile.png');
+
+      setAppliedImgFile(imageFile);
+      setProfileImg(croppedImage);
       setModalOpen(!modalOpen);
     }
   };

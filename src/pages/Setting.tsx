@@ -9,15 +9,23 @@ import KakaoEmail from '../components/Edit/KakaoEmail';
 import EditButton from '../components/Edit/EditButton';
 import AccountButton from '../components/Edit/AccountButton';
 import AccountModal from '../components/Edit/AccountModal';
+import { postLogoutApi } from '../apis/EditApi';
+import { useNavigate } from 'react-router-dom';
 
 export default function Setting() {
   const imgModalOpen = useRecoilValue(imgModalState);
   const [logoutModalOpen, setLogoutModalOpen] = useRecoilState(logoutModalState);
   const [withdrawModalOpen, setWithdrawModalOpen] = useRecoilState(withdrawModalState);
+  const navigate = useNavigate();
 
   //로그아웃
-  const logoutHandler = () => {
-    setLogoutModalOpen(!logoutModalOpen);
+  const logoutHandler = async () => {
+    const data = await postLogoutApi();
+    if (data.message === 'OK') {
+      localStorage.removeItem('accessToken');
+      setLogoutModalOpen(!logoutModalOpen);
+      navigate('/login');
+    }
   };
 
   //회원탈퇴
