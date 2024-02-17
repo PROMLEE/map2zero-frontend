@@ -84,20 +84,24 @@ export const DetailPopup = () => {
         </Information>
 
         <TimInformation>
-        <Texts $margintopPC={'0'} $margintopMB={'0'}>
-          운영정보
-        </Texts>
-        <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`}/>
-        
-        <TimeInfo>
-          월 10:00 - 20:00<br />
-          화 10:00 - 20:00<br />
-          수 정기 휴무<br />
-          목 10:00 - 20:00<br />
-          금 10:00 - 20:00<br />
-          토 9:00 - 22:00<br />
-          일 정기 휴무
-        </TimeInfo>
+          <Texts>운영정보</Texts>
+          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`} />
+          <TimeInfo>
+            {storeDetail.operating_hours.map((item, index) => {
+              return (
+                <div key={index}>
+                  {item.day_of_week}{' '}
+                  {item.regular_holiday ? (
+                    <>
+                      {item.start_time} - {item.end_time}
+                    </>
+                  ) : (
+                    <>정기 휴무</>
+                  )}
+                </div>
+              );
+            })}
+          </TimeInfo>
         </TimInformation>
         <TimInformation>
           <Texts>위치&ensp;&ensp;&ensp;&nbsp;</Texts>

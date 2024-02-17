@@ -5,7 +5,6 @@ import { useRecoilValue } from 'recoil';
 import { searchResultState } from '../../recoil';
 import { useNavigate } from 'react-router-dom';
 
-
 export const SearchResultList = () => {
   const searchResult = useRecoilValue(searchResultState);
 
@@ -36,10 +35,6 @@ export const SearchResultList = () => {
       return starReviews;
     };
     
-
-
-  
-
   return (
     <SearchResultContainer>
       {searchResult.map((i) => (
