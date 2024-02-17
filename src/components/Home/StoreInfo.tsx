@@ -1,9 +1,4 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { StoreInfoDummyType } from './Dummy/StoreDummy';
-import { NearestStateType } from '../../recoil/Home/HomeStateType';
-
 const StoreInfo = ({ item }: { item: any }) => {
   return (
     <Info>
@@ -22,7 +17,6 @@ export default StoreInfo;
 
 const Info = styled.div`
   width: 100%;
-  height: 12.7rem;
   padding: 2.4rem;
   display: flex;
   flex-direction: column;

@@ -1,16 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AdItemType } from '../Dummy/AdDummy';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ReactComponent as ArrowIcon } from '../../../assets/Home/arrow.svg';
+import { useNavigate } from 'react-router-dom';
 
 const BaseSliderItem = ({ item }: { item: any }) => {
   const ImgURL = item.photo?.url ? item.photo.url : `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`;
+  const navigate = useNavigate();
+  const onClickStore = () => {
+    navigate(`/store/${item.id}`);
+  };
 
   return (
     <>
-      <ImgWrap>
+      <ImgWrap onClick={onClickStore}>
         <img src={ImgURL} alt={item.name} />
         <Promotation>{item.summary}</Promotation>
         <Arrow>
@@ -25,6 +29,7 @@ export default BaseSliderItem;
 
 const ImgWrap = styled.div`
   position: relative;
+  cursor: pointer;
   img {
     height: 56rem;
     width: 100%;
@@ -37,7 +42,7 @@ const ImgWrap = styled.div`
   &::after {
     content: '';
     position: absolute;
-    top: 49rem;
+    top: 30rem;
     left: 0;
     right: 0;
     bottom: 0.2rem;
@@ -47,34 +52,34 @@ const ImgWrap = styled.div`
 
   @media (max-width: 768px) {
     &::after {
-      top: 79rem;
+      top: 50rem;
     }
   }
 `;
 
 const Promotation = styled.p`
   color: #fff;
-  font-weight: 600;
+  width: 80%;
   position: absolute;
-  bottom: 3.6rem;
-  font-size: 1.8rem;
-  left: 2.4rem;
+  bottom: 5rem;
+  font-size: 1.4rem;
+  left: 4rem;
   z-index: 2;
-
+  line-height: 140%;
   @media (max-width: 768px) {
-    font-size: 4.5rem;
-    bottom: 4.6rem;
+    font-size: 2.4rem;
+    bottom: 10rem;
+    width: 75%;
     left: 6rem;
   }
 `;
 const Arrow = styled.div`
   z-index: 2;
   position: absolute;
-  bottom: 3.6rem;
-  right: 2.4rem;
+  bottom: 5rem;
+  right: 4rem;
   @media (max-width: 768px) {
-    bottom: 5rem;
-    right: 6rem;
+    bottom: 10rem;
   }
 `;
 

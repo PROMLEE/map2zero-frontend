@@ -1,6 +1,6 @@
 import { selector, selectorFamily} from "recoil";
 import {BookMarksApi, CurationsApi, MyApi,NearestApi,TodayApi,TrendApi} from '../../apis/Home'
-import { Session } from "../session";
+import {  session } from "../session";
 
 
 const MyState= selector({
@@ -59,7 +59,7 @@ const  CurationsState = selector<any>({
 const  BookMarksState = selector<any>({
   key: " BookMarksState",
   get : async ({get}) => {
-    const session = get(Session);
+     get(session);
     const data = await  BookMarksApi();
     return data; 
   }

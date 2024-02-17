@@ -1,31 +1,56 @@
-import React from 'react';
 import styled from 'styled-components';
-import { AdItemType } from '../Dummy/AdDummy';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useEffect, useState } from 'react';
+import { ReactComponent as ArrowIcon } from '../../../assets/Home/arrow.svg';
+import { useNavigate } from 'react-router-dom';
 
 const CurationSliderItem = ({ item }: { item: any }) => {
-  const ImgURL = item.photo?.url ? item.photo.url : `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`;
+  const [ImgURL, setImgURL] = useState(`${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`);
+  const navigate = useNavigate();
+  const onClickStore = () => {
+    navigate(`/store/${item.id}`);
+  };
+  useEffect(() => {
+    const handleImgSize = () => {
+      if (window.innerWidth <= 768) {
+        setImgURL(item.mobile_photo?.url || `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`);
+      } else {
+        setImgURL(item.photo?.url || `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`);
+      }
+    };
+
+    handleImgSize();
+    // 윈도우 리사이즈 이벤트에 핸들러 등록
+    window.addEventListener('resize', handleImgSize);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => window.removeEventListener('resize', handleImgSize);
+  }, [item.photo, item.mobilephoto]);
 
   return (
     <>
-      <ImgWrap>
+      <ImgWrap onClick={onClickStore}>
         <img src={ImgURL} alt={item.title} />
         <InfoWrap>
           <h1>{item.title}</h1>
           <p>{item.description}</p>
         </InfoWrap>
+        <Arrow>
+          <CustomArrowIcon fill={'#ffffff'} alt={'화살표'} />
+        </Arrow>
       </ImgWrap>
     </>
   );
 };
 
 export default CurationSliderItem;
-
 const ImgWrap = styled.div`
   position: relative;
+  cursor: pointer;
+
   > img {
-    height: 56rem;
+    height: 64rem;
     width: 100%;
     @media (max-width: 768px) {
       height: 140rem;
@@ -35,11 +60,11 @@ const ImgWrap = styled.div`
   &::after {
     content: '';
     position: absolute;
-    top: 49rem;
+    top: 20rem;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
     z-index: 1;
   }
   @media (max-width: 768px) {
@@ -51,27 +76,49 @@ const ImgWrap = styled.div`
 
 const InfoWrap = styled.div`
   bottom: 7rem;
-  left: 20%;
+  left: 10%;
+  width: 80%;
   z-index: 2;
   position: absolute;
   > h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
     color: #fff;
+
     @media (max-width: 768px) {
       font-size: 5rem;
       margin-bottom: 2.5rem;
     }
   }
   > p {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: #fff;
+    line-height: 140%;
     @media (max-width: 768px) {
-      font-size: 4rem;
+      font-size: 2.5rem;
     }
   }
   @media (max-width: 768px) {
     left: 6rem;
     bottom: 16rem;
+  }
+`;
+
+const Arrow = styled.div`
+  z-index: 2;
+  position: absolute;
+  bottom: 7rem;
+  right: 3rem;
+  @media (max-width: 768px) {
+    bottom: 12rem;
+  }
+`;
+
+const CustomArrowIcon = styled(ArrowIcon)`
+  width: 4rem;
+  height: 3rem;
+  @media (max-width: 768px) {
+    width: 8em;
+    height: 6rem;
   }
 `;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SessionApi = async () => {
+const sessionApi = async () => {
   try {
     const response = await axios.get('https://dev.map2zero.com/session', {
       params: {
@@ -15,4 +15,4 @@ const SessionApi = async () => {
 };
 
 
-export default SessionApi;
+export default sessionApi;

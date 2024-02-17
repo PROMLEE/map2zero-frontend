@@ -13,6 +13,14 @@ const Nearest = () => {
   const onClickStore = () => {
     navigate('');
   };
+
+  const ItemGroup = ({ item }: any) => (
+    <>
+      <BaseSliderItem item={item} />
+      <StoreInfo item={item} />
+    </>
+  );
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -20,8 +28,6 @@ const Nearest = () => {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
-
-        console.log(myLocation);
       });
     } else {
       window.alert('현재위치를 알수 없습니다.');
@@ -34,17 +40,15 @@ const Nearest = () => {
 
   return (
     <Container onClick={onClickStore}>
-      <BaseSliderItem key={NearestInfo.data.id} item={NearestInfo.data} />
-      <StoreInfo item={NearestInfo.data} />
+      <ItemGroup key={NearestInfo.data.id} item={NearestInfo.data} />
     </Container>
   );
 };
 
 export default Nearest;
 const Container = styled.div`
-  background-color: aliceblue;
   width: 80%;
-  height: 72.3rem;
+  height: 69rem;
   border-bottom: 0.5px solid var(--light-gray, #f2f2f2);
   @media (max-width: 768px) {
     width: 100%;

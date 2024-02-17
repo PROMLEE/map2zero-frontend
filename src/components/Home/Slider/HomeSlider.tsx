@@ -2,18 +2,20 @@ import styled from 'styled-components';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { AdItem } from '../Dummy/AdDummy';
 import CurationSliderItem from './CurationSliderItem';
 import BaseSliderItem from './BaseSliderItem';
 import { useRecoilValue } from 'recoil';
 import { CurationsState, TrendState } from '../../../recoil/Home/HomeState';
 import StoreInfo from '../StoreInfo';
 
+interface StyledSliderProps {
+  type: string;
+}
+
 const HomeSlider = ({ type }: { type: string }) => {
   const Info =
     type === 'curation'
-      ? // ? useRecoilValue(CurationsState)
-        useRecoilValue(TrendState)
+      ? useRecoilValue(CurationsState)
       : type === 'trend'
         ? useRecoilValue(TrendState)
         : type === 'bookmark'
@@ -43,7 +45,7 @@ const HomeSlider = ({ type }: { type: string }) => {
 
   return (
     <SliderWrap>
-      <StyledSlider {...settings}>
+      <StyledSlider {...settings} type={type}>
         {Info &&
           Info.data.map((item: any) =>
             type === 'curation' ? (
@@ -60,21 +62,17 @@ const HomeSlider = ({ type }: { type: string }) => {
 export default HomeSlider;
 
 const SliderWrap = styled.div`
-  height: 56rem;
   width: 100%;
-  margin-bottom: 7rem;
-  @media (max-width: 768px) {
-    height: 140rem;
-  }
 `;
 
-const StyledSlider = styled(Slider)`
+const StyledSlider = styled(Slider)<StyledSliderProps>`
   .dots_custom {
     display: inline-block;
     vertical-align: middle;
-    bottom: 2em;
+    bottom: ${(props) => (props.type !== 'curation' ? '13rem' : '2rem')} !important;
+
     @media (max-width: 768px) {
-      bottom: 3rem;
+      bottom: ${(props) => (props.type !== 'curation' ? '47rem' : '2rem')} !important;
     }
   }
 
@@ -84,13 +82,13 @@ const StyledSlider = styled(Slider)`
   }
 
   .dots_custom li button {
-    width: 24rem;
-    height: 0.4rem;
+    width: 7rem;
+    height: 0.3rem;
     background: rgba(255, 255, 255, 0.3);
     color: transparent;
     cursor: pointer;
     @media (max-width: 768px) {
-      width: 20rem;
+      width: 6rem;
       height: 1rem;
     }
   }
@@ -99,19 +97,35 @@ const StyledSlider = styled(Slider)`
     background-color: #fff;
     border-radius: 0.8rem;
   }
+
+  .slick-prev::before {
+    font-size: 30px !important;
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
+  }
+
+  .slick-next::before {
+    font-size: 30px !important;
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
+  }
   .slick-prev {
-    left: 40px !important;
+    top: ${(props) => (props.type !== 'curation' ? '25rem' : '')} !important;
+    left: 4rem !important;
     z-index: 1;
 
     @media (max-width: 768px) {
-      left: 10px !important;
+      top: ${(props) => (props.type !== 'curation' ? '45rem' : '')} !important;
     }
   }
 
   .slick-next {
-    right: 40px !important;
+    top: ${(props) => (props.type !== 'curation' ? '25rem' : '')} !important;
+    right: 4rem !important;
     @media (max-width: 768px) {
-      right: 10px !important;
+      top: ${(props) => (props.type !== 'curation' ? '45rem' : '')} !important;
     }
     z-index: 1;
   }

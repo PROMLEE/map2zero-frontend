@@ -1,16 +1,15 @@
 import { selector } from "recoil";
-import SessionApi from "../apis/SessionApi";
+import sessionApi from "../apis/sessionApi";
 
-const Session= selector< any>({
+const session= selector< any>({
   key: "Session",
   get : async () => {
-    const data = await SessionApi();
+    const data = await sessionApi();
     localStorage.setItem('accessToken', data?.headers['authorization'])
     const accessToken = data?.headers['authorization'];
-    console.log(accessToken)
   }
 
 });
 
 
-export { Session};
+export { session};

@@ -2,7 +2,6 @@ import { authAPI} from '../customApi'
 
  const NearestApi =  async(latitude: number ,longitude: number)=> {
   if(latitude!==0 &&longitude!==0 ){
-    console.log(latitude,longitude)
     try {
       const response = await  authAPI.get(`stores/map/nearest`,{ params:{
         y: String(latitude),
