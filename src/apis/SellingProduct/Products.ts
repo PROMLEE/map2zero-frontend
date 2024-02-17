@@ -3,7 +3,6 @@ import { baseAPI, authAPI } from '../customApi';
 const Products = async (id: number, tag: number | null, keyword: string | null) => {
   try {
     const response = await baseAPI.get(`/stores/${id}/products`, { params: { size: 100, tag: tag, keyword: keyword } });
-    console.log(response);
     return response.data.data;
   } catch (e) {
     console.log(e);

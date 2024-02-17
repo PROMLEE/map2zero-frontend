@@ -48,7 +48,9 @@ export const MyReview = ({
           <ProfileImg src={writer.photo.url} />
           <ProfileBox>
             <Nickname>{writer.nickname}</Nickname>
-            <DateText>2024.00.00</DateText>
+            <DateText>
+              {created_date.slice(0, 10)} {created_date.slice(11, 16)}
+            </DateText>
             <Stars>
               {[...Array(5)].map((_, index) => (
                 <Rate

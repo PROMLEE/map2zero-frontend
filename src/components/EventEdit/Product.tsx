@@ -1,25 +1,29 @@
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 import { eventDetailModal } from '../../recoil';
+import { EventId } from '../../recoil/StoreDetail/StoresState';
 
 interface Props {
-  product: string;
-  date: string;
-  imgurl: string;
-  code: number;
+  id: number;
+  title: string;
+  start_date: string;
+  end_date: string;
+  photo: { url: string };
 }
-export const Product = ({ product, date, imgurl, code }: Props) => {
+export const Product = ({ id, title, start_date, end_date, photo }: Props) => {
   const setEventDetailModal = useSetRecoilState(eventDetailModal);
+  const setid = useSetRecoilState(EventId);
   return (
     <Box
       onClick={() => {
         setEventDetailModal(true);
+        setid(id);
       }}
     >
-      <ProductImg src={imgurl} alt={product} />
-      <ProductName>{product}</ProductName>
+      <ProductImg src={photo.url} alt={photo.url} />
+      <ProductName>{title}</ProductName>
       <Bottombox>
-        <ProductPrice>{date}</ProductPrice>
+        <ProductPrice>{start_date}</ProductPrice>
         <img src={`${process.env.PUBLIC_URL}/assets/Eventmanage/doublearrow.svg`} />
       </Bottombox>
     </Box>
