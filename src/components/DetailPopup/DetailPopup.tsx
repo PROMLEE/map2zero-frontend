@@ -91,7 +91,7 @@ export const DetailPopup = () => {
               return (
                 <div key={index}>
                   {item.day_of_week}{' '}
-                  {item.regular_holiday ? (
+                  {!item.regular_holiday ? (
                     <>
                       {item.start_time} - {item.end_time}
                     </>

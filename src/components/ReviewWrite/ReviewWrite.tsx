@@ -38,6 +38,7 @@ export const ReviewWrite = ({ id }: Props) => {
     reset();
     imgreset();
     setModal(false);
+    window.location.reload();
   };
 
   useEffect(() => {
