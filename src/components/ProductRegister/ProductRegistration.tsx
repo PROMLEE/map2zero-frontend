@@ -1,19 +1,29 @@
 import styled from 'styled-components';
 import { Category, Addonepic, Name, Price } from '.';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { productRegistModalState, productName, productCategory } from '../../recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { productRegistModalState } from '../../recoil';
+import { ProductAdd, ProductImg } from '../../recoil/Products/Products';
 import { useEffect, useRef } from 'react';
+import { ProductSend } from '../../apis/SellingProduct/Products';
 
-export const ProductRegistration = () => {
+interface Prop {
+  id: number;
+}
+
+export const ProductRegistration = ({ id }: Prop) => {
   const setModal = useSetRecoilState(productRegistModalState);
   const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
-  const text = useRecoilValue(productName);
-  const category = useRecoilValue(productCategory);
-  const isConditionMet = text !== '' && category[0];
+  const values = useRecoilValue(ProductAdd);
+  const img = useRecoilValue(ProductImg);
+  const reset = useResetRecoilState(ProductAdd);
+  const imgreset = useResetRecoilState(ProductImg);
+  const isConditionMet = values.name !== '' && values.tag_id !== 0;
 
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setModal(false);
+      reset();
+      imgreset();
     }
   };
 
@@ -36,6 +46,22 @@ export const ProductRegistration = () => {
       window.removeEventListener('popstate', handleEvent);
     };
   }, []);
+
+  const sendReview = async () => {
+    const formData = new FormData();
+    console.log(id);
+    console.log(values);
+    formData.append('request', new Blob([JSON.stringify(values)], { type: 'application/json' }));
+    for (let i = 0; i < img.length; i++) {
+      formData.append('images', img[i]);
+    }
+    await ProductSend(id, formData);
+    alert('리뷰가 작성되었습니다.');
+    reset();
+    imgreset();
+    setModal(false);
+  };
+
   return (
     <Background>
       <Modal ref={modalRef}>
@@ -51,7 +77,7 @@ export const ProductRegistration = () => {
         </Texts>
         <Name />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
-          카테고리를 선택해 주세요 (중복 가능)
+          카테고리를 선택해 주세요(단일 선택)
         </Texts>
         <Category />
         <Texts $margintopPC={'5.6rem'} $margintopMB={'6.5rem'}>
@@ -62,7 +88,9 @@ export const ProductRegistration = () => {
           사진을 추가해 주세요
         </Texts>
         <Addonepic />
-        <CompleteButton disabled={!isConditionMet}>작성 완료</CompleteButton>
+        <CompleteButton disabled={!isConditionMet} onClick={sendReview}>
+          작성 완료
+        </CompleteButton>
       </Modal>
     </Background>
   );

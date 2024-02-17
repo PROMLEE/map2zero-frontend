@@ -1,21 +1,17 @@
 import { useState, ChangeEvent } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { ProductImg } from '../../recoil/Products/Products';
 
 export const Addonepic = () => {
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<any[]>([]);
+  const [reviewState, setreviewState] = useRecoilState(ProductImg);
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-      setImages((prevImages) => fileArray.concat(prevImages));
-      e.target.value = '';
-    }
-  };
-
-  const ImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-      setImages(() => fileArray);
-      console.log(images);
+      const fileArray = Array.from(e.target.files);
+      setreviewState(fileArray.concat(reviewState));
+      setImages(fileArray);
     }
   };
 
@@ -31,16 +27,21 @@ export const Addonepic = () => {
             id="imageInput"
           />
           <CameraButton htmlFor="imageInput" style={{ cursor: 'pointer' }}>
-            <Pic src={`${process.env.PUBLIC_URL}/assets/StoreDetail/new_pic.png`} />
+            <Pic src={`${process.env.PUBLIC_URL}/assets/StoreDetail/new_pic.svg`} />
           </CameraButton>
         </>
       ) : (
         <>
-          {' '}
-          <input type="file" accept="image/*" onChange={ImageChange} style={{ display: 'none' }} id="imageInput" />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            style={{ display: 'none' }}
+            id="imageInput"
+          />
           <CameraButton htmlFor="imageInput" style={{ cursor: 'pointer' }}>
             {images.map((image, index) => (
-              <Pic key={index} src={image} alt={`Uploaded ${index}`} />
+              <Pic key={index} src={URL.createObjectURL(image)} alt={`Uploaded ${index}`} />
             ))}
           </CameraButton>
         </>

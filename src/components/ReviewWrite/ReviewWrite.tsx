@@ -14,20 +14,21 @@ export const ReviewWrite = ({ id }: Props) => {
   const setModal = useSetRecoilState(reviewmodalState);
   const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
   const [reviewState, setreviewState] = useRecoilState(ReviewWriteState);
-  const reset = useResetRecoilState(ReviewWriteState);
   const reviewImgState = useRecoilValue(ReviewImgState);
+  const reset = useResetRecoilState(ReviewWriteState);
   const imgreset = useResetRecoilState(ReviewImgState);
-  const isConditionMet = reviewState.score !== 0 && reviewState.text !== '';
+  const isConditionMet = reviewState.score !== 0 && reviewState.text.length >= 10;
 
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setModal(false);
+      reset();
+      imgreset();
     }
   };
 
   const sendReview = async () => {
     const formData = new FormData();
-    console.log(reviewState);
     formData.append('request', new Blob([JSON.stringify(reviewState)], { type: 'application/json' }));
     for (let i = 0; i < reviewImgState.length; i++) {
       formData.append('images', reviewImgState[i]);
@@ -78,7 +79,7 @@ export const ReviewWrite = ({ id }: Props) => {
         </Texts>
         <Text />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
-          사진을 추가해 주세요
+          사진을 추가해 주세요 (최대 5장)
         </Texts>
         <Addpic />
         <CompleteButton disabled={!isConditionMet} onClick={sendReview}>

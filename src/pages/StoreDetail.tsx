@@ -7,7 +7,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { reviewmodalState, shareModalState, detailModalState, eventDetailModal } from '../recoil';
 import { StoreState, EventId, EventDetailState } from '../recoil/StoreDetail/StoresState';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import StoreDetailApi from '../apis/StoreDetail/Stores';
 import { Store, EventDetailType } from '../recoil/StoreDetail/types';
 import GetEventDetail from '../apis/StoreDetail/EventDetail';
@@ -24,7 +24,7 @@ export default function StoreDetail() {
   document.body.style.overflow = reviewmodal || sharemodal || detailmodal || eventmodal ? 'hidden' : 'unset';
   useEffect(() => {
     if (params.storeid) getdata(params.storeid);
-  }, [params.storeid]);
+  }, []);
 
   useEffect(() => {
     if (eventId) getEventdata(eventId);
@@ -36,6 +36,7 @@ export default function StoreDetail() {
       setstoreDetail(data.data);
     }
   };
+
   const getEventdata = async (id: number) => {
     const data = await GetEventDetail(id);
     seteventDetail(data.data);
@@ -45,7 +46,7 @@ export default function StoreDetail() {
     <DetailBox>
       <ScrollToTop />
       <Mobiletop pagename="상세 페이지" />
-      <SlideBox />
+      {storeDetail.photos.length > 0 ? <SlideBox /> : null}
       <StoreIndex />
       <Productlist />
       <Eventlist />

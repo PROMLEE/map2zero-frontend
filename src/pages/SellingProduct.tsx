@@ -1,38 +1,31 @@
 import styled from 'styled-components';
 import { Mobiletop, ScrollToTop } from '../components';
-import NoSearchFile from '../components/SearchFile/NoSearchFile';
-import { SearchBar, DefaultList } from '../components/SellingProduct';
-import { useEffect, useState } from 'react';
+import { SearchBar, Item } from '../components/SellingProduct';
+import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { productManage } from '../recoil';
+import { SearchState } from '../recoil/Products/Products';
 
 export const SellingProduct = () => {
-  const [searchText, setSearchText] = useState('');
-  const [searchResultView, setSearchResultView] = useState(false);
-  const isOwner = useSetRecoilState(productManage);
+  const setsearchVal = useSetRecoilState(SearchState);
+  const [text, settext] = useState<string>('');
 
   const onInputSearchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target.value;
-    setSearchText(target);
+    settext(target);
   };
 
   //검색했을 때 이벤트
   const searchHandler = () => {
-    if (searchText) {
-      setSearchResultView(true);
-    }
+    setsearchVal(text);
   };
 
-  useEffect(() => {
-    isOwner(false);
-  }, []);
   return (
     <ProductBox>
       <ScrollToTop />
       <Mobiletop pagename="판매중인 제품" />
       <Title>판매중인 제품</Title>
-      <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
-      {searchResultView ? <NoSearchFile /> : <DefaultList />}
+      <SearchBar searchText={text} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
+      <Item />
     </ProductBox>
   );
 };
@@ -49,7 +42,6 @@ const ProductBox = styled.div`
 const Title = styled.div`
   width: 92.4rem;
   margin-top: 6.4rem;
-  font-family: 'Noto Sans KR';
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 600;

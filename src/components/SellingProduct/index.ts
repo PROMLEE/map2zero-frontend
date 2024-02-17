@@ -1,8 +1,9 @@
 import { SearchBar } from './SearchBar';
-import { DefaultList } from './DefaultList';
+import { TabContents } from './TabContents';
 import { Item } from './SlideBox';
 import { Product } from './Product';
 import { SlidePic } from './SlidePic';
 import { ProductManage } from './ProductManage';
+import SearchResult from './SearchResult';
 
-export { SearchBar, DefaultList, Item, Product, SlidePic, ProductManage };
+export { SearchBar, TabContents, Item, Product, SlidePic, ProductManage, SearchResult };

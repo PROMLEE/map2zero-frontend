@@ -1,23 +1,23 @@
 import styled from 'styled-components';
 import { Mobiletop, ScrollToTop } from '../components';
 import { ProductRegistration } from '../components/ProductRegister';
-import NoSearchFile from '../components/SearchFile/NoSearchFile';
-import { SearchBar, DefaultList } from '../components/SellingProduct';
+import { SearchBar, Item } from '../components/SellingProduct';
 import { useEffect, useState } from 'react';
-import { productManage, productRegistModalState } from '../recoil';
+import { productRegistModalState } from '../recoil';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Cookies } from 'react-cookie';
+import { SearchState } from '../recoil/Products/Products';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const SellingProductManage = () => {
-  const [searchText, setSearchText] = useState('');
-  const [searchResultView, setSearchResultView] = useState(false);
+  const setsearchVal = useSetRecoilState(SearchState);
+  const [text, settext] = useState<string>('');
   const [showSideMenu, setShowSideMenu] = useState(false);
   const [fadeInOut, setFadeInOut] = useState('');
   const [modal, setmodal] = useRecoilState(productRegistModalState);
   document.body.style.overflow = modal ? 'hidden' : 'unset';
-
-  const isOwner = useSetRecoilState(productManage);
-
+  const isOwner = useLocation().pathname.slice(1, 21) === 'sellingproductmanage';
+  const id = useParams().storeid;
   const cookies = new Cookies();
 
   const setCookie = (name: string, value: string, options?: any) => {
@@ -30,22 +30,22 @@ export const SellingProductManage = () => {
 
   const onInputSearchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target.value;
-    setSearchText(target);
+    settext(target);
   };
 
   //검색했을 때 이벤트
   const searchHandler = () => {
-    if (searchText) {
-      setSearchResultView(true);
-    }
+    setsearchVal(text);
   };
   useEffect(() => {
-    isOwner(true);
-    if (!getCookie('sellingproductmanage_visit')) {
-      setShowSideMenu(true);
-      setCookie('sellingproductmanage_visit', 'true');
+    if (isOwner) {
+      if (!getCookie('sellingproductmanage_visit')) {
+        setShowSideMenu(true);
+        setCookie('sellingproductmanage_visit', 'true');
+      }
     }
   }, []);
+
   const showMenuList = () => {
     setFadeInOut('fade-in');
     setShowSideMenu(true);
@@ -59,13 +59,13 @@ export const SellingProductManage = () => {
       <ScrollToTop />
       <Mobiletop pagename="판매 제품 관리" />
       <Title>판매 제품 관리</Title>
-      <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
-      {searchResultView ? <NoSearchFile /> : <DefaultList />}
+      <SearchBar searchText={text} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
+      <Item />
       <ButtonBox>
         {showSideMenu ? <ArrowBubble className={'side-menu ' + fadeInOut}>제품추가</ArrowBubble> : null}
         <Button onClick={() => setmodal(true)} onMouseOver={showMenuList} onMouseLeave={closeMenuList} />
       </ButtonBox>
-      {modal == true ? <ProductRegistration /> : null}
+      {modal == true ? <ProductRegistration id={Number(id)} /> : null}
     </ProductBox>
   );
 };
@@ -115,18 +115,20 @@ const ButtonBox = styled.div`
 const ArrowBubble = styled.div`
   padding-top: 1rem;
   color: #0b5c71;
-  font-size: 1rem;
+  font-size: 1.4rem;
   text-align: center;
   margin-left: auto;
   margin-right: 0.5rem;
-  width: 6.4rem;
-  height: 3.8rem;
+  width: 7rem;
+  height: 4.5rem;
   background-image: url('/assets/ProductList/balloon.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
   bottom: 4rem;
   right: 4rem;
   @media (max-width: 768px) {
     padding-top: 2rem;
-    font-size: 2.5rem;
+    font-size: 3rem;
     width: 16rem;
     height: 10rem;
     bottom: 40px;
@@ -139,6 +141,9 @@ const Button = styled.div`
   width: 6.4rem;
   height: 6.4rem;
   margin: 1rem 0.5rem 0 auto;
+  &:hover {
+    cursor: pointer;
+  }
   @media (max-width: 768px) {
     font-size: 2.5rem;
     width: 16rem;

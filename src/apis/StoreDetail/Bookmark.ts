@@ -7,7 +7,7 @@ const Bookmark: any = async (data: any) => {
     return response.data;
   } catch (e) {
     console.log(e);
-    // alert('연동 에러');
+    alert('연동 에러');
   }
 };
 const BookmarkDel: any = async (data: any) => {
@@ -17,7 +17,7 @@ const BookmarkDel: any = async (data: any) => {
     return response.data;
   } catch (e) {
     console.log(e);
-    // alert('연동 에러');
+    alert('연동 에러');
   }
 };
 export { Bookmark, BookmarkDel };

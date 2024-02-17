@@ -1,20 +1,25 @@
 import styled from 'styled-components';
+import { Handler } from '../../apis/Login/Login';
+import { useCookies } from 'react-cookie';
 
 export default function Loginbutton() {
-  const client_id_kakao = process.env.REACT_APP_REST_API_KEY_Kakao;
-  const redirect_uri_kakao = process.env.REACT_APP_REDIRECT_URL_Kakao;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${client_id_kakao}&redirect_uri=${redirect_uri_kakao}&response_type=code`;
-  const loginKaKao = () => {
-    window.location.href = KAKAO_AUTH_URL;
+  const [, setCookie] = useCookies(['state', 'token']);
+  const LoginHandler = (provider: string) => {
+    Handler(provider).then((res: any) => {
+      console.log(res);
+      setCookie('state', res.data.data.state);
+      setCookie('token', res.headers['authorization']);
+      window.location.href = res.data.data.url;
+    });
   };
+  // const client_id_kakao = process.env.REACT_APP_REST_API_KEY_Kakao;
+  // const redirect_uri_kakao = process.env.REACT_APP_REDIRECT_URL_Kakao;
+  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${client_id_kakao}&redirect_uri=${redirect_uri_kakao}&response_type=code`;
 
-  const client_id_naver = process.env.REACT_APP_REST_API_KEY_Naver;
-  const redirect_uri_naver = process.env.REACT_APP_REDIRECT_URL_Naver;
-  const state = process.env.REACT_APP_NAVER_STATE;
-  const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${client_id_naver}&state=${state}&redirect_uri=${redirect_uri_naver}`;
-  const loginNaver = () => {
-    window.location.href = NAVER_AUTH_URL;
-  };
+  // const client_id_naver = process.env.REACT_APP_REST_API_KEY_Naver;
+  // const redirect_uri_naver = process.env.REACT_APP_REDIRECT_URL_Naver;
+  // const state = process.env.REACT_APP_NAVER_STATE;
+  // const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${client_id_naver}&state=${state}&redirect_uri=${redirect_uri_naver}`;
 
   return (
     <LoginBox>
@@ -26,7 +31,7 @@ export default function Loginbutton() {
         <Line src={`${process.env.PUBLIC_URL}/assets/Login/line.svg`} />
       </LoginMiniText>
       <LoginImgs>
-        <LoginImg onClick={loginKaKao} $background="#FEE500" $color="black">
+        <LoginImg onClick={() => LoginHandler('kakao')} $background="#FEE500" $color="black">
           <img src={`${process.env.PUBLIC_URL}/assets/Login/kakao.svg`} />
           카카오톡 로그인
         </LoginImg>

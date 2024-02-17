@@ -8,10 +8,9 @@ export const Addpic = () => {
   const [reviewState, setreviewState] = useRecoilState(ReviewImgState);
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      console.log(e.target.files);
       const fileArray = Array.from(e.target.files);
       setreviewState(fileArray.concat(reviewState));
-      setImages((prevImages) => fileArray.concat(prevImages));
+      setImages((prevImages) => fileArray.concat(prevImages).slice(0, 5));
       e.target.value = '';
     }
   };

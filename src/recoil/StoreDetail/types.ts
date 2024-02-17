@@ -98,13 +98,6 @@ export interface StoreReviewtype {
   isWriter: boolean;
 }
 
-export interface StoreTagtype {
-  id: number;
-  name: string;
-  color: string;
-  category: string;
-}
-
 export interface StoreReviewWrite {
   store_id: number;
   tag_ids: number[];

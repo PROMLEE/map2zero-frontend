@@ -21,7 +21,7 @@ export const DetailPopup = () => {
       newInfo[storeDetail.store_tags[tag].id - 1] = true;
       setstoreInfo(newInfo);
     }
-  });
+  }, []);
 
   useEffect(() => {
     document.addEventListener('mousedown', closeModal);
@@ -53,31 +53,31 @@ export const DetailPopup = () => {
         <Information>
           {storeInfo[0] ? (
             <PicInformation>
-              <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/pets.svg`} />
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/pets.svg`} />
               <PicTexts>반려동물 동반</PicTexts>
             </PicInformation>
           ) : null}
           {storeInfo[1] ? (
             <PicInformation>
-              <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/local_parking.svg`} />
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/local_parking.svg`} />
               <PicTexts>주차가능</PicTexts>
             </PicInformation>
           ) : null}{' '}
           {storeInfo[2] ? (
             <PicInformation>
-              <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/valve.svg`} />
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/valve.svg`} />
               <PicTexts>리필스테이션</PicTexts>
             </PicInformation>
           ) : null}{' '}
           {storeInfo[3] ? (
             <PicInformation>
-              <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/no_stroller.svg`} />
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/no_stroller.svg`} />
               <PicTexts>노키즈존</PicTexts>
             </PicInformation>
           ) : null}{' '}
           {storeInfo[4] ? (
             <PicInformation>
-              <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/barcode_scanner.svg`} />
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/barcode_scanner.svg`} />
               <PicTexts>제로페이</PicTexts>
             </PicInformation>
           ) : null}
@@ -85,7 +85,7 @@ export const DetailPopup = () => {
 
         <TimInformation>
           <Texts>운영정보</Texts>
-          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`} />
+          <InfoImage src={`${process.env.PUBLIC_URL}/assets/DetailPopup/calendar_month.svg`} />
           <TimeInfo>
             {storeDetail.operating_hours.map((item, index) => {
               return (
@@ -105,14 +105,14 @@ export const DetailPopup = () => {
         </TimInformation>
         <TimInformation>
           <Texts>위치&ensp;&ensp;&ensp;&nbsp;</Texts>
-          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/location_on.svg`} />
+          <InfoImage src={`${process.env.PUBLIC_URL}/assets/DetailPopup/location_on.svg`} />
           <TimeInfo>
             {storeDetail.address.province} {storeDetail.address.city} {storeDetail.address.road_name}
           </TimeInfo>
         </TimInformation>
         <TimInformation>
           <Texts>전화번호</Texts>
-          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/call.svg`} />
+          <InfoImage src={`${process.env.PUBLIC_URL}/assets/DetailPopup/call.svg`} />
           <TimeInfo>010-0000-0000</TimeInfo>
         </TimInformation>
       </Modal>

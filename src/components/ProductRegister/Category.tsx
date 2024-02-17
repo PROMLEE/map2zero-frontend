@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import { CategoryItem } from '.';
+import { useRecoilValue } from 'recoil';
+import { GetProductTag } from '../../recoil';
+
 export const Category = () => {
-  const tags = ['주방용품', '위생용품', '욕실용품', '식료품', '필기용품', '악세사리', '기타'];
+  const tags = useRecoilValue(GetProductTag);
 
   return (
     <TagsWrap>
       {tags.map((item, index) => {
-        return <CategoryItem tag={item} key={index} />;
+        return <CategoryItem {...item} key={index} />;
       })}
     </TagsWrap>
   );
