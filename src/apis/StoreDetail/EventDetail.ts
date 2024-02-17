@@ -1,8 +1,8 @@
 import { authAPI } from '../customApi';
 
-const StoreDetailApi: any = async (id: string) => {
+const GetEventDetail: any = async (id: number) => {
   try {
-    const response = await authAPI.get(`/stores/${id}`);
+    const response = await authAPI.get(`/events/${id}`);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -10,4 +10,4 @@ const StoreDetailApi: any = async (id: string) => {
   }
 };
 
-export default StoreDetailApi;
+export default GetEventDetail;

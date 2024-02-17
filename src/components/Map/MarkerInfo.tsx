@@ -1,25 +1,60 @@
 import styled from 'styled-components';
 
-export const MarkerInfo = () => {
+interface MarkerProps {
+  id: number;
+  name: string;
+  address: {
+    province: string;
+    city: string;
+    road_name: string;
+    lot_number: string;
+  };
+  review_cnt: number;
+  average_score: number;
+  x: number;
+  y: number;
+  photo: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  distance: number;
+  bookmarked: boolean;
+}
+
+export const MarkerInfo = ({ id, name, photo, bookmarked, review_cnt, average_score }: MarkerProps) => {
   return (
     <MarkerBox>
-      <Title>매장명</Title>
+      <Title>{name}</Title>
       <InfoBox>
-        <StoreImg />
+        <StoreImg src={photo ? photo.url : `${process.env.PUBLIC_URL}/assets/Navbar/Logo.png`} />
         <TextBox>
           <TopBox>
             <StarBox>
-              <Star src={`${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`} />
-              <Star src={`${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`} />
-              <Star src={`${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`} />
-              <Star src={`${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.svg`} />
-              <Star src={`${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.svg`} />
-              <Reviewnum>(32)</Reviewnum>
+              {' '}
+              {[...Array(5)].map((_, index) => (
+                <Star
+                  key={index}
+                  src={
+                    index < average_score
+                      ? `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`
+                      : `${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.svg`
+                  }
+                  alt={`Star ${index}`}
+                />
+              ))}
+              <Reviewnum>({review_cnt})</Reviewnum>
             </StarBox>
-            <BookmarkImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark.png`} />
+            <BookmarkImg
+              src={
+                bookmarked
+                  ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
+                  : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.svg`
+              }
+            />
           </TopBox>
           <AdressBox>매장 주소</AdressBox>
-          <BottomButton href="/store">매장 상세보기 {'>>'}</BottomButton>
+          <BottomButton href={`/store/${id}`}>매장 상세보기 {'>>'}</BottomButton>
         </TextBox>
       </InfoBox>
     </MarkerBox>
@@ -56,8 +91,7 @@ const Title = styled.div`
 const InfoBox = styled.div`
   display: flex;
 `;
-const StoreImg = styled.div`
-  background-image: url('/assets/Navbar/logo.png');
+const StoreImg = styled.img`
   width: 20.1rem;
   height: 20.1rem;
   background-size: 100% 100%;

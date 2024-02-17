@@ -98,16 +98,25 @@ export interface StoreReviewtype {
   isWriter: boolean;
 }
 
-export interface StoreTagtype {
-  id: number;
-  name: string;
-  color: string;
-  category: string;
-}
-
 export interface StoreReviewWrite {
   store_id: number;
   tag_ids: number[];
   score: number;
   text: string;
+}
+export interface EventDetailType {
+  title: string;
+  description: string;
+  application_url: string;
+  start_date: string;
+  end_date: string;
+  status: string;
+  photos: [
+    {
+      url: string;
+      width: number;
+      height: number;
+    },
+  ];
+  manager: boolean;
 }

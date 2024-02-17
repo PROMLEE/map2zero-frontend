@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { productName } from '../../recoil';
+import { useRecoilState } from 'recoil';
+import { ProductAdd } from '../../recoil/Products/Products';
 
 export const Name = () => {
-  const setText = useSetRecoilState(productName);
+  const [values, setValues] = useRecoilState(ProductAdd);
   const onInputHandler = (e: any) => {
-    setText(e.target.value);
+    setValues({ ...values, name: e.target.value });
   };
 
   return (

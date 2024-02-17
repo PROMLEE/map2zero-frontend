@@ -1,44 +1,37 @@
 import { useEffect } from 'react';
-import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { UserInfoState } from '../../recoil';
 import { useNavigate } from 'react-router-dom';
+import { Login } from '../../apis/Login/Login';
+import { useCookies } from 'react-cookie';
 
 const KakaoLoginHandeler = () => {
   const userInfo = useSetRecoilState(UserInfoState);
   const navigate = useNavigate();
+  const [cookies, , removeCookie] = useCookies(['state', 'token']);
   useEffect(() => {
-    const code = new URL(window.location.href).searchParams.get('code');
-    axios
-      .get(`${process.env.REACT_APP_API_URL}oauth2/state/kakao`)
-      .then((res) => {
-        console.log(res);
-        const accessToken = res.headers['authorization'];
-        axios.defaults.headers.common['Authorization'] = `${accessToken}`;
-        const state = res.data.data.state;
-        axios
-          .get(`${process.env.REACT_APP_API_URL}oauth2/code`, { params: { state: state, code: code } })
-          .then((res) => {
-            localStorage.setItem('accessToken', res.headers['authorization']);
-            axios.defaults.headers.common['Authorization'] = `${res.config.params.code}`;
-            const data = res.data.data;
-            data['islogin'] = true;
-            userInfo(data);
-            if (data.is_new_user) {
-              navigate('/nickname');
-            } else {
-              navigate(`/`);
-            }
-          })
-          .catch(() => {
-            alert('로그인 오류!');
-            window.location.href = '/login';
-          });
+    const code = new URL(window.location.href).searchParams.get('code') || '';
+    Login(cookies.state, code, cookies.token)
+      .then((res: any) => {
+        localStorage.setItem('accessToken', res.headers['authorization']);
+        const data = res.data.data;
+        data['islogin'] = true;
+        data['is_manager'] = false;
+        userInfo(data);
+        if (data.is_new_user) {
+          navigate('/nickname');
+        } else {
+          navigate(`/`);
+        }
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((e) => {
+        console.log(e);
+        navigate(`/login`);
       })
-      .then(function () {});
+      .then(() => {
+        removeCookie('state');
+        removeCookie('token');
+      });
   }, []);
 
   return (

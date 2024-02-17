@@ -29,7 +29,7 @@ export const Productlist = () => {
           <SellingTitle>판매중인 제품</SellingTitle>
           <SellingCount>({storeDetail.store_product_cnt})</SellingCount>
         </LeftText>
-        <Link to="/sellingproduct" style={{ textDecoration: 'none' }}>
+        <Link to={`/sellingproduct/${storeDetail.id}`} style={{ textDecoration: 'none' }}>
           <RightText>전체보기</RightText>
         </Link>
       </Title>

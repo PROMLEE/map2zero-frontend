@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { StoreTagtype } from '../../recoil/StoreDetail/types';
+import { StoreTagtype } from '../../recoil/types';
 import { ReviewWriteState } from '../../recoil/StoreDetail/StoresState';
 import { StoreReviewWrite } from '../../recoil/StoreDetail/types';
 
@@ -21,7 +21,7 @@ export const Tagitem = ({ name, id }: StoreTagtype) => {
   };
   return (
     <TagItem $istagon={tagon} onClick={onpress}>
-      {name}
+      # {name}
     </TagItem>
   );
 };

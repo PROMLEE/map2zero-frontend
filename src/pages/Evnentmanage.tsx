@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { EventDetail, Mobiletop, ScrollToTop } from '../components';
 import { EventEdit, DefaultList } from '../components/EventEdit';
 import { useEffect, useState } from 'react';
-import { productManage, eventManageModalState, eventDetailModal } from '../recoil';
+import { eventManageModalState, eventDetailModal } from '../recoil';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Cookies } from 'react-cookie';
+import { useLocation } from 'react-router-dom';
 
 export const EventManage = () => {
   const [showSideMenu, setShowSideMenu] = useState(false);
@@ -13,7 +14,6 @@ export const EventManage = () => {
   document.body.style.overflow = modal ? 'hidden' : 'unset';
   const eventmodal = useRecoilValue(eventDetailModal);
   document.body.style.overflow = eventmodal ? 'hidden' : 'unset';
-  const isOwner = useSetRecoilState(productManage);
 
   const cookies = new Cookies();
 
@@ -26,7 +26,6 @@ export const EventManage = () => {
   };
 
   useEffect(() => {
-    isOwner(true);
     if (!getCookie('eventmanage_visit')) {
       setShowSideMenu(true);
       setCookie('eventmanage_visit', 'true');

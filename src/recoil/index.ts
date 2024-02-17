@@ -1,5 +1,3 @@
-import { exampleState } from './example';
-import { popUpModalState } from './confirmModal';
 import {
   reviewmodalState,
   productRegistModalState,
@@ -7,23 +5,20 @@ import {
   tagitem,
   starRate,
   textRate,
-  productName,
-  productPrice,
-  productCategory,
-  productPic,
   eventName,
   eventDate,
   eventLink,
   eventExplane,
   eventPic,
+  shareModalState,
+  detailModalState,
+  eventDetailModal,
+  popUpModalState,
 } from './modals';
 import { InputState } from './Owner/owner';
-import UserInfoState from './userInfo';
+import { UserInfoState, UserState } from './userInfo';
 import { searchToggleState, sellingProductSearchToggle, searchResultState } from './searchToggleState';
-import { eventDetailModal } from './eventDetail';
-import { productManage } from './isowner';
-import { shareModalState } from './sharepopupModal';
-import { detailModalState } from './detailPopupModal';
+
 import {
   imgModalState,
   profileImgState,
@@ -33,9 +28,9 @@ import {
   profileNameState,
 } from './editState';
 import { StoreState } from './StoreDetail/StoresState';
+import { GetReviewTag, GetProductTag, GetProductTagList, GetStoreTag } from './tags';
 
 export {
-  exampleState,
   popUpModalState,
   InputState,
   searchToggleState,
@@ -46,19 +41,13 @@ export {
   UserInfoState,
   sellingProductSearchToggle,
   eventDetailModal,
-  productManage,
   productRegistModalState,
   eventManageModalState,
-  productName,
-  productPrice,
-  productCategory,
-  productPic,
   eventName,
   eventDate,
   eventLink,
   eventExplane,
   eventPic,
-  shareModalState,
   detailModalState,
   imgModalState,
   profileImgState,
@@ -68,4 +57,10 @@ export {
   profileNameState,
   searchResultState,
   StoreState,
+  UserState,
+  shareModalState,
+  GetReviewTag,
+  GetProductTag,
+  GetStoreTag,
+  GetProductTagList,
 };

@@ -12,21 +12,6 @@ export const Reviewlist = () => {
   const storeDetail = useRecoilValue(StoreState);
   const userinfo = useRecoilValue(UserInfoState);
 
-  const getdata = async () => {
-    if (storeDetail.id) {
-      const data = await StoresReview(storeDetail.id);
-      setreviewlist(data.data);
-      if (userinfo.islogin) {
-        const mydata = await StoresMyReview(storeDetail.id);
-        setmyreviewlist(mydata.data);
-      }
-    }
-  };
-
-  useEffect(() => {
-    getdata();
-  }, [storeDetail, userinfo]);
-
   const setModal = useSetRecoilState(reviewmodalState);
   const [activeToggle, setActiveToggle] = useState(true);
   const size = 10;
@@ -41,6 +26,20 @@ export const Reviewlist = () => {
   const buttonClick = (n: number) => {
     setcurrentPage(n + 1);
   };
+  const getdata = async () => {
+    if (storeDetail.id) {
+      const data = await StoresReview(storeDetail.id, activeToggle ? 'likeCnt,DESC' : 'createdDate,DESC');
+      setreviewlist(data.data);
+      if (userinfo.islogin) {
+        const mydata = await StoresMyReview(storeDetail.id, activeToggle ? 'likeCnt,DESC' : 'createdDate,DESC');
+        setmyreviewlist(mydata.data);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, [storeDetail, userinfo, activeToggle]);
   return (
     <SellingBox>
       <Title>

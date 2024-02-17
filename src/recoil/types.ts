@@ -15,6 +15,7 @@ export interface ReviewType {
 }
 export interface UserInfo {
   islogin: boolean;
+  ismanager: boolean;
   email: string;
   nickname: string;
   photo: {
@@ -48,4 +49,10 @@ export interface SearchResultType {
   };
   products: Product[];
   bookmarked: boolean;
+}
+export interface StoreTagtype {
+  id: number;
+  name: string;
+  color: string;
+  category: string;
 }

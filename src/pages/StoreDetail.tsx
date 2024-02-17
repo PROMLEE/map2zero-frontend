@@ -3,13 +3,14 @@ import { ReviewWrite, Mobiletop, EventDetail, ScrollToTop } from '../components'
 import { SharePopup } from '../components/DetailPopup/SharePopup';
 import { DetailPopup } from '../components/DetailPopup/DetailPopup';
 import { SlideBox, StoreIndex, Productlist, Eventlist, Reviewlist } from '../components/StoreDetail';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { reviewmodalState, shareModalState, detailModalState, eventDetailModal } from '../recoil';
-import { StoreState } from '../recoil/StoreDetail/StoresState';
+import { StoreState, EventId, EventDetailState } from '../recoil/StoreDetail/StoresState';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import StoreDetailApi from '../apis/StoreDetail/Stores';
-import { Store } from '../recoil/StoreDetail/types';
+import { Store, EventDetailType } from '../recoil/StoreDetail/types';
+import GetEventDetail from '../apis/StoreDetail/EventDetail';
 
 export default function StoreDetail() {
   const params = useParams();
@@ -17,12 +18,17 @@ export default function StoreDetail() {
   const sharemodal = useRecoilValue(shareModalState);
   const detailmodal = useRecoilValue(detailModalState);
   const eventmodal = useRecoilValue(eventDetailModal);
+  const eventId = useRecoilValue(EventId);
   const [storeDetail, setstoreDetail] = useRecoilState<Store>(StoreState);
-
+  const seteventDetail = useSetRecoilState<EventDetailType>(EventDetailState);
   document.body.style.overflow = reviewmodal || sharemodal || detailmodal || eventmodal ? 'hidden' : 'unset';
   useEffect(() => {
     if (params.storeid) getdata(params.storeid);
-  }, [params.storeid]);
+  }, []);
+
+  useEffect(() => {
+    if (eventId) getEventdata(eventId);
+  }, [eventId]);
 
   const getdata = async (id: string) => {
     if (id !== '0') {
@@ -31,12 +37,16 @@ export default function StoreDetail() {
     }
   };
 
+  const getEventdata = async (id: number) => {
+    const data = await GetEventDetail(id);
+    seteventDetail(data.data);
+  };
+
   return (
     <DetailBox>
       <ScrollToTop />
-      {/* {storeId} */}
       <Mobiletop pagename="상세 페이지" />
-      <SlideBox />
+      {storeDetail.photos.length > 0 ? <SlideBox /> : null}
       <StoreIndex />
       <Productlist />
       <Eventlist />
