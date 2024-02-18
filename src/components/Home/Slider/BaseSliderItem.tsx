@@ -50,7 +50,6 @@ const ImgWrap = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 100%;
     &::after {
       top: 50rem;
     }

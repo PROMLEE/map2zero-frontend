@@ -72,6 +72,9 @@ export default Nearest;
 
 const SliderWrap = styled.div`
   width: 80%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const StyledSlider = styled(Slider)`
