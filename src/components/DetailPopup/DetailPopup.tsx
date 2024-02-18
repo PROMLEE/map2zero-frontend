@@ -9,6 +9,7 @@ export const DetailPopup = () => {
   const [storeInfo, setstoreInfo] = useState([false, false, false, false, false]);
   const setModal = useSetRecoilState(detailModalState);
   const modalRef = useRef<HTMLDivElement>(null);
+
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setModal(false);
