@@ -3,14 +3,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useEffect, useState } from 'react';
 import { ReactComponent as ArrowIcon } from '../../../assets/Home/arrow.svg';
-import { useNavigate } from 'react-router-dom';
 
 const CurationSliderItem = ({ item }: { item: any }) => {
   const [ImgURL, setImgURL] = useState(`${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`);
-  const navigate = useNavigate();
-  const onClickStore = () => {
-    navigate(`/store/${item.id}`);
-  };
+
   useEffect(() => {
     const handleImgSize = () => {
       if (window.innerWidth <= 768) {
@@ -30,7 +26,7 @@ const CurationSliderItem = ({ item }: { item: any }) => {
 
   return (
     <>
-      <ImgWrap onClick={onClickStore}>
+      <ImgWrap>
         <img src={ImgURL} alt={item.title} />
         <InfoWrap>
           <h1>{item.title}</h1>
@@ -47,11 +43,10 @@ const CurationSliderItem = ({ item }: { item: any }) => {
 export default CurationSliderItem;
 const ImgWrap = styled.div`
   position: relative;
-  cursor: pointer;
-
+  background-color: rgb(218, 218, 218);
   > img {
-    height: 64rem;
-    width: 100%;
+    height: 100%;
+    margin: 0 auto;
     @media (max-width: 768px) {
       height: 140rem;
     }
@@ -75,6 +70,7 @@ const ImgWrap = styled.div`
 `;
 
 const InfoWrap = styled.div`
+  white-space: pre-wrap;
   bottom: 7rem;
   left: 10%;
   width: 80%;

@@ -73,8 +73,8 @@ const Items = ({ type }: { type: string }) => {
       ref={scrollRef}
     >
       {Info &&
-        Info.data.map((item: any) => (
-          <Item key={item.store_id} onClick={() => onClickItem(item.store_id)}>
+        Info.data.map((item: any, index: number) => (
+          <Item key={index} onClick={() => onClickItem(item.store_id)}>
             <ImgContainer>
               <img src={item.photo.url} alt={item.name} />
               <Name>{item.name}</Name>
@@ -139,7 +139,7 @@ const Item = styled.div`
 const ImgContainer = styled.div`
   position: relative;
   > img {
-    width: 100%;
+    max-width: 100%;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     height: 33rem;
@@ -152,7 +152,6 @@ const ImgContainer = styled.div`
     right: 0;
     bottom: 0.2rem;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
-    z-index: 1;
   }
   @media (max-width: 768px) {
     > img {

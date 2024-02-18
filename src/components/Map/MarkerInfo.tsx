@@ -22,7 +22,7 @@ interface MarkerProps {
   bookmarked: boolean;
 }
 
-export const MarkerInfo = ({ id, name, photo, bookmarked, review_cnt, average_score }: MarkerProps) => {
+export const MarkerInfo = ({ id, name, photo, bookmarked, review_cnt, average_score, address }: MarkerProps) => {
   return (
     <MarkerBox>
       <Title>{name}</Title>
@@ -53,7 +53,9 @@ export const MarkerInfo = ({ id, name, photo, bookmarked, review_cnt, average_sc
               }
             />
           </TopBox>
-          <AdressBox>매장 주소</AdressBox>
+          <AdressBox>
+            {address.province} {address.city} {address.road_name}
+          </AdressBox>
           <BottomButton href={`/store/${id}`}>매장 상세보기 {'>>'}</BottomButton>
         </TextBox>
       </InfoBox>

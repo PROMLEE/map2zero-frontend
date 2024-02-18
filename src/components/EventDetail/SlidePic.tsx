@@ -75,6 +75,15 @@ const StyledSlider = styled(Slider)`
     right: 10px !important;
     z-index: 1;
   }
+  .slick-list {
+    background-color: rgb(218, 218, 218);
+    display: flex;
+    align-items: center; // 이미지가 정방향이 아닐 경우 가운데 위치
+  }
+  .slick-track {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const SlideWrapper = styled.section`

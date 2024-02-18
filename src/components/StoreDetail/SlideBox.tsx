@@ -18,11 +18,12 @@ function Item() {
 
 const SliderItem = styled.div`
   img {
-    width: 92.4rem;
-    height: 48rem;
+    max-width: 92.4rem;
+    max-height: 48rem;
+    margin: 0 auto;
     @media (max-width: 768px) {
-      width: 100%;
-      height: 93.75rem;
+      max-width: 100%;
+      max-height: 93.75rem;
     }
   }
 `;

@@ -23,6 +23,10 @@ export const EventDetail = () => {
     };
   }, []);
 
+  const eventEdit = () => {
+    alert('준비 중입니다! ㅠ');
+  };
+
   return (
     <Background>
       <Modal ref={modalRef}>
@@ -36,8 +40,12 @@ export const EventDetail = () => {
         <Details>
           <Topbox>
             <Title>{data.title}</Title>
-            <EditIcon src={`${process.env.PUBLIC_URL}/assets/EventDetail/edit.svg`} />
-            <EditText>이벤트 수정</EditText>
+            {data.manager ? (
+              <>
+                <EditIcon src={`${process.env.PUBLIC_URL}/assets/EventDetail/edit.svg`} />
+                <EditText onClick={eventEdit}>이벤트 수정</EditText>
+              </>
+            ) : null}
           </Topbox>
           <StateBox>
             {data.status === 'ACTIVE' ? <OnState>진행중</OnState> : <OffState>종료</OffState>}
@@ -211,12 +219,11 @@ const Summary = styled.div`
   margin-top: 2rem;
   width: 100%;
   font-size: 1.2rem;
-  line-height: 0.8rem;
+  line-height: 150%;
   color: #848484;
   @media (max-width: 768px) {
     margin-top: 5rem;
     font-size: 3rem;
-    line-height: 2.5rem;
   }
 `;
 const LinkBox = styled.div`

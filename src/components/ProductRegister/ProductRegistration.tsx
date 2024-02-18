@@ -21,9 +21,11 @@ export const ProductRegistration = ({ id }: Prop) => {
 
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setModal(false);
-      reset();
-      imgreset();
+      if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
+        setModal(false);
+        reset();
+        imgreset();
+      }
     }
   };
 
@@ -35,8 +37,12 @@ export const ProductRegistration = ({ id }: Prop) => {
   }, []);
   // 뒤로가기 버튼 누를 시 모달 닫기
   const handleEvent = () => {
-    history.pushState(null, '', location.href);
-    setModal(false);
+    if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
+      history.go(0);
+      setModal(false);
+      reset();
+      imgreset();
+    }
   };
 
   useEffect(() => {
@@ -49,17 +55,17 @@ export const ProductRegistration = ({ id }: Prop) => {
 
   const sendReview = async () => {
     const formData = new FormData();
-    console.log(id);
-    console.log(values);
     formData.append('request', new Blob([JSON.stringify(values)], { type: 'application/json' }));
     for (let i = 0; i < img.length; i++) {
       formData.append('images', img[i]);
     }
-    await ProductSend(id, formData);
-    alert('리뷰가 작성되었습니다.');
-    reset();
-    imgreset();
-    setModal(false);
+    if (await ProductSend(id, formData)) {
+      alert('물품이 등록되었습니다.');
+      reset();
+      imgreset();
+      setModal(false);
+      window.location.reload();
+    }
   };
 
   return (

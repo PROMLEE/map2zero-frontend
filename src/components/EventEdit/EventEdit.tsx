@@ -1,21 +1,28 @@
 import styled from 'styled-components';
-import { Addonepic, Eventname, EventExplane, EventLink, EventDate } from '.';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { eventManageModalState, eventName, eventExplane, eventPic, eventDate } from '../../recoil';
+import { Addpic, Eventname, EventExplane, EventLink, EventDate } from '.';
+import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { eventManageModalState, EventEditState, EventImgState } from '../../recoil';
 import { useEffect, useRef } from 'react';
+import { EventSend } from '../../apis/Event/Event';
+import { useParams } from 'react-router';
 
 export const EventEdit = () => {
+  const params = useParams();
   const setModal = useSetRecoilState(eventManageModalState);
   const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
-  const eventname = useRecoilValue(eventName);
-  const eventexplane = useRecoilValue(eventExplane);
-  const eventpic = useRecoilValue(eventPic);
-  const eventdate = useRecoilValue(eventDate);
-  const isConditionMet = eventname !== '' && eventexplane !== '';
+  const eventval = useRecoilValue(EventEditState);
+  const eventpic = useRecoilValue(EventImgState);
+  const reseteventval = useResetRecoilState(EventEditState);
+  const reseteventpic = useResetRecoilState(EventImgState);
+  const isConditionMet = eventval.title !== '' && eventval.text.length >= 10;
 
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setModal(false);
+      if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
+        setModal(false);
+        reseteventval();
+        reseteventpic();
+      }
     }
   };
 
@@ -27,8 +34,12 @@ export const EventEdit = () => {
   }, []);
   // 뒤로가기 버튼 누를 시 모달 닫기
   const handleEvent = () => {
-    history.pushState(null, '', location.href);
-    setModal(false);
+    if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
+      history.go(0);
+      setModal(false);
+      reseteventval();
+      reseteventpic();
+    }
   };
 
   useEffect(() => {
@@ -38,6 +49,21 @@ export const EventEdit = () => {
       window.removeEventListener('popstate', handleEvent);
     };
   }, []);
+
+  const sendEvent = async () => {
+    const formData = new FormData();
+    formData.append('request', new Blob([JSON.stringify(eventval)], { type: 'application/json' }));
+    for (let i = 0; i < eventpic.length; i++) {
+      formData.append('images', eventpic[i]);
+    }
+    if (await EventSend(params.storeid, formData)) {
+      alert('새로운 이벤트가 등록되었습니다.');
+      reseteventval();
+      reseteventpic();
+      setModal(false);
+      window.location.reload();
+    }
+  };
   return (
     <Background>
       <Modal ref={modalRef}>
@@ -61,14 +87,16 @@ export const EventEdit = () => {
         </Texts>
         <EventLink />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
-          사진을 추가해 주세요
+          사진을 추가해 주세요 (최대 5장)
         </Texts>
-        <Addonepic />
+        <Addpic />
         <Texts $margintopPC={'5.6rem'} $margintopMB={'6.5rem'}>
           설명을 작성해 주세요
         </Texts>
         <EventExplane />
-        <CompleteButton disabled={!isConditionMet}>작성 완료</CompleteButton>
+        <CompleteButton disabled={!isConditionMet} onClick={sendEvent}>
+          작성 완료
+        </CompleteButton>
       </Modal>
     </Background>
   );

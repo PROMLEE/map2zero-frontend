@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { StoreReviewtype } from '../../recoil/StoreDetail/types';
+import { UserInfoState } from '../../recoil';
+import { useRecoilValue } from 'recoil';
+import { Like, LikeDel } from '../../apis/StoreDetail/Like';
 
 export const Review = ({
   id,
@@ -15,23 +18,32 @@ export const Review = ({
   isWriter,
 }: StoreReviewtype) => {
   const [likeon, setlike] = useState(false);
+  const [likecnt, setlikecnt] = useState(0);
+  const islogin = useRecoilValue(UserInfoState);
 
-  // const increaseLike = (index: number) => {
-  //   setReviews((prevReviews) => {
-  //     const newReviews = [...prevReviews]; // 불변성을 위해 복사본 생성
-  //     newReviews[index] = { ...newReviews[index], like: newReviews[index].like + 1 }; // 해당 리뷰의 like 값을 수정
-  //     return newReviews;
-  //   });
-  // };
+  useEffect(() => {
+    setlike(liked);
+    setlikecnt(like_cnt);
+  }, [like_cnt, liked]);
 
-  // const decreaseLike = (index: number) => {
-  //   setReviews((prevReviews) => {
-  //     const newReviews = [...prevReviews]; // 불변성을 위해 복사본 생성
-  //     newReviews[index] = { ...newReviews[index], like: newReviews[index].like - 1 }; // 해당 리뷰의 like 값을 수정
-  //     return newReviews;
-  //   });
-  // };
+  const increaseLike = async () => {
+    await Like({ review_id: id });
+    setlike(true);
+    setlikecnt(likecnt + 1);
+  };
 
+  const decreaseLike = async () => {
+    await LikeDel({ review_id: id });
+    setlike(false);
+    setlikecnt(likecnt - 1);
+  };
+  const onclickLike = async () => {
+    if (islogin.islogin) {
+      likeon ? decreaseLike() : increaseLike();
+    } else {
+      alert('로그인 후 이용해주세요');
+    }
+  };
   return (
     <Box>
       <ReviewTop>
@@ -59,17 +71,14 @@ export const Review = ({
         </Profile>
         <LikeBox>
           <LikeImg
+            onClick={onclickLike}
             src={
               likeon
                 ? `${process.env.PUBLIC_URL}/assets/StoreDetail/like.svg`
                 : `${process.env.PUBLIC_URL}/assets/StoreDetail/not_like.svg`
             }
-            onClick={() => {
-              // likeon ? decreaseLike(id) : increaseLike(id);
-              setlike(!likeon);
-            }}
           />
-          <LikeNum>{like_cnt}</LikeNum>
+          <LikeNum>{likecnt}</LikeNum>
         </LikeBox>
       </ReviewTop>
       <ReviewBottom>

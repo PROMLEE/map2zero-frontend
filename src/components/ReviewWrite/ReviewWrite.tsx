@@ -21,9 +21,11 @@ export const ReviewWrite = ({ id }: Props) => {
 
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setModal(false);
-      reset();
-      imgreset();
+      if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
+        setModal(false);
+        reset();
+        imgreset();
+      }
     }
   };
 
@@ -33,12 +35,13 @@ export const ReviewWrite = ({ id }: Props) => {
     for (let i = 0; i < reviewImgState.length; i++) {
       formData.append('images', reviewImgState[i]);
     }
-    await ReviewSend(formData);
-    alert('리뷰가 작성되었습니다.');
-    reset();
-    imgreset();
-    setModal(false);
-    window.location.reload();
+    if (await ReviewSend(formData)) {
+      alert('리뷰가 작성되었습니다.');
+      reset();
+      imgreset();
+      setModal(false);
+      window.location.reload();
+    }
   };
 
   useEffect(() => {
@@ -47,13 +50,20 @@ export const ReviewWrite = ({ id }: Props) => {
       document.removeEventListener('mousedown', closeModal);
     };
   }, []);
-
+  const handleEvent = () => {
+    if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
+      history.go(0);
+      setModal(false);
+      reset();
+      imgreset();
+    }
+  };
   useEffect(() => {
     setreviewState({ ...reviewState, store_id: id });
     history.pushState(null, '', location.href);
-    window.addEventListener('popstate', () => setModal(false));
+    window.addEventListener('popstate', handleEvent);
     return () => {
-      window.removeEventListener('popstate', () => setModal(false));
+      window.removeEventListener('popstate', handleEvent);
     };
   }, []);
 

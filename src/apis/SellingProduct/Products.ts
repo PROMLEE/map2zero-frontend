@@ -33,13 +33,14 @@ const ProductsSale = async (body: any) => {
 
 const ProductSend = async (id: number, request: any) => {
   try {
-    const response = await authAPI.post(`/m/stores/${id}/products`, request, {
+    await authAPI.post(`/m/stores/${id}/products`, request, {
       headers: { 'content-type': 'multipart/form-data' },
     });
-    return response.data;
+    return true;
   } catch (e) {
     console.log(e);
-    alert('연동 에러');
+    alert('연동 에러 - 관리자에게 문의해주세요');
+    return false;
   }
 };
 
