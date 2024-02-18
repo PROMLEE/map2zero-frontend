@@ -24,8 +24,8 @@ export const Linkbuttons = () => {
       <Button
         href={
           isMobile
-            ? 'nmap://map?lat=37.4979502&lng=127.0276368&zoom=20&appname=com.example.myapp'
-            : 'https://naver.me/FM1XyM8D'
+            ? `nmap://search?query=${storeDetail.name}&zoom=20&appname=com.example.myapp`
+            : storeDetail.naver_map_url
         }
       >
         <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
@@ -34,7 +34,7 @@ export const Linkbuttons = () => {
       <Line />
       {isMobile ? (
         <>
-          <Button href={'tel:' + '010-0000-0000'}>
+          <Button href={`tel:${storeDetail.contact}`}>
             <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/call.svg`} />
             <ButtonText>전화</ButtonText>
           </Button>

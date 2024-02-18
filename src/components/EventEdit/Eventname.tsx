@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { eventName } from '../../recoil';
+import { useRecoilState } from 'recoil';
+import { EventEditState } from '../../recoil';
 
 export const Eventname = () => {
-  const setText = useSetRecoilState(eventName);
+  const [eventval, setEventval] = useRecoilState(EventEditState);
   const onInputHandler = (e: any) => {
-    setText(e.target.value);
+    setEventval({ ...eventval, title: e.target.value });
   };
 
   return (

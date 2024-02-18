@@ -2,11 +2,11 @@ export interface Store {
   id: number;
   name: string;
   description: string;
-  is_refillable: false;
   contact: string;
   homepage_url: string;
   instagram_url: string;
   bookmark_cnt: number;
+  naver_map_url: string;
   review_cnt: number;
   average_score: number;
   store_product_cnt: number;

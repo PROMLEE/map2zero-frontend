@@ -9,7 +9,7 @@ function SlideBox() {
     <Slick>
       {data.photos.map((item, index) => (
         <SliderItem key={index}>
-          <img src={item.url} />
+          <img src={item.url} alt={item.url} />
         </SliderItem>
       ))}
     </Slick>
@@ -18,11 +18,12 @@ function SlideBox() {
 
 const SliderItem = styled.div`
   img {
-    width: 60.8rem;
-    height: 48rem;
+    max-height: 48rem;
+    max-width: 60.8rem;
+    margin: 0 auto;
     @media (max-width: 768px) {
-      width: 100%;
-      height: 90rem;
+      max-width: 100%;
+      max-height: 90rem;
     }
   }
 `;

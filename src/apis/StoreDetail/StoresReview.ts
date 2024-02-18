@@ -1,8 +1,8 @@
-import { authAPI, baseAPI } from '../customApi';
+import { authAPI } from '../customApi';
 
 const StoresReview: any = async (id: string, sort: string) => {
   try {
-    const response = await baseAPI.get(`/stores/${id}/reviews`, { params: { sort: sort } });
+    const response = await authAPI.get(`/stores/${id}/reviews`, { params: { sort: sort, size: 100 } });
     return response.data;
   } catch (e) {
     console.log(e);
@@ -11,7 +11,7 @@ const StoresReview: any = async (id: string, sort: string) => {
 };
 const StoresMyReview: any = async (id: string, sort: string) => {
   try {
-    const response = await authAPI.get(`/stores/${id}/my-reviews`, { params: { sort: sort } });
+    const response = await authAPI.get(`/stores/${id}/my-reviews`, { params: { sort: sort, size: 100 } });
     return response.data;
   } catch (e) {
     console.log(e);

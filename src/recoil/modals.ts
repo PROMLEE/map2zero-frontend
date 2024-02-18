@@ -28,27 +28,6 @@ const eventManageModalState = atom<boolean>({
   key: 'eventManageModalState',
   default: false,
 });
-const eventName = atom<string>({
-  key: 'evnetName',
-  default: '',
-});
-const eventDate = atom<string>({
-  key: 'eventDate',
-  default: '',
-});
-const eventLink = atom<string[]>({
-  key: 'eventLink',
-  default: [],
-});
-const eventPic = atom<File[]>({
-  key: 'eventPic',
-  default: [],
-});
-
-const eventExplane = atom<string>({
-  key: 'eventExplane',
-  default: '',
-});
 
 const shareModalState = atom({
   key: 'shareModal',
@@ -76,11 +55,6 @@ export {
   tagitem,
   starRate,
   textRate,
-  eventName,
-  eventDate,
-  eventLink,
-  eventExplane,
-  eventPic,
   shareModalState,
   detailModalState,
   eventDetailModal,
