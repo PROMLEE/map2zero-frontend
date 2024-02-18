@@ -46,7 +46,13 @@ export const Reviewlist = () => {
         <ReviewTitle>
           리뷰 <span>({storeDetail.review_cnt})</span>
         </ReviewTitle>
-        <RightText onClick={() => setModal(true)}>리뷰쓰기</RightText>
+        <RightText
+          onClick={() => {
+            userinfo.islogin ? setModal(true) : alert('로그인이 필요합니다!');
+          }}
+        >
+          리뷰쓰기
+        </RightText>
       </Title>
       {myreviewlist.length > 0 && (
         <MyReviewbox>

@@ -1,20 +1,13 @@
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { StoreState } from '../../recoil/StoreDetail/StoresState';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { detailModalState } from '../../recoil';
 
 export const DetailPopup = () => {
   const storeDetail = useRecoilValue(StoreState);
   const [storeInfo, setstoreInfo] = useState([false, false, false, false, false]);
   const setModal = useSetRecoilState(detailModalState);
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  const closeModal = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setModal(false);
-    }
-  };
 
   useEffect(() => {
     const newInfo = [...storeInfo];
@@ -25,24 +18,18 @@ export const DetailPopup = () => {
   }, [storeDetail]);
 
   useEffect(() => {
-    document.addEventListener('mousedown', closeModal);
-    return () => {
-      document.removeEventListener('mousedown', closeModal);
+    const preventGoBack = () => {
+      history.pushState(null, '', location.href);
+      setModal(false);
     };
-  }, []);
-
-  // 뒤로가기 버튼 누를 시 모달 닫기
-  useEffect(() => {
     history.pushState(null, '', location.href);
-    window.addEventListener('popstate', () => setModal(false));
-    return () => {
-      window.removeEventListener('popstate', () => setModal(false));
-    };
+    window.addEventListener('popstate', preventGoBack);
+    return () => window.removeEventListener('popstate', preventGoBack);
   }, []);
 
   return (
-    <Background>
-      <Modal ref={modalRef}>
+    <Background onClick={() => setModal(false)}>
+      <Modal onClick={(event) => event.stopPropagation()}>
         <Xbutton
           src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
           onClick={() => {

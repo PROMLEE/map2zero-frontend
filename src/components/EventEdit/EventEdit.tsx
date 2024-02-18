@@ -2,40 +2,21 @@ import styled from 'styled-components';
 import { Addpic, Eventname, EventExplane, EventLink, EventDate } from '.';
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { eventManageModalState, EventEditState, EventImgState } from '../../recoil';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { EventSend } from '../../apis/Event/Event';
 import { useParams } from 'react-router';
 
 export const EventEdit = () => {
   const params = useParams();
   const setModal = useSetRecoilState(eventManageModalState);
-  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
   const eventval = useRecoilValue(EventEditState);
   const eventpic = useRecoilValue(EventImgState);
   const reseteventval = useResetRecoilState(EventEditState);
   const reseteventpic = useResetRecoilState(EventImgState);
   const isConditionMet = eventval.title !== '' && eventval.text.length >= 10;
 
-  const closeModal = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
-        setModal(false);
-        reseteventval();
-        reseteventpic();
-      }
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', closeModal);
-    return () => {
-      document.removeEventListener('mousedown', closeModal);
-    };
-  }, []);
-  // 뒤로가기 버튼 누를 시 모달 닫기
   const handleEvent = () => {
     if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
-      history.go(0);
       setModal(false);
       reseteventval();
       reseteventpic();
@@ -43,11 +24,13 @@ export const EventEdit = () => {
   };
 
   useEffect(() => {
-    history.pushState(null, '', location.href);
-    window.addEventListener('popstate', handleEvent);
-    return () => {
-      window.removeEventListener('popstate', handleEvent);
+    const preventGoBack = () => {
+      history.pushState(null, '', location.href);
+      handleEvent();
     };
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', preventGoBack);
+    return () => window.removeEventListener('popstate', preventGoBack);
   }, []);
 
   const sendEvent = async () => {
@@ -65,14 +48,9 @@ export const EventEdit = () => {
     }
   };
   return (
-    <Background>
-      <Modal ref={modalRef}>
-        <Xbutton
-          src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
-          onClick={() => {
-            setModal(false);
-          }}
-        />
+    <Background onClick={handleEvent}>
+      <Modal onClick={(event) => event.stopPropagation()}>
+        <Xbutton src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`} onClick={handleEvent} />
         <Title>이벤트 등록</Title>
         <Texts $margintopPC={'3.7rem'} $margintopMB={'10.25rem'}>
           이벤트 명을 작성해 주세요
