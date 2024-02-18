@@ -17,28 +17,28 @@ export const SearchResultList = () => {
   const navigate = useNavigate();
 
   function onClickStore(id: number) {
-      navigate(`/store/${id}`);
-    };
+    navigate(`/store/${id}`);
+  }
 
-    const generateStarReviews = (reviewCount: number) => {
-      const starReviews = [];
-      const fullStar = `${process.env.PUBLIC_URL}assets/Search/staro.svg`;
-      const grayStar = `${process.env.PUBLIC_URL}assets/Search/starx.svg`;
-    
-      for (let i = 0; i < 5; i++) {
-        if (i < Math.round(reviewCount)) {
-          starReviews.push(<StarReview key={i} src={fullStar} alt="초록별아이콘" />);
-        } else {
-          starReviews.push(<StarReview key={i} src={grayStar} alt="회색별아이콘" />);
-        }
+  const generateStarReviews = (reviewCount: number) => {
+    const starReviews = [];
+    const fullStar = `${process.env.PUBLIC_URL}assets/Search/staro.svg`;
+    const grayStar = `${process.env.PUBLIC_URL}assets/Search/starx.svg`;
+
+    for (let i = 0; i < 5; i++) {
+      if (i < Math.round(reviewCount)) {
+        starReviews.push(<StarReview key={i} src={fullStar} alt="초록별아이콘" />);
+      } else {
+        starReviews.push(<StarReview key={i} src={grayStar} alt="회색별아이콘" />);
       }
-      return starReviews;
-    };
-    
+    }
+    return starReviews;
+  };
+
   return (
     <SearchResultContainer>
       {searchResult.map((i) => (
-        <Container key={i.id} onClick={()=>onClickStore(i.id)}>
+        <Container key={i.id} onClick={() => onClickStore(i.id)}>
           <SearchText>{i.name}</SearchText>
           <ProductText>
             {i.products.map((data) => {
@@ -46,16 +46,17 @@ export const SearchResultList = () => {
             })}
           </ProductText>
           <AddressFrame>
-            <AddressText>
-              {i.address.province + ' ' + i.address.city + ' ' + i.address.road_name + ' '}
-            </AddressText>
+            <AddressText>{i.address.province + ' ' + i.address.city + ' ' + i.address.road_name + ' '}</AddressText>
             <NumReview>
               {generateStarReviews(i.average_score)}
               <p>({i.review_cnt})</p>
             </NumReview>
           </AddressFrame>
           <StoreFrame>
-            <StoreImg src={`${process.env.PUBLIC_URL}assets/Search/${i.photo}`} alt={i.name} />
+            <StoreImg
+              src={i.photo.url ? i.photo.url : `${process.env.PUBLIC_URL}/assets/StoreDetail/example_pic.png`}
+              alt={i.name}
+            />
             {/* photo 값 없어서 나중에 수정 필요 ->i.photo.url */}
           </StoreFrame>
           <BookMarkFrame>
@@ -82,7 +83,6 @@ const SearchResultContainer = styled.div`
   align-items: center;
   width: 92.4rem;
   margin-top: 4.8rem;
-
 `;
 
 const Container = styled.div`
