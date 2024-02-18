@@ -1,12 +1,11 @@
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { shareModalState, StoreState, UserInfoState } from '../../recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { StoreState, UserInfoState } from '../../recoil';
 import { Bookmark, BookmarkDel } from '../../apis/StoreDetail/Bookmark';
 
 export const StoreName = () => {
   const [storeDetail, setstoreDetail] = useRecoilState(StoreState);
   const islogin = useRecoilValue(UserInfoState);
-  const setmodal = useSetRecoilState(shareModalState);
 
   const onclickBookmark = async () => {
     if (islogin.islogin) {
@@ -18,12 +17,21 @@ export const StoreName = () => {
       alert('로그인 후 이용해주세요');
     }
   };
-
+  const handle = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: `Map2zero - ${storeDetail.name}`,
+        url: window.location.href,
+      });
+    } else {
+      alert('공유하기가 지원되지 않는 환경 입니다.');
+    }
+  };
   return (
     <DetailBox>
       <Name>{storeDetail.name}</Name>
       <div>
-        <LinkButton onClick={() => setmodal(true)} src={`${process.env.PUBLIC_URL}/assets/StoreDetail/share.svg`} />
+        <LinkButton onClick={handle} src={`${process.env.PUBLIC_URL}/assets/StoreDetail/share.svg`} />
         <LinkButton
           onClick={onclickBookmark}
           src={
@@ -64,13 +72,12 @@ const LinkButton = styled.img`
   width: 1.5152rem;
   height: 2rem;
   margin: 1rem;
-
   &:hover {
     cursor: pointer;
   }
-
   @media (max-width: 768px) {
     width: 3.375rem;
     height: 3.75rem;
+    margin: 2.5rem;
   }
 `;

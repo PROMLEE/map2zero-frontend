@@ -52,13 +52,12 @@ export const EventEdit = () => {
 
   const sendEvent = async () => {
     const formData = new FormData();
-    console.log(eventval, eventpic);
     formData.append('request', new Blob([JSON.stringify(eventval)], { type: 'application/json' }));
     for (let i = 0; i < eventpic.length; i++) {
       formData.append('images', eventpic[i]);
     }
     if (await EventSend(params.storeid, formData)) {
-      alert('새로운 이벤트가 작성되었습니다.');
+      alert('새로운 이벤트가 등록되었습니다.');
       reseteventval();
       reseteventpic();
       setModal(false);

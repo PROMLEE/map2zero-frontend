@@ -18,7 +18,7 @@ const EventSend: any = async (id: string, request: any) => {
     return true;
   } catch (e) {
     console.log(e);
-    alert('연동 에러');
+    alert('연동 에러 - 관리자에게 문의해주세요');
     return false;
   }
 };

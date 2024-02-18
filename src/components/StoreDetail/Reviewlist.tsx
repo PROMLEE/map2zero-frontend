@@ -67,7 +67,7 @@ export const Reviewlist = () => {
       </ToggleWrapper>
       <Reviews>
         {reviewlist.map((item, index) => {
-          return <Review {...item} id={index} key={index} />;
+          return <Review {...item} key={index} />;
         })}
       </Reviews>
       {totalPages > 1 && (

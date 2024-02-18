@@ -100,7 +100,7 @@ const Links = styled.div`
   display: flex;
   gap: 1.6rem;
   @media (max-width: 768px) {
-    margin-top: 1.5rem;
+    margin-top: 6rem;
     gap: 4rem;
   }
 `;

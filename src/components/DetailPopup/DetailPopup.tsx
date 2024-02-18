@@ -16,12 +16,12 @@ export const DetailPopup = () => {
   };
 
   useEffect(() => {
+    const newInfo = [...storeInfo];
     for (let tag in storeDetail.store_tags) {
-      const newInfo = [...storeInfo];
-      newInfo[storeDetail.store_tags[tag].id - 1] = true;
-      setstoreInfo(newInfo);
+      newInfo[storeDetail.store_tags[tag].id - 2] = true;
     }
-  }, []);
+    setstoreInfo(newInfo);
+  }, [storeDetail]);
 
   useEffect(() => {
     document.addEventListener('mousedown', closeModal);
@@ -93,10 +93,10 @@ export const DetailPopup = () => {
                   {item.day_of_week}{' '}
                   {!item.regular_holiday ? (
                     <>
-                      {item.start_time} - {item.end_time}
+                      {item.start_time.slice(0, 5)} - {item.end_time.slice(0, 5)}
                     </>
                   ) : (
-                    <>정기 휴무</>
+                    <span style={{ color: 'red' }}>정기 휴무</span>
                   )}
                 </div>
               );
@@ -113,7 +113,7 @@ export const DetailPopup = () => {
         <TimInformation>
           <Texts>전화번호</Texts>
           <InfoImage src={`${process.env.PUBLIC_URL}/assets/DetailPopup/call.svg`} />
-          <TimeInfo>010-0000-0000</TimeInfo>
+          <TimeInfo>{storeDetail.contact}</TimeInfo>
         </TimInformation>
       </Modal>
     </Background>

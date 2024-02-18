@@ -62,7 +62,7 @@ const StyledSlider = styled(Slider)`
     font-weight: 600;
     line-height: normal;
     @media (max-width: 768px) {
-      font-size: 3rem;
+      font-size: 2rem;
       width: 16.125rem;
     }
   }
@@ -72,7 +72,7 @@ const StyledSlider = styled(Slider)`
     width: 6.4rem;
     cursor: pointer;
     @media (max-width: 768px) {
-      font-size: 3rem;
+      font-size: 2rem;
       width: 16.125rem;
     }
   }

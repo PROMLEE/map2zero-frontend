@@ -35,12 +35,13 @@ export const ReviewWrite = ({ id }: Props) => {
     for (let i = 0; i < reviewImgState.length; i++) {
       formData.append('images', reviewImgState[i]);
     }
-    await ReviewSend(formData);
-    alert('리뷰가 작성되었습니다.');
-    reset();
-    imgreset();
-    setModal(false);
-    window.location.reload();
+    if (await ReviewSend(formData)) {
+      alert('리뷰가 작성되었습니다.');
+      reset();
+      imgreset();
+      setModal(false);
+      window.location.reload();
+    }
   };
 
   useEffect(() => {

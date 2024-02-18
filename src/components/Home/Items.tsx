@@ -73,8 +73,8 @@ const Items = ({ type }: { type: string }) => {
       ref={scrollRef}
     >
       {Info &&
-        Info.data.map((item: any) => (
-          <Item key={item.store_id} onClick={() => onClickItem(item.store_id)}>
+        Info.data.map((item: any, index: number) => (
+          <Item key={index} onClick={() => onClickItem(item.store_id)}>
             <ImgContainer>
               <img src={item.photo.url} alt={item.name} />
               <Name>{item.name}</Name>

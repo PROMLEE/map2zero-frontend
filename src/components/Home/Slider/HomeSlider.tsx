@@ -31,7 +31,7 @@ const HomeSlider = ({ type }: { type: string }) => {
           ? useRecoilValue(TrendState)
           : undefined;
   const settings: Settings = {
-    touchThreshold: 30,
+    touchThreshold: 100,
     beforeChange: handleBeforeChange,
     afterChange: handleAfterChange,
     dots: true,
@@ -48,22 +48,18 @@ const HomeSlider = ({ type }: { type: string }) => {
     dotsClass: 'dots_custom',
   };
 
-  const ItemGroup = ({ item }: any) => (
-    <>
-      <BaseSliderItem item={item} dragging={dragging} />
-      <StoreInfo item={item} />
-    </>
-  );
-
   return (
     <SliderWrap>
       <StyledSlider {...settings} type={type}>
         {Info &&
           Info.data.map((item: any) =>
             type === 'curation' ? (
-              <CurationSliderItem key={item.id} item={item} dragging={dragging} />
+              <CurationSliderItem key={item.id} item={item} />
             ) : (
-              <ItemGroup key={item.id} item={item} />
+              <div key={item.id}>
+                <BaseSliderItem item={item} dragging={dragging} />
+                <StoreInfo item={item} />
+              </div>
             ),
           )}
       </StyledSlider>

@@ -13,13 +13,15 @@ const BaseSliderItem = ({ item, dragging }: { item: any; dragging: boolean }) =>
   };
 
   return (
-    <ImgWrap onClick={onClickStore}>
-      <img src={ImgURL} alt={item.name} />
-      <Promotation>{item.summary}</Promotation>
-      <Arrow>
-        <CustomArrowIcon fill={'#ffffff'} alt={'화살표'} />
-      </Arrow>
-    </ImgWrap>
+    <>
+      <ImgWrap onClick={onClickStore}>
+        <img src={ImgURL} alt={item.name} />
+        <Promotation>{item.summary}</Promotation>
+        <Arrow>
+          <CustomArrowIcon fill={'#ffffff'} alt={'화살표'} />
+        </Arrow>
+      </ImgWrap>
+    </>
   );
 };
 
