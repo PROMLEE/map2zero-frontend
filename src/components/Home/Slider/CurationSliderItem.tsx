@@ -27,7 +27,7 @@ const CurationSliderItem = ({ item }: { item: any }) => {
   return (
     <>
       <ImgWrap>
-        <img src={ImgURL} alt={item.title} />
+        <img onClick={() => window.open(item.url)} src={ImgURL} alt={item.title} />
         <InfoWrap>
           <h1>{item.title}</h1>
           <p>{item.description}</p>
@@ -47,6 +47,7 @@ const ImgWrap = styled.div`
   > img {
     height: 100%;
     margin: 0 auto;
+    cursor: pointer;
     @media (max-width: 768px) {
       height: 140rem;
     }
