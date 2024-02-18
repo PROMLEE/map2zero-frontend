@@ -1,6 +1,6 @@
 import { EventEdit } from './EventEdit';
 import { Eventname } from './Eventname';
-import { Addonepic } from './Addonepic';
+import { Addpic } from './Addpic';
 import { TabContents } from './TabContents';
 import { Item } from './SlideBox';
 import { SlidePic } from './SlidePic';
@@ -9,4 +9,4 @@ import { EventExplane } from './EventExplane';
 import { EventLink } from './EventLink';
 import { EventDate } from './EventDate';
 
-export { EventEdit, Eventname, Addonepic, Product, TabContents, Item, SlidePic, EventExplane, EventLink, EventDate };
+export { EventEdit, Eventname, Addpic, Product, TabContents, Item, SlidePic, EventExplane, EventLink, EventDate };

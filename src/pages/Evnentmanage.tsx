@@ -112,13 +112,15 @@ const ButtonBox = styled.div`
 const ArrowBubble = styled.div`
   padding-top: 1rem;
   color: #0b5c71;
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: center;
   margin-left: auto;
   margin-right: 0.5rem;
-  width: 6.4rem;
-  height: 3.8rem;
+  width: 7rem;
+  height: 4.5rem;
   background-image: url('/assets/ProductList/balloon.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
   bottom: 4rem;
   right: 4rem;
   @media (max-width: 768px) {

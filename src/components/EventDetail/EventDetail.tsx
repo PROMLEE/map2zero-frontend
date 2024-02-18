@@ -23,6 +23,10 @@ export const EventDetail = () => {
     };
   }, []);
 
+  const eventEdit = () => {
+    alert('준비 중입니다! ㅠ');
+  };
+
   return (
     <Background>
       <Modal ref={modalRef}>
@@ -37,7 +41,7 @@ export const EventDetail = () => {
           <Topbox>
             <Title>{data.title}</Title>
             <EditIcon src={`${process.env.PUBLIC_URL}/assets/EventDetail/edit.svg`} />
-            <EditText>이벤트 수정</EditText>
+            <EditText onClick={eventEdit}>이벤트 수정</EditText>
           </Topbox>
           <StateBox>
             {data.status === 'ACTIVE' ? <OnState>진행중</OnState> : <OffState>종료</OffState>}

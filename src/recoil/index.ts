@@ -5,11 +5,6 @@ import {
   tagitem,
   starRate,
   textRate,
-  eventName,
-  eventDate,
-  eventLink,
-  eventExplane,
-  eventPic,
   shareModalState,
   detailModalState,
   eventDetailModal,
@@ -18,7 +13,7 @@ import {
 import { InputState } from './Owner/owner';
 import { UserInfoState, UserState } from './userInfo';
 import { searchToggleState, sellingProductSearchToggle, searchResultState, searchTextState } from './searchState';
-
+import { EventEditState, EventImgState } from './eventEdit';
 import {
   imgModalState,
   profileImgState,
@@ -44,11 +39,6 @@ export {
   eventDetailModal,
   productRegistModalState,
   eventManageModalState,
-  eventName,
-  eventDate,
-  eventLink,
-  eventExplane,
-  eventPic,
   detailModalState,
   imgModalState,
   profileImgState,
@@ -66,4 +56,6 @@ export {
   GetProductTagList,
   appliedprofileImgState,
   searchTextState,
+  EventEditState,
+  EventImgState,
 };
