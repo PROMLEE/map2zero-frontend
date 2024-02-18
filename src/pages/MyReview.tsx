@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { popUpModalState } from '../recoil';
 import AccountModal from '../components/Edit/AccountModal';
 import { Mobiletop } from '../components';
-import { getReviewsApi } from '../apis/ReviewApi';
+import { deleteSingleReviewApi, getReviewsApi } from '../apis/ReviewApi';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -36,6 +36,7 @@ type TReviewList = {
 export default function MyReview() {
   const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
   const [reviews, setReviews] = useState<TReviewList[]>();
+  const [toDelete, setToDelete] = useState<number | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,11 +49,24 @@ export default function MyReview() {
   };
 
   const modalHandler = () => {
-    setModalOpen(!modalOpen);
+    setModalOpen(false);
+    setToDelete(null);
+  };
+
+  const deleteModalOpen = (reviewId: number) => {
+    setToDelete(reviewId);
+    setModalOpen(true);
   };
 
   //리뷰 삭제
-  const deleteReviewHandler = () => {
+  const deleteReviewHandler = async () => {
+    if (reviews && toDelete !== null) {
+      const data = await deleteSingleReviewApi({ review_id: toDelete });
+      if (data.message === 'OK') {
+        const newTags = reviews.filter((item) => item.id !== toDelete);
+        setReviews(newTags);
+      }
+    }
     setModalOpen(!modalOpen);
   };
 
@@ -100,7 +114,12 @@ export default function MyReview() {
                 </Contents>
                 <RightWrap>
                   <ReviewDate>{formatDate(item.createdDate)}</ReviewDate>
-                  <TrashWrap onClick={modalHandler}>
+                  <TrashWrap
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      deleteModalOpen(item.id);
+                    }}
+                  >
                     <TrashIcon src={`${process.env.PUBLIC_URL}/assets/ReviewList/trash.svg`} alt="trash" />
                     <TrashText>삭제</TrashText>
                   </TrashWrap>

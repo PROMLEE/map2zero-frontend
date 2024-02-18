@@ -9,3 +9,13 @@ export const getReviewsApi = async () => {
     return undefined;
   }
 };
+
+export const deleteSingleReviewApi = async (data: any) => {
+  try {
+    const response = await authAPI.delete('/reviews', { data: data });
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    return undefined;
+  }
+};
