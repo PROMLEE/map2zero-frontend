@@ -3,7 +3,7 @@ import { Category, Addonepic, Name, Price } from '.';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { productRegistModalState } from '../../recoil';
 import { ProductAdd, ProductImg } from '../../recoil/Products/Products';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { ProductSend } from '../../apis/SellingProduct/Products';
 
 interface Prop {
@@ -12,45 +12,26 @@ interface Prop {
 
 export const ProductRegistration = ({ id }: Prop) => {
   const setModal = useSetRecoilState(productRegistModalState);
-  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
   const values = useRecoilValue(ProductAdd);
   const img = useRecoilValue(ProductImg);
   const reset = useResetRecoilState(ProductAdd);
   const imgreset = useResetRecoilState(ProductImg);
   const isConditionMet = values.name !== '' && values.tag_id !== 0;
-
-  const closeModal = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
-        setModal(false);
-        reset();
-        imgreset();
-      }
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', closeModal);
-    return () => {
-      document.removeEventListener('mousedown', closeModal);
-    };
-  }, []);
-  // 뒤로가기 버튼 누를 시 모달 닫기
   const handleEvent = () => {
     if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
-      history.go(0);
       setModal(false);
       reset();
       imgreset();
     }
   };
-
   useEffect(() => {
-    history.pushState(null, '', location.href);
-    window.addEventListener('popstate', handleEvent);
-    return () => {
-      window.removeEventListener('popstate', handleEvent);
+    const preventGoBack = () => {
+      history.pushState(null, '', location.href);
+      handleEvent();
     };
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', preventGoBack);
+    return () => window.removeEventListener('popstate', preventGoBack);
   }, []);
 
   const sendReview = async () => {
@@ -69,14 +50,9 @@ export const ProductRegistration = ({ id }: Prop) => {
   };
 
   return (
-    <Background>
-      <Modal ref={modalRef}>
-        <Xbutton
-          src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
-          onClick={() => {
-            setModal(false);
-          }}
-        />
+    <Background onClick={handleEvent}>
+      <Modal onClick={(event) => event.stopPropagation()}>
+        <Xbutton src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`} onClick={handleEvent} />
         <Title>판매 제품 등록</Title>
         <Texts $margintopPC={'3.7rem'} $margintopMB={'10.25rem'}>
           품목명을 작성해 주세요

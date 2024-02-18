@@ -4,7 +4,7 @@ import { useSetRecoilState, useResetRecoilState, useRecoilState, useRecoilValue 
 import { reviewmodalState } from '../../recoil';
 import { ReviewWriteState, ReviewImgState } from '../../recoil/StoreDetail/StoresState';
 import ReviewSend from '../../apis/StoreDetail/ReviewSend';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 interface Props {
   id: number;
@@ -12,22 +12,11 @@ interface Props {
 
 export const ReviewWrite = ({ id }: Props) => {
   const setModal = useSetRecoilState(reviewmodalState);
-  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref  추가
   const [reviewState, setreviewState] = useRecoilState(ReviewWriteState);
   const reviewImgState = useRecoilValue(ReviewImgState);
   const reset = useResetRecoilState(ReviewWriteState);
   const imgreset = useResetRecoilState(ReviewImgState);
   const isConditionMet = reviewState.score !== 0 && reviewState.text.length >= 10;
-
-  const closeModal = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
-        setModal(false);
-        reset();
-        imgreset();
-      }
-    }
-  };
 
   const sendReview = async () => {
     const formData = new FormData();
@@ -44,36 +33,30 @@ export const ReviewWrite = ({ id }: Props) => {
     }
   };
 
-  useEffect(() => {
-    document.addEventListener('mousedown', closeModal);
-    return () => {
-      document.removeEventListener('mousedown', closeModal);
-    };
-  }, []);
   const handleEvent = () => {
     if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
-      history.go(0);
       setModal(false);
       reset();
       imgreset();
     }
   };
   useEffect(() => {
-    setreviewState({ ...reviewState, store_id: id });
-    history.pushState(null, '', location.href);
-    window.addEventListener('popstate', handleEvent);
-    return () => {
-      window.removeEventListener('popstate', handleEvent);
+    const preventGoBack = () => {
+      history.pushState(null, '', location.href);
+      handleEvent();
     };
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', preventGoBack);
+    return () => window.removeEventListener('popstate', preventGoBack);
   }, []);
 
   return (
-    <Background>
-      <Modal ref={modalRef}>
+    <Background onClick={handleEvent}>
+      <Modal onClick={(event) => event.stopPropagation()}>
         <Xbutton
           src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
           onClick={() => {
-            setModal(false);
+            handleEvent();
           }}
         />
         <Title>리뷰 작성</Title>

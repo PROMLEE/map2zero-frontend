@@ -8,7 +8,7 @@ import EditButton from '../components/Edit/EditButton';
 import { useRecoilValue } from 'recoil';
 import { imgModalState } from '../recoil';
 import { Document, Page, pdfjs } from 'react-pdf';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -19,28 +19,15 @@ export default function NickName() {
   const [pageNumber, setPageNumber] = useState(1);
   const [pdfmodalOpen, setpdfModalOpen] = useState(false);
   const [checked, setChecked] = useState(false);
-  const modalRef = useRef<HTMLDivElement>(null);
 
-  const closeModal = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+  useEffect(() => {
+    const preventGoBack = () => {
+      history.pushState(null, '', location.href);
       setpdfModalOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', closeModal);
-    return () => {
-      document.removeEventListener('mousedown', closeModal);
     };
-  }, []);
-
-  // 뒤로가기 버튼 누를 시 모달 닫기
-  useEffect(() => {
     history.pushState(null, '', location.href);
-    window.addEventListener('popstate', () => setpdfModalOpen(false));
-    return () => {
-      window.removeEventListener('popstate', () => setpdfModalOpen(false));
-    };
+    window.addEventListener('popstate', preventGoBack);
+    return () => window.removeEventListener('popstate', preventGoBack);
   }, []);
 
   function onDocumentLoadSuccess({ numPages }: any) {
@@ -61,8 +48,8 @@ export default function NickName() {
         <div>동의</div>
       </PdfButton>
       {pdfmodalOpen && (
-        <Background>
-          <Modal ref={modalRef}>
+        <Background onClick={() => setpdfModalOpen(false)}>
+          <Modal onClick={(event) => event.stopPropagation()}>
             <Xbutton
               src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
               onClick={() => {

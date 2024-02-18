@@ -61,7 +61,7 @@ export default function Setting() {
       <ProfileEdit />
       <NickNameEdit />
       <KakaoEmail />
-      <EditButton />
+      <EditButton checked={true} />
       <AccountButton />
     </Container>
   );
