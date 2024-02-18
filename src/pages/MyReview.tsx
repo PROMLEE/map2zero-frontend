@@ -104,7 +104,14 @@ export default function MyReview() {
                 <NoneImg></NoneImg>
               )}
               <Heart>
-                <img src={`${process.env.PUBLIC_URL}/assets/ReviewList/heart.svg`} alt="heart" />
+                <img
+                  src={
+                    item.liked
+                      ? `${process.env.PUBLIC_URL}/assets/ReviewList/heart.svg`
+                      : `${process.env.PUBLIC_URL}/assets/StoreDetail/not_like.svg`
+                  }
+                  alt="heart"
+                />
                 <p>{item.likeCnt}</p>
               </Heart>
               <DataWrap>
