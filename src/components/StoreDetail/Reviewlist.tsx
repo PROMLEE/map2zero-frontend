@@ -28,7 +28,7 @@ export const Reviewlist = () => {
   };
   const getdata = async () => {
     if (storeDetail.id) {
-      const data = await StoresReview(storeDetail.id, activeToggle ? 'likeCnt,DESC' : 'createdDate,DESC');
+      const data = await StoresReview(storeDetail.id, activeToggle ? 'likeCnt,DESC' : 'createdDate,DESC', currentPage);
       setreviewlist(data.data);
       if (userinfo.islogin) {
         const mydata = await StoresMyReview(storeDetail.id, activeToggle ? 'likeCnt,DESC' : 'createdDate,DESC');
@@ -52,7 +52,7 @@ export const Reviewlist = () => {
         <MyReviewbox>
           <MyReviewText>내가 쓴 리뷰</MyReviewText>
           {myreviewlist.map((item, index) => {
-            return <MyReview {...item} id={index} key={index} />;
+            return <MyReview {...item} key={index} />;
           })}
         </MyReviewbox>
       )}
@@ -70,31 +70,30 @@ export const Reviewlist = () => {
           return <Review {...item} key={index} />;
         })}
       </Reviews>
-      {totalPages > 1 && (
-        <ul>
-          {noPrev ? null : (
-            <PageButton
-              onClick={() => {
-                setcurrentPage(currentPage - 1);
-              }}
-              $url={'url(assets/StoreDetail/LeftStroke.svg)'}
-            />
-          )}
-          {[...Array(totalPages)].map((a, i) => (
-            <PageNum onClick={() => buttonClick(i)} key={i} $current={i + 1 === currentPage}>
-              {i + 1}
-            </PageNum>
-          ))}
-          {noNext ? null : (
-            <PageButton
-              onClick={() => {
-                setcurrentPage(currentPage + 1);
-              }}
-              $url={'url(assets/StoreDetail/RightStroke.svg)'}
-            />
-          )}
-        </ul>
-      )}
+
+      <ul>
+        {noPrev ? null : (
+          <PageButton
+            onClick={() => {
+              setcurrentPage(currentPage - 1);
+            }}
+            $url={'url(assets/StoreDetail/LeftStroke.svg)'}
+          />
+        )}
+        {[...Array(totalPages)].map((a, i) => (
+          <PageNum onClick={() => buttonClick(i)} key={i} $current={i + 1 === currentPage}>
+            {i + 1}
+          </PageNum>
+        ))}
+        {noNext ? null : (
+          <PageButton
+            onClick={() => {
+              setcurrentPage(currentPage + 1);
+            }}
+            $url={'url(assets/StoreDetail/RightStroke.svg)'}
+          />
+        )}
+      </ul>
     </SellingBox>
   );
 };
@@ -215,6 +214,7 @@ const MyReviewbox = styled.div`
   border: 1px solid #f4ece1;
   @media (max-width: 768px) {
     border-radius: 2rem;
+    width: 100%;
   }
 `;
 
