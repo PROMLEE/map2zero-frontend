@@ -1,22 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {} from '../../recoil';
-import { SearchDummy } from './SearchDummy';
 import { useRecoilValue } from 'recoil';
 import { searchResultState } from '../../recoil';
+import { useNavigate } from 'react-router-dom';
 
 export const SearchResultList = () => {
   const searchResult = useRecoilValue(searchResultState);
+
   const [clickedIds, setClickedIds] = useState<Record<string, boolean>>({}); // 초기에는 클릭된 아이콘 ID x
 
   const handleClick = (id: number) => {
     setClickedIds((prevState) => ({ ...prevState, [id]: !prevState[id] }));
   };
 
+  const navigate = useNavigate();
+
+  function onClickStore(id: number) {
+    navigate(`/store/${id}`);
+  }
+
+  const generateStarReviews = (reviewCount: number) => {
+    const starReviews = [];
+    const fullStar = `${process.env.PUBLIC_URL}assets/Search/staro.svg`;
+    const grayStar = `${process.env.PUBLIC_URL}assets/Search/starx.svg`;
+
+    for (let i = 0; i < 5; i++) {
+      if (i < Math.round(reviewCount)) {
+        starReviews.push(<StarReview key={i} src={fullStar} alt="초록별아이콘" />);
+      } else {
+        starReviews.push(<StarReview key={i} src={grayStar} alt="회색별아이콘" />);
+      }
+    }
+    return starReviews;
+  };
+
   return (
     <SearchResultContainer>
       {searchResult.map((i) => (
-        <Container key={i.id}>
+        <Container key={i.id} onClick={() => onClickStore(i.id)}>
           <SearchText>{i.name}</SearchText>
           <ProductText>
             {i.products.map((data) => {
@@ -24,28 +46,25 @@ export const SearchResultList = () => {
             })}
           </ProductText>
           <AddressFrame>
-            <AddressText>
-              {i.address.province + ' ' + i.address.city + ' ' + i.address.road_name + ' ' + i.address.lot_number}
-            </AddressText>
+            <AddressText>{i.address.province + ' ' + i.address.city + ' ' + i.address.road_name + ' '}</AddressText>
             <NumReview>
-              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/greenstar.png`} alt="초록별아이콘" />
-              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/greenstar.png`} alt="초록별아이콘" />
-              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/greenstar.png`} alt="초록별아이콘" />
-              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/graystar.png`} alt="회색별아이콘" />
-              <StarReview src={`${process.env.PUBLIC_URL}assets/Search/graystar.png`} alt="회색별아이콘" />
-              <p>(42)</p>
+              {generateStarReviews(i.average_score)}
+              <p>({i.review_cnt})</p>
             </NumReview>
           </AddressFrame>
           <StoreFrame>
-            <StoreImg src={`${process.env.PUBLIC_URL}assets/Search/${i.photo}`} alt={i.name} />
+            <StoreImg
+              src={i.photo.url ? i.photo.url : `${process.env.PUBLIC_URL}/assets/StoreDetail/example_pic.png`}
+              alt={i.name}
+            />
             {/* photo 값 없어서 나중에 수정 필요 ->i.photo.url */}
           </StoreFrame>
           <BookMarkFrame>
             <BookMarkIcon
               src={
                 i.bookmarked
-                  ? `${process.env.PUBLIC_URL}/assets/Search/fullbookmark.png`
-                  : `${process.env.PUBLIC_URL}/assets/Search/emptybookmark.png`
+                  ? `${process.env.PUBLIC_URL}/assets/Search/북마크o.svg`
+                  : `${process.env.PUBLIC_URL}/assets/Search/북마크x.svg`
               }
               alt="북마크아이콘"
               onClick={() => handleClick(i.id)}
@@ -62,19 +81,19 @@ const SearchResultContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  margin-top: 48px;
+  width: 92.4rem;
+  margin-top: 4.8rem;
 `;
 
 const Container = styled.div`
-  width: 924px;
+  width: 92.4rem;
   height: 162px;
   position: relative;
   background: white;
   border-radius: 8px;
   overflow: hidden;
   border: 1px #f2f2f2 solid;
-  margin-bottom: 24px;
+  margin-bottom: 2.4rem;
 
   &:hover {
     transform: scale(1.1);
@@ -84,10 +103,10 @@ const Container = styled.div`
     background-color: lightgray;
   }
 
-  @media (max-width: 768px) {
-    width: 327px;
-    height: 128px;
-    margin: 24px;
+  @media (min-width: 768px) and (max-width: 999px) {
+    width: 70.7rem;
+    height: 162px;
+    background: white;
 
     // 미디어 쿼리 내부에서 hover 효과를 초기화
     &:hover {
@@ -173,25 +192,25 @@ const NumReview = styled.div`
 `;
 
 const StarReview = styled.img`
-  width: 12px;
+  width: 1.2rem;
   height: 12px;
 
   @media (max-width: 768px) {
-    width: 127px;
+    width: 2.2rem;
   }
 `;
 
 const StoreFrame = styled.div`
-  width: 162px;
-  height: 162px;
+  width: 16.2rem;
+  height: 16.2rem;
   left: 0;
   top: 0;
   position: absolute;
   background: white;
 
   @media (max-width: 768px) {
-    width: 127px;
-    height: 128px;
+    width: 12.7rem;
+    height: 12.8rem;
   }
 `;
 
@@ -211,7 +230,7 @@ const StoreImg = styled.img`
 
 const BookMarkFrame = styled.div`
   padding: 16px;
-  left: 880px;
+  left: 88rem;
   top: 0;
   position: absolute;
   justify-content: flex-end;
@@ -221,7 +240,7 @@ const BookMarkFrame = styled.div`
 
   @media (max-width: 768px) {
     padding: 16px;
-    left: 283px;
+    left: 82.3rem;
     top: 0;
     position: absolute;
     justify-content: flex-start;
