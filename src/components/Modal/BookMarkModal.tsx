@@ -1,15 +1,21 @@
 import React, { useEffect } from 'react';
 import Modal from 'react-modal';
-import { useRecoilState } from 'recoil';
+import { useRecoilCallback, useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { popUpModalState } from '../../recoil';
 import { preventScroll, allowScroll } from './scroll';
 
-const ConfirmModal = () => {
-  const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
+import { BookMarksDeleteApi } from '../../apis/Mypage';
+import { BookMarksState, DeleteIdState } from '../../recoil/Mypage/myPageState';
+import { BookMarkModalState } from '../../recoil/confirmModal';
+import { BookmarkType } from '../../recoil/Mypage/myPageStateType';
+
+const BookMarkModal = () => {
+  const [modalOpen, setModalOpen] = useRecoilState(BookMarkModalState);
+
   const modalHandler = () => {
     setModalOpen(!modalOpen);
   };
+
   const isSmallScreen = () => {
     if (typeof window !== 'undefined') {
       return window.innerWidth < 768;
@@ -34,9 +40,24 @@ const ConfirmModal = () => {
     };
   }, []);
 
+  const onDeleteItem = useRecoilCallback(
+    ({ snapshot, set }) =>
+      async () => {
+        const latestDeleteState = await snapshot.getPromise(DeleteIdState);
+        await BookMarksDeleteApi({ store_id: latestDeleteState.store_id });
+        const currentItems: BookmarkType[] = await snapshot.getPromise(BookMarksState);
+        set(
+          BookMarksState,
+          currentItems.filter((item) => item.id !== latestDeleteState.store_id),
+        );
+      },
+    [],
+  );
+
   return (
     <Modal
       isOpen={modalOpen}
+      ariaHideApp={false}
       style={{
         overlay: {
           backgroundColor: ' rgba(0, 0, 0, 0.3)',
@@ -71,17 +92,17 @@ const ConfirmModal = () => {
         },
       }}
     >
-      <Message>리뷰를 삭제할까요?</Message>
+      <Message>북마크를 삭제할까요?</Message>
       <Close src={`${process.env.PUBLIC_URL}/assets/MyPage/close.png`} alt="닫기" onClick={modalHandler} />
       <BtnWrap>
-        <ConfirmBtn>네</ConfirmBtn>
+        <ConfirmBtn onClick={onDeleteItem}>네</ConfirmBtn>
         <ConfirmBtn onClick={modalHandler}>아니오</ConfirmBtn>
       </BtnWrap>
     </Modal>
   );
 };
 
-export default ConfirmModal;
+export default BookMarkModal;
 
 const Message = styled.h1`
   font-weight: border;

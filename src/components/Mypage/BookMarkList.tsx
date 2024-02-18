@@ -1,39 +1,80 @@
-import React from 'react';
-import { BookMarkDummy } from './Dummy/BookMarkDummy';
+import { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import { BookMarkStateSelector, BookMarksState, DeleteIdState } from '../../recoil/Mypage/myPageState';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { BookMarkModalState } from '../../recoil/confirmModal';
+import BookMarkModal from '../Modal/BookMarkModal';
 
-type ownerProps = {
-  owner?: boolean;
-};
-const BookMarkList = ({ owner }: ownerProps) => {
-  const url = owner ? 'ownerUrl' : 'defaultUrl';
+const BookMarkList = () => {
   const navigate = useNavigate();
-  const onClickBookMark = () => {
+  const [displayItems, setDisplayItems] = useRecoilState(BookMarksState);
+  const items = useRecoilValue(BookMarkStateSelector);
+  const [modalOpen, setModalOpen] = useRecoilState(BookMarkModalState);
+  const setDeleteIdState = useSetRecoilState(DeleteIdState);
+
+  const onClickItem = () => {
     navigate(`/store`);
   };
-  const onClickDetailBookMark = () => {
-    navigate(`/bookmarkdetail`);
-  };
 
-  
-  
+  const handleResize = useCallback(() => {
+    const newData = window.innerWidth < 784 && items ? items.slice(0, 2) : items;
+    setDisplayItems(newData);
+  }, [items]);
+
+  useEffect(() => {
+    setDisplayItems(items);
+    console.log(displayItems);
+  }, [items, setDisplayItems]);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [handleResize]);
+
+  const modalHandler = (id: number) => {
+    setDeleteIdState((prevState: any) => ({
+      ...prevState,
+      review_id: null,
+      store_id: id,
+      type: 'bookmarks',
+    }));
+    setModalOpen(!modalOpen);
+  };
 
   return (
     <Wrap>
-      <div onClick={onClickDetailBookMark}>
+      <BookMarkModal />
+      <div>
         <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
         <MoreDetails to={`/bookmarkdetail`}>더보기 {'>'}</MoreDetails>
       </div>
-      <BookMarks onClick={onClickBookMark}>
-        {BookMarkDummy.map((i, index) => (
-          <BookMark key={index}>
-            <StoreImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${i.photo}`} alt={`${i.storeName}의 이미지`} />
-            <BookMarkIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/bookmark.png`} alt="북마크아이콘" />
-            <h3>{i.storeName}</h3>
-            <p>{i.address}</p>
-          </BookMark>
-        ))}
+      <BookMarks>
+        <div>
+          {displayItems &&
+            displayItems.map((i: any) => (
+              <BookMark key={i.id} onClick={onClickItem}>
+                <StoreImg
+                  src={i.photo?.url || `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`}
+                  alt={`${i.name}의 이미지`}
+                />
+                <BookMarkIcon
+                  src={`${process.env.PUBLIC_URL}/assets/MyPage/bookmark.png`}
+                  alt="북마크아이콘"
+                  onClick={(e) => {
+                    e.stopPropagation(); // 이벤트 버블링 방지
+                    modalHandler(i.id);
+                  }}
+                />
+                <h3>{i.name}</h3>
+                <p>{i.address.province + ' ' + i.address.city}</p>
+              </BookMark>
+            ))}
+        </div>
       </BookMarks>
     </Wrap>
   );
@@ -79,11 +120,17 @@ const BookMarkTitle = styled.h1`
 
 const BookMarks = styled.div`
   display: flex;
+  > div {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
   height: 30rem;
   width: 100%;
+
   padding: 3rem 0 3rem 1rem;
   overflow-x: hidden;
-
   /* 인터넷 익스플로러를 위한 스타일 */
   -ms-overflow-style: none;
 
@@ -127,7 +174,7 @@ const BookMark = styled.div`
   }
   @media (max-width: 768px) {
     width: 30rem;
-    height: 42rem;
+    height: 45rem;
     margin-right: 4rem;
 
     & > h3 {
@@ -158,7 +205,7 @@ const BookMarkIcon = styled.img`
   bottom: 7.5rem;
   right: 1rem;
   @media (max-width: 768px) {
-    bottom: 13rem;
+    bottom: 16rem;
     right: 2rem;
     width: 3rem;
     height: 3.75rem;

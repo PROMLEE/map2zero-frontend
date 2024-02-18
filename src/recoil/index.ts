@@ -1,5 +1,4 @@
 import { exampleState } from './example';
-import { popUpModalState } from './confirmModal';
 import {
   reviewmodalState,
   productRegistModalState,
@@ -33,9 +32,9 @@ import {
   withdrawModalState,
   profileNameState,
 } from './editState';
+import { popUpModalState } from './confirmModal';
 export {
   exampleState,
-  popUpModalState,
   InputState,
   searchToggleState,
   reviewmodalState,
@@ -67,4 +66,5 @@ export {
   logoutModalState,
   withdrawModalState,
   profileNameState,
+  popUpModalState
 };

@@ -12,7 +12,6 @@ import {
   StoreDetail,
   NickName,
   SellingProduct,
-  OwnerMypage,
   Map,
   SellingProductManage,
   EventManage,
@@ -44,7 +43,6 @@ export default function App() {
           <Route path="/sellingproduct" element={<SellingProduct />} />
           <Route path="/sellingproductmanage" element={<SellingProductManage />} />
           <Route path="/eventmanage" element={<EventManage />} />
-          <Route path="/owner/mypage" element={<OwnerMypage />} />
           <Route path="/map" element={<Map />} />
           <Route path="/mypage/review" element={<MyReview />} />
           <Route path="/bookmarkdetail" element={<MoreDetails />} />

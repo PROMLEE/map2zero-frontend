@@ -1,60 +1,90 @@
-import React, { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { popUpModalState } from '../../recoil';
-import ConfirmModal from '../Modal/ConfirmModal';
-import { Link } from 'react-router-dom';
-import { ReviewStateSelector } from '../../recoil/Mypage/myPageState';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { Link, useNavigate } from 'react-router-dom';
+import { DeleteIdState, ReviewStateSelector, ReviewsState } from '../../recoil/Mypage/myPageState';
+import { ReviewModalState } from '../../recoil/confirmModal';
+import ReviewModal from '../Modal/ReviewModal';
 
-type ownerProps = {
-  owner?: boolean;
-};
+const ReviewList = () => {
+  const navigate = useNavigate();
+  const [displayItems, setDisplayItems] = useRecoilState(ReviewsState);
 
-const ReviewList = ({ owner }: ownerProps) => {
-  const url = owner ? 'ownerUrl' : 'review';
-  const [displayData, setDisplayData] = useState([]);
-  const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
-  const info = useRecoilValue(ReviewStateSelector);
-  console.log('리뷰 ', info.data);
+  const items = useRecoilValue(ReviewStateSelector);
+  const [modalOpen, setModalOpen] = useRecoilState(ReviewModalState);
+  const setDeleteIdState = useSetRecoilState(DeleteIdState);
 
-  const modalHandler = () => {
-    setModalOpen(!modalOpen);
+  const onClickItem = () => {
+    navigate(`/store`);
   };
 
-  useEffect(() => {
-    if (window.innerWidth < 784 && info.data) {
-      setDisplayData(info.data.slice(0, 2));
-    } else {
-      setDisplayData(info.data);
-    }
-  }, [window.innerWidth, info]);
+  const handleResize = useCallback(() => {
+    const newData = window.innerWidth < 784 && items ? items.slice(0, 2) : items;
+    setDisplayItems(newData);
+  }, [items]);
 
+  useEffect(() => {
+    setDisplayItems(items);
+    console.log(displayItems);
+  }, [items, setDisplayItems]);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [handleResize]);
+
+  const modalHandler = (id: number) => {
+    setDeleteIdState((prevState: any) => ({
+      ...prevState,
+      review_id: id,
+      store_id: null,
+      type: 'reviews',
+    }));
+    setModalOpen(!modalOpen);
+  };
   return (
     <Wrap>
-      <ConfirmModal />
+      <ReviewModal />
       <div>
         <ReviewTitle> 내가 쓴 리뷰</ReviewTitle>
-        <MoreDetails to={`${url}`}>더보기 {'>'}</MoreDetails>
+        <MoreDetails to={`/reviewdetail`}>더보기 {'>'}</MoreDetails>
       </div>
 
       <Reviews>
-        {displayData &&
-          displayData.map((i: any) => (
-            <Review key={i.id} onClick={modalHandler}>
-              <StoreImg src={i.photo.url} alt={`${i.storeName}}의 이미지`} />
-              <div>
-                <h3>{i.store.name}</h3>
-                <p>{i.text}</p>
-              </div>
-              <FavoriteIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/favorite.png`} alt="좋아요아이콘" />
-              <FavoriteCount>{i.likeCnt}</FavoriteCount>
-              <TrashWrap>
-                <TrashIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/trash.png`} alt="삭제아이콘" />
-                <TrashText>삭제</TrashText>
-              </TrashWrap>
-              <Date>{i.createdDate}</Date>
-            </Review>
-          ))}
+        <div>
+          {displayItems &&
+            displayItems.map((i: any) => (
+              <Review key={i.id} onClick={onClickItem}>
+                <StoreImg>
+                  <img
+                    src={i.photo?.url || `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`}
+                    alt={`${i.store.name}의 이미지`}
+                  />
+                </StoreImg>
+
+                <TextContainer>
+                  <h3>{i.store.name}</h3>
+                  <p>{i.text}</p>
+                </TextContainer>
+                <FavoriteIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/favorite.png`} alt="좋아요아이콘" />
+                <FavoriteCount>{i.likeCnt}</FavoriteCount>
+                <TrashWrap
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    modalHandler(i.id);
+                  }}
+                >
+                  <TrashIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/trash.png`} alt="삭제아이콘" />
+                  <TrashText>삭제</TrashText>
+                </TrashWrap>
+                <Date>{i.createdDate}</Date>
+              </Review>
+            ))}
+        </div>
       </Reviews>
     </Wrap>
   );
@@ -98,6 +128,11 @@ const ReviewTitle = styled.h1`
 
 const Reviews = styled.div`
   display: flex;
+  > div {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
   margin-left: 1rem;
   height: 17rem;
   overflow-x: hidden;
@@ -130,41 +165,59 @@ const Review = styled.div`
   position: relative;
   display: flex;
   cursor: pointer;
+  overflow: hidden;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
-
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
-  & > div > h3 {
-    font-size: 1.4rem;
-    margin: 0.8rem 0 0 0.8rem;
-  }
-  & > div > p {
-    font-size: 1rem;
-    margin: 0.5rem 0 0 0.8rem;
-    color: rgba(86, 86, 86, 1);
-  }
+
   @media (max-width: 768px) {
     width: 59.74rem;
     height: 16rem;
     margin-right: 4rem;
-    & > div > h3 {
+  }
+`;
+
+const TextContainer = styled.div`
+  padding: 1rem 0rem 1rem 0.3rem;
+  display: flex;
+  flex-direction: column;
+  & > h3 {
+    font-size: 1.4rem;
+    margin: 0rem 0 0 1rem;
+  }
+  & > p {
+    line-height: 1.3rem;
+    width: 18rem;
+    font-size: 1rem;
+    margin: 1rem 0 0 1rem;
+    color: rgba(86, 86, 86, 1);
+    overflow: hidden;
+  }
+  @media (max-width: 768px) {
+    padding: 1.5rem 0rem 1.5rem 0.8rem;
+    & > h3 {
       font-size: 2.5rem;
-      margin: 2rem;
     }
-    & > div > p {
-      font-size: 2rem;
-      margin-left: 2rem;
+    & > p {
+      margin: 2rem 0 0 1rem;
+      line-height: 2.3rem;
+      font-size: 1.7rem;
+      width: 34rem;
     }
   }
 `;
-const StoreImg = styled.img`
-  width: 10rem;
-  height: 100%;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  @media (max-width: 768px) {
-    width: 16rem;
+
+const StoreImg = styled.div`
+  > img {
+    width: 10rem;
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    @media (max-width: 768px) {
+      width: 16rem;
+    }
   }
 `;
 
@@ -186,17 +239,17 @@ const FavoriteCount = styled.p`
   position: absolute;
   color: rgba(86, 86, 86, 1);
   bottom: 0.5rem;
-  left: 7.9rem;
+  left: 8rem;
   @media (max-width: 768px) {
     font-size: 2rem;
-    left: 12.4rem;
+    left: 12.8rem;
   }
 `;
 const TrashText = styled.p`
   position: absolute;
   left: 0;
   visibility: hidden;
-  left: 31.5rem;
+  left: 32rem;
   bottom: 0.6rem;
   @media (max-width: 768px) {
     left: 53rem;
@@ -212,7 +265,7 @@ const TrashWrap = styled.div`
 const TrashIcon = styled.img`
   width: 2rem;
   height: 2.4rem;
-  right: 0.4rem;
+  right: 0.6rem;
   bottom: 0.3rem;
   position: absolute;
   @media (max-width: 768px) {
@@ -225,11 +278,11 @@ const Date = styled.p`
   font-size: 1rem;
   color: #d9d9d9;
   position: absolute;
-  right: 0.7rem;
-  top: 0.7rem;
+  right: 1rem;
+  top: 1rem;
   @media (max-width: 768px) {
     font-size: 2rem;
-    right: 1.6rem;
-    top: 1.6rem;
+    right: 1.5rem;
+    top: 1.5rem;
   }
 `;

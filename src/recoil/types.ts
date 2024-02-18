@@ -23,3 +23,4 @@ export interface UserInfo {
   is_new_user: boolean;
   type: string;
 }
+

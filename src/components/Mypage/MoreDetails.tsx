@@ -4,11 +4,7 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import Mobiletop from '../Mobiletop';
 
-type ownerProps = {
-  owner?: boolean;
-};
-const MoreDetails = ({ owner }: ownerProps) => {
-  const url = owner ? 'ownerUrl' : 'defaultUrl';
+const MoreDetails = () => {
   const navigate = useNavigate();
   const onClickBookMark = () => {
     navigate(`/store`);
