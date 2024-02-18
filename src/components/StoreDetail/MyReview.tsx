@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { StoreReviewtype } from '../../recoil/StoreDetail/types';
+import { useRecoilValue } from 'recoil';
+import { UserInfoState } from '../../recoil';
+import { Like, LikeDel } from '../../apis/StoreDetail/Like';
 interface Props {
   nickname: string;
   star: number;
@@ -26,21 +29,34 @@ export const MyReview = ({
   isWriter,
 }: StoreReviewtype) => {
   const [likeon, setlike] = useState(false);
+  const [likecnt, setlikecnt] = useState(0);
+  const islogin = useRecoilValue(UserInfoState);
 
-  // const increaseLike = (index: number) => {
-  //   setReviews((prevReviews) => {
-  //     const newReviews = [...prevReviews]; // 불변성을 위해 복사본 생성
-  //     newReviews[index] = { ...newReviews[index], like: newReviews[index].like + 1 }; // 해당 리뷰의 like 값을 수정
-  //     return newReviews;
-  //   });
-  // };
-  // const decreaseLike = (index: number) => {
-  //   setReviews((prevReviews) => {
-  //     const newReviews = [...prevReviews]; // 불변성을 위해 복사본 생성
-  //     newReviews[index] = { ...newReviews[index], like: newReviews[index].like - 1 }; // 해당 리뷰의 like 값을 수정
-  //     return newReviews;
-  //   });
-  // };
+  useEffect(() => {
+    setlike(liked);
+    setlikecnt(like_cnt);
+  }, [like_cnt, liked]);
+
+  const increaseLike = async () => {
+    await Like({ review_id: id });
+    setlike(true);
+    setlikecnt(likecnt + 1);
+  };
+
+  const decreaseLike = async () => {
+    await LikeDel({ review_id: id });
+    setlike(false);
+    setlikecnt(likecnt - 1);
+  };
+
+  const onclickLike = async () => {
+    if (islogin.islogin) {
+      likeon ? decreaseLike() : increaseLike();
+    } else {
+      alert('로그인 후 이용해주세요');
+    }
+  };
+
   return (
     <Box>
       <ReviewTop>
@@ -68,15 +84,12 @@ export const MyReview = ({
         </Profile>
         <LikeBox>
           <LikeImg
+            onClick={onclickLike}
             src={
               likeon
                 ? `${process.env.PUBLIC_URL}/assets/StoreDetail/like.svg`
                 : `${process.env.PUBLIC_URL}/assets/StoreDetail/not_like.svg`
             }
-            onClick={() => {
-              // likeon ? decreaseLike(id) : increaseLike(id);
-              setlike(!likeon);
-            }}
           />
           <LikeNum>{like_cnt}</LikeNum>
         </LikeBox>
@@ -273,7 +286,6 @@ const ReviewTag = styled.div`
   padding: 0.4rem 0.8rem;
   color: #fff;
   text-align: center;
-  font-family: 'Noto Sans KR';
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;
@@ -287,7 +299,6 @@ const ReviewTag = styled.div`
     border-radius: 4rem;
     font-size: 2.5rem;
     padding: 1rem 2rem;
-    width: 15rem;
     height: 5.5rem;
   }
 `;

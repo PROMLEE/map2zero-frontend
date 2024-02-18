@@ -7,7 +7,11 @@ import { putPhotosApi } from '../../apis/EditApi';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const EditButton = () => {
+interface Prop {
+  checked?: boolean;
+}
+
+const EditButton = ({ checked }: Prop) => {
   const info = useRecoilValue(InfoState);
   const [nickname, setNickName] = useRecoilState(nickNameState);
   const appliedImg = useRecoilValue(appliedprofileImgState);
@@ -24,12 +28,12 @@ const EditButton = () => {
       setChange(false);
     }
 
-    if (nickname.nickname === '') {
+    if (nickname.nickname === '' || !checked) {
       setChange(false);
       return;
     }
   }),
-    [nickname.nickname, appliedImg];
+    [nickname.nickname, appliedImg, checked];
 
   //닉네임 중복 체크 및 편집 불가능하게 적용
   const onButtonHandler = async () => {

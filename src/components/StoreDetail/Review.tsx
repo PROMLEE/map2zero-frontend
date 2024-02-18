@@ -290,7 +290,6 @@ const ReviewTag = styled.div`
     border-radius: 4rem;
     font-size: 2.5rem;
     padding: 1rem 2rem;
-    width: 15rem;
     height: 5.5rem;
   }
 `;
