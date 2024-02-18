@@ -8,7 +8,7 @@ export const DetailPopup = () => {
   const storeDetail = useRecoilValue(StoreState);
   const [storeInfo, setstoreInfo] = useState([false, false, false, false, false]);
   const setModal = useSetRecoilState(detailModalState);
-  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
+  const modalRef = useRef<HTMLDivElement>(null);
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setModal(false);
@@ -91,7 +91,7 @@ export const DetailPopup = () => {
               return (
                 <div key={index}>
                   {item.day_of_week}{' '}
-                  {item.regular_holiday ? (
+                  {!item.regular_holiday ? (
                     <>
                       {item.start_time} - {item.end_time}
                     </>
@@ -133,6 +133,13 @@ const Background = styled.div`
   background: rgba(0, 0, 0, 0.3);
   @media (max-width: 768px) {
     background-color: rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const InfoDiv = styled.div`
+  height: 20px;
+  @media (max-width: 768px) {
+    height: 17px;
   }
 `;
 

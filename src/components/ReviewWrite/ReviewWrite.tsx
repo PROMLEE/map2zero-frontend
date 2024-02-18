@@ -12,7 +12,7 @@ interface Props {
 
 export const ReviewWrite = ({ id }: Props) => {
   const setModal = useSetRecoilState(reviewmodalState);
-  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
+  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref  추가
   const [reviewState, setreviewState] = useRecoilState(ReviewWriteState);
   const reviewImgState = useRecoilValue(ReviewImgState);
   const reset = useResetRecoilState(ReviewWriteState);
@@ -38,6 +38,7 @@ export const ReviewWrite = ({ id }: Props) => {
     reset();
     imgreset();
     setModal(false);
+    window.location.reload();
   };
 
   useEffect(() => {

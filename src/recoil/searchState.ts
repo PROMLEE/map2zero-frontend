@@ -15,3 +15,8 @@ export const searchResultState = atom<SearchResultType[]>({
   key: 'searchResultState',
   default: [],
 });
+
+export const searchTextState = atom<string>({
+  key: 'searchTextState',
+  default: '',
+});

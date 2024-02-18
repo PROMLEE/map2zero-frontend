@@ -31,6 +31,7 @@ export default ProfileEdit;
 const ProfileImg = styled.img`
   width: 15.8rem;
   height: 15.8rem;
+  object-fit: cover;
   border-radius: 100%;
 
   @media (max-width: 768px) {

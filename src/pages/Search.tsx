@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SearchToggle } from '../components/Search/SearchToggle';
 import { SearchBar } from '../components/Search/SearchBar';
@@ -9,26 +9,26 @@ import { SearchResultList } from '../components/SearchFile/SearchResultList';
 import NoSearchFile from '../components/SearchFile/NoSearchFile';
 import { getSearchApi } from '../apis/SearchApi';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { searchToggleState, searchResultState } from '../recoil';
+import { searchToggleState, searchResultState, searchTextState } from '../recoil';
 
 export default function Search() {
-  const [searchText, setSearchText] = useState('');
   const [searchResultView, setSearchResultView] = useState(false);
   const activeToggle = useRecoilValue(searchToggleState);
+  const searchText = useRecoilValue(searchTextState);
   const [searchResult, setSearchResult] = useRecoilState(searchResultState);
 
-  //입력한 검색어 저장
-  const onInputSearchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target.value;
-    setSearchText(target);
-  };
+  useEffect(() => {
+    if (searchResultView) {
+      searchHandler(searchText);
+    }
+  }, [activeToggle]);
 
   //검색했을 때 이벤트
-  const searchHandler = async () => {
-    if (searchText) {
-      setSearchResultView(true);
-      const data = await getSearchApi(`?keyword=${searchText}&type=${activeToggle === 0 ? 'STORE' : 'PRODUCT'}&size=5`);
+  const searchHandler = async (search: string) => {
+    if (search) {
+      const data = await getSearchApi(`?keyword=${search}&type=${activeToggle === 0 ? 'STORE' : 'PRODUCT'}&size=300`);
       setSearchResult(data.data);
+      setSearchResultView(true);
     }
   };
 
@@ -38,13 +38,13 @@ export default function Search() {
       <LogoImg src={`${process.env.PUBLIC_URL}/assets/Search/logo.png`} alt="로고" />
       <SearchContainer>
         <SearchToggle />
-        <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
+        <SearchBar searchHandler={searchHandler} />
       </SearchContainer>
       {searchResultView ? (
         <div>{searchResult.length > 0 ? <SearchResultList /> : <NoSearchFile />}</div>
       ) : (
         <SearchList>
-          <RecentSearchList />
+          <RecentSearchList searchHandler={searchHandler} />
           <PopularSearchList />
         </SearchList>
       )}
