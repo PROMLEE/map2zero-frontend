@@ -12,11 +12,13 @@ export const InfoStateSelector = selector({
     }
    
   });
-export const ManagerStoreSelector= selector({
+
+
+export const ManagerStoreSelector=  selector({
     key: "ManagerStoreSelector",
     get : async () => {
       const data = await ManagerStoreApi();
-      return data; 
+      return data?.data; 
     }
    
   });

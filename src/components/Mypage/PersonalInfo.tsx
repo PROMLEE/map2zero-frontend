@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { InfoStateSelector, ManagerStoreSelector } from '../../recoil/Mypage/myPageState';
+import { managerStoreType } from '../../recoil/Mypage/myPageStateType';
 
 const PersonalInfo = () => {
   const navigate = useNavigate();
   const info = useRecoilValue(InfoStateSelector);
-  // const managerStore = useRecoilValue(ManagerStoreSelector);
+  const managerStore: managerStoreType = useRecoilValue(ManagerStoreSelector);
+
+  console.log(managerStore);
 
   const onSettingHandler = () => {
     navigate('/setting');
@@ -20,8 +23,7 @@ const PersonalInfo = () => {
           <PersonalImg src={info.photo.url} alt="이미지"></PersonalImg>
         </div>
         <InfoWrap>
-          {/* {info.is_manager && <StoreName>{managerStore.name}</StoreName>} */}
-          {info.is_manager && <StoreName>{'매장명'}</StoreName>}
+          {info.is_manager && managerStore && <StoreName>{managerStore.name}</StoreName>}
           <Name $hasstorename={!!info.is_manager}>{info.nickname}</Name>
           <SocialWrap>
             <SocialIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/${info.type}.png`} alt="소셜아이콘"></SocialIcon>

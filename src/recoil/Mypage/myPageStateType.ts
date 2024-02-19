@@ -43,3 +43,16 @@ export interface BookmarkType {
     height: number;
   };
 }
+
+
+export interface  managerStoreType{
+  id: number,
+  name: string,
+  address: {
+    province:string,
+    city: string,
+    road_name: string,
+    lot_number: string,
+  }
+}
+
