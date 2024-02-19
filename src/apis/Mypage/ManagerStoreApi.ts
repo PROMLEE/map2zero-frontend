@@ -1,12 +1,13 @@
-import { authAPI} from '../customApi'
+import { authAPI } from '../customApi';
 
- const ManagerStoreApi =  async()=> {
+const ManagerStoreApi = async () => {
   try {
-    const response = await  authAPI.get(`/managers/stores`)
-    return response;
+    const response = await authAPI.get(`/managers/stores`);
+    return response.data;
   } catch (e) {
     console.log(e);
     alert('연동 에러');
-};}
+  }
+};
 
-export default ManagerStoreApi ;
+export default ManagerStoreApi;

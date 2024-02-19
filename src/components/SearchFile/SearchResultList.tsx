@@ -54,7 +54,7 @@ export const SearchResultList = () => {
           </AddressFrame>
           <StoreFrame>
             <StoreImg
-              src={i.photo.url ? i.photo.url : `${process.env.PUBLIC_URL}/assets/Mypage/lightgray.png`}
+              src={i.photo ? i.photo.url : `${process.env.PUBLIC_URL}/assets/Mypage/lightgray.png`}
               alt={i.name}
             />
             {/* photo 값 없어서 나중에 수정 필요 ->i.photo.url */}
