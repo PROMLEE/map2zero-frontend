@@ -251,6 +251,7 @@ const LinkBox = styled.div`
     margin-top: 5rem;
     font-size: 4rem;
     gap: 5rem;
+    margin-bottom: 13rem;
   }
 `;
 const URL = styled.a`
