@@ -52,7 +52,7 @@ export const ProductRegistration = ({ id }: Prop) => {
   return (
     <Background onClick={handleEvent}>
       <Modal onClick={(event) => event.stopPropagation()}>
-        <Xbutton src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`} onClick={handleEvent} />
+        <Xbutton src={`${process.env.PUBLIC_URL}/assets/Edit/close.svg`} onClick={handleEvent} />
         <Title>판매 제품 등록</Title>
         <Texts $margintopPC={'3.7rem'} $margintopMB={'10.25rem'}>
           품목명을 작성해 주세요

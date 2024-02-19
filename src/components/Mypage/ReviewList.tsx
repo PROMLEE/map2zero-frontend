@@ -21,7 +21,6 @@ const ReviewList = () => {
 
   useEffect(() => {
     setDisplayItems(items);
-    console.log(displayItems);
   }, [items, setDisplayItems]);
 
   useEffect(() => {
@@ -85,10 +84,12 @@ const ReviewList = () => {
                     modalHandler(i.id);
                   }}
                 >
-                  <TrashIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/trash.png`} alt="삭제아이콘" />
+                  <TrashIcon src={`${process.env.PUBLIC_URL}/assets/ReviewList/trash.svg`} alt="삭제아이콘" />
                   <TrashText>삭제</TrashText>
                 </TrashWrap>
-                <Date>{i.createdDate}</Date>
+                <Date>
+                  {i.createdDate.slice(0, 10)} {i.createdDate.slice(11, 16)}
+                </Date>
               </Review>
             ))}
           </div>

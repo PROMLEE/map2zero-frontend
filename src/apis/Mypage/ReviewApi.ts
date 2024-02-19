@@ -1,25 +1,21 @@
-import { authAPI} from '../customApi'
+import { authAPI } from '../customApi';
 
- const ReviewsGetApi =  async()=> {
+export const getReviewsApi = async () => {
   try {
-    const response = await  authAPI.get(`/my-page/reviews`,{ params: { size : 8 } })
+    const response = await authAPI.get(`/my-page/reviews`, { params: { size: 16 } });
     return response.data;
   } catch (e) {
     console.log(e);
-    alert('연동 에러');
-};}
+    return undefined;
+  }
+};
 
-
-const ReviewsDeleteApi=  async(data :any)=> {
-
+export const deleteSingleReviewApi = async (data: any) => {
   try {
-    const response = await authAPI.delete('/reviews',  { data: data });
-    console.log(response)
+    const response = await authAPI.delete('/reviews', { data: data });
     return response.data;
   } catch (e) {
     console.log(e);
-    alert('연동 에러');
-}
-}
-
-export {ReviewsGetApi, ReviewsDeleteApi } ;
+    return undefined;
+  }
+};

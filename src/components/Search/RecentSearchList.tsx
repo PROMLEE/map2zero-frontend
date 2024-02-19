@@ -61,7 +61,7 @@ export const RecentSearchList: React.FC<TsearchHandler> = ({ searchHandler }) =>
             return (
               <TagItem key={item.id}>
                 <img
-                  src={`${process.env.PUBLIC_URL}/assets/Search/delete.svg`}
+                  src={`${process.env.PUBLIC_URL}/assets/Edit/close.svg`}
                   alt="삭제"
                   onClick={() => itemClear(item.id)}
                 />

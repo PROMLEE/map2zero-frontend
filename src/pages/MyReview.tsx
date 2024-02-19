@@ -148,7 +148,6 @@ const Container = styled.div<{ $nonescroll: boolean }>`
   z-index: ${(props) => (props.$nonescroll ? 2 : 0)};
   left: 0;
   right: 0;
-
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -178,7 +177,7 @@ const Reviews = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-
+  margin-bottom: 20rem;
   @media (max-width: 768px) {
     margin-top: 24px;
     grid-template-columns: 1fr;
