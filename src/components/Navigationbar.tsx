@@ -13,6 +13,7 @@ export const Navigationbar = () => {
   const [userinfo, setuserinfo] = useRecoilState(UserInfoState);
   const accessToken = localStorage.getItem('accessToken');
   const [data, setData] = useState(accessToken);
+
   useEffect(() => {
     setData(accessToken);
   }, [accessToken]);
@@ -20,6 +21,7 @@ export const Navigationbar = () => {
   useEffect(() => {
     getProfileImg();
   }, []);
+
   const getProfileImg = async () => {
     if (data) {
       try {
@@ -65,7 +67,9 @@ export const Navigationbar = () => {
       </NavMobile>
       {/* PC 네비게이션 바 (상단) */}
       <Box />
-      <Logoimg src={`${process.env.PUBLIC_URL}/assets/Navbar/logo.png`} />
+      <Link to="/">
+        <Logoimg src={`${process.env.PUBLIC_URL}/assets/Navbar/logo.png`} />
+      </Link>
       <RightBox>
         {/* <Link to="/search">
           <Navimg

@@ -47,7 +47,7 @@ export const MyBookmark = () => {
       <Wrap>
         <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
         <BookMarks>
-          {list.map((i: any, index: number) => {
+          {list.data.map((i: any, index: number) => {
             return <BookMarkCard i={i} key={index} />;
           })}
         </BookMarks>

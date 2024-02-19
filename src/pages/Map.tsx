@@ -14,7 +14,7 @@ export const Map = () => {
   const initMap = async (myLocation: { latitude: number; longitude: number }) => {
     map = new naver.maps.Map('map', {
       center: new naver.maps.LatLng(myLocation.latitude, myLocation.longitude),
-      zoom: 13,
+      zoom: 16,
       disableKineticPan: false,
       scaleControl: false,
       zoomControl: true,
