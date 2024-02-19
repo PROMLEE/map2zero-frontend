@@ -15,12 +15,14 @@ export default function Mypage() {
       <PersonalInfo />
       <Line />
       {info.is_manager && managerStore.length > 0 ? (
-        <ManageBox>
-          {managerStore.map((item, index) => (
-            <MyStoreManagement {...item} key={index} />
-          ))}
+        <>
+          <ManageBox>
+            {managerStore.map((item, index) => (
+              <MyStoreManagement {...item} key={index} />
+            ))}
+          </ManageBox>
           <Line $mobileVisible />
-        </ManageBox>
+        </>
       ) : null}
       <BookMarkList />
       <Line $mobileVisible />
