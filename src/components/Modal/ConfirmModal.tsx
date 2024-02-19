@@ -2,11 +2,18 @@ import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { popUpModalState } from '../../recoil';
-import { preventScroll, allowScroll } from './scroll';
+import { BookMarkModalState, ReviewModalState } from '../../recoil/confirmModal';
+import { allowScroll, preventScroll } from './scroll';
 
-const ConfirmModal = () => {
-  const [modalOpen, setModalOpen] = useRecoilState(popUpModalState);
+type ConfirmModalProps = {
+  onRequestClose: any;
+  type: string;
+};
+
+const ConfirmModal = ({ onRequestClose, type }: ConfirmModalProps) => {
+  const [modalOpen, setModalOpen] =
+    type === '리뷰' ? useRecoilState(ReviewModalState) : useRecoilState(BookMarkModalState);
+
   const modalHandler = () => {
     setModalOpen(!modalOpen);
   };
@@ -37,6 +44,7 @@ const ConfirmModal = () => {
   return (
     <Modal
       isOpen={modalOpen}
+      ariaHideApp={false}
       style={{
         overlay: {
           backgroundColor: ' rgba(0, 0, 0, 0.3)',
@@ -71,10 +79,10 @@ const ConfirmModal = () => {
         },
       }}
     >
-      <Message>리뷰를 삭제할까요?</Message>
+      <Message>{`${type}`}를 삭제할까요?</Message>
       <Close src={`${process.env.PUBLIC_URL}/assets/MyPage/close.png`} alt="닫기" onClick={modalHandler} />
       <BtnWrap>
-        <ConfirmBtn>네</ConfirmBtn>
+        <ConfirmBtn onClick={onRequestClose}>네</ConfirmBtn>
         <ConfirmBtn onClick={modalHandler}>아니오</ConfirmBtn>
       </BtnWrap>
     </Modal>

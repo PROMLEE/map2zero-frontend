@@ -9,7 +9,6 @@ import NaverLoginHandeler from './Login/NaverLoginHandeler';
 import StoreDetail from './StoreDetail';
 import NickName from './NickName';
 import { SellingProduct } from './SellingProduct';
-import OwnerMypage from './OwnerMypage';
 import { Map } from './Map';
 import { SellingProductManage } from './SellingProductManage';
 import { EventManage } from './Evnentmanage';
@@ -29,7 +28,6 @@ export {
   StoreDetail,
   SellingProduct,
   NickName,
-  OwnerMypage,
   Map,
   SellingProductManage,
   EventManage,

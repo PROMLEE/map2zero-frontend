@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { nickNameState, appliedprofileImgState } from '../../recoil';
-import { InfoState } from '../../recoil/Mypage/myPageState';
+import { InfoStateSelector } from '../../recoil/Mypage/myPageState';
 import { getNicknameInuseApi, patchNicknameApi } from '../../apis/EditApi';
 import { putPhotosApi } from '../../apis/EditApi';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ interface Prop {
 }
 
 const EditButton = ({ checked }: Prop) => {
-  const info = useRecoilValue(InfoState);
+  const info = useRecoilValue(InfoStateSelector);
   const [nickname, setNickName] = useRecoilState(nickNameState);
   const appliedImg = useRecoilValue(appliedprofileImgState);
   const [change, setChange] = useState(false);

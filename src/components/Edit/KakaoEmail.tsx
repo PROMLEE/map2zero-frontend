@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { InfoState } from '../../recoil/Mypage/myPageState';
+import { InfoStateSelector } from '../../recoil/Mypage/myPageState';
 import { useRecoilValue } from 'recoil';
 
 const KakaoEmail = () => {
-  const info = useRecoilValue(InfoState);
+  const info = useRecoilValue(InfoStateSelector);
 
   return (
     <KakaoDiv>
