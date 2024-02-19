@@ -15,7 +15,6 @@ import { SellingProductManage } from './SellingProductManage';
 import { EventManage } from './Evnentmanage';
 import MyReview from './MyReview';
 import { Err } from './404Error';
-import { MyBookmark } from './MyBookmark';
 
 export {
   Home,
@@ -35,5 +34,4 @@ export {
   EventManage,
   MyReview,
   Err,
-  MyBookmark,
 };

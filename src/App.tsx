@@ -18,10 +18,10 @@ import {
   EventManage,
   MyReview,
   Err,
-  MyBookmark,
 } from './pages';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
+import MoreDetails from './components/Mypage/MoreDetails';
 import { useRecoilValue } from 'recoil';
 import { UserInfoState } from './recoil';
 
@@ -53,7 +53,7 @@ export default function App() {
               <Route path="/eventmanage/:storeid" element={<EventManage />} />
               <Route path="/owner/mypage" element={<OwnerMypage />} />
               <Route path="/mypage/review" element={<MyReview />} />
-              <Route path="/bookmarkdetail" element={<MyBookmark />} />
+              <Route path="/bookmarkdetail" element={<MoreDetails />} />
             </>
           )}
         </Routes>
