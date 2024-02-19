@@ -7,7 +7,6 @@ const BookMarksGetPage = async () => {
         size: 100,
       },
     });
-    console.log(response);
     return response.data;
   } catch (e) {
     console.log(e);
