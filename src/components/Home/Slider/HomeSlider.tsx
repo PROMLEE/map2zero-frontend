@@ -54,7 +54,7 @@ const HomeSlider = ({ type }: { type: string }) => {
         {Info &&
           Info.data.map((item: any) =>
             type === 'curation' ? (
-              <CurationSliderItem key={item.id} item={item} />
+              <CurationSliderItem key={item.id} item={item} dragging={dragging} />
             ) : (
               <div key={item.id}>
                 <BaseSliderItem item={item} dragging={dragging} />
