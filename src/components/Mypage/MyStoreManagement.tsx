@@ -2,16 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const MyStoreManagement = () => {
+const MyStoreManagement = ({ id, name }: any) => {
   return (
     <Wrap>
-      {' '}
-      <Title> 내 매장 관리</Title>
+      <Title> {name} 관리</Title>
       <div>
-        <Link to="/">
+        <Link to={`/sellingproductmanage/${id}`}>
           <Btn>판매 제품 관리</Btn>
         </Link>
-        <Link to="/">
+        <Link to={`/eventmanage/${id}`}>
           <Btn>진행중인 이벤트 관리</Btn>
         </Link>
       </div>
@@ -20,8 +19,8 @@ const MyStoreManagement = () => {
 };
 
 const Wrap = styled.div`
-  width: calc(100vw - 10%);
-  margin-left: 10%;
+  width: 30rem;
+  margin-right: 5%;
   @media (max-width: 768px) {
     width: calc(100vw - 5%);
     margin-left: 5%;

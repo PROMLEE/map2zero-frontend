@@ -13,7 +13,7 @@ export default function Mobiletop(props: Props) {
     <>
       <Mobiletopbar>{props.pagename}</Mobiletopbar>
       <Navimg src={`${process.env.PUBLIC_URL}/assets/Navbar/backbutton.svg`} onClick={onClickBtn} />
-      <Box />
+      <Box $ismypage={props.pagename === '마이페이지' ? 'true' : 'false'} />
     </>
   );
 }
@@ -33,11 +33,12 @@ const Mobiletopbar = styled.div`
     display: flex;
   }
 `;
-const Box = styled.div`
+const Box = styled.div<{ $ismypage: string }>`
   position: relative;
   width: 100%;
   height: 11rem;
   display: none;
+  background-color: ${(props) => (props.$ismypage ? '#74b69d' : 'transparent')};
   @media screen and (max-width: 768px) {
     display: block;
   }

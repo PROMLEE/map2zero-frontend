@@ -50,10 +50,10 @@ const ReviewList = () => {
         <MoreDetails to={`/reviewdetail`}>더보기 {'>'}</MoreDetails>
       </div>
 
-      <Reviews>
-        <div>
-          {displayItems &&
-            displayItems.map((i: any) => (
+      {displayItems && displayItems.length > 0 ? (
+        <Reviews>
+          <div>
+            {displayItems.map((i: any) => (
               <Review
                 key={i.id}
                 onClick={() => {
@@ -66,7 +66,6 @@ const ReviewList = () => {
                     alt={`${i.store.name}의 이미지`}
                   />
                 </StoreImg>
-
                 <TextContainer>
                   <h3>{i.store.name}</h3>
                   <p>{i.text}</p>
@@ -92,8 +91,11 @@ const ReviewList = () => {
                 <Date>{i.createdDate}</Date>
               </Review>
             ))}
-        </div>
-      </Reviews>
+          </div>
+        </Reviews>
+      ) : (
+        <NoReview>작성한 리뷰가 없습니다</NoReview>
+      )}
     </Wrap>
   );
 };
@@ -126,11 +128,11 @@ const MoreDetails = styled(Link)`
 `;
 
 const ReviewTitle = styled.h1`
-  margin: 0 0 2rem 1rem;
+  margin: 0 0 0rem 1rem;
   font-size: 1.4rem;
   @media (max-width: 768px) {
     font-size: 3rem;
-    margin: 0 0 4rem 2rem;
+    margin: 0 0 0rem 2rem;
   }
 `;
 
@@ -292,5 +294,16 @@ const Date = styled.p`
     font-size: 2rem;
     right: 1.5rem;
     top: 1.5rem;
+  }
+`;
+const NoReview = styled.div`
+  width: 80%;
+  margin-left: 1rem;
+  height: 5rem;
+  font-size: 1.5rem;
+  @media (max-width: 768px) {
+    height: 12.5rem;
+    margin-left: 2rem;
+    font-size: 3.5rem;
   }
 `;

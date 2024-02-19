@@ -1,15 +1,27 @@
 import styled from 'styled-components';
 import { BookMarkList, ReviewList, PersonalInfo, StoreOwner, MyStoreManagement } from '../components/Mypage';
 import { useRecoilValue } from 'recoil';
-import { InfoStateSelector } from '../recoil/Mypage/myPageState';
+import { InfoStateSelector, ManagerStoreSelector } from '../recoil/Mypage/myPageState';
+import { managerStoreType } from '../recoil/Mypage/myPageStateType';
+import { Mobiletop } from '../components';
+
 export default function Mypage() {
   const info = useRecoilValue(InfoStateSelector);
-  console.log(info);
+  const managerStore: managerStoreType[] = info.is_manager ? useRecoilValue(ManagerStoreSelector) : [];
 
   return (
     <ContentWrap>
+      <Mobiletop pagename="마이페이지" />
       <PersonalInfo />
       <Line />
+      {info.is_manager && managerStore.length > 0 ? (
+        <ManageBox>
+          {managerStore.map((item, index) => (
+            <MyStoreManagement {...item} key={index} />
+          ))}
+          <Line $mobileVisible />
+        </ManageBox>
+      ) : null}
       <BookMarkList />
       <Line $mobileVisible />
       <ReviewList />
@@ -37,4 +49,9 @@ const Line = styled.hr<LineType>`
     width: 85%;
     display: ${(props) => (props.$mobileVisible ? 'flex' : 'none')};
   }
+`;
+
+const ManageBox = styled.div`
+  display: flex;
+  width: 80%;
 `;

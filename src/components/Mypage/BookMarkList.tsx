@@ -49,10 +49,10 @@ const BookMarkList = () => {
         <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
         <MoreDetails to={`/bookmarkdetail`}>더보기 {'>'}</MoreDetails>
       </div>
-      <BookMarks>
-        <div>
-          {displayItems &&
-            displayItems.map((i: any) => (
+      {displayItems && displayItems.length > 0 ? (
+        <BookMarks>
+          <div>
+            {displayItems.map((i: any) => (
               <BookMark
                 key={i.id}
                 onClick={() => {
@@ -75,26 +75,28 @@ const BookMarkList = () => {
                 <p>{i.address.province + ' ' + i.address.city}</p>
               </BookMark>
             ))}
-        </div>
-      </BookMarks>
+          </div>
+        </BookMarks>
+      ) : (
+        <NoBookMark>북마크한 매장이 없습니다</NoBookMark>
+      )}
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
   width: 80%;
+  > div {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+  }
   @media (max-width: 768px) {
     width: calc(100vw - 5%);
     margin-left: 5%;
     > div {
       margin-top: 6rem;
     }
-  }
-
-  > div {
-    margin-top: 4rem;
-    display: flex;
-    justify-content: space-between;
   }
 `;
 
@@ -212,4 +214,17 @@ const BookMarkIcon = styled.img`
     height: 3.75rem;
   }
 `;
+
+const NoBookMark = styled.div`
+  width: 80%;
+  margin-left: 1rem;
+  height: 5rem;
+  font-size: 1.5rem;
+  @media (max-width: 768px) {
+    height: 12.5rem;
+    margin-left: 2rem;
+    font-size: 3.5rem;
+  }
+`;
+
 export default BookMarkList;
