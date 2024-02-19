@@ -81,7 +81,7 @@ const Items = ({ type }: { type: string }) => {
               <Promotion>{item.price}</Promotion>
             </ImgContainer>
             <StoreNameContainer>
-              <p>{item.name}</p>
+              <p>{item.store_name}</p>
               <div>
                 <CustomArrowIcon fill={'#565656'} alt={'화살표'} />
               </div>
