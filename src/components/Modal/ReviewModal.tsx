@@ -1,7 +1,7 @@
 import { useRecoilCallback, useSetRecoilState } from 'recoil';
 import { DeleteIdState, ReviewsState } from '../../recoil/Mypage/myPageState';
 import { ReviewModalState } from '../../recoil/confirmModal';
-import { ReviewsDeleteApi } from '../../apis/Mypage/ReviewApi';
+import { deleteSingleReviewApi } from '../../apis/Mypage/ReviewApi';
 import { ReviewType } from '../../recoil/Mypage/myPageStateType';
 import ConfirmModal from './ConfirmModal';
 
@@ -13,7 +13,7 @@ const ReviewModal = () => {
       async () => {
         setModalOpen(false);
         const latestDeleteState = await snapshot.getPromise(DeleteIdState);
-        await ReviewsDeleteApi({ review_id: latestDeleteState.review_id });
+        await deleteSingleReviewApi({ review_id: latestDeleteState.review_id });
         const currentItems: ReviewType[] = await snapshot.getPromise(ReviewsState);
         set(
           ReviewsState,

@@ -100,7 +100,6 @@ const EventTitle = styled.div`
 const Products = styled.div`
   display: flex;
   width: 92.4rem;
-  /* height: 25rem; */
   overflow-x: scroll;
   overflow-y: hidden;
   gap: 1.6rem;
@@ -110,7 +109,6 @@ const Products = styled.div`
   }
   @media (max-width: 768px) {
     width: 100%;
-    height: 60rem;
     gap: 4rem;
     margin-top: 4rem;
   }

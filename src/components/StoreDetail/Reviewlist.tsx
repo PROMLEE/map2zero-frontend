@@ -39,7 +39,7 @@ export const Reviewlist = () => {
 
   useEffect(() => {
     getdata();
-  }, [storeDetail, userinfo, activeToggle]);
+  }, [storeDetail, userinfo, activeToggle, currentPage]);
   return (
     <SellingBox>
       <Title>
@@ -78,41 +78,36 @@ export const Reviewlist = () => {
       </Reviews>
 
       <ul>
-        {noPrev ? null : (
-          <PageButton
-            onClick={() => {
-              setcurrentPage(currentPage - 1);
-            }}
-            $url={'url(assets/StoreDetail/LeftStroke.svg)'}
-          />
-        )}
+        <PageButton
+          onClick={() => (!noPrev ? setcurrentPage(currentPage - 1) : alert('첫 페이지입니다.'))}
+          $url={'url(/assets/StoreDetail/LeftStroke.svg)'}
+        />
+
         {[...Array(totalPages)].map((a, i) => (
           <PageNum onClick={() => buttonClick(i)} key={i} $current={i + 1 === currentPage}>
             {i + 1}
           </PageNum>
         ))}
-        {noNext ? null : (
-          <PageButton
-            onClick={() => {
-              setcurrentPage(currentPage + 1);
-            }}
-            $url={'url(assets/StoreDetail/RightStroke.svg)'}
-          />
-        )}
+
+        <PageButton
+          onClick={() => (!noNext ? setcurrentPage(currentPage + 1) : alert('마지막 페이지입니다.'))}
+          $url={'url(/assets/StoreDetail/RightStroke.svg)'}
+        />
       </ul>
     </SellingBox>
   );
 };
 const PageButton = styled.li<{ $url: string }>`
   background: ${(props) => props.$url} center no-repeat;
-  width: 0.7rem;
-  height: 1.2rem;
+  padding: 1rem;
+  width: 3rem;
+  height: 5rem;
   &:hover {
     cursor: pointer;
   }
   @media (max-width: 768px) {
-    width: 1.8rem;
-    height: 3rem;
+    width: 5rem;
+    height: 7rem;
   }
 `;
 
@@ -120,7 +115,8 @@ const PageNum = styled.li<{ $current: boolean }>`
   font-size: ${(props) => (props.$current ? '1.5rem;' : '1.2rem')};
   padding: 0.5rem;
   color: ${(props) => (props.$current ? '#0b5c71' : 'black')};
-  font-weight: 500;
+  font-weight: ${(props) => (props.$current ? 800 : 500)};
+  text-decoration: ${(props) => (props.$current ? 'underline' : 'none')};
   &:hover {
     cursor: pointer;
   }
@@ -164,10 +160,7 @@ const Title = styled.div`
   }
 `;
 const ReviewTitle = styled.div`
-  color: #000;
-  font-family: 'Noto Sans KR';
   font-size: 1.8rem;
-  font-style: normal;
   font-weight: 600;
   line-height: normal;
   @media (max-width: 768px) {
@@ -179,9 +172,7 @@ const ReviewTitle = styled.div`
 `;
 const RightText = styled.div`
   color: #565656;
-  font-family: 'Noto Sans KR';
   font-size: 1.2rem;
-  font-style: normal;
   font-weight: 400;
   line-height: normal;
   &:hover {
@@ -269,7 +260,6 @@ const ToggleButton = styled.div<{ $active: boolean }>`
   color: ${(props) => (props.$active ? '#565656' : '#E0E0E0')};
   z-index: 2;
   text-align: center;
-  font-family: 'Noto Sans KR';
   font-size: 1.2rem;
   font-weight: 400;
   line-height: normal;

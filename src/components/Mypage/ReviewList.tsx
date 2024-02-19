@@ -87,7 +87,9 @@ const ReviewList = () => {
                   <TrashIcon src={`${process.env.PUBLIC_URL}/assets/ReviewList/trash.svg`} alt="삭제아이콘" />
                   <TrashText>삭제</TrashText>
                 </TrashWrap>
-                <Date>{i.createdDate}</Date>
+                <Date>
+                  {i.createdDate.slice(0, 10)} {i.createdDate.slice(11, 16)}
+                </Date>
               </Review>
             ))}
           </div>

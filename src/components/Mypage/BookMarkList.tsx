@@ -43,7 +43,6 @@ const BookMarkList = () => {
 
   return (
     <Wrap>
-      <BookMarkModal />
       <div>
         <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
         <MoreDetails to={`/bookmarkdetail`}>더보기 {'>'}</MoreDetails>
@@ -122,6 +121,7 @@ const BookMarkTitle = styled.h1`
 
 const BookMarks = styled.div`
   display: flex;
+  margin-bottom: 20rem;
   > div {
     display: flex;
     justify-content: flex-start;

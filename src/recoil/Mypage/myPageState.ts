@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 import PersonalInfoApi from '../../apis/Mypage/PersonalInfoApi';
 import ManagerStoreApi from '../../apis/Mypage/ManagerStoreApi';
-import { ReviewsGetApi } from '../../apis/Mypage/ReviewApi';
+import { getReviewsApi } from '../../apis/Mypage/ReviewApi';
 import { BookMarksGetApi } from '../../apis/Mypage';
 import { BookmarkType, ReviewType } from './myPageStateType';
 
@@ -24,7 +24,7 @@ export const ManagerStoreSelector = selector({
 export const ReviewStateSelector = selector({
   key: 'ReviewStateSelector',
   get: async () => {
-    const data = await ReviewsGetApi();
+    const data = await getReviewsApi();
     return data.data;
   },
 });

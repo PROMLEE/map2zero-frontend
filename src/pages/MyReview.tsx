@@ -94,9 +94,9 @@ export default function MyReview() {
         />
       )}
       <h1>내가 쓴 리뷰</h1>
-      {reviews && reviews.length > 0 ? (
-        <Reviews>
-          {reviews.map((item) => (
+      <Reviews>
+        {reviews &&
+          reviews.map((item) => (
             <Review key={item.id} onClick={() => navigate(`/store/${item.store.id}`)}>
               {item.photo && item.photo.url ? (
                 <StoreImg src={item.photo.url} alt={item.store.name} />
@@ -134,10 +134,7 @@ export default function MyReview() {
               </DataWrap>
             </Review>
           ))}
-        </Reviews>
-      ) : (
-        <p>작성한 리뷰가 없습니다</p>
-      )}
+      </Reviews>
     </Container>
   );
 }
@@ -151,7 +148,6 @@ const Container = styled.div<{ $nonescroll: boolean }>`
   z-index: ${(props) => (props.$nonescroll ? 2 : 0)};
   left: 0;
   right: 0;
-
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -175,17 +171,13 @@ const Container = styled.div<{ $nonescroll: boolean }>`
       display: none;
     }
   }
-  p {
-    width: 92.4rem;
-    font-size: 1.4rem;
-  }
 `;
 
 const Reviews = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-
+  margin-bottom: 20rem;
   @media (max-width: 768px) {
     margin-top: 24px;
     grid-template-columns: 1fr;
