@@ -94,47 +94,52 @@ export default function MyReview() {
         />
       )}
       <h1>내가 쓴 리뷰</h1>
-      <Reviews>
-        {reviews &&
-          reviews.map((item) => (
-            <Review key={item.id} onClick={() => navigate(`/store/${item.store.id}`)}>
-              {item.photo && item.photo.url ? (
-                <StoreImg src={item.photo.url} alt={item.store.name} />
-              ) : (
-                <NoneImg></NoneImg>
-              )}
-              <Heart>
-                <img
-                  src={
-                    item.liked
-                      ? `${process.env.PUBLIC_URL}/assets/ReviewList/heart.svg`
-                      : `${process.env.PUBLIC_URL}/assets/StoreDetail/not_like.svg`
-                  }
-                  alt="heart"
-                />
-                <p>{item.likeCnt}</p>
-              </Heart>
-              <DataWrap>
-                <Contents>
-                  <h3>{item.store.name}</h3>
-                  <p>{item.text}</p>
-                </Contents>
-                <RightWrap>
-                  <ReviewDate>{formatDate(item.createdDate)}</ReviewDate>
-                  <TrashWrap
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      deleteModalOpen(item.id);
-                    }}
-                  >
-                    <TrashIcon src={`${process.env.PUBLIC_URL}/assets/ReviewList/trash.svg`} alt="trash" />
-                    <TrashText>삭제</TrashText>
-                  </TrashWrap>
-                </RightWrap>
-              </DataWrap>
-            </Review>
-          ))}
-      </Reviews>
+      {reviews && reviews.length > 0 ? (
+        <Reviews>
+          <>
+            {reviews.map((item) => (
+              <Review key={item.id} onClick={() => navigate(`/store/${item.store.id}`)}>
+                {item.photo && item.photo.url ? (
+                  <StoreImg src={item.photo.url} alt={item.store.name} />
+                ) : (
+                  <NoneImg></NoneImg>
+                )}
+                <Heart>
+                  <img
+                    src={
+                      item.liked
+                        ? `${process.env.PUBLIC_URL}/assets/ReviewList/heart.svg`
+                        : `${process.env.PUBLIC_URL}/assets/StoreDetail/not_like.svg`
+                    }
+                    alt="heart"
+                  />
+                  <p>{item.likeCnt}</p>
+                </Heart>
+                <DataWrap>
+                  <Contents>
+                    <h3>{item.store.name}</h3>
+                    <p>{item.text}</p>
+                  </Contents>
+                  <RightWrap>
+                    <ReviewDate>{formatDate(item.createdDate)}</ReviewDate>
+                    <TrashWrap
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        deleteModalOpen(item.id);
+                      }}
+                    >
+                      <TrashIcon src={`${process.env.PUBLIC_URL}/assets/ReviewList/trash.svg`} alt="trash" />
+                      <TrashText>삭제</TrashText>
+                    </TrashWrap>
+                  </RightWrap>
+                </DataWrap>
+              </Review>
+            ))}
+          </>
+        </Reviews>
+      ) : (
+        <p>* 작성한 리뷰가 없습니다</p>
+      )}
     </Container>
   );
 }
@@ -153,7 +158,15 @@ const Container = styled.div<{ $nonescroll: boolean }>`
   &::-webkit-scrollbar {
     display: none;
   }
-
+  p {
+    width: 92.4rem;
+    margin-top: 3rem;
+    font-size: 1.4rem;
+    @media (max-width: 768px) {
+      margin-top: 8rem;
+      font-size: 4rem;
+    }
+  }
   > h1 {
     margin-top: 6.4rem;
     color: #000000;

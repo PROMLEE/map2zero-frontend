@@ -42,7 +42,7 @@ export const EventDetail = () => {
             <Title>{data.title}</Title>
             {data.manager ? (
               <>
-                <EditIcon src={`${process.env.PUBLIC_URL}/assets/Edit/edit.svg`} />
+                <EditIcon onClick={eventEdit} src={`${process.env.PUBLIC_URL}/assets/Edit/edit.svg`} />
                 <EditText onClick={eventEdit}>이벤트 수정</EditText>
               </>
             ) : null}
@@ -55,8 +55,12 @@ export const EventDetail = () => {
           </StateBox>
           <Summary>{data.description}</Summary>
           <LinkBox>
-            신청 링크
-            <URL href={`${data.application_url}`}>{data.application_url}</URL>
+            {data.application_url ? (
+              <>
+                신청 링크
+                <URL href={`${data.application_url}`}>{data.application_url}</URL>
+              </>
+            ) : null}
           </LinkBox>
         </Details>
       </Modal>
