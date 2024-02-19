@@ -27,7 +27,7 @@ export const MarkerInfo = ({ id, name, photo, bookmarked, review_cnt, average_sc
     <MarkerBox>
       <Title>{name}</Title>
       <InfoBox>
-        <StoreImg src={photo ? photo.url : `${process.env.PUBLIC_URL}/assets/Navbar/Logo.png`} />
+        <StoreImg src={photo ? photo.url : `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`} />
         <TextBox>
           <TopBox>
             <StarBox>

@@ -36,11 +36,11 @@ export const Map = () => {
       const marker = new naver.maps.Marker({
         map: map,
         position: new naver.maps.LatLng(datas.data[i].y, datas.data[i].x),
-        icon: {
-          url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
-          scaledSize: new naver.maps.Size(35, 35),
-          size: new naver.maps.Size(35, 35),
-        },
+        // icon: {
+        //   url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+        //   scaledSize: new naver.maps.Size(35, 35),
+        //   size: new naver.maps.Size(35, 35),
+        // },
       });
       infowindows.push(
         new naver.maps.InfoWindow({
@@ -59,28 +59,28 @@ export const Map = () => {
         if (infowindows[i].getMap()) {
           infowindows[i].close();
         } else {
-          for (let i = 0; i < markers.length; i++) {
-            markers[i].setIcon({
-              url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
-              scaledSize: new naver.maps.Size(35, 35),
-              size: new naver.maps.Size(35, 35),
-            });
-          }
+          // for (let i = 0; i < markers.length; i++) {
+          //   markers[i].setIcon({
+          //     url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+          //     scaledSize: new naver.maps.Size(35, 35),
+          //     size: new naver.maps.Size(35, 35),
+          //   });
+          // }
           map.panTo(e.coord);
-          markers[i].setIcon({
-            url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
-            scaledSize: new naver.maps.Size(50, 50),
-            size: new naver.maps.Size(50, 50),
-          });
+          // markers[i].setIcon({
+          //   url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+          //   scaledSize: new naver.maps.Size(50, 50),
+          //   size: new naver.maps.Size(50, 50),
+          // });
           infowindows[i].open(map, markers[i]);
           naver.maps.Event.once(map, 'click', function () {
             for (let i = 0; i < markers.length; i++) {
               if (infowindows[i].getMap()) {
-                markers[i].setIcon({
-                  url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
-                  scaledSize: new naver.maps.Size(35, 35),
-                  size: new naver.maps.Size(35, 35),
-                });
+                // markers[i].setIcon({
+                //   url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+                //   scaledSize: new naver.maps.Size(35, 35),
+                //   size: new naver.maps.Size(35, 35),
+                // });
                 infowindows[i].close();
               }
             }
