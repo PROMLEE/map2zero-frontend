@@ -5,6 +5,7 @@ const UserInfoState = atom<UserInfo>({
   key: 'userinfo',
   default: {
     islogin: false,
+    ismanager: false,
     email: '',
     nickname: '',
     photo: { url: '' },
@@ -13,4 +14,9 @@ const UserInfoState = atom<UserInfo>({
   },
 });
 
-export default UserInfoState;
+const UserState = atom({
+  key: 'UserCode',
+  default: { state: '', token: '' },
+});
+
+export { UserInfoState, UserState };

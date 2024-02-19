@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 interface Props {
-  product: string;
-  price: string;
-  code: number;
+  name: string;
+  price: number;
+  id: number;
 }
-export const Product = ({ product, price, code }: Props) => {
+export const Product = ({ name, price, id }: Props) => {
   return (
     <Box>
-      <ProductName>{product}</ProductName>
+      <ProductName>{name}</ProductName>
       <ProductPrice>{price}</ProductPrice>
     </Box>
   );

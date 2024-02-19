@@ -1,57 +1,65 @@
 import styled from 'styled-components';
 import { Category, Addonepic, Name, Price } from '.';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { productRegistModalState, productName, productCategory } from '../../recoil';
-import { useEffect, useRef } from 'react';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { productRegistModalState } from '../../recoil';
+import { ProductAdd, ProductImg } from '../../recoil/Products/Products';
+import { useEffect } from 'react';
+import { ProductSend } from '../../apis/SellingProduct/Products';
 
-export const ProductRegistration = () => {
+interface Prop {
+  id: number;
+}
+
+export const ProductRegistration = ({ id }: Prop) => {
   const setModal = useSetRecoilState(productRegistModalState);
-  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
-  const text = useRecoilValue(productName);
-  const category = useRecoilValue(productCategory);
-  const isConditionMet = text !== '' && category[0];
-
-  const closeModal = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+  const values = useRecoilValue(ProductAdd);
+  const img = useRecoilValue(ProductImg);
+  const reset = useResetRecoilState(ProductAdd);
+  const imgreset = useResetRecoilState(ProductImg);
+  const isConditionMet = values.name !== '' && values.tag_id !== 0;
+  const handleEvent = () => {
+    if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
       setModal(false);
+      reset();
+      imgreset();
+    }
+  };
+  useEffect(() => {
+    const preventGoBack = () => {
+      history.pushState(null, '', location.href);
+      handleEvent();
+    };
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', preventGoBack);
+    return () => window.removeEventListener('popstate', preventGoBack);
+  }, []);
+
+  const sendReview = async () => {
+    const formData = new FormData();
+    formData.append('request', new Blob([JSON.stringify(values)], { type: 'application/json' }));
+    for (let i = 0; i < img.length; i++) {
+      formData.append('images', img[i]);
+    }
+    if (await ProductSend(id, formData)) {
+      alert('물품이 등록되었습니다.');
+      reset();
+      imgreset();
+      setModal(false);
+      window.location.reload();
     }
   };
 
-  useEffect(() => {
-    document.addEventListener('mousedown', closeModal);
-    return () => {
-      document.removeEventListener('mousedown', closeModal);
-    };
-  }, []);
-  // 뒤로가기 버튼 누를 시 모달 닫기
-  const handleEvent = () => {
-    history.pushState(null, '', location.href);
-    setModal(false);
-  };
-
-  useEffect(() => {
-    history.pushState(null, '', location.href);
-    window.addEventListener('popstate', handleEvent);
-    return () => {
-      window.removeEventListener('popstate', handleEvent);
-    };
-  }, []);
   return (
-    <Background>
-      <Modal ref={modalRef}>
-        <Xbutton
-          src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
-          onClick={() => {
-            setModal(false);
-          }}
-        />
+    <Background onClick={handleEvent}>
+      <Modal onClick={(event) => event.stopPropagation()}>
+        <Xbutton src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`} onClick={handleEvent} />
         <Title>판매 제품 등록</Title>
         <Texts $margintopPC={'3.7rem'} $margintopMB={'10.25rem'}>
           품목명을 작성해 주세요
         </Texts>
         <Name />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
-          카테고리를 선택해 주세요 (중복 가능)
+          카테고리를 선택해 주세요(단일 선택)
         </Texts>
         <Category />
         <Texts $margintopPC={'5.6rem'} $margintopMB={'6.5rem'}>
@@ -62,7 +70,9 @@ export const ProductRegistration = () => {
           사진을 추가해 주세요
         </Texts>
         <Addonepic />
-        <CompleteButton disabled={!isConditionMet}>작성 완료</CompleteButton>
+        <CompleteButton disabled={!isConditionMet} onClick={sendReview}>
+          작성 완료
+        </CompleteButton>
       </Modal>
     </Background>
   );

@@ -1,28 +1,27 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { tagitem } from '../../recoil';
+import { StoreTagtype } from '../../recoil/types';
+import { ReviewWriteState } from '../../recoil/StoreDetail/StoresState';
+import { StoreReviewWrite } from '../../recoil/StoreDetail/types';
 
-interface Props {
-  tag: string;
-}
-export const Tagitem = (props: Props) => {
-  const [tags, setModal] = useRecoilState(tagitem);
+export const Tagitem = ({ name, id }: StoreTagtype) => {
   const [tagon, settagon] = useState<boolean>(false);
+  const [reviewState, setreviewState] = useRecoilState<StoreReviewWrite>(ReviewWriteState);
 
   const onpress = () => {
-    let onpresstags: string[] = [...tags];
+    let onpresstags: number[] = [...reviewState.tag_ids];
     if (tagon) {
-      onpresstags = onpresstags.filter((item) => item !== props.tag);
+      onpresstags = onpresstags.filter((item) => item !== id);
     } else {
-      onpresstags.push(props.tag);
+      onpresstags.push(id);
     }
-    setModal(onpresstags);
+    setreviewState({ ...reviewState, tag_ids: onpresstags });
     settagon(!tagon);
   };
   return (
     <TagItem $istagon={tagon} onClick={onpress}>
-      {props.tag}
+      # {name}
     </TagItem>
   );
 };

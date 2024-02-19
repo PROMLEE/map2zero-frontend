@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { textRate } from '../../recoil';
+import { useRecoilState } from 'recoil';
+import { ReviewWriteState } from '../../recoil/StoreDetail/StoresState';
+import { StoreReviewWrite } from '../../recoil/StoreDetail/types';
 
 export const Text = () => {
-  const setText = useSetRecoilState(textRate);
+  const [reviewState, setreviewState] = useRecoilState<StoreReviewWrite>(ReviewWriteState);
   let [inputCount, setInputCount] = useState(0);
   const onInputHandler = (e: any) => {
     setInputCount(e.target.value.length);
-    setText(e.target.value);
+    setreviewState({ ...reviewState, text: e.target.value });
   };
 
   return (
     <ReviewBox>
-      <TextBox placeholder="최대 100자(띄어쓰기 포함)" onChange={onInputHandler} maxLength={100} />
-      <Textcount>{inputCount}/100</Textcount>
+      <TextBox placeholder="최소 10자 최대 255자(공백 포함)" onChange={onInputHandler} maxLength={255} />
+      <Textcount>{inputCount}/255</Textcount>
     </ReviewBox>
   );
 };

@@ -1,15 +1,12 @@
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { eventDate } from '../../recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { EventEditState } from '../../recoil';
 import DatePicker from 'react-datepicker';
-import { LegacyRef, forwardRef, useState } from 'react';
+import { LegacyRef, forwardRef, useEffect, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export const EventDate = () => {
-  const setDate = useSetRecoilState(eventDate);
-  const onInputHandler = (e: any) => {
-    setDate(e.target.value);
-  };
+  const [eventval, setEventval] = useRecoilState(EventEditState);
   const CustomStart = forwardRef(({ value, onClick }: any, ref: LegacyRef<HTMLButtonElement> | undefined) => (
     <StartDate className="example-custom-input" onClick={onClick} ref={ref}>
       {value}
@@ -22,13 +19,36 @@ export const EventDate = () => {
   ));
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-
+  const onChangeStart = (date: Date) => {
+    setStartDate(date ? date : new Date());
+  };
+  const onChangeEnd = (date: Date) => {
+    setEndDate(date ? date : new Date());
+  };
+  useEffect(() => {
+    setEventval({
+      ...eventval,
+      start_date: `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}-${String(
+        startDate.getDate(),
+      ).padStart(2, '0')}`,
+    });
+    console.log(eventval);
+  }, [startDate]);
+  useEffect(() => {
+    setEventval({
+      ...eventval,
+      end_date: `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, '0')}-${String(
+        endDate.getDate(),
+      ).padStart(2, '0')}`,
+    });
+    console.log(eventval);
+  }, [endDate]);
   return (
     <Namebox>
       <DatePicker
         dateFormat={'시작일 yyyy.MM.dd'}
         selected={startDate}
-        onChange={(date: Date) => setStartDate(date ? date : new Date())}
+        onChange={onChangeStart}
         selectsStart
         startDate={startDate}
         endDate={endDate}
@@ -37,7 +57,7 @@ export const EventDate = () => {
       <DatePicker
         dateFormat={'종료일 yyyy.MM.dd'}
         selected={endDate}
-        onChange={(date: Date) => setEndDate(date ? date : new Date())}
+        onChange={onChangeEnd}
         selectsEnd
         startDate={startDate}
         endDate={endDate}

@@ -1,21 +1,41 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { shareModalState } from '../../recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { StoreState, UserInfoState } from '../../recoil';
+import { Bookmark, BookmarkDel } from '../../apis/StoreDetail/Bookmark';
+
 export const StoreName = () => {
-  const [handlebookmark, sethandlebookmark] = useState(true);
-  const setmodal = useSetRecoilState(shareModalState);
+  const [storeDetail, setstoreDetail] = useRecoilState(StoreState);
+  const islogin = useRecoilValue(UserInfoState);
+
+  const onclickBookmark = async () => {
+    if (islogin.islogin) {
+      storeDetail.is_bookmarked
+        ? await BookmarkDel({ store_id: storeDetail.id })
+        : await Bookmark({ store_id: storeDetail.id });
+      setstoreDetail({ ...storeDetail, is_bookmarked: !storeDetail.is_bookmarked });
+    } else {
+      alert('로그인 후 이용해주세요');
+    }
+  };
+  const handle = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: `Map2zero - ${storeDetail.name}`,
+        url: window.location.href,
+      });
+    } else {
+      alert('공유하기가 지원되지 않는 환경 입니다.');
+    }
+  };
   return (
     <DetailBox>
-      <Name>매장명</Name>
+      <Name>{storeDetail.name}</Name>
       <div>
-        <LinkButton onClick={() => setmodal(true)} src={`${process.env.PUBLIC_URL}/assets/StoreDetail/share.svg`} />
+        <LinkButton onClick={handle} src={`${process.env.PUBLIC_URL}/assets/StoreDetail/share.svg`} />
         <LinkButton
-          onClick={() => {
-            sethandlebookmark(!handlebookmark);
-          }}
+          onClick={onclickBookmark}
           src={
-            handlebookmark
+            storeDetail.is_bookmarked
               ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
               : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.svg`
           }
@@ -52,13 +72,12 @@ const LinkButton = styled.img`
   width: 1.5152rem;
   height: 2rem;
   margin: 1rem;
-
   &:hover {
     cursor: pointer;
   }
-
   @media (max-width: 768px) {
     width: 3.375rem;
     height: 3.75rem;
+    margin: 2.5rem;
   }
 `;

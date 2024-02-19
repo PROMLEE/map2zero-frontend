@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
 interface Props {
-  product: string;
+  name: string;
   price: string;
-  imgurl: string;
-  code: number;
+  photo: { url: string };
 }
-export const Product = ({ product, price, imgurl, code }: Props) => {
+export const Product = ({ name, price, photo }: Props) => {
   return (
     <Box>
-      <ProductImg src={imgurl} alt={product} />
-      <ProductName>{product}</ProductName>
+      <ProductImg src={photo.url} alt={name} />
+      <ProductName>{name}</ProductName>
       <ProductPrice>{price}</ProductPrice>
     </Box>
   );
@@ -24,9 +23,6 @@ const Box = styled.div`
   align-items: flex-start;
   border-radius: 0.8rem;
   border: 0.5px solid #f2f2f2;
-  &:hover {
-    cursor: pointer;
-  }
   @media (max-width: 768px) {
     margin-bottom: 4rem;
     width: 49%;

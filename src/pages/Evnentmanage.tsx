@@ -1,21 +1,30 @@
 import styled from 'styled-components';
 import { EventDetail, Mobiletop, ScrollToTop } from '../components';
-import { EventEdit, DefaultList } from '../components/EventEdit';
+import { EventEdit, Item } from '../components/EventEdit';
 import { useEffect, useState } from 'react';
-import { productManage, eventManageModalState, eventDetailModal } from '../recoil';
+import { eventManageModalState, eventDetailModal } from '../recoil';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Cookies } from 'react-cookie';
+import { useLocation } from 'react-router-dom';
+import GetEventDetail from '../apis/StoreDetail/EventDetail';
+import { EventDetailType } from '../recoil/StoreDetail/types';
+import { EventDetailState, EventId } from '../recoil/StoreDetail/StoresState';
 
 export const EventManage = () => {
+  const seteventDetail = useSetRecoilState<EventDetailType>(EventDetailState);
   const [showSideMenu, setShowSideMenu] = useState(false);
   const [fadeInOut, setFadeInOut] = useState('');
   const [modal, setmodal] = useRecoilState(eventManageModalState);
+  const eventId = useRecoilValue(EventId);
   document.body.style.overflow = modal ? 'hidden' : 'unset';
   const eventmodal = useRecoilValue(eventDetailModal);
   document.body.style.overflow = eventmodal ? 'hidden' : 'unset';
-  const isOwner = useSetRecoilState(productManage);
 
   const cookies = new Cookies();
+
+  useEffect(() => {
+    if (eventId) getEventdata(eventId);
+  }, [eventId]);
 
   const setCookie = (name: string, value: string, options?: any) => {
     return cookies.set(name, value, { ...options });
@@ -24,9 +33,11 @@ export const EventManage = () => {
   const getCookie = (name: string) => {
     return cookies.get(name);
   };
-
+  const getEventdata = async (id: number) => {
+    const data = await GetEventDetail(id);
+    seteventDetail(data.data);
+  };
   useEffect(() => {
-    isOwner(true);
     if (!getCookie('eventmanage_visit')) {
       setShowSideMenu(true);
       setCookie('eventmanage_visit', 'true');
@@ -45,7 +56,7 @@ export const EventManage = () => {
       <ScrollToTop />
       <Mobiletop pagename="이벤트 관리" />
       <Title>이벤트 관리</Title>
-      <DefaultList />
+      <Item />
       <ButtonBox>
         {showSideMenu ? <ArrowBubble className={'side-menu ' + fadeInOut}>이벤트 추가</ArrowBubble> : null}
         <Button onClick={() => setmodal(true)} onMouseOver={showMenuList} onMouseLeave={closeMenuList} />
@@ -101,13 +112,15 @@ const ButtonBox = styled.div`
 const ArrowBubble = styled.div`
   padding-top: 1rem;
   color: #0b5c71;
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: center;
   margin-left: auto;
   margin-right: 0.5rem;
-  width: 6.4rem;
-  height: 3.8rem;
+  width: 7rem;
+  height: 4.5rem;
   background-image: url('/assets/ProductList/balloon.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
   bottom: 4rem;
   right: 4rem;
   @media (max-width: 768px) {

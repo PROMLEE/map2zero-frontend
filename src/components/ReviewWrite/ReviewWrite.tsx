@@ -1,46 +1,61 @@
 import styled from 'styled-components';
 import { StarRating, Storetag, Text, Addpic } from '.';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { reviewmodalState, starRate, textRate, tagitem } from '../../recoil';
-import { useEffect, useRef } from 'react';
+import { useSetRecoilState, useResetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
+import { reviewmodalState } from '../../recoil';
+import { ReviewWriteState, ReviewImgState } from '../../recoil/StoreDetail/StoresState';
+import ReviewSend from '../../apis/StoreDetail/ReviewSend';
+import { useEffect } from 'react';
 
-export const ReviewWrite = () => {
+interface Props {
+  id: number;
+}
+
+export const ReviewWrite = ({ id }: Props) => {
   const setModal = useSetRecoilState(reviewmodalState);
-  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
-  const star = useRecoilValue(starRate);
-  const text = useRecoilValue(textRate);
-  const tag = useRecoilValue(tagitem);
-  const isConditionMet = star !== 0 && text !== '';
-  const closeModal = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+  const [reviewState, setreviewState] = useRecoilState(ReviewWriteState);
+  const reviewImgState = useRecoilValue(ReviewImgState);
+  const reset = useResetRecoilState(ReviewWriteState);
+  const imgreset = useResetRecoilState(ReviewImgState);
+  const isConditionMet = reviewState.score !== 0 && reviewState.text.length >= 10;
+
+  const sendReview = async () => {
+    const formData = new FormData();
+    formData.append('request', new Blob([JSON.stringify(reviewState)], { type: 'application/json' }));
+    for (let i = 0; i < reviewImgState.length; i++) {
+      formData.append('images', reviewImgState[i]);
+    }
+    if (await ReviewSend(formData)) {
+      alert('리뷰가 작성되었습니다.');
+      reset();
+      imgreset();
       setModal(false);
+      window.location.reload();
+    }
+  };
+
+  const handleEvent = () => {
+    if (window.confirm('작성중인 내용이 삭제됩니다.\n그래도 나가시겠습니까?')) {
+      setModal(false);
+      reset();
+      imgreset();
     }
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', closeModal);
-    return () => {
-      document.removeEventListener('mousedown', closeModal);
+    setreviewState({ ...reviewState, store_id: id });
+    const preventGoBack = () => {
+      history.pushState(null, '', location.href);
+      handleEvent();
     };
-  }, []);
-
-  useEffect(() => {
     history.pushState(null, '', location.href);
-    window.addEventListener('popstate', () => setModal(false));
-    return () => {
-      window.removeEventListener('popstate', () => setModal(false));
-    };
+    window.addEventListener('popstate', preventGoBack);
+    return () => window.removeEventListener('popstate', preventGoBack);
   }, []);
 
   return (
-    <Background>
-      <Modal ref={modalRef}>
-        <Xbutton
-          src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
-          onClick={() => {
-            setModal(false);
-          }}
-        />
+    <Background onClick={handleEvent}>
+      <Modal onClick={(event) => event.stopPropagation()}>
+        <Xbutton src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`} onClick={handleEvent} />
         <Title>리뷰 작성</Title>
         <Texts $margintopPC={'3.7rem'} $margintopMB={'10.25rem'}>
           별점을 선택해 주세요
@@ -55,15 +70,10 @@ export const ReviewWrite = () => {
         </Texts>
         <Text />
         <Texts $margintopPC={'3.2rem'} $margintopMB={'8rem'}>
-          사진을 추가해 주세요
+          사진을 추가해 주세요 (최대 5장)
         </Texts>
         <Addpic />
-        <CompleteButton
-          disabled={!isConditionMet}
-          onClick={() => {
-            console.log({ star: star, tag: tag, text: text });
-          }}
-        >
+        <CompleteButton disabled={!isConditionMet} onClick={sendReview}>
           작성 완료
         </CompleteButton>
       </Modal>

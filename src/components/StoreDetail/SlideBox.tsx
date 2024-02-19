@@ -1,32 +1,15 @@
 import styled from 'styled-components';
 import Slick from './SlidePic';
-
-interface itemsProps {
-  item: string;
-  name: string;
-}
-
-const items: itemsProps[] = [
-  {
-    item: `${process.env.PUBLIC_URL}/assets/StoreDetail/example_pic.png`,
-    name: '이미지01',
-  },
-  {
-    item: `${process.env.PUBLIC_URL}/assets/Navbar/logo.png`,
-    name: '이미지02',
-  },
-  {
-    item: `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`,
-    name: '이미지03',
-  },
-];
+import { useRecoilValue } from 'recoil';
+import { StoreState } from '../../recoil';
 
 function Item() {
+  const data = useRecoilValue(StoreState);
   return (
     <Slick>
-      {items.map((item, index) => (
+      {data.photos.map((item, index) => (
         <SliderItem key={index}>
-          <img src={item.item} alt={item.name} />
+          <img src={item.url} alt={item.url} />
         </SliderItem>
       ))}
     </Slick>
@@ -35,11 +18,12 @@ function Item() {
 
 const SliderItem = styled.div`
   img {
-    width: 92.4rem;
-    height: 48rem;
+    max-width: 92.4rem;
+    max-height: 48rem;
+    margin: 0 auto;
     @media (max-width: 768px) {
-      width: 100%;
-      height: 93.75rem;
+      max-width: 100%;
+      max-height: 93.75rem;
     }
   }
 `;

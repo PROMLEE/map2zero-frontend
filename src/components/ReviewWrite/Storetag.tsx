@@ -1,12 +1,14 @@
 import styled from 'styled-components';
+import { GetReviewTag } from '../../recoil';
 import { Tagitem } from '.';
-export const Storetag = () => {
-  const tags = ['#태그1태그1태그1', '#태그2', '#태그3태그3', '#태그4', '#태그5', '#태그6태그6태그6ㄴㄴㄴ'];
+import { useRecoilValue } from 'recoil';
 
+export const Storetag = () => {
+  const tags = useRecoilValue(GetReviewTag);
   return (
     <TagsWrap>
       {tags.map((item, index) => {
-        return <Tagitem tag={item} key={index} />;
+        return <Tagitem {...item} key={index} />;
       })}
     </TagsWrap>
   );

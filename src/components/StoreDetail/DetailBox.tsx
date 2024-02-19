@@ -1,32 +1,32 @@
-import { useRef } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { StoreState } from '../../recoil';
 
 export const DetailBox = () => {
-  const text =
-    "지구를 위한 첫걸음, 지구샵입니다.\n<지구샵 제로웨이스트홈>은 일상 속 제로웨이스트 가치를\n더 가깝게 느끼고\n친환경 소비를 실천할 수 있도록 독려하고자\n'제로웨이스터의 집'이라는 컨셉으로 공간을 구성했습니다.";
+  const storeDetail = useRecoilValue(StoreState);
   return (
     <Details>
       <ReviewIndex>
         <Img src={`${process.env.PUBLIC_URL}/assets/StoreDetail/star.svg`} $height={'2rem'} $heightm={'5rem'} />
-        <Text $color={'#FF6464'}>4.5</Text>
+        <Text $color={'#FF6464'}>{storeDetail.average_score}</Text>
         <ReviewButton
           onClick={() => {
             window.scrollTo({ top: 1000, behavior: 'smooth' });
           }}
         >
-          <Text $color={'#565656'}>리뷰(42)</Text>
+          <Text $color={'#565656'}>리뷰({storeDetail.review_cnt})</Text>
           <Img src={`${process.env.PUBLIC_URL}/assets/StoreDetail/arrow.svg`} $height={'1.1rem'} $heightm={'2.75rem'} />
         </ReviewButton>
       </ReviewIndex>
-      <Intro>{text}</Intro>
+      <Intro>{storeDetail.description}</Intro>
       <Links>
         <Link>
           <Name>인스타그램</Name>
           <Name>홈페이지</Name>
         </Link>
         <Link>
-          <URL href={'https://www.instagram.com'}>@aaaaa</URL>
-          <URL href={'https://www.naver.com/'}>http://dddd</URL>
+          <URL href={storeDetail.instagram_url}>{storeDetail.instagram_url}</URL>
+          <URL href={storeDetail.homepage_url}>{storeDetail.homepage_url}</URL>
         </Link>
       </Links>
     </Details>
@@ -100,7 +100,7 @@ const Links = styled.div`
   display: flex;
   gap: 1.6rem;
   @media (max-width: 768px) {
-    margin-top: 1.5rem;
+    margin-top: 6rem;
     gap: 4rem;
   }
 `;

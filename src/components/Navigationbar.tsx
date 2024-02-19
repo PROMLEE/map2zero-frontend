@@ -26,12 +26,14 @@ export const Navigationbar = () => {
         const res: any = await axios.get(`${process.env.REACT_APP_API_URL}my-page`, {
           headers: { Authorization: accessToken },
         });
-        const newinfo = { ...userinfo, photo: { url: res.data.data.photo.url } };
+        const newinfo = { ...userinfo, photo: { url: res.data.data.photo.url }, islogin: true };
         setuserinfo(newinfo);
       } catch (err: any) {
         console.log(err);
         if (err.response.status === 401) {
           localStorage.removeItem('accessToken');
+          const newinfo = { ...userinfo, islogin: false };
+          setuserinfo(newinfo);
           setData(null);
         }
       }
@@ -65,7 +67,7 @@ export const Navigationbar = () => {
       <Box />
       <Logoimg src={`${process.env.PUBLIC_URL}/assets/Navbar/logo.png`} />
       <RightBox>
-        <Link to="/search">
+        {/* <Link to="/search">
           <Navimg
             src={`${process.env.PUBLIC_URL}/assets/Navbar/searchimg.svg`}
             $top="3.45rem"
@@ -74,7 +76,7 @@ export const Navigationbar = () => {
             $width="1.5rem"
             $height="1.5rem"
           />
-        </Link>
+        </Link> */}
         {data !== null ? (
           <Link to="/mypage">
             <Navimg
@@ -101,8 +103,8 @@ export const Navigationbar = () => {
         <NavLinkStyle to="/map">
           <LinksliPc>매장 위치</LinksliPc>
         </NavLinkStyle>
-        <NavLinkStyle to="/aboutus">
-          <LinksliPc>About us</LinksliPc>
+        <NavLinkStyle to="/search">
+          <LinksliPc>키워드로 검색</LinksliPc>
         </NavLinkStyle>
       </NavPc>
     </>

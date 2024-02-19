@@ -1,61 +1,43 @@
 import styled from 'styled-components';
 import { Product } from './Product';
 import { Link } from 'react-router-dom';
+import StoreProduct from '../../apis/StoreDetail/StoresProduct';
+import { useRecoilValue } from 'recoil';
+import { StoreState } from '../../recoil';
+import { StoreProducttype } from '../../recoil/StoreDetail/types';
+import { useEffect, useState } from 'react';
 
 export const Productlist = () => {
-  const productlist = [
-    {
-      product: '제품명',
-      price: '가격',
-      code: 1234,
-    },
-    {
-      product: '제품명',
-      price: '가격',
-      code: 12345,
-    },
-    {
-      product: '제품명',
-      price: '가격',
-      code: 12346,
-    },
-    {
-      product: '제품명',
-      price: '가격',
-      code: 12347,
-    },
-    {
-      product: '제품명',
-      price: '가격',
-      code: 12348,
-    },
-    {
-      product: '제품명',
-      price: '가격',
-      code: 12349,
-    },
-    {
-      product: '제품명',
-      price: '가격',
-      code: 123410,
-    },
-  ];
+  const [productlist, setproductlist] = useState<StoreProducttype[]>([]);
+  const storeDetail = useRecoilValue(StoreState);
+
+  const getdata = async () => {
+    if (storeDetail.id) {
+      const data = await StoreProduct(storeDetail.id);
+      setproductlist(data.data);
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, [storeDetail]);
 
   return (
     <SellingBox>
       <Title>
         <LeftText>
           <SellingTitle>판매중인 제품</SellingTitle>
-          <SellingCount>(30)</SellingCount>
+          <SellingCount>({storeDetail.store_product_cnt})</SellingCount>
         </LeftText>
-        <Link to="/sellingproduct" style={{ textDecoration: 'none' }}>
+        <Link to={`/sellingproduct/${storeDetail.id}`} style={{ textDecoration: 'none' }}>
           <RightText>전체보기</RightText>
         </Link>
       </Title>
       <Products>
-        {productlist.slice(0, 6).map((item, index) => {
-          return <Product {...item} key={index} />;
-        })}
+        {productlist &&
+          productlist.slice(0, 6).map((item, index) => {
+            return <Product {...item} key={index} />;
+          })}
       </Products>
     </SellingBox>
   );
@@ -92,7 +74,6 @@ const LeftText = styled.div`
 
 const SellingTitle = styled.div`
   color: #000;
-  font-family: 'Noto Sans KR';
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 600;
@@ -103,7 +84,6 @@ const SellingTitle = styled.div`
 `;
 const SellingCount = styled.div`
   color: #848484;
-  font-family: 'Noto Sans KR';
   font-size: 1.2rem;
   font-style: normal;
   font-weight: 600;
@@ -115,7 +95,6 @@ const SellingCount = styled.div`
 
 const RightText = styled.div`
   color: #565656;
-  font-family: 'Noto Sans KR';
   font-size: 1.2rem;
   font-style: normal;
   font-weight: 400;

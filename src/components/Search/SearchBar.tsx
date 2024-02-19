@@ -1,16 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import { searchToggleState } from '../../recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { searchToggleState, searchTextState } from '../../recoil';
 
 type TSearchBarProps = {
-  searchText: string;
-  onInputSearchHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  searchHandler: () => void;
+  searchHandler: (search: string) => void;
 };
 
-export const SearchBar: React.FC<TSearchBarProps> = ({ searchText, onInputSearchHandler, searchHandler }) => {
+export const SearchBar: React.FC<TSearchBarProps> = ({ searchHandler }) => {
   const activeToggle = useRecoilValue(searchToggleState);
+  const [searchText, setSearchText] = useRecoilState(searchTextState);
+
+  //입력한 검색어 저장
+  const onInputSearchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target.value;
+    setSearchText(target);
+  };
 
   return (
     <SearchWrap>
@@ -21,14 +26,18 @@ export const SearchBar: React.FC<TSearchBarProps> = ({ searchText, onInputSearch
         onKeyDown={(event) => {
           if (event.key === 'Enter') {
             if (searchText !== '') {
-              searchHandler();
+              searchHandler(searchText);
             }
           }
         }}
         spellCheck={false}
         onInput={onInputSearchHandler}
       />
-      <SearchImg src={`${process.env.PUBLIC_URL}/assets/Search/search.png`} alt="검색" onClick={searchHandler} />
+      <SearchImg
+        src={`${process.env.PUBLIC_URL}/assets/Search/search.svg`}
+        alt="검색"
+        onClick={() => searchHandler(searchText)}
+      />
     </SearchWrap>
   );
 };
@@ -40,8 +49,8 @@ const SearchWrap = styled.div`
 
 const SearchInput = styled.input`
   margin-top: 1.6rem;
-  border: none;
   width: 100%;
+  border-radius: 0;
   border-bottom: 0.1rem solid #565656;
   padding-bottom: 5px;
   outline: none;

@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { starRate } from '../../recoil';
+import { ReviewWriteState } from '../../recoil/StoreDetail/StoresState';
+import { StoreReviewWrite } from '../../recoil/StoreDetail/types';
 
 export const StarRating = ({ totalStars = 5 }) => {
   const [hover, setHover] = useState(0);
-  const [rating, setRating] = useRecoilState(starRate);
+  const [reviewState, setreviewState] = useRecoilState<StoreReviewWrite>(ReviewWriteState);
 
   return (
     <Starbox>
@@ -18,18 +19,18 @@ export const StarRating = ({ totalStars = 5 }) => {
               name="rating"
               value={ratingValue}
               onClick={() => {
-                setRating(ratingValue);
+                setreviewState({ ...reviewState, score: ratingValue });
               }}
               style={{ display: 'none' }}
             />
             <Starimg
               src={
-                ratingValue <= (hover || rating)
+                ratingValue <= (hover || reviewState.score)
                   ? `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`
                   : `${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.svg`
               }
               onMouseEnter={() => setHover(ratingValue)}
-              onMouseLeave={() => setHover(rating)}
+              onMouseLeave={() => setHover(reviewState.score)}
               style={{ cursor: 'pointer' }}
               alt={`Star ${ratingValue}`}
             />

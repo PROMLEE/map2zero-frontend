@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Product, SlidePic } from '.';
+import { Product, SlidePic, TabContents } from '.';
 
 const productlist = [
   {
@@ -48,20 +48,26 @@ const productlist = [
 
 export const Item = () => {
   return (
-    <SlidePic>
-      {[...Array(2)].map((item, index) => (
-        <div key={index}>
-          <List>
-            {productlist.map((item, index) => {
-              return <Product {...item} key={index} />;
-            })}
-          </List>
-        </div>
-      ))}
-    </SlidePic>
+    <ProductBox>
+      <SlidePic>
+        {['ACTIVE', 'INACTIVE'].map((item, index) => (
+          <div key={index}>
+            <TabContents status={item} />
+          </div>
+        ))}
+      </SlidePic>
+    </ProductBox>
   );
 };
-
+const ProductBox = styled.div`
+  width: 92.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 11rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    overflow: hidden;
+  }
+`;
 const List = styled.div`
   display: flex;
   overflow: visible;
