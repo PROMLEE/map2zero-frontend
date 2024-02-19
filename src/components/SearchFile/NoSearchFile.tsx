@@ -10,25 +10,28 @@ const NoSearchFile = () => {
   );
 };
 
+export default NoSearchFile;
+
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
 `;
 
 const NoSearch = styled.img`
   width: 120px;
   height: 120px;
-  margin: 119px 900px 16px 900px;
+  margin-top: 119px;
+
+  @media (max-width: 768px) {
+    margin-top: 168px;
+  }
 `;
 
 const NoSearchText = styled.p`
+  margin-top: 16px;
   color: #cccccc;
   font-size: 14px;
   font-weight: 500px;
-  margin-bottom: 298px;
 `;
-
-export default NoSearchFile;

@@ -1,50 +1,90 @@
 import styled from 'styled-components';
 import { InputField } from '../components/Owner';
 import { useInput } from '../hooks/Owner';
+import { useRecoilCallback } from 'recoil';
+import { InputPostState } from '../recoil/Owner/ownerState';
+import OwnerApi from '../apis/Owner/OwnerApi';
 
 const Owner = () => {
   const { inputs, onHandleChange } = useInput('default'); //배열 대신 객체로 반환
-  const { title, addresses, businessLicenseNum, contact, ceoName } = inputs;
-  //console.log(inputs);
+  const { name, address, business_number, contact, representative } = inputs;
+
+  const postOwner = useRecoilCallback(
+    ({ snapshot, set }) =>
+      async () => {
+        // 현재 InputPostState 상태
+        const currentAddressPostInfo = await snapshot.getPromise(InputPostState);
+
+        //디테일 주소 포함 주소 최종 업데이트
+        const updatedAddress = {
+          ...currentAddressPostInfo,
+          name: inputs.name,
+          business_number: inputs.business_number,
+          contact: inputs.contact,
+          representative: inputs.representative,
+          address: {
+            ...currentAddressPostInfo.address,
+            road_name: currentAddressPostInfo.address.road_name
+              ? currentAddressPostInfo.address.road_name + ' ' + inputs.address.detailAddress
+              : '',
+            lot_number: currentAddressPostInfo.address.lot_number
+              ? currentAddressPostInfo.address.lot_number + ' ' + inputs.address.detailAddress
+              : '',
+          },
+        };
+        set(InputPostState, updatedAddress);
+        const Info = {
+          store: updatedAddress,
+        };
+        OwnerApi(Info);
+        console.log('Info', Info);
+      },
+    [inputs],
+  );
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    postOwner();
+  };
+
   return (
     <Wrap>
       <Title>점주 신청하기</Title>
+      <OwnerForm onSubmit={handleSubmit}>
+        <ContentWrap>
+          <InputField
+            id="name"
+            label="상호명"
+            placeholder="상호명을 입력해주세요"
+            value={name}
+            onChange={onHandleChange}
+          />
+          <InputField
+            id="business_number"
+            label="사업자등록번호"
+            placeholder="사업자등록번호를 입력해주세요"
+            value={business_number}
+            onChange={onHandleChange}
+          />
+          <InputField label="매장주소" searchAddress={address} />
 
-      <ContentWrap>
-        <InputField
-          id="title"
-          label="상호명"
-          placeholder="상호명을 입력해주세요"
-          value={title}
-          onChange={onHandleChange}
-        />
-        <InputField
-          id="businessLicenseNum"
-          label="사업자등록번호"
-          placeholder="사업자등록번호를 입력해주세요"
-          value={businessLicenseNum}
-          onChange={onHandleChange}
-        />
-
-        <InputField label="매장주소" searchAddress={addresses} />
-
-        <InputField
-          id="contact"
-          label="연락처"
-          placeholder="연락처를 입력해주세요"
-          value={contact}
-          onChange={onHandleChange}
-        />
-
-        <InputField
-          id="ceoName"
-          label="대표명"
-          placeholder="대표명을 입력해주세요"
-          value={ceoName}
-          onChange={onHandleChange}
-        />
-      </ContentWrap>
-      <OwnerBtn>신청완료</OwnerBtn>
+          <InputField
+            id="contact"
+            label="연락처"
+            placeholder="연락처를 입력해주세요"
+            value={contact}
+            onChange={onHandleChange}
+          />
+          <InputField
+            id="representative"
+            label="대표명"
+            placeholder="대표명을 입력해주세요"
+            value={representative}
+            onChange={onHandleChange}
+          />
+        </ContentWrap>
+        <OwnerBtn type="submit">신청완료</OwnerBtn>
+      </OwnerForm>
     </Wrap>
   );
 };
@@ -64,6 +104,11 @@ const Title = styled.h1`
   @media (max-width: 768px) {
     display: none;
   }
+`;
+const OwnerForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const ContentWrap = styled.div`

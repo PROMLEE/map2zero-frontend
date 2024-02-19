@@ -1,42 +1,68 @@
 import styled from 'styled-components';
 import { Review, MyReview } from '../StoreDetail';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { reviewmodalState, ReviewState, MyReviewState } from '../../recoil';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { reviewmodalState, StoreState, UserInfoState } from '../../recoil';
+import { useEffect, useState } from 'react';
+import { StoresReview, StoresMyReview } from '../../apis/StoreDetail/StoresReview';
+import { StoreReviewtype } from '../../recoil/StoreDetail/types';
 
 export const Reviewlist = () => {
+  const [reviewlist, setreviewlist] = useState<StoreReviewtype[]>([]);
+  const [myreviewlist, setmyreviewlist] = useState<StoreReviewtype[]>([]);
+  const storeDetail = useRecoilValue(StoreState);
+  const userinfo = useRecoilValue(UserInfoState);
+
   const setModal = useSetRecoilState(reviewmodalState);
-  const reviewlist = useRecoilValue(ReviewState);
-  const myreviewlist = useRecoilValue(MyReviewState);
   const [activeToggle, setActiveToggle] = useState(true);
-  const total_elements = 32;
   const size = 10;
   const toggleOptions = [
     { label: '인기순', value: activeToggle },
     { label: '최신순', value: !activeToggle },
   ];
-  const totalPages = Math.ceil(total_elements / size);
+  const totalPages = Math.ceil(storeDetail.review_cnt / size);
   const [currentPage, setcurrentPage] = useState(1);
   const noPrev = currentPage === 1;
   const noNext = currentPage === totalPages; // 다음 페이지가 없는 경우
   const buttonClick = (n: number) => {
     setcurrentPage(n + 1);
   };
+  const getdata = async () => {
+    if (storeDetail.id) {
+      const data = await StoresReview(storeDetail.id, activeToggle ? 'likeCnt,DESC' : 'createdDate,DESC', currentPage);
+      setreviewlist(data.data);
+      if (userinfo.islogin) {
+        const mydata = await StoresMyReview(storeDetail.id, activeToggle ? 'likeCnt,DESC' : 'createdDate,DESC');
+        setmyreviewlist(mydata.data);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, [storeDetail, userinfo, activeToggle]);
   return (
     <SellingBox>
       <Title>
         <ReviewTitle>
-          리뷰 <span>(42)</span>
+          리뷰 <span>({storeDetail.review_cnt})</span>
         </ReviewTitle>
-        <RightText onClick={() => setModal(true)}>리뷰쓰기</RightText>
+        <RightText
+          onClick={() => {
+            userinfo.islogin ? setModal(true) : alert('로그인이 필요합니다!');
+          }}
+        >
+          리뷰쓰기
+        </RightText>
       </Title>
-      <MyReviewbox>
-        <MyReviewText>내가 쓴 리뷰</MyReviewText>
-        {myreviewlist.map((item, index) => {
-          return <MyReview {...item} id={index} key={index} />;
-        })}
-      </MyReviewbox>
+      {myreviewlist.length > 0 && (
+        <MyReviewbox>
+          <MyReviewText>내가 쓴 리뷰</MyReviewText>
+          {myreviewlist.map((item, index) => {
+            return <MyReview {...item} key={index} />;
+          })}
+        </MyReviewbox>
+      )}
+
       <ToggleWrapper>
         <ToggleBackground $activeToggle={activeToggle} />
         {toggleOptions.map(({ label, value }, index) => (
@@ -47,9 +73,10 @@ export const Reviewlist = () => {
       </ToggleWrapper>
       <Reviews>
         {reviewlist.map((item, index) => {
-          return <Review {...item} id={index} key={index} />;
+          return <Review {...item} key={index} />;
         })}
       </Reviews>
+
       <ul>
         {noPrev ? null : (
           <PageButton
@@ -193,6 +220,7 @@ const MyReviewbox = styled.div`
   border: 1px solid #f4ece1;
   @media (max-width: 768px) {
     border-radius: 2rem;
+    width: 100%;
   }
 `;
 

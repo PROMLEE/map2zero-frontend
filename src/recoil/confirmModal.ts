@@ -1,18 +1,16 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const popUpModalState = atom<boolean>({
-  key: "popUpModal",
+  key: 'popUpModalState',
   default: false,
 });
 
-
-
 export const ReviewModalState = atom<boolean>({
-  key: "ReviewModalState",
+  key: 'ReviewModalState',
   default: false,
 });
 
 export const BookMarkModalState = atom<boolean>({
-  key: "BookMarkModalState",
+  key: 'BookMarkModalState',
   default: false,
 });

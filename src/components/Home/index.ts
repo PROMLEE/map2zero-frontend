@@ -1,5 +1,7 @@
-import AdSlider from './Ad/Slider/AdSlider'
+import AdSlider from './Slider/HomeSlider'
 import StoreInfo from './StoreInfo';
 import Items from './Items';
+import Nearest from './Nearest';
 
-export {  AdSlider, Items,StoreInfo };
+
+export { Nearest,  AdSlider , Items,StoreInfo };

@@ -2,16 +2,19 @@ import { useEffect, useState } from 'react';
 import { MarkerInfo, Mobiletop, Gpsbutton } from '../components';
 import { renderToString } from 'react-dom/server';
 import styled from 'styled-components';
+import Markers from '../apis/Map/Markers';
 
 export const Map = () => {
-  const [myLocation, setMyLocation] = useState<{ latitude: number; longitude: number }>({ latitude: 0, longitude: 0 });
-  const strinnng = renderToString(<MarkerInfo />);
+  const [myLocation, setMyLocation] = useState<{ latitude: number; longitude: number }>({
+    latitude: 37.5601,
+    longitude: 126.996,
+  });
   const gpsbutton = renderToString(<Gpsbutton />);
   let map: any = null;
-  const initMap = (myLocation: { latitude: number; longitude: number }) => {
+  const initMap = async (myLocation: { latitude: number; longitude: number }) => {
     map = new naver.maps.Map('map', {
       center: new naver.maps.LatLng(myLocation.latitude, myLocation.longitude),
-      zoom: 13,
+      zoom: 16,
       disableKineticPan: false,
       scaleControl: false,
       zoomControl: true,
@@ -27,15 +30,17 @@ export const Map = () => {
     const markers: naver.maps.Marker[] = [];
     const infowindows: naver.maps.InfoWindow[] = [];
 
-    for (let i = 1; i < 20; i++) {
+    const datas = await Markers(myLocation);
+    for (let i = 0; i < datas.data.length; i++) {
+      const strinnng = renderToString(<MarkerInfo {...datas.data[i]} />);
       const marker = new naver.maps.Marker({
         map: map,
-        position: new naver.maps.LatLng(37.4758514 + i / 100, 126.9544896 + i / 100),
-        icon: {
-          url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
-          scaledSize: new naver.maps.Size(35, 35),
-          size: new naver.maps.Size(35, 35),
-        },
+        position: new naver.maps.LatLng(datas.data[i].y, datas.data[i].x),
+        // icon: {
+        //   url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+        //   scaledSize: new naver.maps.Size(35, 35),
+        //   size: new naver.maps.Size(35, 35),
+        // },
       });
       infowindows.push(
         new naver.maps.InfoWindow({
@@ -54,28 +59,28 @@ export const Map = () => {
         if (infowindows[i].getMap()) {
           infowindows[i].close();
         } else {
-          for (let i = 0; i < markers.length; i++) {
-            markers[i].setIcon({
-              url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
-              scaledSize: new naver.maps.Size(35, 35),
-              size: new naver.maps.Size(35, 35),
-            });
-          }
+          // for (let i = 0; i < markers.length; i++) {
+          //   markers[i].setIcon({
+          //     url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+          //     scaledSize: new naver.maps.Size(35, 35),
+          //     size: new naver.maps.Size(35, 35),
+          //   });
+          // }
           map.panTo(e.coord);
-          markers[i].setIcon({
-            url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
-            scaledSize: new naver.maps.Size(50, 50),
-            size: new naver.maps.Size(50, 50),
-          });
+          // markers[i].setIcon({
+          //   url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+          //   scaledSize: new naver.maps.Size(50, 50),
+          //   size: new naver.maps.Size(50, 50),
+          // });
           infowindows[i].open(map, markers[i]);
           naver.maps.Event.once(map, 'click', function () {
             for (let i = 0; i < markers.length; i++) {
               if (infowindows[i].getMap()) {
-                markers[i].setIcon({
-                  url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
-                  scaledSize: new naver.maps.Size(35, 35),
-                  size: new naver.maps.Size(35, 35),
-                });
+                // markers[i].setIcon({
+                //   url: `${process.env.PUBLIC_URL}/assets/Map/marker.svg`,
+                //   scaledSize: new naver.maps.Size(35, 35),
+                //   size: new naver.maps.Size(35, 35),
+                // });
                 infowindows[i].close();
               }
             }
@@ -139,6 +144,7 @@ export const Map = () => {
       window.alert('현재위치를 알수 없습니다.');
     }
   }, []);
+
   useEffect(() => {
     if (typeof myLocation !== 'string') {
       initMap(myLocation);

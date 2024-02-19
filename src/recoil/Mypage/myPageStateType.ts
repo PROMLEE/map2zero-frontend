@@ -1,4 +1,3 @@
-
 export interface Address {
   province: string;
   city: string;
@@ -6,7 +5,7 @@ export interface Address {
   lot_number: string;
 }
 
-export  interface Store {
+export interface Store {
   id: number;
   name: string;
   address: Address;
@@ -19,12 +18,11 @@ export interface ReviewType {
   score: number;
   likeCnt: number;
   store: Store;
-  photo: string | null; 
+  photo: string | null;
   liked: boolean;
   writer: boolean;
   isWriter: boolean;
 }
-
 
 export interface BookmarkType {
   store_id: number;
@@ -44,15 +42,13 @@ export interface BookmarkType {
   };
 }
 
-
-export interface  managerStoreType{
-  id: number,
-  name: string,
+export interface managerStoreType {
+  id: number;
+  name: string;
   address: {
-    province:string,
-    city: string,
-    road_name: string,
-    lot_number: string,
-  }
+    province: string;
+    city: string;
+    road_name: string;
+    lot_number: string;
+  };
 }
-

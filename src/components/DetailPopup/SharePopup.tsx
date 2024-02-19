@@ -12,7 +12,14 @@ export const SharePopup = () => {
       setModal(false);
     }
   };
-
+  const copyClipboard = async (text: string, successAction?: () => void, failAction?: () => void) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      successAction && successAction();
+    } catch (error) {
+      failAction && failAction();
+    }
+  };
   useEffect(() => {
     document.addEventListener('mousedown', handleOutsideClick);
     return () => {
@@ -27,7 +34,17 @@ export const SharePopup = () => {
       window.removeEventListener('popstate', () => setModal(false));
     };
   }, []);
-
+  const handle = () => {
+    console.log(1);
+    if (navigator.share) {
+      navigator.share({
+        title: `Map2zero`,
+        url: window.location.href,
+      });
+    } else {
+      alert('공유하기가 지원되지 않는 환경 입니다.');
+    }
+  };
   return (
     <Background>
       <Modal ref={modalRef}>
@@ -36,16 +53,23 @@ export const SharePopup = () => {
         <Information>
           <PicInformation>
             <Frame407>
-              <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/link.svg`} alt="검색결과 없음" />
+              <Image
+                src={`${process.env.PUBLIC_URL}/assets/DetailPopup/link.svg`}
+                alt="검색결과 없음"
+                onClick={() => copyClipboard(window.location.href, () => alert('링크가 클립보드에 저장되었습니다.'))}
+              />
             </Frame407>
             <PicTexts>링크복사</PicTexts>
           </PicInformation>
           <PicInformation>
-            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/simple-icons_kakaotalk.svg`} alt="검색결과 없음" />
+            <Image
+              src={`${process.env.PUBLIC_URL}/assets/DetailPopup/simple-icons_kakaotalk.svg`}
+              alt="검색결과 없음"
+            />
             <PicTexts>카카오톡</PicTexts>
           </PicInformation>
           <PicInformation>
-            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/image 20.jpg`} alt="검색결과 없음" />
+            <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/image 20.jpg`} alt="검색결과 없음" />
             <PicTexts>페이스북</PicTexts>
           </PicInformation>
         </Information>
@@ -119,6 +143,9 @@ const Image = styled.img`
   width: 24;
   height: 24;
   position: relative;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const PicInformation = styled.div`

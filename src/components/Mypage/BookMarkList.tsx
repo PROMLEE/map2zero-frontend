@@ -13,10 +13,6 @@ const BookMarkList = () => {
   const [modalOpen, setModalOpen] = useRecoilState(BookMarkModalState);
   const setDeleteIdState = useSetRecoilState(DeleteIdState);
 
-  const onClickItem = () => {
-    navigate('/store');
-  };
-
   const handleResize = useCallback(() => {
     const newData = window.innerWidth < 784 && items ? items.slice(0, 2) : items;
     setDisplayItems(newData);
@@ -57,7 +53,12 @@ const BookMarkList = () => {
         <div>
           {displayItems &&
             displayItems.map((i: any) => (
-              <BookMark key={i.id} onClick={onClickItem}>
+              <BookMark
+                key={i.id}
+                onClick={() => {
+                  navigate(`/store/${i.id}`);
+                }}
+              >
                 <StoreImg
                   src={i.photo?.url || `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`}
                   alt={`${i.name}의 이미지`}

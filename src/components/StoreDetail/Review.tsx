@@ -1,51 +1,65 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { ReviewState } from '../../recoil';
-interface Props {
-  nickname: string;
-  date: string;
-  star: number;
-  tag: string[];
-  url: string;
-  reviewurl: string[];
-  text: string;
-  like: number;
-  code: number;
-  id: number;
-}
+import { StoreReviewtype } from '../../recoil/StoreDetail/types';
+import { UserInfoState } from '../../recoil';
+import { useRecoilValue } from 'recoil';
+import { Like, LikeDel } from '../../apis/StoreDetail/Like';
 
-export const Review = ({ nickname, date, star, tag, url, reviewurl, text, like, code, id }: Props) => {
+export const Review = ({
+  id,
+  text,
+  created_date,
+  score,
+  like_cnt,
+  writer,
+  photos,
+  tags,
+  liked,
+  isWriter,
+}: StoreReviewtype) => {
   const [likeon, setlike] = useState(false);
-  const setReviews = useSetRecoilState(ReviewState);
-  const increaseLike = (index: number) => {
-    setReviews((prevReviews) => {
-      const newReviews = [...prevReviews]; // 불변성을 위해 복사본 생성
-      newReviews[index] = { ...newReviews[index], like: newReviews[index].like + 1 }; // 해당 리뷰의 like 값을 수정
-      return newReviews;
-    });
+  const [likecnt, setlikecnt] = useState(0);
+  const islogin = useRecoilValue(UserInfoState);
+
+  useEffect(() => {
+    setlike(liked);
+    setlikecnt(like_cnt);
+  }, [like_cnt, liked]);
+
+  const increaseLike = async () => {
+    await Like({ review_id: id });
+    setlike(true);
+    setlikecnt(likecnt + 1);
   };
-  const decreaseLike = (index: number) => {
-    setReviews((prevReviews) => {
-      const newReviews = [...prevReviews]; // 불변성을 위해 복사본 생성
-      newReviews[index] = { ...newReviews[index], like: newReviews[index].like - 1 }; // 해당 리뷰의 like 값을 수정
-      return newReviews;
-    });
+
+  const decreaseLike = async () => {
+    await LikeDel({ review_id: id });
+    setlike(false);
+    setlikecnt(likecnt - 1);
+  };
+  const onclickLike = async () => {
+    if (islogin.islogin) {
+      likeon ? decreaseLike() : increaseLike();
+    } else {
+      alert('로그인 후 이용해주세요');
+    }
   };
   return (
     <Box>
       <ReviewTop>
         <Profile>
-          <ProfileImg src={url} />
+          <ProfileImg src={writer.photo.url} />
           <ProfileBox>
-            <Nickname>{nickname}</Nickname>
-            <DateText>{date}</DateText>
+            <Nickname>{writer.nickname}</Nickname>
+            <DateText>
+              {created_date.slice(0, 10)} {created_date.slice(11, 16)}
+            </DateText>
             <Stars>
               {[...Array(5)].map((_, index) => (
                 <Rate
                   key={index}
                   src={
-                    index < star
+                    index < score
                       ? `${process.env.PUBLIC_URL}/assets/StoreDetail/star_full.svg`
                       : `${process.env.PUBLIC_URL}/assets/StoreDetail/star_empty.svg`
                   }
@@ -57,28 +71,25 @@ export const Review = ({ nickname, date, star, tag, url, reviewurl, text, like, 
         </Profile>
         <LikeBox>
           <LikeImg
+            onClick={onclickLike}
             src={
               likeon
                 ? `${process.env.PUBLIC_URL}/assets/StoreDetail/like.svg`
                 : `${process.env.PUBLIC_URL}/assets/StoreDetail/not_like.svg`
             }
-            onClick={() => {
-              likeon ? decreaseLike(id) : increaseLike(id);
-              setlike(!likeon);
-            }}
           />
-          <LikeNum>{like}</LikeNum>
+          <LikeNum>{likecnt}</LikeNum>
         </LikeBox>
       </ReviewTop>
       <ReviewBottom>
         <ReviewImgBox>
-          {reviewurl.map((item, index) => (
-            <ReviewImg src={item} alt={`${index}`} key={index} />
+          {photos.map((item, index) => (
+            <ReviewImg src={item.url} alt={`${index}`} key={index} />
           ))}
         </ReviewImgBox>
         <ReviewTagBox>
-          {tag.map((item, index) => (
-            <ReviewTag key={index}>{item}</ReviewTag>
+          {tags.map((item, index) => (
+            <ReviewTag key={index}># {item.name}</ReviewTag>
           ))}
         </ReviewTagBox>
         <ReviewText>{text}</ReviewText>
@@ -279,7 +290,6 @@ const ReviewTag = styled.div`
     border-radius: 4rem;
     font-size: 2.5rem;
     padding: 1rem 2rem;
-    width: 15rem;
     height: 5.5rem;
   }
 `;

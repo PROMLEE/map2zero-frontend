@@ -14,10 +14,6 @@ const ReviewList = () => {
   const [modalOpen, setModalOpen] = useRecoilState(ReviewModalState);
   const setDeleteIdState = useSetRecoilState(DeleteIdState);
 
-  const onClickItem = () => {
-    navigate('/store');
-  };
-
   const handleResize = useCallback(() => {
     const newData = window.innerWidth < 784 && items ? items.slice(0, 2) : items;
     setDisplayItems(newData);
@@ -58,7 +54,12 @@ const ReviewList = () => {
         <div>
           {displayItems &&
             displayItems.map((i: any) => (
-              <Review key={i.id} onClick={onClickItem}>
+              <Review
+                key={i.id}
+                onClick={() => {
+                  navigate(`/store/${i.store.id}`);
+                }}
+              >
                 <StoreImg>
                   <img
                     src={i.photo?.url || `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`}
@@ -70,7 +71,14 @@ const ReviewList = () => {
                   <h3>{i.store.name}</h3>
                   <p>{i.text}</p>
                 </TextContainer>
-                <FavoriteIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/favorite.png`} alt="좋아요아이콘" />
+                <FavoriteIcon
+                  src={
+                    i.liked
+                      ? `${process.env.PUBLIC_URL}/assets/StoreDetail/like.svg`
+                      : `${process.env.PUBLIC_URL}/assets/StoreDetail/not_like.svg`
+                  }
+                  alt="좋아요아이콘"
+                />
                 <FavoriteCount>{i.likeCnt}</FavoriteCount>
                 <TrashWrap
                   onClick={(e) => {

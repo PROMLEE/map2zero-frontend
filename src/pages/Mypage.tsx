@@ -10,17 +10,11 @@ export default function Mypage() {
     <ContentWrap>
       <PersonalInfo />
       <Line />
-      {info.is_manager && (
-        <>
-          {' '}
-          <MyStoreManagement /> <Line $mobileVisible />
-        </>
-      )}
       <BookMarkList />
       <Line $mobileVisible />
       <ReviewList />
       <Line $mobileVisible />
-      {!info.is_manager && <StoreOwner />}
+      <StoreOwner />
     </ContentWrap>
   );
 }

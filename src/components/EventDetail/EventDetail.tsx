@@ -1,12 +1,15 @@
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { SlideBox } from '.';
 import { eventDetailModal } from '../../recoil';
+import { EventDetailState } from '../../recoil/StoreDetail/StoresState';
 import { useEffect, useRef } from 'react';
 
 export const EventDetail = () => {
   const setModal = useSetRecoilState(eventDetailModal);
+  const data = useRecoilValue(EventDetailState);
   const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
+
   const closeModal = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setModal(false);
@@ -20,6 +23,10 @@ export const EventDetail = () => {
     };
   }, []);
 
+  const eventEdit = () => {
+    alert('준비 중입니다! ㅠ');
+  };
+
   return (
     <Background>
       <Modal ref={modalRef}>
@@ -29,26 +36,27 @@ export const EventDetail = () => {
             setModal(false);
           }}
         />
-        <SlideBox />
+        {data.photos ? <SlideBox /> : null}
         <Details>
           <Topbox>
-            <Title>이벤트명</Title>
-            <EditIcon src={`${process.env.PUBLIC_URL}/assets/EventDetail/edit.svg`} />
-            <EditText>이벤트 수정</EditText>
+            <Title>{data.title}</Title>
+            {data.manager ? (
+              <>
+                <EditIcon src={`${process.env.PUBLIC_URL}/assets/EventDetail/edit.svg`} />
+                <EditText onClick={eventEdit}>이벤트 수정</EditText>
+              </>
+            ) : null}
           </Topbox>
           <StateBox>
-            <OnState>진행중</OnState>
-            <OffState>종료</OffState>
-            <Date>2024.01.01 - 2024.01.31</Date>
+            {data.status === 'ACTIVE' ? <OnState>진행중</OnState> : <OffState>종료</OffState>}
+            <Date>
+              {data.start_date} - {data.end_date}
+            </Date>
           </StateBox>
-          <Summary>{`이벤트 설명 100자 내외 정도록 두면 될 것 같아요\n
-ㅇ늡르애ㅡ내ㅏㅡㅍㄷㄱ민ㅋㅇㄹ,ㅊ ㅌㅋ플우ㅑ넣ㄱ소ㅑㅓ다플ㅋㅇ,ㅣㄴ;ㅊ\n
-ㅁㅈㅎ고퍄ㅜㅏㅡㅊㅌ킬구머ㅗ뎌ㅑㅓㅐㅏㅊㅇㄴ\n
-ㄱㅁㄱㅍ야ㅕㅊ누먿갸ㅜㅍ러ㅏㅡㅊ누먀ㅓㅗㄷㅎ겨ㅓㅏㅡㅇㄴㅊ\n
-ㄻㄷ조ㅠㅕㅛㅊ눡모ㅠㅜㅇㄴ`}</Summary>
+          <Summary>{data.description}</Summary>
           <LinkBox>
             신청 링크
-            <URL href="#">http://dddd</URL>
+            <URL href={`${data.application_url}`}>{data.application_url}</URL>
           </LinkBox>
         </Details>
       </Modal>
@@ -211,12 +219,11 @@ const Summary = styled.div`
   margin-top: 2rem;
   width: 100%;
   font-size: 1.2rem;
-  line-height: 0.8rem;
+  line-height: 150%;
   color: #848484;
   @media (max-width: 768px) {
     margin-top: 5rem;
     font-size: 3rem;
-    line-height: 2.5rem;
   }
 `;
 const LinkBox = styled.div`

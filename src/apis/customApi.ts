@@ -4,21 +4,25 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 
 // 인터셉터 추가 함수
 const Interceptors = (instance: AxiosInstance) => {
-  instance.interceptors.request.use((config) => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      config.headers['Authorization'] = token;
-    }
-    return config;
-  }, (error) => Promise.reject(error));
+
+  instance.interceptors.request.use(
+    (config) => {
+      const token = localStorage.getItem('accessToken');
+      if (token) {
+        config.headers['Authorization'] = token;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error),
+  );
 };
 
-const axiosInstance = (auth : boolean) => {
+const axiosInstance = (auth: boolean) => {
   const instance = axios.create({
     baseURL: BASE_URL,
     timeout: 15000,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
 
@@ -27,7 +31,6 @@ const axiosInstance = (auth : boolean) => {
   }
   return instance;
 };
-
 
 export const baseAPI = axiosInstance(false);
 export const authAPI = axiosInstance(true);

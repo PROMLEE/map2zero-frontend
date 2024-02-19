@@ -1,28 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { productCategory } from '../../recoil';
+import { ProductAdd } from '../../recoil/Products/Products';
 
 interface Props {
-  tag: string;
+  name: string;
+  id: number;
 }
-export const CategoryItem = (props: Props) => {
-  const [tags, setModal] = useRecoilState(productCategory);
+export const CategoryItem = ({ name, id }: Props) => {
+  const [values, setValues] = useRecoilState(ProductAdd);
   const [tagon, settagon] = useState<boolean>(false);
 
+  useEffect(() => {
+    values.tag_id === id ? settagon(true) : settagon(false);
+  }, [values]);
+
   const onpress = () => {
-    let onpresstags: string[] = [...tags];
-    if (tagon) {
-      onpresstags = onpresstags.filter((item) => item !== props.tag);
-    } else {
-      onpresstags.push(props.tag);
-    }
-    setModal(onpresstags);
-    settagon(!tagon);
+    setValues({ ...values, tag_id: id });
   };
+
   return (
     <TagItem $istagon={tagon} onClick={onpress}>
-      {props.tag}
+      {name}
     </TagItem>
   );
 };

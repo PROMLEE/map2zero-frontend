@@ -1,27 +1,36 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SearchToggle } from '../components/Search/SearchToggle';
 import { SearchBar } from '../components/Search/SearchBar';
 import { RecentSearchList } from '../components/Search/RecentSearchList';
 import { PopularSearchList } from '../components/Search/PopularSearchList';
 import { Mobiletop } from '../components';
-import {SearchResultList} from '../components/SearchFile/SearchResultList';
-import NoSearchFile from '../components/SearchFile/NoSearchFile'
+import { SearchResultList } from '../components/SearchFile/SearchResultList';
+import NoSearchFile from '../components/SearchFile/NoSearchFile';
+import { getSearchApi } from '../apis/SearchApi';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { searchToggleState, searchResultState, searchTextState, UserInfoState } from '../recoil';
 
 export default function Search() {
-  const [searchText, setSearchText] = useState('');
   const [searchResultView, setSearchResultView] = useState(false);
-
-  //입력한 검색어 저장
-  const onInputSearchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target.value;
-    setSearchText(target);
-  };
+  const activeToggle = useRecoilValue(searchToggleState);
+  const searchText = useRecoilValue(searchTextState);
+  const [searchResult, setSearchResult] = useRecoilState(searchResultState);
+  const user = useRecoilValue(UserInfoState);
+  useEffect(() => {
+    if (searchResultView) {
+      searchHandler(searchText);
+    }
+  }, [activeToggle]);
 
   //검색했을 때 이벤트
-  const searchHandler = () => {
-    if (searchText) {
+  const searchHandler = async (search: string) => {
+    if (search) {
+      const data = await getSearchApi(`?keyword=${search}&type=${activeToggle === 0 ? 'STORE' : 'PRODUCT'}&size=300`);
+      setSearchResult(data.data);
       setSearchResultView(true);
+    } else {
+      setSearchResultView(false);
     }
   };
 
@@ -31,16 +40,13 @@ export default function Search() {
       <LogoImg src={`${process.env.PUBLIC_URL}/assets/Search/logo.png`} alt="로고" />
       <SearchContainer>
         <SearchToggle />
-        <SearchBar searchText={searchText} onInputSearchHandler={onInputSearchHandler} searchHandler={searchHandler} />
+        <SearchBar searchHandler={searchHandler} />
       </SearchContainer>
       {searchResultView ? (
-        <div>
-          <SearchResultList/>
-        {/* <NoSearchFile/> */}
-        </div>
+        <div>{searchResult.length > 0 ? <SearchResultList /> : <NoSearchFile />}</div>
       ) : (
         <SearchList>
-          <RecentSearchList />
+          {user.islogin && <RecentSearchList searchHandler={searchHandler} />}
           <PopularSearchList />
         </SearchList>
       )}

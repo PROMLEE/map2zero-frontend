@@ -16,12 +16,16 @@ import {
   SellingProductManage,
   EventManage,
   MyReview,
+  Err,
+  MyBookmark,
 } from './pages';
 import styled from 'styled-components';
 import GlobalStyle from './GlobalStyle';
-import MoreDetails from './components/Mypage/MoreDetails';
+import { useRecoilValue } from 'recoil';
+import { UserInfoState } from './recoil';
 
 export default function App() {
+  const user = useRecoilValue(UserInfoState);
   return (
     <Background>
       <BrowserRouter>
@@ -33,19 +37,23 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/login/auth/callback/kakao" element={<KakaoLoginHandeler />} />
           <Route path="/login/auth/callback/naver" element={<NaverLoginHandeler />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/setting" element={<Setting />} />
-          <Route path="/owner" element={<Owner />} />
           <Route path="/store/:storeid" element={<StoreDetail />} />
-          <Route path="/store/" element={<StoreDetail />} />
           <Route path="/map" element={<Map />} />
-          <Route path="/nickname" element={<NickName />} />
-          <Route path="/sellingproduct" element={<SellingProduct />} />
-          <Route path="/sellingproductmanage" element={<SellingProductManage />} />
-          <Route path="/eventmanage" element={<EventManage />} />
+          <Route path="/sellingproduct/:storeid" element={<SellingProduct />} />
           <Route path="/map" element={<Map />} />
-          <Route path="/mypage/review" element={<MyReview />} />
-          <Route path="/bookmarkdetail" element={<MoreDetails />} />
+          <Route path="/*" element={<Err />} />
+          {user.islogin && (
+            <>
+              <Route path="/mypage" element={<Mypage />} />
+              <Route path="/setting" element={<Setting />} />
+              <Route path="/owner" element={<Owner />} />
+              <Route path="/nickname" element={<NickName />} />
+              <Route path="/sellingproductmanage/:storeid" element={<SellingProductManage />} />
+              <Route path="/eventmanage/:storeid" element={<EventManage />} />
+              <Route path="/reviewdetail" element={<MyReview />} />
+              <Route path="/bookmarkdetail" element={<MyBookmark />} />
+            </>
+          )}
         </Routes>
       </BrowserRouter>
     </Background>

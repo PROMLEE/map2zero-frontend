@@ -1,12 +1,16 @@
 import styled from 'styled-components';
+import { InfoStateSelector } from '../../recoil/Mypage/myPageState';
+import { useRecoilValue } from 'recoil';
 
 const KakaoEmail = () => {
+  const info = useRecoilValue(InfoStateSelector);
+
   return (
     <KakaoDiv>
       <Kakao>
         <img src={`${process.env.PUBLIC_URL}/assets/Edit/kakao.svg`} alt="kakao" />
       </Kakao>
-      <span>계정아이디@mail.com</span>
+      <span>계정아이디 {info.email}</span>
     </KakaoDiv>
   );
 };

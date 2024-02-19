@@ -1,36 +1,35 @@
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { StoreState } from '../../recoil/StoreDetail/StoresState';
+import { useEffect, useState } from 'react';
 import { detailModalState } from '../../recoil';
-import { useEffect, useRef } from 'react';
 
 export const DetailPopup = () => {
+  const storeDetail = useRecoilValue(StoreState);
+  const [storeInfo, setstoreInfo] = useState([false, false, false, false, false]);
   const setModal = useSetRecoilState(detailModalState);
-  const modalRef = useRef<HTMLDivElement>(null); // 모달 ref 추가
-  const closeModal = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setModal(false);
+
+  useEffect(() => {
+    const newInfo = [...storeInfo];
+    for (let tag in storeDetail.store_tags) {
+      newInfo[storeDetail.store_tags[tag].id - 2] = true;
     }
-  };
+    setstoreInfo(newInfo);
+  }, [storeDetail]);
 
   useEffect(() => {
-    document.addEventListener('mousedown', closeModal);
-    return () => {
-      document.removeEventListener('mousedown', closeModal);
+    const preventGoBack = () => {
+      history.pushState(null, '', location.href);
+      setModal(false);
     };
-  }, []);
-
-  // 뒤로가기 버튼 누를 시 모달 닫기
-  useEffect(() => {
     history.pushState(null, '', location.href);
-    window.addEventListener('popstate', () => setModal(false));
-    return () => {
-      window.removeEventListener('popstate', () => setModal(false));
-    };
+    window.addEventListener('popstate', preventGoBack);
+    return () => window.removeEventListener('popstate', preventGoBack);
   }, []);
 
   return (
-    <Background>
-      <Modal ref={modalRef}>
+    <Background onClick={() => setModal(false)}>
+      <Modal onClick={(event) => event.stopPropagation()}>
         <Xbutton
           src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
           onClick={() => {
@@ -40,46 +39,69 @@ export const DetailPopup = () => {
         <Title>매장정보</Title>
 
         <Information>
-          <PicInformation>
-            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/pets.svg`} />
-            <PicTexts>반려동물 동반</PicTexts>
-          </PicInformation>
-          <PicInformation>
-            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/local_parking.svg`} />
-            <PicTexts>주차가능</PicTexts>
-          </PicInformation>
-          <PicInformation>
-            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/valve.svg`} />
-            <PicTexts>리필스테이션</PicTexts>
-          </PicInformation>
-          <PicInformation>
-            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/no_stroller.svg`} />
-            <PicTexts>노키즈존</PicTexts>
-          </PicInformation>
-          <PicInformation>
-            <Image src={`${process.env.PUBLIC_URL}assets/DetailPopup/barcode_scanner.svg`} />
-            <PicTexts>제로페이</PicTexts>
-          </PicInformation>
+          {storeInfo[0] ? (
+            <PicInformation>
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/pets.svg`} />
+              <PicTexts>반려동물 동반</PicTexts>
+            </PicInformation>
+          ) : null}
+          {storeInfo[1] ? (
+            <PicInformation>
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/local_parking.svg`} />
+              <PicTexts>주차가능</PicTexts>
+            </PicInformation>
+          ) : null}{' '}
+          {storeInfo[2] ? (
+            <PicInformation>
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/valve.svg`} />
+              <PicTexts>리필스테이션</PicTexts>
+            </PicInformation>
+          ) : null}{' '}
+          {storeInfo[3] ? (
+            <PicInformation>
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/no_stroller.svg`} />
+              <PicTexts>노키즈존</PicTexts>
+            </PicInformation>
+          ) : null}{' '}
+          {storeInfo[4] ? (
+            <PicInformation>
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/barcode_scanner.svg`} />
+              <PicTexts>제로페이</PicTexts>
+            </PicInformation>
+          ) : null}
         </Information>
 
         <TimInformation>
           <Texts>운영정보</Texts>
-          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/calendar_month.svg`} />
+          <InfoImage src={`${process.env.PUBLIC_URL}/assets/DetailPopup/calendar_month.svg`} />
           <TimeInfo>
-            <div>월 10:00 - 20:00</div> <div>화 10:00 - 20:00</div> <div>수 정기 휴무</div>
-            <div>목 10:00 - 20:00</div> <div>금 10:00 - 20:00</div> <div>토 9:00 - 22:00</div>
-            <div>일 정기 휴무</div>
+            {storeDetail.operating_hours.map((item, index) => {
+              return (
+                <div key={index}>
+                  {item.day_of_week}{' '}
+                  {!item.regular_holiday ? (
+                    <>
+                      {item.start_time.slice(0, 5)} - {item.end_time.slice(0, 5)}
+                    </>
+                  ) : (
+                    <span style={{ color: 'red' }}>정기 휴무</span>
+                  )}
+                </div>
+              );
+            })}
           </TimeInfo>
         </TimInformation>
         <TimInformation>
           <Texts>위치&ensp;&ensp;&ensp;&nbsp;</Texts>
-          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/location_on.svg`} />
-          <TimeInfo>서울특별시 마포구 성미산로 155, 1층</TimeInfo>
+          <InfoImage src={`${process.env.PUBLIC_URL}/assets/DetailPopup/location_on.svg`} />
+          <TimeInfo>
+            {storeDetail.address.province} {storeDetail.address.city} {storeDetail.address.road_name}
+          </TimeInfo>
         </TimInformation>
         <TimInformation>
           <Texts>전화번호</Texts>
-          <InfoImage src={`${process.env.PUBLIC_URL}assets/DetailPopup/call.svg`} />
-          <TimeInfo>010-0000-0000</TimeInfo>
+          <InfoImage src={`${process.env.PUBLIC_URL}/assets/DetailPopup/call.svg`} />
+          <TimeInfo>{storeDetail.contact}</TimeInfo>
         </TimInformation>
       </Modal>
     </Background>
@@ -99,6 +121,13 @@ const Background = styled.div`
   background: rgba(0, 0, 0, 0.3);
   @media (max-width: 768px) {
     background-color: rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const InfoDiv = styled.div`
+  height: 20px;
+  @media (max-width: 768px) {
+    height: 17px;
   }
 `;
 

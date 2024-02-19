@@ -3,10 +3,13 @@ import { isMobile } from 'react-device-detect';
 import { useSetRecoilState } from 'recoil';
 import { detailModalState } from '../../recoil';
 
+import { useRecoilValue } from 'recoil';
+import { StoreState } from '../../recoil';
+
 export const Linkbuttons = () => {
+  const storeDetail = useRecoilValue(StoreState);
   const setModal = useSetRecoilState(detailModalState);
 
-  const phonenumber = '010-0000-0000';
   const copyClipboard = async (text: string, successAction?: () => void, failAction?: () => void) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -18,25 +21,20 @@ export const Linkbuttons = () => {
 
   return (
     <PicBox>
-      {isMobile ? (
-        <>
-          <Button href="nmap://map?lat=37.4979502&lng=127.0276368&zoom=20&appname=com.example.myapp">
-            <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
-            <ButtonText>위치</ButtonText>
-          </Button>
-        </>
-      ) : (
-        <>
-          <Button href="https://naver.me/FM1XyM8D">
-            <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
-            <ButtonText>위치</ButtonText>
-          </Button>
-        </>
-      )}
+      <Button
+        href={
+          isMobile
+            ? `nmap://search?query=${storeDetail.name}&zoom=20&appname=com.example.myapp`
+            : storeDetail.naver_map_url
+        }
+      >
+        <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
+        <ButtonText>위치</ButtonText>
+      </Button>
       <Line />
       {isMobile ? (
         <>
-          <Button href={'tel:' + '010-0000-0000'}>
+          <Button href={`tel:${storeDetail.contact}`}>
             <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/call.svg`} />
             <ButtonText>전화</ButtonText>
           </Button>
@@ -45,7 +43,7 @@ export const Linkbuttons = () => {
         <>
           <Button
             href="#"
-            onClick={() => copyClipboard(phonenumber, () => alert('전화번호가 클립보드에 저장되었습니다.'))}
+            onClick={() => copyClipboard(storeDetail.contact, () => alert('전화번호가 클립보드에 저장되었습니다.'))}
           >
             <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/call.svg`} />
             <ButtonText>전화</ButtonText>
@@ -54,7 +52,6 @@ export const Linkbuttons = () => {
       )}
       <Line />
       <Button onClick={() => setModal(true)}>
-        {/* 매장 정보 버튼을 클릭하면 모달을 열도록 핸들러를 추가했습니다. */}
         <ButtonImg src={`${process.env.PUBLIC_URL}/assets/StoreDetail/storefront.svg`} />
         <ButtonText>매장정보</ButtonText>
       </Button>

@@ -1,23 +1,22 @@
 import styled from 'styled-components';
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
-import { productName } from '../../recoil';
-import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { ProductAdd } from '../../recoil/Products/Products';
+import { useState } from 'react';
 
-const Selling = atom<number>({
-  key: 'Selling',
-  default: 0,
-});
-
+interface UnitProps {
+  num: number;
+  setnum: React.Dispatch<React.SetStateAction<number>>;
+}
 const text = ['개', '100ml', '1L', '100g', '1Kg'];
-export const DropdownList = () => {
-  const setselling = useSetRecoilState(Selling);
+
+export const DropdownList = ({ setnum }: UnitProps) => {
   return (
     <ul>
       {text.map((li, i) => (
         <DropdownText
           key={i}
           onClick={() => {
-            setselling(i);
+            setnum(i);
           }}
         >
           / {li}
@@ -27,9 +26,8 @@ export const DropdownList = () => {
   );
 };
 
-export const Dropdown = () => {
+export const Dropdown = ({ num, setnum }: UnitProps) => {
   const [isDropdownView, setDropdownView] = useState(false);
-  const selling = useRecoilValue(Selling);
   const handleClickContainer = () => {
     setDropdownView(!isDropdownView);
   };
@@ -43,7 +41,7 @@ export const Dropdown = () => {
     <ProductDropbox onBlur={handleBlurContainer}>
       <label onClick={handleClickContainer}>
         <DropdownButton $isDropdownopen={isDropdownView}>
-          / {text[selling]}
+          / {text[num]}
           <img
             src={
               isDropdownView
@@ -53,26 +51,24 @@ export const Dropdown = () => {
           ></img>
         </DropdownButton>
       </label>
-      {isDropdownView && <DropdownList />}
+      {isDropdownView && <DropdownList {...{ num: num, setnum: setnum }} />}
     </ProductDropbox>
   );
 };
 export const Price = () => {
-  const setText = useSetRecoilState(productName);
+  const [values, setValues] = useRecoilState(ProductAdd);
   const [isPrice, setisPrice] = useState(false);
+  // const [num, setnum] = useState(0);
   const onInputHandler = (e: any) => {
-    setText(e.target.value);
-    if (e.target.value) {
-      setisPrice(true);
-    } else {
-      setisPrice(false);
-    }
+    setValues({ ...values, price: e.target.value });
+    e.target.value ? setisPrice(true) : setisPrice(false);
   };
+
   return (
     <Namebox>
       <TextBox placeholder=", 없이 숫자만 작성해 주세요" onChange={onInputHandler} type="number"></TextBox>
-      {isPrice ? <Won>원</Won> : <></>}
-      <Dropdown></Dropdown>
+      {isPrice ? <Won>원</Won> : null}
+      {/* <Dropdown {...{ num: num, setnum: setnum }} /> */}
     </Namebox>
   );
 };
