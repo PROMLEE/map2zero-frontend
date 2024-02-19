@@ -14,7 +14,7 @@ export type TsearchHandler = {
 };
 
 export const RecentSearchList: React.FC<TsearchHandler> = ({ searchHandler }) => {
-  const [recentSearch, setRecentSearch] = useState<TgetRecentSearchResponse[]>();
+  const [recentSearch, setRecentSearch] = useState<TgetRecentSearchResponse[]>([]);
   const [searchText, setSearchText] = useRecoilState(searchTextState);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export const RecentSearchList: React.FC<TsearchHandler> = ({ searchHandler }) =>
         <button onClick={allClear}>모두 지우기</button>
       </SearchHead>
       <TagsWrap>
-        {recentSearch &&
+        {recentSearch.length > 0 ? (
           recentSearch.map((item) => {
             return (
               <TagItem key={item.id}>
@@ -75,7 +75,10 @@ export const RecentSearchList: React.FC<TsearchHandler> = ({ searchHandler }) =>
                 </span>
               </TagItem>
             );
-          })}
+          })
+        ) : (
+          <>최근 검색어 없음</>
+        )}
       </TagsWrap>
     </ListWrap>
   );

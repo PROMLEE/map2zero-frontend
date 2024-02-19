@@ -5,6 +5,6 @@ export const MyBookmarksState = selector({
   key: 'MyBookmarksState',
   get: async () => {
     const data = await BookMarksGetPage();
-    return data.data;
+    return data;
   },
 });

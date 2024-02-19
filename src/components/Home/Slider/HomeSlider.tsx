@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { CurationsState, TrendState } from '../../../recoil/Home/HomeState';
 import StoreInfo from '../StoreInfo';
 import { useCallback, useState } from 'react';
+import { MyBookmarksState } from '../../../recoil/Mypage/bookmarkpage';
 
 interface StyledSliderProps {
   type: string;
@@ -28,7 +29,7 @@ const HomeSlider = ({ type }: { type: string }) => {
       : type === 'trend'
         ? useRecoilValue(TrendState)
         : type === 'bookmark'
-          ? useRecoilValue(TrendState)
+          ? useRecoilValue(MyBookmarksState)
           : undefined;
   const settings: Settings = {
     touchThreshold: 100,
