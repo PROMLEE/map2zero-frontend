@@ -34,7 +34,7 @@ export const SearchBar: React.FC<TSearchBarProps> = ({ searchHandler }) => {
         onInput={onInputSearchHandler}
       />
       <SearchImg
-        src={`${process.env.PUBLIC_URL}/assets/Search/search.svg`}
+        src={`${process.env.PUBLIC_URL}/assets/Navbar/searchimg.svg`}
         alt="검색"
         onClick={() => searchHandler(searchText)}
       />

@@ -84,7 +84,7 @@ const ReviewList = () => {
                     modalHandler(i.id);
                   }}
                 >
-                  <TrashIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/trash.png`} alt="삭제아이콘" />
+                  <TrashIcon src={`${process.env.PUBLIC_URL}/assets/ReviewList/trash.svg`} alt="삭제아이콘" />
                   <TrashText>삭제</TrashText>
                 </TrashWrap>
                 <Date>{i.createdDate}</Date>

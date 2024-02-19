@@ -49,6 +49,7 @@ const ConfirmModal = ({ onRequestClose, type }: ConfirmModalProps) => {
         overlay: {
           backgroundColor: ' rgba(0, 0, 0, 0.3)',
           width: '100%',
+          zIndex: 2,
           boxSizing: 'border-box',
         },
         content: {
@@ -80,7 +81,7 @@ const ConfirmModal = ({ onRequestClose, type }: ConfirmModalProps) => {
       }}
     >
       <Message>{`${type}`}를 삭제할까요?</Message>
-      <Close src={`${process.env.PUBLIC_URL}/assets/MyPage/close.png`} alt="닫기" onClick={modalHandler} />
+      <Close src={`${process.env.PUBLIC_URL}/assets/Edit/close.svg`} alt="닫기" onClick={modalHandler} />
       <BtnWrap>
         <ConfirmBtn onClick={onRequestClose}>네</ConfirmBtn>
         <ConfirmBtn onClick={modalHandler}>아니오</ConfirmBtn>
@@ -129,5 +130,20 @@ const ConfirmBtn = styled.button`
     height: 11.75rem;
     font-size: 3rem;
     margin-bottom: 3rem;
+  }
+`;
+const Background = styled.div`
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.3);
+  @media (max-width: 768px) {
+    background-color: rgba(0, 0, 0, 0.5);
   }
 `;

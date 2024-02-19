@@ -37,7 +37,7 @@ export default function Search() {
   return (
     <Container>
       <Mobiletop pagename="검색" />
-      <LogoImg src={`${process.env.PUBLIC_URL}/assets/Search/logo.png`} alt="로고" />
+      <LogoImg src={`${process.env.PUBLIC_URL}/assets/Navbar/logo.png`} alt="로고" />
       <SearchContainer>
         <SearchToggle />
         <SearchBar searchHandler={searchHandler} />

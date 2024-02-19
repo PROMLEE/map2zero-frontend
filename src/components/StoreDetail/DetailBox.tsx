@@ -7,7 +7,7 @@ export const DetailBox = () => {
   return (
     <Details>
       <ReviewIndex>
-        <Img src={`${process.env.PUBLIC_URL}/assets/StoreDetail/star.svg`} $height={'2rem'} $heightm={'5rem'} />
+        <Img src={`${process.env.PUBLIC_URL}/assets/Home/star.svg`} $height={'2rem'} $heightm={'5rem'} />
         <Text $color={'#FF6464'}>{storeDetail.average_score}</Text>
         <ReviewButton
           onClick={() => {

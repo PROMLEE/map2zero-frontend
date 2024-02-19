@@ -55,7 +55,7 @@ export const ReviewWrite = ({ id }: Props) => {
   return (
     <Background onClick={handleEvent}>
       <Modal onClick={(event) => event.stopPropagation()}>
-        <Xbutton src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`} onClick={handleEvent} />
+        <Xbutton src={`${process.env.PUBLIC_URL}/assets/Edit/close.svg`} onClick={handleEvent} />
         <Title>리뷰 작성</Title>
         <Texts $margintopPC={'3.7rem'} $margintopMB={'10.25rem'}>
           별점을 선택해 주세요

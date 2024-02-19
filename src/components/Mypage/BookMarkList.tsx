@@ -33,7 +33,6 @@ const BookMarkList = () => {
 
   const modalHandler = (id: number) => {
     setModalOpen(true);
-    console.log(modalOpen);
     setDeleteIdState((prevState: any) => ({
       ...prevState,
       review_id: null,
@@ -64,7 +63,7 @@ const BookMarkList = () => {
                   alt={`${i.name}의 이미지`}
                 />
                 <BookMarkIcon
-                  src={`${process.env.PUBLIC_URL}/assets/MyPage/bookmark.png`}
+                  src={`${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`}
                   alt="북마크아이콘"
                   onClick={(e) => {
                     e.stopPropagation(); // 이벤트 버블링 방지

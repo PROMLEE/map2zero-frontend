@@ -31,7 +31,7 @@ export const EventDetail = () => {
     <Background>
       <Modal ref={modalRef}>
         <Xbutton
-          src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
+          src={`${process.env.PUBLIC_URL}/assets/Edit/close.svg`}
           onClick={() => {
             setModal(false);
           }}
@@ -42,7 +42,7 @@ export const EventDetail = () => {
             <Title>{data.title}</Title>
             {data.manager ? (
               <>
-                <EditIcon src={`${process.env.PUBLIC_URL}/assets/EventDetail/edit.svg`} />
+                <EditIcon src={`${process.env.PUBLIC_URL}/assets/Edit/edit.svg`} />
                 <EditText onClick={eventEdit}>이벤트 수정</EditText>
               </>
             ) : null}

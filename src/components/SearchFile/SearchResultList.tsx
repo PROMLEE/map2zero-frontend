@@ -22,8 +22,8 @@ export const SearchResultList = () => {
 
   const generateStarReviews = (reviewCount: number) => {
     const starReviews = [];
-    const fullStar = `${process.env.PUBLIC_URL}assets/Search/staro.svg`;
-    const grayStar = `${process.env.PUBLIC_URL}assets/Search/starx.svg`;
+    const fullStar = `${process.env.PUBLIC_URL}assets/StoreDetail/star_full.svg`;
+    const grayStar = `${process.env.PUBLIC_URL}assets/StoreDetail/star_empty.svg`;
 
     for (let i = 0; i < 5; i++) {
       if (i < Math.round(reviewCount)) {
@@ -54,7 +54,7 @@ export const SearchResultList = () => {
           </AddressFrame>
           <StoreFrame>
             <StoreImg
-              src={i.photo.url ? i.photo.url : `${process.env.PUBLIC_URL}/assets/StoreDetail/example_pic.png`}
+              src={i.photo.url ? i.photo.url : `${process.env.PUBLIC_URL}/assets/Mypage/lightgray.png`}
               alt={i.name}
             />
             {/* photo 값 없어서 나중에 수정 필요 ->i.photo.url */}
@@ -63,8 +63,8 @@ export const SearchResultList = () => {
             <BookMarkIcon
               src={
                 i.bookmarked
-                  ? `${process.env.PUBLIC_URL}/assets/Search/북마크o.svg`
-                  : `${process.env.PUBLIC_URL}/assets/Search/북마크x.svg`
+                  ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
+                  : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
               }
               alt="북마크아이콘"
               onClick={() => handleClick(i.id)}

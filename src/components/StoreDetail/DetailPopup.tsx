@@ -99,14 +99,14 @@ export const DetailPopup = () => {
         </TimInformation>
         <TimInformation>
           <Texts>위치&ensp;&ensp;&ensp;&nbsp;</Texts>
-          <InfoImage src={`${process.env.PUBLIC_URL}/assets/DetailPopup/location_on.svg`} />
+          <InfoImage src={`${process.env.PUBLIC_URL}/assets/StoreDetail/location.svg`} />
           <TimeInfo>
             {storeDetail.address.province} {storeDetail.address.city} {storeDetail.address.road_name}
           </TimeInfo>
         </TimInformation>
         <TimInformation>
           <Texts>전화번호</Texts>
-          <InfoImage src={`${process.env.PUBLIC_URL}/assets/DetailPopup/call.svg`} />
+          <InfoImage src={`${process.env.PUBLIC_URL}/assets/StoreDetail/call.svg`} />
           <TimeInfo>{storeDetail.contact}</TimeInfo>
         </TimInformation>
       </Modal>
