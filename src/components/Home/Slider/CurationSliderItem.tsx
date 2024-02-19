@@ -48,7 +48,7 @@ const ImgWrap = styled.div`
   background-color: rgb(218, 218, 218);
   cursor: pointer;
   > img {
-    height: 55rem;
+    height: 100%;
     margin: 0 auto;
     @media (max-width: 768px) {
       height: 140rem;

@@ -1,55 +1,33 @@
+import React from 'react';
+import { BookMarkDummy } from './Dummy/BookMarkDummy';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import Mobiletop from '../components/Mobiletop';
-import { MyBookmarksState } from '../recoil/Mypage/bookmarkpage';
-import { useRecoilValue } from 'recoil';
-import { useState } from 'react';
-import { Bookmark, BookmarkDel } from '../apis/StoreDetail/Bookmark';
+import { Link, useNavigate } from 'react-router-dom';
+import Mobiletop from '../Mobiletop';
 
-export const BookMarkCard = ({ i }: { i: any }) => {
+type ownerProps = {
+  owner?: boolean;
+};
+const MoreDetails = ({ owner }: ownerProps) => {
+  const url = owner ? 'ownerUrl' : 'defaultUrl';
   const navigate = useNavigate();
-  const [onbookmark, setonbookmark] = useState(true);
-  const onclickBookmark = async (event: any) => {
-    event.stopPropagation();
-    onbookmark ? await BookmarkDel({ store_id: i.id }) : await Bookmark({ store_id: i.id });
-    setonbookmark(!onbookmark);
+  const onClickBookMark = () => {
+    navigate(`/store`);
   };
 
-  return (
-    <BookMark onClick={() => navigate(`/store/${i.id}`)}>
-      <StoreImg
-        src={i.photo ? i.photo.url : `${process.env.PUBLIC_URL}/assets/MyPage/lightgray`}
-        alt={`${i.storeName}의 이미지`}
-      />
-      <BookMarkIcon
-        onClick={(event) => {
-          onclickBookmark(event);
-        }}
-        src={
-          onbookmark
-            ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
-            : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.svg`
-        }
-        alt="북마크아이콘"
-      />
-      <h3>{i.name}</h3>
-      <p>
-        {i.address.province} {i.address.city} {i.address.road_name}
-      </p>
-    </BookMark>
-  );
-};
-export const MyBookmark = () => {
-  const list = useRecoilValue(MyBookmarksState);
   return (
     <>
       <Mobiletop pagename="내가 북마크한 매장" />
       <Wrap>
         <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
-        <BookMarks>
-          {list.map((i: any, index: number) => {
-            return <BookMarkCard i={i} key={index} />;
-          })}
+        <BookMarks onClick={onClickBookMark}>
+          {BookMarkDummy.map((i) => (
+            <BookMark key={i.storeName}>
+              <StoreImg src={`${process.env.PUBLIC_URL}/assets/MyPage/${i.photo}`} alt={`${i.storeName}의 이미지`} />
+              <BookMarkIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/bookmark.png`} alt="북마크아이콘" />
+              <h3>{i.storeName}</h3>
+              <p>{i.address}</p>
+            </BookMark>
+          ))}
         </BookMarks>
       </Wrap>
     </>
@@ -104,7 +82,7 @@ const BookMark = styled.div`
   cursor: pointer;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
   &:hover {
-    /* transform: scale(1.1); */
+    transform: scale(1.1);
   }
   & > h3 {
     font-size: 1.4rem;
@@ -112,13 +90,12 @@ const BookMark = styled.div`
   }
   & > p {
     font-size: 1rem;
-    margin: 1rem 0 0 1rem;
-    line-height: 120%;
+    margin: 2rem 0 0 1rem;
     color: rgba(86, 86, 86, 1);
   }
   @media (max-width: 768px) {
     width: 49%;
-    height: 50rem;
+    height: 42rem;
     margin-bottom: 2rem;
     & > h3 {
       font-size: 3rem;
@@ -137,20 +114,22 @@ const StoreImg = styled.img`
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   @media (max-width: 768px) {
-    height: 35rem;
+    height: 30rem;
   }
 `;
 
 const BookMarkIcon = styled.img`
-  width: 2rem;
-  height: 2.3rem;
+  width: 1.5rem;
+  height: 2rem;
   position: absolute;
   bottom: 7.5rem;
   right: 1rem;
   @media (max-width: 768px) {
-    bottom: 17rem;
-    right: 3rem;
-    width: 5rem;
-    height: 5.5rem;
+    bottom: 13rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3.75rem;
   }
 `;
+
+export default MoreDetails;
