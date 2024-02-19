@@ -22,6 +22,15 @@ export const EventDetail = () => {
       document.removeEventListener('mousedown', closeModal);
     };
   }, []);
+  useEffect(() => {
+    const preventGoBack = () => {
+      history.pushState(null, '', location.href);
+      setModal(false);
+    };
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', preventGoBack);
+    return () => window.removeEventListener('popstate', preventGoBack);
+  }, []);
 
   const eventEdit = () => {
     alert('준비 중입니다! ㅠ');
@@ -233,16 +242,18 @@ const Summary = styled.div`
 const LinkBox = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   margin-top: 2.5rem;
   font-size: 1.6rem;
   font-weight: 500;
+  gap: 2rem;
   @media (max-width: 768px) {
     margin-top: 5rem;
     font-size: 4rem;
+    gap: 5rem;
   }
 `;
 const URL = styled.a`
-  margin-left: 2rem;
   color: #0b5c71;
   height: 1.4rem;
   font-size: 1.2rem;
@@ -252,7 +263,6 @@ const URL = styled.a`
     cursor: pointer;
   }
   @media (max-width: 768px) {
-    margin-left: 5rem;
     height: 3.5rem;
     font-size: 3rem;
   }

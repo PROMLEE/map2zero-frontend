@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { UserInfoState } from '../../recoil';
 import { useRecoilValue } from 'recoil';
@@ -85,6 +85,7 @@ const SearchResultContainer = styled.div`
   align-items: center;
   width: 92.4rem;
   margin-top: 4.8rem;
+  margin-bottom: 20rem;
 `;
 
 const Container = styled.div`
@@ -102,13 +103,17 @@ const Container = styled.div`
 
   @media (min-width: 768px) and (max-width: 999px) {
     width: 70.7rem;
-    height: 162px;
     background: white;
 
     // 미디어 쿼리 내부에서 hover 효과를 초기화
     &:hover {
       transform: none;
     }
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 128px;
+    background: white;
   }
 `;
 
@@ -118,9 +123,10 @@ const SearchText = styled.div`
   position: absolute;
   color: #0b5c71;
   font-size: 16px;
-  font-family: Noto Sans KR;
   font-weight: 500;
-  word-wrap: break-word;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   @media (max-width: 768px) {
     width: 200px;
     left: 143px;
@@ -198,8 +204,6 @@ const StarReview = styled.img`
 `;
 
 const StoreFrame = styled.div`
-  width: 16.2rem;
-  height: 16.2rem;
   left: 0;
   top: 0;
   position: absolute;

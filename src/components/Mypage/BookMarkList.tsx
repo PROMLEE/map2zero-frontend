@@ -14,7 +14,7 @@ const BookMarkList = () => {
   const setDeleteIdState = useSetRecoilState(DeleteIdState);
 
   const handleResize = useCallback(() => {
-    const newData = window.innerWidth < 784 && items ? items.slice(0, 2) : items;
+    const newData = window.innerWidth < 784 && items ? items.slice(0, 4) : items;
     setDisplayItems(newData);
   }, [items]);
 
@@ -43,6 +43,7 @@ const BookMarkList = () => {
 
   return (
     <Wrap>
+      <BookMarkModal />
       <div>
         <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
         <MoreDetails to={`/bookmarkdetail`}>더보기 {'>'}</MoreDetails>
@@ -165,6 +166,9 @@ const BookMark = styled.div`
     transform: scale(1.1);
   }
   & > h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 1.4rem;
     margin: 1rem;
   }

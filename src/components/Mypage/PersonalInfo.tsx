@@ -17,12 +17,17 @@ const PersonalInfo = () => {
   return (
     <Wrap>
       <div>
-        <div>
-          <PersonalImg src={info.photo.url} alt="이미지"></PersonalImg>
-        </div>
+        <PersonalImg src={info.photo.url} alt="이미지"></PersonalImg>
         <InfoWrap>
           {info.is_manager && managerStore && <StoreName>{managerStore.name}</StoreName>}
-          <Name $hasstorename={!!info.is_manager}>{info.nickname}</Name>
+          <Name $hasstorename={!!info.is_manager}>
+            {info.nickname}
+            <SettingsIconM
+              onClick={onSettingHandler}
+              src={`${process.env.PUBLIC_URL}/assets/MyPage/settings.svg`}
+              alt="계정관리"
+            ></SettingsIconM>
+          </Name>
           <SocialWrap>
             <SocialIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/${info.type}.png`} alt="소셜아이콘"></SocialIcon>
             <Email>{info.email}</Email>
@@ -30,7 +35,7 @@ const PersonalInfo = () => {
         </InfoWrap>
       </div>
       <div onClick={onSettingHandler}>
-        <SettingsIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/settings.png`} alt="계정관리"></SettingsIcon>
+        <SettingsIcon src={`${process.env.PUBLIC_URL}/assets/MyPage/settings.svg`} alt="계정관리"></SettingsIcon>
         <Settings>계정 관리</Settings>
       </div>
     </Wrap>
@@ -55,11 +60,12 @@ const Wrap = styled.div`
     cursor: pointer;
   }
   @media (max-width: 768px) {
+    flex-direction: column;
     margin-top: 0;
+    padding-top: 10rem;
     background-color: #74b69d;
     width: 100%;
     height: 36rem;
-
     justify-content: center;
     align-items: center;
     border-bottom-left-radius: 7.5rem;
@@ -83,6 +89,9 @@ const StoreName = styled.h1`
   }
 `;
 const Name = styled.h2<{ $hasstorename: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: ${(props) => (props.$hasstorename ? '1.7rem' : '2.8rem')};
   font-weight: bold;
   margin: 0 0 2rem 0;
@@ -146,5 +155,22 @@ const Settings = styled.p`
   color: rgba(86, 86, 86, 1);
   @media (max-width: 768px) {
     display: none;
+  }
+`;
+const SettingsIconM = styled.img`
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+    width: 5rem;
+  }
+`;
+const SettingsM = styled.p`
+  display: none;
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+    font-weight: bold;
+
+    color: rgba(86, 86, 86, 1);
+    display: block;
   }
 `;
