@@ -68,15 +68,3 @@ const ProductBox = styled.div`
     overflow: hidden;
   }
 `;
-const List = styled.div`
-  display: flex;
-  overflow: visible;
-  flex-wrap: wrap;
-  width: 92.4rem;
-  gap: 2.4rem;
-  padding-bottom: 10rem;
-  @media (max-width: 768px) {
-    width: 100%;
-    gap: 2%;
-  }
-`;

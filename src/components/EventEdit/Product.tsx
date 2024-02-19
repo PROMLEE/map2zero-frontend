@@ -34,7 +34,7 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   width: 21.2rem;
-  height: 26.7rem;
+  /* height: 26.7rem; */
   align-items: flex-start;
   border-radius: 0.8rem;
   background-color: #d9d9d9;
@@ -45,16 +45,17 @@ const Box = styled.div`
   @media (max-width: 768px) {
     margin-bottom: 4rem;
     width: 49%;
-    height: 51.5rem;
+    /* height: 51.5rem; */
   }
 `;
 const ProductImg = styled.img`
-  width: 21.2rem;
-  height: 21.2rem;
+  /* width: 21.2rem; */
+  max-height: 21.2rem;
   border-radius: 0.8rem 0.8rem 0 0;
+  margin: 0 auto;
   @media (max-width: 768px) {
-    width: 100%;
-    height: 37.75rem;
+    /* width: 100%; */
+    max-height: 37.75rem;
   }
 `;
 
@@ -81,7 +82,7 @@ const Bottombox = styled.div`
   }
 `;
 const ProductPrice = styled.div`
-  height: 1.2rem;
+  /* height: 1.2rem; */
   align-self: stretch;
   color: #000;
   font-size: 1rem;

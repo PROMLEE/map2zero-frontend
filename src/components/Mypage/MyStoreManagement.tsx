@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const MyStoreManagement = ({ id, name }: any) => {
   return (
     <Wrap>
-      <Title> {name} 관리</Title>
+      <Title>{`${name} 관리`}</Title>
       <div>
         <Link to={`/sellingproductmanage/${id}`}>
           <Btn>판매 제품 관리</Btn>
@@ -21,8 +21,8 @@ const Wrap = styled.div`
   width: 30rem;
   margin-right: 5%;
   @media (max-width: 768px) {
-    width: calc(100vw - 5%);
     margin-left: 5%;
+    width: 85%;
   }
   > div {
     display: flex;

@@ -53,7 +53,7 @@ export const MyBookmark = () => {
             })}
           </BookMarks>
         ) : (
-          <p>북마크한 매장이 없습니다</p>
+          <p>* 북마크한 매장이 없습니다</p>
         )}
       </Wrap>
     </>
@@ -70,6 +70,10 @@ const Wrap = styled.div`
   p {
     margin-top: 3rem;
     font-size: 1.4rem;
+    @media (max-width: 768px) {
+      margin-top: 8rem;
+      font-size: 4rem;
+    }
   }
 `;
 
