@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AddressesType } from '../../recoil/Owner/ownerTypes';
+import { AddressType } from '../../recoil/Owner/ownerStateTypes';
 import { SearchAddress } from './index';
 
 type InputFieldType = {
@@ -9,7 +9,7 @@ type InputFieldType = {
   placeholder?: string;
   value?: string | undefined | number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  searchAddress?: AddressesType;
+  searchAddress?: AddressType;
 };
 const InputField = ({ id, label, placeholder, value, onChange, searchAddress }: InputFieldType) => {
   return (
@@ -18,7 +18,7 @@ const InputField = ({ id, label, placeholder, value, onChange, searchAddress }: 
       {searchAddress ? (
         <SearchAddress {...searchAddress} />
       ) : (
-        <OwnerInput type="text" id={id} placeholder={placeholder} onChange={onChange} value={value} />
+        <OwnerInput required type="text" id={id} placeholder={placeholder} onChange={onChange} value={value} />
       )}
     </>
   );

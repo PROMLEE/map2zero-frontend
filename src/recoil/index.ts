@@ -10,7 +10,8 @@ import {
   eventDetailModal,
   popUpModalState,
 } from './modals';
-import { InputState } from './Owner/owner';
+
+// import { InputState } from './Owner/owner';
 import { UserInfoState, UserState } from './userInfo';
 import { searchToggleState, sellingProductSearchToggle, searchResultState, searchTextState } from './searchState';
 import { EventEditState, EventImgState } from './eventEdit';
@@ -28,7 +29,7 @@ import { GetReviewTag, GetProductTag, GetProductTagList, GetStoreTag } from './t
 
 export {
   popUpModalState,
-  InputState,
+  // InputState,
   searchToggleState,
   reviewmodalState,
   tagitem,

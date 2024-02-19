@@ -4,6 +4,7 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 
 // 인터셉터 추가 함수
 const Interceptors = (instance: AxiosInstance) => {
+
   instance.interceptors.request.use(
     (config) => {
       const token = localStorage.getItem('accessToken');

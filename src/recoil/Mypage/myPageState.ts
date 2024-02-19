@@ -6,6 +6,7 @@ const InfoState = selector< PersonalInfoType>({
     key: "InfoState",
     get : async () => {
       const data = await PersonalInfoApi();
+      console.log(data)
       return data.data; 
     }
    
