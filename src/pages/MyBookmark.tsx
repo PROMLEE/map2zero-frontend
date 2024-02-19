@@ -18,7 +18,7 @@ export const BookMarkCard = ({ i }: { i: any }) => {
   return (
     <BookMark onClick={() => navigate(`/store/${i.id}`)}>
       <StoreImg
-        src={i.photo ? i.photo.url : `${process.env.PUBLIC_URL}/assets/MyPage/lightgray`}
+        src={i.photo ? i.photo.url : `${process.env.PUBLIC_URL}/assets/MyPage/lightgray.png`}
         alt={`${i.storeName}의 이미지`}
       />
       <BookMarkIcon
@@ -115,10 +115,10 @@ const BookMark = styled.div`
   position: relative;
   cursor: pointer;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-  &:hover {
-    /* transform: scale(1.1); */
-  }
   & > h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 1.4rem;
     margin: 1rem;
   }

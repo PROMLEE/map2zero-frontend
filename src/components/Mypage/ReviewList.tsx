@@ -48,7 +48,6 @@ const ReviewList = () => {
         <ReviewTitle> 내가 쓴 리뷰</ReviewTitle>
         <MoreDetails to={`/reviewdetail`}>더보기 {'>'}</MoreDetails>
       </div>
-
       {displayItems && displayItems.length > 0 ? (
         <Reviews>
           <div>
@@ -87,9 +86,7 @@ const ReviewList = () => {
                   <TrashIcon src={`${process.env.PUBLIC_URL}/assets/ReviewList/trash.svg`} alt="삭제아이콘" />
                   <TrashText>삭제</TrashText>
                 </TrashWrap>
-                <Date>
-                  {i.createdDate.slice(0, 10)} {i.createdDate.slice(11, 16)}
-                </Date>
+                <Date>{i.createdDate.slice(0, 10)}</Date>
               </Review>
             ))}
           </div>
@@ -193,19 +190,23 @@ const TextContainer = styled.div`
   padding: 1rem 0rem 1rem 0.3rem;
   display: flex;
   flex-direction: column;
+  width: 18rem;
   & > h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 1.4rem;
     margin: 0rem 0 0 1rem;
   }
   & > p {
     line-height: 1.3rem;
-    width: 18rem;
     font-size: 1rem;
     margin: 1rem 0 0 1rem;
     color: rgba(86, 86, 86, 1);
     overflow: hidden;
   }
   @media (max-width: 768px) {
+    width: 30rem;
     padding: 1.5rem 0rem 1.5rem 0.8rem;
     & > h3 {
       font-size: 2.5rem;
@@ -214,7 +215,6 @@ const TextContainer = styled.div`
       margin: 2rem 0 0 1rem;
       line-height: 2.3rem;
       font-size: 1.7rem;
-      width: 34rem;
     }
   }
 `;

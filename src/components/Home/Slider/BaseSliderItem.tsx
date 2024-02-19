@@ -10,7 +10,6 @@ const BaseSliderItem = ({ item, dragging }: { item: any; dragging: boolean }) =>
   const onClickStore = () => {
     !dragging && navigate(`/store/${item.id}`);
   };
-
   return (
     <>
       <ImgWrap onClick={onClickStore}>
@@ -58,6 +57,7 @@ const ImgWrap = styled.div`
 `;
 
 const Promotation = styled.p`
+  white-space: pre-wrap;
   color: #fff;
   width: 80%;
   position: absolute;

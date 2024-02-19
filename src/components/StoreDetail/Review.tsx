@@ -151,16 +151,15 @@ const ProfileBox = styled.div`
 const Nickname = styled.div`
   height: 1.7rem;
   overflow: hidden;
-  color: #000;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: 'Noto Sans KR';
   font-size: 1.4rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: normal;
+  height: 2rem;
   @media (max-width: 768px) {
-    height: 4.25rem;
+    height: 5.5rem;
     font-size: 3.5rem;
     font-weight: 600;
   }

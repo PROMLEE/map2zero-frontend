@@ -10,6 +10,7 @@ export const Map = () => {
     longitude: 126.996,
   });
   const gpsbutton = renderToString(<Gpsbutton />);
+  // const gpsbutton = '<a href="#" class="btn_mylct"><span class="spr_trff spr_ico_mylct">NAVER 그린팩토리</span></a>';
   let map: any = null;
   const initMap = async (myLocation: { latitude: number; longitude: number }) => {
     map = new naver.maps.Map('map', {
@@ -111,7 +112,7 @@ export const Map = () => {
 
     naver.maps.Event.once(map, 'init', function () {
       var customControl = new naver.maps.CustomControl(gpsbutton, {
-        position: naver.maps.Position.RIGHT_BOTTOM,
+        position: naver.maps.Position.RIGHT_TOP,
       });
       customControl.setMap(map);
       naver.maps.Event.addDOMListener(customControl.getElement(), 'click', function () {
@@ -166,6 +167,9 @@ export const Map = () => {
 const NavMap = styled.div``;
 const MapWrap = styled.div`
   position: fixed;
-  height: 100vh;
+  height: 92vh;
   overflow: hidden;
+  @media screen and (max-width: 768px) {
+    height: 95vh;
+  }
 `;

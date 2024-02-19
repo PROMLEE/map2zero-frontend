@@ -56,7 +56,6 @@ const StyledSlider = styled(Slider)`
     display: inline;
     color: #565656;
     width: 6.4rem;
-    font-family: 'Noto Sans KR';
     font-size: 1.4rem;
     font-style: normal;
     font-weight: 600;
@@ -81,9 +80,9 @@ const StyledSlider = styled(Slider)`
     border-bottom: 1px solid #565656;
     width: 6.4rem;
     color: #000;
-    font-weight: 600;
+    font-weight: 800;
     @media (max-width: 768px) {
-      font-size: 3rem;
+      font-size: 2.3rem;
       width: 16.125rem;
     }
   }
