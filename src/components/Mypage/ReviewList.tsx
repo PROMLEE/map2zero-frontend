@@ -15,7 +15,7 @@ const ReviewList = () => {
   const setDeleteIdState = useSetRecoilState(DeleteIdState);
 
   const onClickItem = () => {
-    navigate(`/store`);
+    navigate('/store');
   };
 
   const handleResize = useCallback(() => {

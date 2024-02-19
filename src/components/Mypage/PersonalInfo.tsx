@@ -8,7 +8,8 @@ import { managerStoreType } from '../../recoil/Mypage/myPageStateType';
 const PersonalInfo = () => {
   const navigate = useNavigate();
   const info = useRecoilValue(InfoStateSelector);
-  const managerStore: managerStoreType = useRecoilValue(ManagerStoreSelector);
+
+  const managerStore: managerStoreType = info.is_manager ? useRecoilValue(ManagerStoreSelector) : '';
 
   console.log(managerStore);
 

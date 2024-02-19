@@ -14,7 +14,7 @@ const BookMarkList = () => {
   const setDeleteIdState = useSetRecoilState(DeleteIdState);
 
   const onClickItem = () => {
-    navigate(`/store`);
+    navigate('/store');
   };
 
   const handleResize = useCallback(() => {
@@ -24,7 +24,6 @@ const BookMarkList = () => {
 
   useEffect(() => {
     setDisplayItems(items);
-    console.log(displayItems);
   }, [items, setDisplayItems]);
 
   useEffect(() => {
@@ -37,13 +36,14 @@ const BookMarkList = () => {
   }, [handleResize]);
 
   const modalHandler = (id: number) => {
+    setModalOpen(true);
+    console.log(modalOpen);
     setDeleteIdState((prevState: any) => ({
       ...prevState,
       review_id: null,
       store_id: id,
       type: 'bookmarks',
     }));
-    setModalOpen(!modalOpen);
   };
 
   return (
@@ -151,7 +151,7 @@ const BookMarks = styled.div`
 const BookMark = styled.div`
   margin-right: 2.4rem;
   width: 16.2rem;
-  height: 23rem;
+  height: 23.5rem;
   border: solid;
   border-color: #d9d9d9;
   border-width: 1px;
@@ -169,7 +169,7 @@ const BookMark = styled.div`
   }
   & > p {
     font-size: 1rem;
-    margin: 2rem 0 0 1rem;
+    margin: 0 0 0 1rem;
     color: rgba(86, 86, 86, 1);
   }
   @media (max-width: 768px) {
@@ -202,7 +202,7 @@ const BookMarkIcon = styled.img`
   width: 1.5rem;
   height: 2rem;
   position: absolute;
-  bottom: 7.5rem;
+  bottom: 8rem;
   right: 1rem;
   @media (max-width: 768px) {
     bottom: 16rem;

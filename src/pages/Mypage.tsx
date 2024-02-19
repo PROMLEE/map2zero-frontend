@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import { BookMarkList, ReviewList, PersonalInfo, StoreOwner, MyStoreManagement } from '../components/Mypage';
 import { useRecoilValue } from 'recoil';
 import { InfoStateSelector } from '../recoil/Mypage/myPageState';
-import { session } from '../recoil/session';
 export default function Mypage() {
-  useRecoilValue(session);
   const info = useRecoilValue(InfoStateSelector);
   console.log(info);
 
