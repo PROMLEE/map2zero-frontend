@@ -21,7 +21,6 @@ const ReviewList = () => {
 
   useEffect(() => {
     setDisplayItems(items);
-    console.log(displayItems);
   }, [items, setDisplayItems]);
 
   useEffect(() => {

@@ -29,11 +29,6 @@ const eventManageModalState = atom<boolean>({
   default: false,
 });
 
-const shareModalState = atom({
-  key: 'shareModal',
-  default: false,
-});
-
 const detailModalState = atom({
   key: 'detailModal',
   default: false,
@@ -55,7 +50,6 @@ export {
   tagitem,
   starRate,
   textRate,
-  shareModalState,
   detailModalState,
   eventDetailModal,
   popUpModalState,

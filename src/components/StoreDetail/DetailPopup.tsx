@@ -6,13 +6,13 @@ import { detailModalState } from '../../recoil';
 
 export const DetailPopup = () => {
   const storeDetail = useRecoilValue(StoreState);
-  const [storeInfo, setstoreInfo] = useState([false, false, false, false, false]);
+  const [storeInfo, setstoreInfo] = useState<string[]>([]);
   const setModal = useSetRecoilState(detailModalState);
 
   useEffect(() => {
-    const newInfo = [...storeInfo];
+    let newInfo = [...storeInfo];
     for (let tag in storeDetail.store_tags) {
-      newInfo[storeDetail.store_tags[tag].id - 2] = true;
+      newInfo = newInfo.concat(storeDetail.store_tags[tag].name);
     }
     setstoreInfo(newInfo);
   }, [storeDetail]);
@@ -39,34 +39,40 @@ export const DetailPopup = () => {
         <Title>매장정보</Title>
 
         <Information>
-          {storeInfo[0] ? (
+          {storeInfo.includes('반려동물 동반') ? (
             <PicInformation>
               <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/pets.svg`} />
               <PicTexts>반려동물 동반</PicTexts>
             </PicInformation>
           ) : null}
-          {storeInfo[1] ? (
+          {storeInfo.includes('주차가능') ? (
             <PicInformation>
               <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/local_parking.svg`} />
               <PicTexts>주차가능</PicTexts>
             </PicInformation>
-          ) : null}{' '}
-          {storeInfo[2] ? (
+          ) : null}
+          {storeInfo.includes('리필스테이션') ? (
             <PicInformation>
               <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/valve.svg`} />
               <PicTexts>리필스테이션</PicTexts>
             </PicInformation>
-          ) : null}{' '}
-          {storeInfo[3] ? (
+          ) : null}
+          {storeInfo.includes('노키즈존') ? (
             <PicInformation>
               <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/no_stroller.svg`} />
               <PicTexts>노키즈존</PicTexts>
             </PicInformation>
-          ) : null}{' '}
-          {storeInfo[4] ? (
+          ) : null}
+          {storeInfo.includes('제로페이') ? (
             <PicInformation>
               <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/barcode_scanner.svg`} />
               <PicTexts>제로페이</PicTexts>
+            </PicInformation>
+          ) : null}
+          {storeInfo.includes('네이버 페이') ? (
+            <PicInformation>
+              <Image src={`${process.env.PUBLIC_URL}/assets/DetailPopup/barcode_scanner.svg`} />
+              <PicTexts>네이버 페이</PicTexts>
             </PicInformation>
           ) : null}
         </Information>

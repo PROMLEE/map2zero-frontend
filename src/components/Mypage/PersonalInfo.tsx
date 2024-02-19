@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -10,8 +9,6 @@ const PersonalInfo = () => {
   const info = useRecoilValue(InfoStateSelector);
 
   const managerStore: managerStoreType = info.is_manager ? useRecoilValue(ManagerStoreSelector) : '';
-
-  console.log(managerStore);
 
   const onSettingHandler = () => {
     navigate('/setting');

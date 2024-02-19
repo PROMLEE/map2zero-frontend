@@ -46,11 +46,15 @@ export const MyBookmark = () => {
       <Mobiletop pagename="내가 북마크한 매장" />
       <Wrap>
         <BookMarkTitle> 내가 북마크한 매장</BookMarkTitle>
-        <BookMarks>
-          {list.data.map((i: any, index: number) => {
-            return <BookMarkCard i={i} key={index} />;
-          })}
-        </BookMarks>
+        {list.data && list.data.length > 0 ? (
+          <BookMarks>
+            {list.data.map((i: any, index: number) => {
+              return <BookMarkCard i={i} key={index} />;
+            })}
+          </BookMarks>
+        ) : (
+          <p>북마크한 매장이 없습니다</p>
+        )}
       </Wrap>
     </>
   );
@@ -62,6 +66,10 @@ const Wrap = styled.div`
   padding-bottom: 20rem;
   @media (max-width: 768px) {
     width: 85%;
+  }
+  p {
+    margin-top: 3rem;
+    font-size: 1.4rem;
   }
 `;
 
