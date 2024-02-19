@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import {} from '../../recoil';
+import { UserInfoState } from '../../recoil';
 import { useRecoilValue } from 'recoil';
 import { searchResultState } from '../../recoil';
 import { useNavigate } from 'react-router-dom';
-
-export const SearchResultList = () => {
-  const searchResult = useRecoilValue(searchResultState);
-
-  const [clickedIds, setClickedIds] = useState<Record<string, boolean>>({}); // 초기에는 클릭된 아이콘 ID x
-
-  const handleClick = (id: number) => {
-    setClickedIds((prevState) => ({ ...prevState, [id]: !prevState[id] }));
-  };
-
+import { Bookmark, BookmarkDel } from '../../apis/StoreDetail/Bookmark';
+export const BookMarkCard = ({ i }: { i: any }) => {
   const navigate = useNavigate();
-
-  function onClickStore(id: number) {
-    navigate(`/store/${id}`);
-  }
-
+  const [onbookmark, setonbookmark] = useState(i.bookmarked);
+  const islogin = useRecoilValue(UserInfoState);
+  const onclickBookmark = async (event: any) => {
+    if (islogin.islogin) {
+      event.stopPropagation();
+      onbookmark ? await BookmarkDel({ store_id: i.id }) : await Bookmark({ store_id: i.id });
+      setonbookmark(!onbookmark);
+    } else {
+      alert('로그인 후 이용해주세요');
+    }
+  };
   const generateStarReviews = (reviewCount: number) => {
     const starReviews = [];
     const fullStar = `${process.env.PUBLIC_URL}assets/StoreDetail/star_full.svg`;
@@ -34,43 +32,47 @@ export const SearchResultList = () => {
     }
     return starReviews;
   };
-
+  return (
+    <Container key={i.id} onClick={() => navigate(`/store/${i.id}`)}>
+      <SearchText>{i.name}</SearchText>
+      <ProductText>
+        {i.products.slice(0, 2).map((data: any) => {
+          return <div key={data.id}>{data.name}</div>;
+        })}
+      </ProductText>
+      <AddressFrame>
+        <AddressText>{i.address.province + ' ' + i.address.city + ' ' + i.address.road_name + ' '}</AddressText>
+        <NumReview>
+          {generateStarReviews(i.average_score)}
+          <p>({i.review_cnt})</p>
+        </NumReview>
+      </AddressFrame>
+      <StoreFrame>
+        <StoreImg src={i.photo ? i.photo.url : `${process.env.PUBLIC_URL}/assets/Mypage/lightgray.png`} alt={i.name} />
+        {/* photo 값 없어서 나중에 수정 필요 ->i.photo.url */}
+      </StoreFrame>
+      <BookMarkFrame>
+        <BookMarkIcon
+          onClick={(event) => {
+            onclickBookmark(event);
+          }}
+          src={
+            onbookmark
+              ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
+              : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_x.svg`
+          }
+          alt="북마크아이콘"
+        />
+      </BookMarkFrame>
+    </Container>
+  );
+};
+export const SearchResultList = () => {
+  const searchResult = useRecoilValue(searchResultState);
   return (
     <SearchResultContainer>
-      {searchResult.map((i) => (
-        <Container key={i.id} onClick={() => onClickStore(i.id)}>
-          <SearchText>{i.name}</SearchText>
-          <ProductText>
-            {i.products.map((data) => {
-              return <div key={data.id}>{data.name}</div>;
-            })}
-          </ProductText>
-          <AddressFrame>
-            <AddressText>{i.address.province + ' ' + i.address.city + ' ' + i.address.road_name + ' '}</AddressText>
-            <NumReview>
-              {generateStarReviews(i.average_score)}
-              <p>({i.review_cnt})</p>
-            </NumReview>
-          </AddressFrame>
-          <StoreFrame>
-            <StoreImg
-              src={i.photo ? i.photo.url : `${process.env.PUBLIC_URL}/assets/Mypage/lightgray.png`}
-              alt={i.name}
-            />
-            {/* photo 값 없어서 나중에 수정 필요 ->i.photo.url */}
-          </StoreFrame>
-          <BookMarkFrame>
-            <BookMarkIcon
-              src={
-                i.bookmarked
-                  ? `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
-                  : `${process.env.PUBLIC_URL}/assets/StoreDetail/bookmark_o.svg`
-              }
-              alt="북마크아이콘"
-              onClick={() => handleClick(i.id)}
-            />
-          </BookMarkFrame>
-        </Container>
+      {searchResult.map((i, index) => (
+        <BookMarkCard i={i} key={index} />
       ))}
     </SearchResultContainer>
   );
@@ -94,11 +96,6 @@ const Container = styled.div`
   overflow: hidden;
   border: 1px #f2f2f2 solid;
   margin-bottom: 2.4rem;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-
   &:active {
     background-color: lightgray;
   }
@@ -124,8 +121,8 @@ const SearchText = styled.div`
   font-family: Noto Sans KR;
   font-weight: 500;
   word-wrap: break-word;
-
   @media (max-width: 768px) {
+    width: 200px;
     left: 143px;
   }
 `;
@@ -229,9 +226,8 @@ const StoreImg = styled.img`
 `;
 
 const BookMarkFrame = styled.div`
-  padding: 16px;
-  left: 88rem;
-  top: 0;
+  right: 2rem;
+  top: 2rem;
   position: absolute;
   justify-content: flex-end;
   align-items: flex-start;
@@ -239,9 +235,8 @@ const BookMarkFrame = styled.div`
   display: inline-flex;
 
   @media (max-width: 768px) {
-    padding: 16px;
-    left: 82.3rem;
-    top: 0;
+    top: 1rem;
+    right: 1rem;
     position: absolute;
     justify-content: flex-start;
     align-items: flex-start;
@@ -251,6 +246,7 @@ const BookMarkFrame = styled.div`
 `;
 
 const BookMarkIcon = styled.img`
-  width: 11.72px;
-  height: 15px;
+  width: 28px;
+  height: 32px;
+  padding: 5px;
 `;
