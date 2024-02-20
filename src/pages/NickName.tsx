@@ -12,13 +12,15 @@ import { useEffect, useState } from 'react';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-
-export default function NickName() {
-  const modalOpen = useRecoilValue(imgModalState);
+interface UnitProps {
+  setpdfModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const Pdfmodal = ({ setpdfModalOpen }: UnitProps) => {
+  function onDocumentLoadSuccess({ numPages }: any) {
+    setNumPages(numPages);
+  }
   const [numPages, setNumPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [pdfmodalOpen, setpdfModalOpen] = useState(false);
-  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     const preventGoBack = () => {
@@ -29,10 +31,40 @@ export default function NickName() {
     window.addEventListener('popstate', preventGoBack);
     return () => window.removeEventListener('popstate', preventGoBack);
   }, []);
+  return (
+    <Background onClick={() => setpdfModalOpen(false)}>
+      <Modal onClick={(event) => event.stopPropagation()}>
+        <Xbutton
+          src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
+          onClick={() => {
+            setpdfModalOpen(false);
+          }}
+        />
+        <Document file={`${process.env.PUBLIC_URL}/assets/pdf.pdf`} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={pageNumber} width={500} height={800} />
+        </Document>
+        <Bottom>
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/StoreDetail/LeftStroke.svg`}
+            onClick={() => (pageNumber > 1 ? setPageNumber(pageNumber - 1) : null)}
+          />
+          <span>
+            Page {pageNumber} of {numPages}
+          </span>
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/StoreDetail/RightStroke.svg`}
+            onClick={() => (pageNumber < numPages ? setPageNumber(pageNumber + 1) : null)}
+          />
+        </Bottom>
+      </Modal>
+    </Background>
+  );
+};
 
-  function onDocumentLoadSuccess({ numPages }: any) {
-    setNumPages(numPages);
-  }
+export default function NickName() {
+  const modalOpen = useRecoilValue(imgModalState);
+  const [pdfmodalOpen, setpdfModalOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   return (
     <Container $nonescroll={modalOpen}>
@@ -47,34 +79,7 @@ export default function NickName() {
         <input type="checkbox" checked={checked} onChange={({ target: { checked } }) => setChecked(checked)} />
         <div>동의</div>
       </PdfButton>
-      {pdfmodalOpen && (
-        <Background onClick={() => setpdfModalOpen(false)}>
-          <Modal onClick={(event) => event.stopPropagation()}>
-            <Xbutton
-              src={`${process.env.PUBLIC_URL}/assets/StoreDetail/xbutton.png`}
-              onClick={() => {
-                setpdfModalOpen(false);
-              }}
-            />
-            <Document file={`${process.env.PUBLIC_URL}/assets/pdf.pdf`} onLoadSuccess={onDocumentLoadSuccess}>
-              <Page pageNumber={pageNumber} width={500} height={1000} />
-            </Document>
-            <Bottom>
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/StoreDetail/LeftStroke.svg`}
-                onClick={() => (pageNumber > 1 ? setPageNumber(pageNumber - 1) : null)}
-              />
-              <span>
-                Page {pageNumber} of {numPages}
-              </span>
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/StoreDetail/RightStroke.svg`}
-                onClick={() => (pageNumber < numPages ? setPageNumber(pageNumber + 1) : null)}
-              />
-            </Bottom>
-          </Modal>
-        </Background>
-      )}
+      {pdfmodalOpen && <Pdfmodal setpdfModalOpen={setpdfModalOpen} />}
       <EditButton checked={checked} />
     </Container>
   );
@@ -133,7 +138,7 @@ const Modal = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    height: 800px;
+    height: 80%;
     padding-top: 20px;
     bottom: 0;
     border-radius: 16px 16px 0 0;
@@ -167,6 +172,7 @@ const Bottom = styled.div`
   @media (max-width: 768px) {
     font-size: 4rem;
     gap: 4rem;
+    margin-bottom: 13rem;
   }
 `;
 const PdfButton = styled.div`
