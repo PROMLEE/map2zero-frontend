@@ -40,7 +40,7 @@
 
 
 ## Description
-[Map 2 Zero 바로가기 (배포 준비중)](https://map2zero.com)
+[Map 2 Zero 바로가기 (서비스 준비중)](https://map2zero.com)
 #### Main feature
 👨‍👦 사용자를 위한 기능
 - 서울시의 제로 웨이스트 샵 위치 조회하기(스마트 서울맵 API 기반)
@@ -76,6 +76,20 @@
 - [ ] PC, Tablet, Mobile 반응형 지원
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Commit Message Convention
+| 커밋명   | 내용                                        |
+| -------- | ------------------------------------------- |
+| FEAT     | 파일, 폴더, 새로운 기능 추가                |
+| FIX      | 버그 수정                                   |
+| DOCS     | README 등의 문서 수정                         |
+| STYLE    | 코드 형식, 정렬, 주석 등의 변경             |
+| REFACTOR | 코드 리팩토링                               |
+| TEST     | 테스트 코드 추가 및 수정                            |
+| CHORE    | 환경설정, 빌드 업무, 패키지 매니저 설정등.. |
+| HOTFIX   | 치명적이거나 급한 버그 수정                 |
+| REMOVE   | 사용하지 않는 변수, 파일 etc 삭제           |
 
 ## Contributor
 | [![텍스트](https://avatars.githubusercontent.com/u/80230701?v=4)](https://github.com/PROMLEE) | [![텍스트](https://avatars.githubusercontent.com/u/105404542?v=4)](https://github.com/jihye9549) | [![텍스트](https://avatars.githubusercontent.com/u/72345074?v=4)](https://github.com/rlotr02) | [![텍스트](https://avatars.githubusercontent.com/u/114395452?v=4)](https://github.com/zxc534) |
