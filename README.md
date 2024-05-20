@@ -6,20 +6,18 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/team-ecolink/map2zero-frontend-v2">
+  <a href="https://github.com/team-ecolink/map2zero-frontend">
     <img src="/image/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h1 align="center">Map 2 Zero</h1>
 
   <p align="center">
-    지속가능한 삶을 위한 ESG 서비스 Map:Zero(맵투제로)의 서버 레포지토리입니다.
+    지속가능한 삶을 위한 ESG 서비스 Map:Zero(맵투제로)의 Frontend 레포지토리입니다.
     <br/>
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/team-ecolink/map2zero-frontend/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
-    <a href="https://github.com/team-ecolink/map2zero-frontend-v2/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
-    <a href="https://github.com/team-ecolink/map2zero-frontend-v2/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/team-ecolink/map2zero-frontend/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
@@ -28,19 +26,20 @@
   <summary>목차</summary>
   <ol>
     <li>
-      <a href="#about-the-project">Description</a>
+      <a href="#description">Description</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributor</a></li>
+    <li><a href="#commit-message-convention">Commit Message Convention</a></li>
+    <li><a href="#contributor">Contributor</a></li>
   </ol>
 </details>
 
 
 ## Description
-[Map 2 Zero 바로가기 (서비스 준비중)](https://map2zero.com)
+[Map 2 Zero 바로가기 (배포 준비중)](https://map2zero.com)
 #### Main feature
 👨‍👦 사용자를 위한 기능
 - 서울시의 제로 웨이스트 샵 위치 조회하기(스마트 서울맵 API 기반)
@@ -77,7 +76,6 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 ## Commit Message Convention
 | 커밋명   | 내용                                        |
 | -------- | ------------------------------------------- |
@@ -91,6 +89,8 @@
 | HOTFIX   | 치명적이거나 급한 버그 수정                 |
 | REMOVE   | 사용하지 않는 변수, 파일 etc 삭제           |
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Contributor
 | [![텍스트](https://avatars.githubusercontent.com/u/80230701?v=4)](https://github.com/PROMLEE) | [![텍스트](https://avatars.githubusercontent.com/u/105404542?v=4)](https://github.com/jihye9549) | [![텍스트](https://avatars.githubusercontent.com/u/72345074?v=4)](https://github.com/rlotr02) | [![텍스트](https://avatars.githubusercontent.com/u/114395452?v=4)](https://github.com/zxc534) |
 |:---:|:---:|:---:|:---:|
@@ -100,10 +100,10 @@
 
 
 
-[contributors-shield]: https://img.shields.io/github/contributors/team-ecolink/map2zero-frontend-v2.svg?style=for-the-badge
-[contributors-url]: https://github.com/team-ecolink/map2zero-frontend-v2/graphs/contributors
-[issues-shield]: https://img.shields.io/github/issues/team-ecolink/map2zero-frontend-v2.svg?style=for-the-badge
-[issues-url]: https://github.com/team-ecolink/map2zero-frontend-v2/issues
+[contributors-shield]: https://img.shields.io/github/contributors/team-ecolink/map2zero-frontend.svg?style=for-the-badge
+[contributors-url]: https://github.com/team-ecolink/map2zero-frontend/graphs/contributors
+[issues-shield]: https://img.shields.io/github/issues/team-ecolink/map2zero-frontend.svg?style=for-the-badge
+[issues-url]: https://github.com/team-ecolink/map2zero-frontend/issues
 
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
